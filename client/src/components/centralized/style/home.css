@@ -1,0 +1,233 @@
+
+
+.bgImgage{
+    background-image: url('../images/frt1.jpeg');
+    height: fit-content;
+    line-height: 100px;
+    width: 100%;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    background-size: 100% 100%;
+    /* opacity: 0.9; */
+    /* top: 0px; */
+    background-attachment: fixed;
+}
+
+.topProd div:hover{
+    transition: 0.6s;
+}
+
+.topProd div img:hover{
+    opacity: 0.9;
+    color: #5ba616;
+    width: 250;
+    height: 20;
+}
+
+.homeMiddle{
+    text-align: center;
+    margin-top: 60px;
+}
+.homeMiddle img{
+    display: block;
+    text-align: center;
+    position: relative;
+    left: 43%;
+    margin-bottom: 20px;
+}
+.homeMiddle h6,p{
+    text-align: center;
+}
+
+.threeMiddlw{
+    margin-top: 60px !important;
+    margin-bottom: 60px !important;
+}
+.middleLeft{
+    text-align: left;
+    /* padding: 10px; */
+}
+.middleLeft p{
+    margin-top: 25px !important;
+    margin-bottom: 50px;
+    text-align: left;
+    font-size: 0.9em;
+    line-height: 16px;
+}
+.middleLeft h4{
+    display: inline;
+    padding-left: 30px;
+    color: #5ba616;
+}
+
+.middleRight{
+    text-align: right;
+}  
+
+.middleRight p{
+    margin-top: 25px !important;
+    margin-bottom: 50px;
+    text-align: right;
+    font-size: 0.9em;
+    line-height: 16px;
+}
+.middleRight h4{
+    
+    display: inline;
+    padding-right: 30px;
+    color: #5ba616;
+    position: relative;
+    bottom: -3px;
+}
+    
+.midLow h4{
+   color: #5ba616;
+   text-align: center;
+   margin-top: 30px !important;
+ 
+}
+
+.p1 h5,.p2 h5,.p3 h5,.p4 h5{
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+/* {
+    margin-left: 20px;
+    background-color: #5ba616;
+} */
+
+.p1:hover,.p2:hover,.p3:hover,.p4:hover{
+    transition: 0.7s;
+}
+
+.p1:hover,.p2:hover,.p3:hover,.p4:hover{
+    box-shadow: 1px 1px 18px 4px  #888;
+    /* border: 1px solid #212529; */
+    /* padding-left: 20px; */
+}
+.p1:hover h5 , .p2:hover h5,.p3:hover h5,.p4:hover h5{
+    transition: 0.7s;
+    color: #5ba616;
+}
+.p1:hover h5,.lowerProd,.p2:hover h5,.lowerProd,.p3:hover h5,.lowerProd,.p4:hover h5,.lowerProd{
+    /* box-shadow: 1px 1px 18px 4px  #888; */
+    /* border: 1px solid #212529; */
+    
+    margin-left: 20px;
+}
+.p1:hover .lowerProd,.p2:hover .lowerProd,.p3:hover .lowerProd,.p4:hover .lowerProd{
+    opacity: 1;
+}
+.p1 lowerProd:hover{
+    background-color: #5ba616;
+}
+.lowerProd{
+    /* display: none; */
+    opacity: 0.0;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    margin-left: 0px
+  
+}
+.lowerProd img{
+    height: 45px;
+    width: 45px;
+    border: 1px solid #5ba616;   
+    color: #5ba616;
+    padding: 12px; 
+}
+.lowerProd img:hover{
+    transition: 0.9s;
+  }
+.lowerProd img:hover{
+  background-color: #5ba616;
+  color: #ffffff;
+}
+
+.lowerProd:hover{
+    /* display: none; */
+    opacity: 1;
+}
+
+.topInner{
+    width: 80px;
+    height: 40px;
+    background-color: #5ba616;
+    position: relative;
+    left: 0;
+    margin-left: -15px;
+}
+.topProd p{
+    color
+    : #ffffff;
+}
+
+.scndLower{
+    margin-top: 50px;
+    /* margin-left: 0px !important; */
+    /* padding-right: 0px !important; */
+    
+}
+
+.navInput{
+    width: 100%;
+   /* border-radius: 25px; */
+   /* border: 3px solid #212529; */
+   /* box-shadow: 1px 1px 1px 1px  #888888; */
+   line-height: 40px;
+   float: left;
+   /* border-color: transparent; */
+   text-decoration: none;
+   /* color: #212529; */
+   outline: none;
+   padding-left: 20px;
+   overflow: hidden; 
+
+   /* margin-left: 39px; */
+   /* margin-top: 3px; */
+   border: 2px solid #cecdcd;
+   border-radius: 48px;
+   /* padding: 2px; */
+   /* width: 80%; */
+   
+}
+
+::placeholder {
+    /* color: #9a9d9e; */
+    font-weight: 300;
+    opacity: 1; /* Firefox */
+  }
+
+  .navBtn{
+    background-color: #5ba616;
+    color: #fff;
+    float: right;
+    /* position: relative; */
+    /* margin-left: -70px; */
+    /* margin-bottom: -50px; */
+    top: 8%;
+    right: 4%;
+    border-radius: 25px;
+    width: 20%;
+    line-height: 33px;
+    border: 1px solid #5ba616;
+    text-decoration: none;
+    outline: none;
+}
+
+.homeImg{ 
+/* background-image: url('../images/h1.webp'); */
+height: fit-content;
+width: 100%;
+background-repeat: no-repeat;
+padding-left: 20px;
+background-size: 100% 100%;
+opacity: 0.9;
+ top: 0px; }
+
+
+.carousel-item img:focus{
+    background-color: #5ba616;
+    width: 50%;
+}

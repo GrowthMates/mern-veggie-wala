@@ -1,0 +1,180 @@
+/* .nav1{
+    back
+} */
+.navUpper{
+    margin-top: 25px !important;
+    position: relative;
+    top: 0px;
+    z-index: 9999999999;
+    /* padding-top: 25px; */
+    /* background-color: chartreuse; */
+}
+
+.navInput{
+     width: 100%;
+    /* border-radius: 25px; */
+    /* border: 3px solid #212529; */
+    /* box-shadow: 1px 1px 1px 1px  #888888; */
+    line-height: 40px;
+    float: left;
+    /* border-color: transparent; */
+    text-decoration: none;
+    /* color: #212529; */
+    outline: none;
+    padding-left: 20px;
+    overflow: hidden; 
+
+    /* margin-left: 39px; */
+    /* margin-top: 3px; */
+    border: 2px solid #cecdcd;
+    border-radius: 48px;
+    /* padding: 2px; */
+    /* width: 80%; */
+    
+}
+
+::placeholder {
+    /* color: #9a9d9e; */
+    font-weight: 300;
+    opacity: 1; /* Firefox */
+  }
+
+.navBtn{
+    background-color: #5ba616;
+    color: #fff;
+    float: right;
+    position: absolute;
+    /* margin-left: -70px; */
+    /* margin-bottom: -50px; */
+    top: 8%;
+    right: 4%;
+    border-radius: 25px;
+    width: 20%;
+    line-height: 33px;
+    border: 1px solid #5ba616;
+    text-decoration: none;
+    outline: none;
+
+}
+.heart{
+    text-align: right;
+    margin-top: 10px;
+}
+.heart img{
+    padding-left: 0px !important;
+    text-align: right;
+    /* background-color: red; */
+    padding-right: 0px !important;
+    margin-right: 14px;
+    display: inline;
+}
+.heart span{
+    display: inline;
+    margin-right: 14px;
+
+}
+.cartPrice{
+    display: block;
+    color: #5ba616;
+    
+}
+sup{
+    position: absolute;
+    top: -6;
+    right: 12px;
+    background: red;
+    height: 16px;
+    width: 17px;
+    color: #fff;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 10px;
+    line-height: 18px;
+    font-family: Montserrat;
+}
+.cart{
+    text-align: left;
+    margin-left: 0px;
+    /* margin-left: 14px; */
+    /* display: inline; */
+    padding-left: 0px ;
+    /* background-color: tomato; */
+}
+.navLogo{
+    text-align: left;
+}
+.fa{
+    font-size: 40px;
+    color: black;
+}
+.form1{
+    text-align: center;
+    /* margin-right: -20px; */
+    /* float: right;
+    padding: 0%;
+    margin: 0%; */
+    width: 100%
+
+}
+.nav1{
+    /* margin-left: 20px; */
+}
+.div{
+    background-color: none !important;
+}
+.navlinks{
+    /* text-align: center; */
+}
+.navs {
+    /* text-align: center; */
+    padding-left: 25%;
+    padding-right: 25%;
+    /* position: relative; */
+    /* text-align: center; */
+    /* right: 50; */
+    /* background-color: #5ba616; */
+    
+}
+.scrolled{
+	position: fixed;
+	top: 0;
+	width:  100%;
+	z-index: 100000;
+	background-color: #fff;
+} 
+
+.innerNav li{
+    padding: 0px 0px !important;
+    font-weight: 700;
+}
+a{
+    padding: 0px 0px !important;
+    font-weight: 700 !important;
+    color: #000000 !important;
+}
+.hra{
+    /* opacity: 0.0 !important; */
+    display: none
+}
+a:hover{
+    transition: 0.7s;
+}
+
+.hra:hover{
+    /* transition: 0.7s; */
+}
+
+.hra:hover{
+    color: #5ba616;
+    display: block !important;
+    /* opacity: 1; */
+}
+
+a:hover{
+    color: #5ba616 !important;
+}
+
+
+.navbar{
+    background-color: transparent !important;
+}

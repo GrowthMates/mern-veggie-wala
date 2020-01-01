@@ -1,0 +1,58 @@
+
+
+.infoLeft a{
+    color: blue;
+    font-size: 12px;
+    text-decoration: none;
+    
+}
+.infoLeft a span{
+    padding: 3px;
+    
+}
+.infoLeft h3{
+    color: #333333;
+    font-weight: 300;
+}
+/* .infoLeft h5{
+
+} */
+.leftLower{
+    margin-top: 19px;
+
+}
+.leftLower h6{
+    color: #333333;
+    font-weight: 300;
+    display: inline;
+}
+
+.leftLower h6 span{
+    color: #333333;
+    font-weight: 300;
+    text-align: right;
+    float: right;
+    
+}
+.innerLogin{
+    color: #333333;
+    font-weight: 300;
+    text-align: right;
+    /* background-color: blue; */
+    /* font-size: 166px; */
+    text-decoration: none;
+    padding-left: 3px;
+    cursor: pointer;
+}
+.innerLogin:hover{
+    color: #5ba616;
+}
+.infoLeft{
+    text-align: left;
+
+}
+
+.form-inline input{
+    /* padding : 16px 0px !important */
+    /* margin: auto 1px; */
+}

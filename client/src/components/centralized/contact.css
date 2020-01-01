@@ -1,0 +1,85 @@
+.contact-body{
+    background-color: whitesmoke;
+    padding-bottom: 150px;
+}
+
+.contact-class{
+    background-image: url('./images/images.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 60vh;
+    width: 100vh
+}
+
+.sec-2{
+    margin-top: 25px;
+}
+
+.btn{
+    /* color:  #1ebbd7 !important; */
+    background-color: #1ebbd7;
+    border: none
+}
+
+.sec-2-right{
+    background-color: white;
+    height: fit-content;
+    padding-left: 18px;
+}
+.sec-21-right{
+    background-color: white;
+    height: fit-content;
+    padding-left: 18px;
+    margin-top: 27px;
+}
+
+@media (min-width: 320px) {
+    .contact-right {
+      margin-top: 27px;
+    }
+    .contact-body{
+      padding-bottom: 60px;
+    }
+  }
+
+
+  @media (min-width: 800px) {
+    .contact-right {
+      margin-top: 2px;
+    }
+  }
+  
+  .contact-upper{
+    background-image: url('./images/images.jpg');
+    /* height: 150px; */
+    width: 100%;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    background-size: 100% 100%;
+    /* opacity: 0.9; */
+    top: 0px;
+
+}
+
+@media (min-width: 320px)  {
+  .contact-img-text h1{
+    padding-right: 100px!important;
+    text-align: center!important
+  }
+}
+@media (min-width: 800px)  {
+  .contact-img-text {
+    padding: 100px;
+  }
+}
+.contact-img-text {
+    padding: 150px;
+    text-align: center;
+    color: #ffffff;
+}
+.contact-img-text h1{
+   text-align: center;
+    color: #ffffff;
+    font-weight: 700
+}
+/* © 2019 GitHub, Inc. */

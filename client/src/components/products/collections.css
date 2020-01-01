@@ -1,0 +1,156 @@
+/* @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap'); */
+
+.product-upper{
+    background-image: url('../centralized/images/images.jpg');
+    /* height: 150px; */
+    width: 100%;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    background-size: 100% 100%;
+    /* opacity: 0.9; */
+    top: 0px;
+
+}
+/* .item-cards{
+    displa
+} */
+.team{
+    padding-left: -20px;
+}
+.cart-btn{
+    background-color: #5BA616;
+}
+/* .icons1{
+    font-size: 100px;
+} */
+
+.div-items{
+    margin-top: 50px;
+}
+
+.drop-btn{
+    background-color: #5BA616 !important;
+    color: white;
+    border-color: black;
+}
+
+.side-bar{
+    text-align: left;
+    border-right: 1px;
+    border-right-style: groove;
+    /* margin-left: 10px; */
+}
+
+.side-bar-section{  
+    margin-bottom: 45px;
+}
+
+.side-list{
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+    margin-top: 25px;
+}
+
+.side-bar h4{
+    color: #5BA616;
+}
+
+.side-list-items{
+    font-size: large;
+
+}
+
+
+.team:hover{box-shadow: 1px 1px 18px 4px lightgrey;}
+
+.font-san-serif{
+    font-family: 'Open Sans', sans-serif !important;
+    color: white;
+}
+
+.item-view-sort{
+    margin-bottom: 40px;
+}
+.item-name{
+    padding-top: 30px;
+    font-size: 40px;
+    font-weight: 400;
+}
+.item-name:hover{
+    color: #5BA616;
+}
+.stretch{
+    font-size: 20px;
+    font-weight: lighter;
+    
+}
+
+.item-view{
+    text-align: left;
+    margin-right: 0px;
+    display: inline;
+}
+.item-sort{
+    text-align: right;
+    float: right;
+}
+.grid-view{
+    padding-left: -20px;
+}
+.grid-view:hover{
+    box-shadow: 1px 1px 18px 4px lightgrey;
+    
+}
+h5.cursor-pointer:hover{
+    color:#5BA616
+}
+
+@media (min-width: 360px)  {
+    .product-img-text h1{
+      padding-right: 100px!important;
+      text-align: center!important;
+      font-size: 20px !important;
+    }
+  }
+
+  .img-grid{
+      width: 90%;
+      height: 205px;
+      text-align: center;
+
+  }
+  .grid-card-styling{
+      width: 256px !important;
+      border-color: white;
+  }
+  .grid-card-styling p{
+    text-align: left;
+
+  }
+
+
+  .cursor-pointer{
+      cursor: pointer;
+  }
+
+  .prodImg{
+      float: left;
+      padding-left: 0px;
+      text-align: left;
+      
+    }
+.data{
+    float: right;
+
+}
+.data p{
+    color: rgba(148, 144, 137, 0.637);
+    font-size: larger;
+    font-weight: 400;
+    text-align: left;
+}
+.mainRight{
+    padding: 0px !important;
+    margin-left: 30px;
+}

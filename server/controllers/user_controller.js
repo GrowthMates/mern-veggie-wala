@@ -5,6 +5,7 @@ const Product = require('../models/product');
 const User = require('../models/user');
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
+var ip = require("ip");
 
 module.exports = {
 
@@ -13,18 +14,46 @@ module.exports = {
     },
     //Need to be fixed........
     addToCart(req, res){
-        const { userId ,id } = req.body;
+        const { productId } = req.body;
         // const { id } = req.params;
+        console.log('addtocart-----------:', req.body.productId )
+
         let productInCart = new UserCart({
-            _id: userId,
-            product:[{productId:id}]   
+            
+            productId,
+            
+               
             // product.productId:
         });
-        productInCart.save().then(data=>{
-            res.status(200).json({success:true, data})
-        });
+        // Product.findById(productId).exec((err, prodId)=>{
+            // if(err){
+            //     console.log('find if ka err',err);
+            // }
+            // else{
+                
+                productInCart.save().then(data=>{
+                    res.status(200).json({success:true, data})
+                });
+            // }
+        // })
+
 
     },
+    viewCart(req, res){
+        UserCart.find().exec((err, products)=>{
+            if(err){
+                console.log('View cart err------:', err)
+            }
+            else{
+                // const  =products.productId
+                res.status(200).json({success:true, products})
+            }
+        })
+        
+
+    },
+
+
     //Need to be fixed........
     removeFromCart(req, res){
         const { id } = req.params;

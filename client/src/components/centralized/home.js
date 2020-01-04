@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import axios from 'axios'
 import frt1 from './images/frt1.jpeg'
 import frt2 from './images/frt2.jpeg'
 import veg1 from './images/veg1.jpeg'
@@ -44,9 +45,35 @@ import bgLower from './images/bgLower.webp'
 // import premium from './images/premium.webp'
 
 import './style/home.css'
+import Axios from 'axios';
 
 
 export default class Home extends Component{
+
+    constructor(Props){
+        super(Props);
+        this.state={
+            loader: true,
+            products:''
+        }
+    }
+
+    componentDidMount(){
+            
+
+        axios
+        .get("http://localhost:5000/api/products")
+        .then((res) => {
+                        console.log("Products success", res.data)
+
+                        localStorage.setItem('Products', JSON.stringify(res.data));
+                        console.log('Products from Storage: ',localStorage.getItem('Products'));
+
+                          }) // re-direct to login on successful register
+        .catch(err =>
+        console.log('Product err: ',err.message)
+        );
+    }
 
 
     render(){

@@ -1,13 +1,45 @@
 import React,{Component} from 'react';
 import { Link, withRouter } from "react-router-dom";
+import {connect} from 'react-redux'
 import './cart.css'
 import ImageApple from '../../centralized/images/apple.jpg'
 import DeleteBtnIcon from '../../centralized/images/delete-button.png'
+import {userCart} from '../../../actions/productsAction'
 
 
 
+ class Cart extends Component{
+     constructor(Props){
+        super(Props);
+        this.state={
+            cartProducts: JSON.parse(localStorage.getItem('addCart')) ,
+            loader:true
+        }
+     }
+     componentDidMount(){
+         console.log('DID MOUNT',this.state.cartProducts)
+        
+         
+     }
 
-export default class Register extends Component{
+     componentWillReceiveProps(nextProps){
+
+         if(nextProps){
+             console.log("done h boss......",this.props.cartProducts)
+             console.log("nxt prop......",nextProps)
+             this.setState({
+                 loader:false
+             })
+         }
+         else{
+             console.log("nhi aya beta.......")
+         }
+     }
+
+     componentWillMount(){
+        console.log('WILL MOUNT')
+    }
+
         render(){
             return(
                 <div>
@@ -26,21 +58,24 @@ export default class Register extends Component{
                                 </tr>
                             </thead>
                             <tbody className='cart-body'>
+                            {this.props.cartProducts.map((item,index) => {
+                            return(
                                 <tr>
                                 <th scope="row"><img 
                                     className="cursor-pointer img-for-cart" 
                                     style={{marginRight:'25px'}} 
                                     src={ImageApple}/></th>
-                                <td className='cart-body'>Apple</td>
-                                <td className='cart-body'>$60</td>
+                                <td className='cart-body'>{item.name}</td>
+                                <td className='cart-body'>Rs.{item.price}</td>
                                 <td className='cart-body cart-qty-td' ><input className="crt-qty-fnl" type='number' name='quantity' id="quantity" min='1' defaultValue='1'/></td>
                                 <td className='cart-body' style={{color:"#5BA616"}}>$60</td>
                                 <td className='cart-body ' style={{color:"#5BA616"}}><img className='cursor-pointer' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/></td>
 
 
                                 </tr>
+                            )})}
                                 {/*2nd*/}
-                                <tr>
+                                {/* <tr>
                                 <th scope="row"><img 
                                     className="cursor-pointer img-for-cart" 
                                     style={{marginRight:'25px'}} 
@@ -52,10 +87,10 @@ export default class Register extends Component{
                                 <td className='cart-body ' style={{color:"#5BA616"}}><img className='cursor-pointer' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/></td>
 
 
-                                </tr>
+                                </tr> */}
                              {/* 2nd end */}
 
-                                <tr>
+                                {/* <tr>
                                 <th scope="row" style={{fontWeight:'400', color:'black', fontSize: '18px'}}>SUBTOTAL</th>
                                 <td className='cart-body'></td>
                                 <td className='cart-body'></td>
@@ -65,7 +100,7 @@ export default class Register extends Component{
 
 
 
-                                </tr>
+                                </tr> */}
                                 
                             </tbody>
                             </table>
@@ -84,7 +119,27 @@ export default class Register extends Component{
                                 </div>
                             </div>
                     </div>
+
+                    {/* testing */}
+
+                   
                 </div>        
             )
         }
     }   
+
+    // redux
+
+    const mapStateToProps = (state) =>{
+        // var array= Array.from(state.products.cartProducts)
+        console.log("Reducer check", state.cart.cartProducts)
+        return{ 
+            cartProducts: state.cart.cartProducts,
+            
+        }
+    } 
+
+    export default connect(
+        mapStateToProps,
+        { userCart }
+      )(Cart);

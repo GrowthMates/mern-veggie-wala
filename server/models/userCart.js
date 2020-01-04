@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const UserCart = new Schema({
 
-        // product:[{
-        //     productId:String
-        // }]
-        product:[String]
+        userId: String,
+        productId: String,
+        name: String,
+        price: Number,
+        quantity:{
+                type:Number,
+                default: 1
+        }
 
 });
 module.exports = mongoose.model('UserCart',UserCart);

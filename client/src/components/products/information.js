@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom'
 import './stylesheet/information.css'
+import bana3 from '.././centralized/images/bana3.webp'
 
 
 
@@ -74,9 +75,51 @@ export default class Information extends Component{
                     </div> */}
                     </div>      
 
-                   <div className='col-lg-6'>
-                     <h1>djfiudfidiufd</h1>
+                   <div className='col-lg-6' style={{backgroundColor: '#F7F6F2'}}>
+                    <table style={{width:'100%'}} className='infoTable'>
+                      <div className='container'>
+                        <div className='row'>
+  
+                            <tr>
+                              <td><img src={bana3} width='64.39' height='64.39'  />
+                              <span className='imgSup'>3</span>
+                              </td>
+                              <td className='infoItem'><p>Banana</p></td>
+                             
+                              <td className='priceCol'>$6.0</td>
+                            </tr>
+                        </div>
+                      </div>                  
+
+                    </table>
+                   <hr style={{border: ''}} />    
+
+                              {/* 2nd table */}
+
+                     <table style={{width:'100%'}} >
+                      <div className='container'>
+                        <div className='row'>
+                            <tr>
+                              <td width='122.22'>Subtotal </td>                                                          
+                              <td className='subTotal'>$60.0</td>
+                            </tr>
+
+                            <tr>
+                              <td width='122.22'>Shipping </td>                                                          
+                              <td className='subTotal'>$6.0</td>
+                            </tr>  <br/> <br/>
+
+                            <tr>
+                              <td width='122.22'>Total </td>                                                          
+                              <td className='total'>$600.0</td>
+                            </tr>
+                       
+                        </div>
+                      </div>                  
+
+                    </table>
                   </div>
+
               </div>
             </div>
 

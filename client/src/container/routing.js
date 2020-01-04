@@ -47,20 +47,25 @@ render(){
         <div>
             <BrowserRouter>
             <div>
+
+            <div>
             <Navbar/>     
                <Switch>
                    <Route exact path='/' component={Home} />
                    <Route path='/about' component={About} />
+                   <Route exact path="/information" component={Information} />
                    <Route path='/contact' component={Contact} />
                    <Route path='/combined' component={Combined} />
                    <Route path='/product' component={Product} />
                    <Route exact path="/collections" component={Collections} />
-                   <Route path='/information' component={Information} />
                    <Route path='/cart' component={Cart}/>
                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
                </Switch>
              <Footer/>
             </div>
+            
+            </div>
+
             </BrowserRouter>
 
         </div>

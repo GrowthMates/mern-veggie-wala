@@ -143,21 +143,26 @@ sup{
 	background-color: #fff;
 } 
 
-.innerNav li{
+.nav-link{
     padding: 0px 0px !important;
-    font-weight: 700;
+
 }
-a{
+.nav-item {
     padding: 0px 0px !important;
-    font-weight: 700 !important;
+}
+
+.innerNav li a{     
+    font-weight: 700;
     color: #000000 !important;
 }
+
 .hra{
     /* opacity: 0.0 !important; */
     display: none
 }
-a:hover{
+.innerNav li a:hover{
     transition: 0.7s;
+    color: #5ba616 !important;
 }
 
 .hra:hover{

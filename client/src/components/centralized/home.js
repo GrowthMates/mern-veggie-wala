@@ -49,6 +49,11 @@ import './style/home.css'
 export default class Home extends Component{
 
 
+    p1(){
+        console.log('p1',)
+        // this.props.history.push('/collections')  
+    }
+
     render(){
         return(
             <div>
@@ -109,7 +114,7 @@ export default class Home extends Component{
                 {/* our qualities  */}
                <div className='container threeMiddlw'>
                     <div className='row' >
-                        <div className='col-lg-3 middleLeft' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 middleLeft' >
                             <img src={fresh} />
                             <h4>Fresh</h4>
                             <p>There are many a variations passages Ipsum available, a majority have</p>
@@ -122,10 +127,10 @@ export default class Home extends Component{
                             <h4>Eco</h4>
                             <p>There are many a variations passages Ipsum available, a majority have</p>
                         </div>
-                        <div className='col-lg-6' >
+                        <div className='col-lg-6 col-md-12 col-sm-12 col-xs-12' >
                             <img src={Center} height='380' />
                         </div>
-                        <div className='col-lg-3 middleRight' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 middleRight' >
                             <h4>Tasty</h4>
                             <img src={tasty} />
                             <p>There are many a variations passages Ipsum available, a majority have</p>
@@ -141,23 +146,23 @@ export default class Home extends Component{
                 {/* our services */}
                 <div className='container'>
                     <div className='row'>
-                        <div className='col-lg-3 midLow ' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow ' >
                             <img src={dlv} width='56' height='42' />
                             <h4>Fast Delivery</h4>
                             <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}}>Delivery wIthin 12 hour</p>
                         </div>
-                        <div className='col-lg-3 midLow' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow' >
                             <img  src={ser} width='49' height='42'/>
                             <h4>Best Services</h4>
                             <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}} >Support online 24/7</p>
                         </div>
-                        <div className='col-lg-3 midLow' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow' >
                             <img src={all} width='49' height='42' />
                             <h4>All-in-one</h4>
                             <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}} >Fruits&Vegetable</p>
                         </div>
 
-                        <div className='col-lg-3 midLow' >                          
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow' >                          
                  
 
                             <img src={love} width='49' height='42'/>
@@ -170,7 +175,7 @@ export default class Home extends Component{
 
                 <div className='container' style={{marginTop: '25px'}} >
                     <div className='row '>
-                        <div className='col-lg-3 p1' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p1' onClick={this.p1} >
                            {/* <div className='topInner'>
                                 <p>-57%</p>
                             </div> */}
@@ -184,7 +189,7 @@ export default class Home extends Component{
                             <h5  >Banana</h5>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$20</h5>
                         </div>
-                        <div className='col-lg-3 p2' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p2' >
                             <img src={jack} width='270' height='270' /> 
                             <div className='lowerProd' >
                                 <img src={shoppingcart1} width='23' height='23' />
@@ -195,7 +200,7 @@ export default class Home extends Component{
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$40</h5>
 
                         </div>
-                        <div className='col-lg-3 p3' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p3' >
                             {/* <div className='topInner'>
                                 <p>-27%</p>
                             </div> */}
@@ -209,7 +214,7 @@ export default class Home extends Component{
                             <h5 >Kiwi</h5>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$80</h5>
                         </div>
-                        <div className='col-lg-3 p4' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p4' >
                             <img src={papa4} width='270' height='270' />
                             <div className='lowerProd' >
                                 <img src={shoppingcart1} width='23' height='23' />
@@ -225,7 +230,7 @@ export default class Home extends Component{
                 {/* product lower 2nd */}
                 <div className='container' style={{marginTop: '30px'}} >
                     <div className='row '>
-                        <div className='col-lg-3 p1' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p1' >
                             <img src={apple} width='270' height='270' />
                             <div className='lowerProd' >
                                 <img src={shoppingcart1} width='25' height='25' />
@@ -235,7 +240,7 @@ export default class Home extends Component{
                             <h5  >Banana</h5>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$20</h5>
                         </div>
-                        <div className='col-lg-3 p2' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p2' >
                             <img src={low2} width='270' height='270' /> 
                             <div className='lowerProd' >
                                 <img src={shoppingcart1} width='23' height='23' />
@@ -246,7 +251,7 @@ export default class Home extends Component{
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$40</h5>
 
                         </div>
-                        <div className='col-lg-3 p3' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p3' >
                             <img src={low3} width='270' height='270' />
                             <div className='lowerProd' >
                                 <img src={shoppingcart1} width='23' height='23' />
@@ -257,7 +262,7 @@ export default class Home extends Component{
                             <h5 >Kiwi</h5>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$80</h5>
                         </div>
-                        <div className='col-lg-3 p4' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p4' >
                             <img src={low4} width='270' height='270' />
                             <div className='lowerProd' >
                                 <img src={shoppingcart1} width='23' height='23' />
@@ -317,7 +322,8 @@ export default class Home extends Component{
                 </div>
                </div>
                     {/* News Feed */}
-               {/* <div className='container'>
+
+              <div className='container newsFeed' >
                    <div className='row'>
                        <div classname='col-lg-6'>    
                           <h1 style={{color: '#616161', fontWeight: '300'}}>Subscribe <span style={{color: '#616161', fontWeight: '600'}}  > Newsletter  </span> </h1>
@@ -329,7 +335,7 @@ export default class Home extends Component{
                            </form>
                        </div>
                    </div>
-               </div> */}
+               </div>
 
             </div>
             </div>

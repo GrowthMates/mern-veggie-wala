@@ -56,3 +56,63 @@
     /* padding : 16px 0px !important */
     /* margin: auto 1px; */
 }
+
+.infoItem{
+    /* display: block !important; */
+    margin-left: 10px;
+    color: #0f0e0e !important;
+    font-weight: 600;
+    margin-top: 50%;
+    /* text-align: right; */
+    /* float: right; */
+}
+
+.imgSup{
+    font-size: 0.85714em;
+    font-weight: 500;
+    line-height: 1.75em;
+    white-space: nowrap;
+    text-align: right;
+    border-radius: 1.75em;
+    background-color: rgba(114,114,114,0.9);
+    color: #fff;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    min-width: 1.75em;
+    height: 1.75em;
+    padding: 0 0.58333em;
+    position: relative;
+    left: -0.35em;
+    top: -1.6em;
+    z-index: 3;
+
+}
+
+.infoTable{
+    margin-top: 80px;
+}
+
+
+.priceCol{
+
+    padding-left: 8.8rem;
+    /* float: right; */
+    text-align: right;
+    /* position: absolute; */
+    color: #0f0e0e;
+    width: 270px;
+}
+
+.subTotal{
+    width: 295px;
+    text-align: right;
+    font-weight: 600;
+}
+
+.total{
+    font-size: 24px;
+    width: 295px;
+    text-align: right;
+    font-weight: 600;
+}
+

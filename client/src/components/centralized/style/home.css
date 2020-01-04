@@ -101,11 +101,16 @@
     transition: 0.7s;
 }
 
+.p1,.p2,.p3,.p4{
+    cursor: pointer;
+}
+
 .p1:hover,.p2:hover,.p3:hover,.p4:hover{
     box-shadow: 1px 1px 18px 4px  #888;
     /* border: 1px solid #212529; */
     /* padding-left: 20px; */
 }
+
 .p1:hover h5 , .p2:hover h5,.p3:hover h5,.p4:hover h5{
     transition: 0.7s;
     color: #5ba616;
@@ -230,4 +235,8 @@ opacity: 0.9;
 .carousel-item img:focus{
     background-color: #5ba616;
     width: 50%;
+}
+
+.newsFeed{
+    background-color: #5ba616;
 }

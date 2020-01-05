@@ -5,9 +5,10 @@ import {
   GET_PRODUCTS,
   CART_PRODUCTS,
   ADD_CART,
+  PROCEED_PRODUCT,
 } from "./types";
 
-const arr=[]
+// const arr=[] 
 var getCartProdLocalStorage=[]
 
 export const getProducts = (productData, history) => dispatch => {
@@ -37,18 +38,63 @@ export const getProducts = (productData, history) => dispatch => {
           
              localStorage.setItem('addCart',JSON.stringify(res.data))
               
-            var currId = JSON.parse(localStorage.getItem('addCart')).data.productId
-            console.log(currId, 'abhi ki id') 
+            var currId = JSON.parse(localStorage.getItem('addCart')).data
+            // console.log(schmaId._id, 'abhi ki id') 
 
             var prod = JSON.parse(localStorage.getItem('Products'));
-              getCartProdLocalStorage = JSON.parse(localStorage.getItem('CartProduct'))
+              var arr = JSON.parse(localStorage.getItem('CartProduct')) || []
             var filterObj = prod.filter((e) => {
                 console.log(e._id, 'filter') 
-                return e._id === currId
+                return e._id === currId.productId
             });
-            var pushData = undefined
+            
 
+            var newProd = {
+                  filterProduct: filterObj[0],
+                  cartSchemaId:  currId._id
+                }
+                arr.push(newProd)
+                localStorage.setItem('CartProduct', JSON.stringify(arr));
+    
+          //   var flt = arr.filter(i => {return i.filterProduct._id === filterObj[0]._id});
+          //   console.log(flt, 'add krny k lye',filterObj[0]._id)
+          //   var delFromLocalStorage=arr.findIndex(cart=>cart.filterProduct._id===filterObj[0]._id);
+          //   if (JSON.parse(localStorage.getItem('CartProduct'))) { 
+          //   if(delFromLocalStorage === -1 ){
+          //       // cartProducts.splice(delFromLocalStorage,1);
+          //       // checkkinggg isDuplicate or not
+          //        var newProd = {
+          //           filterProduct: filterObj[0],
+          //           cartSchemaId:  currId._id
+          //         }
+          //         arr.push(newProd)
+          //         localStorage.setItem('CartProduct', JSON.stringify(arr))
+             
+          //     console.log('duplicate nh hy pr lcl strge men chla gyay... ', delFromLocalStorage)
+          //   }
+          //   else{
+          //       console.log('dplcte mila hy lcl strge sy... ', delFromLocalStorage)
 
+          //   }
+          // }
+          // else{
+          //   var newProd = {
+          //     filterProduct: filterObj[0],
+          //     cartSchemaId:  currId._id
+          //   }
+          //   arr.push(newProd)
+          //   localStorage.setItem('CartProduct', JSON.stringify(arr));
+
+          //   console.log('akhri else chal ry')
+          // }
+
+            // var newProd = {
+            //   filterProduct: filterObj[0],
+            //   cartSchemaId:  currId._id
+            // }
+            // arr.push(newProd)
+            // localStorage.setItem('CartProduct', JSON.stringify(arr))
+            // console.log(currId._id,'schema')
                         // for(var i=0; i<getCartProdLocalStorage.length; i++){
 
             //     if(filterObj[0]._id === getCartProdLocalStorage[i]._id){
@@ -63,23 +109,23 @@ export const getProducts = (productData, history) => dispatch => {
             // else
             //     console.log('match ho gai')
             // }
-            if( localStorage.getItem('CartProduct')){
+            // if( localStorage.getItem('CartProduct')){
 
          
-                // solution
-                var hasDuplicate = false;
-                getCartProdLocalStorage.map(v => v._id).sort().sort((a, b) => {
-                  if (a === b) {
-                    hasDuplicate = true;
+            //     // solution
+            //     var hasDuplicate = false;
+            //     getCartProdLocalStorage.map(v => v._id).sort().sort((a, b) => {
+            //       if (a === b) {
+            //         hasDuplicate = true;
 
-                  }
+            //       }
                 //   else if(hasDuplicate === false){
                 //     arr.push(filterObj[0])
                 //     console.log('dplcte nh hy')
                 //   }
-            })
-            console.log('hasDuplicate', hasDuplicate)
-            localStorage.setItem('CartProduct', JSON.stringify(arr))
+            // })
+            // console.log('hasDuplicate', hasDuplicate)
+            // localStorage.setItem('CartProduct', JSON.stringify(arr))
                 // if(getCartProdLocalStorage)
                 // var valueArr = getCartProdLocalStorage.map(function(item,index){ return item._id });
                 
@@ -114,21 +160,21 @@ export const getProducts = (productData, history) => dispatch => {
                 // console.log( 'filter if wala' , filterObj[0]) 
                 // console.log("Products sent in cart success", res.data);
                         //   localStorage.setItem('UserCart',)
-                              return(
-                                  dispatch({
-                                      type: CART_PRODUCTS,
-                                      payload: arr
-                                    })
-                                    )  
+                              // return(
+                              //     dispatch({
+                              //         type: CART_PRODUCTS,
+                              //         payload: arr
+                              //       })
+                              //       )  
                 // console.log('lcl nh hy' ,valueArr)
                 
-            }
-            else{
-               console.log('else id nh hy')
-               arr.push(filterObj[0]) 
-               localStorage.setItem('CartProduct', JSON.stringify(arr))
+            // }
+            // else{
+            //    console.log('else id nh hy')
+            //    arr.push(filterObj[0]) 
+            //    localStorage.setItem('CartProduct', JSON.stringify(arr))
 
-            }
+            // }
             // var isDuplicate = valueArr.some(function(item, idx){ 
             //     return valueArr.indexOf(item) != idx 
             // });
@@ -144,7 +190,7 @@ export const getProducts = (productData, history) => dispatch => {
             // console.log(isDuplicate, 'locl strge')
 
             // console.log(valueArr[0], 'find hua wa array')
-            console.log(filterObj[0]._id, 'find hua wa id');
+            // console.log(filterObj[0]._id, 'find hua wa id');
 
             
                         }) // re-direct to login on successful register
@@ -185,6 +231,21 @@ export const getProducts = (productData, history) => dispatch => {
     }
       );
   };
+
+  export const proceed = (newProceed) => dispatch => {
+    axios
+      .post('http://localhost:5000/api/products/proceed',newProceed)
+      .then(res => {
+        dispatch({
+          type: PROCEED_PRODUCT,
+          payload: res.data
+        })
+        console.log('proceed ka data ', res.data)
+      })
+      .catch(err => {
+        console.log('proceedsy error......., ', err.message)
+      })
+  }
 
 
  

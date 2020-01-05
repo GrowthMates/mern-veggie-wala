@@ -1,11 +1,12 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const UserCart = require('../models/userCart');
-const Product = require('../models/product');
+// const Product = require('../models/product');
 const User = require('../models/user');
+const Proceed = require('../models/proceed');
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
-var ip = require("ip");
+// var ip = require("ip");
 
 module.exports = {
 
@@ -56,12 +57,18 @@ module.exports = {
 
     //Need to be fixed........
     removeFromCart(req, res){
-        const { id } = req.params;
-        const { userId } = req.body;
-        // UserCart.findById(userId).exec((err, data)=>{
-        //     if(err) console.log("removeFromCart err-----------:",err)
+        // const { id } = req.params;
+        const { key } = req.body;
+        console.log(req.body);
+
+        UserCart.findOneAndDelete(key)
+        .then(cart => {cart.remove().then(() => res.json({ success: true,cart }))})
+        .catch(err => res.status(404).json({ success: false }));
+    
+        // UserCart.findByIdAndDelete(key).exec((err, data)=>{
+        //     if(err) console.log("removeFromCart err-----------:",err.message)
         //     else
-        //     data.product.splice(0,1)
+        //     res.status(200).json({success:true,data})
         // });
 
         // UserCart.update(
@@ -76,22 +83,46 @@ module.exports = {
         //     });
 
         // find by document id and update and pop or remove item in array
-        users.findByIdAndUpdate(userId,
-            {$pull: {product: id}},
-            {safe: true, upsert: true},
-            function(err, doc) {
-                if(err){
-                console.log(err);
-                }else{
-                //do stuff
-                }
-            });
+        // users.findByIdAndUpdate(userId,
+        //     {$pull: {product: id}},
+        //     {safe: true, upsert: true},
+        //     function(err, doc) {
+        //         if(err){
+        //         console.log(err);
+        //         }else{
+        //         //do stuff
+        //         }
+        //     });
 
 
         //   UserCart.save().then((data)=> {res.status(200).json({
         //       success:true,
         //       data
         //     })}).catch(err=>console.log(err))
+
+    },
+
+    proceed(req, res){
+        const {fname,lname,city,appartment,address,number,timeStamp} = req.body
+        console.log(req.body)
+
+        let newProceed = new Proceed({
+            fname,
+            lname,
+            city,
+            address,
+            appartment,
+            number,
+            timeStamp
+        });
+
+        newProceed.save().then(data=>{
+            res.status(200).json({success:true, data})
+        })
+        .catch(err => {
+            res.status(404).json({success:false,err})
+        });
+
 
     },
     register(req, res){

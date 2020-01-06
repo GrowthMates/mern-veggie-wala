@@ -14,7 +14,8 @@ export default class Navbar extends Component{
         windowWidth: window.innerWidth,
         mobileNavVisible: false,
         scrollled: undefined,
-        evein: true
+        evein: true,
+        cartItem: JSON.parse(localStorage.getItem('CartProduct'))
     }
 
     handleResize() {

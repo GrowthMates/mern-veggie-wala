@@ -5,6 +5,7 @@ import './cart.css'
 import ImageApple from '../../centralized/images/apple.jpg'
 import DeleteBtnIcon from '../../centralized/images/delete-button.png'
 import {userCart} from '../../../actions/productsAction'
+import axios from 'axios'
 
 
 
@@ -13,13 +14,71 @@ import {userCart} from '../../../actions/productsAction'
         super(Props);
         this.state={
             cartProducts: JSON.parse(localStorage.getItem('CartProduct')) ,
-            loader:true
+            loader:true,
+            cartData: [],
+            evein: true
         }
      }
      componentDidMount(){
-         console.log('DID MOUNT',this.state.cartProducts)
-        
+         console.log('local styorge',this.state.cartProducts)
          
+     }
+
+    //  try{
+    //      this.state.cartProducts ===  JSON.parse(localStorage.getItem('CartProduct'))
+    //  }
+    //  catch(){
+
+    //  }
+
+     delCart(key,index){
+        let {cartProducts} = this.state
+
+        let delBody = {
+            key: key,
+
+        }
+        
+        // cartProducts.splice(0,1);
+       
+        // console.log('cart del ka error.. >', delBody)
+
+        axios.post("http://localhost:5000/api/user-data/delCart", delBody)
+            .then(res => {
+
+                // cartProducts.splice(index,1);
+                // this.setState({
+                //     evein: false
+                // })
+
+                // console.log('del ka res', res.data.cart)
+                // console.log('del ka res', cartProducts.filterProduct._id)
+                var delFromLocalStorage=cartProducts.findIndex(cart=>cart.cartSchemaId===key);
+                if(delFromLocalStorage!==-1){
+                    cartProducts.splice(delFromLocalStorage,1);
+                  localStorage.setItem('CartProduct', JSON.stringify(cartProducts));
+                  this.setState({
+                                evein: false
+                            })
+                  console.log('del k ho gai lcl strge sy... ', delFromLocalStorage)
+                }
+                else{
+                    console.log('del nh hui lcl strge sy... ', delFromLocalStorage)
+
+                }
+                // localStorage.removeItem('CartProduct');
+            })
+
+            .catch(err => {
+                console.log('cart del ka error.. >',err.message)
+            })
+
+
+     }
+
+     proceed(){
+        // console.log(this.props, 'props')
+        // this.props.history.push('/information')
      }
 
      componentWillReceiveProps(nextProps){
@@ -65,11 +124,12 @@ import {userCart} from '../../../actions/productsAction'
                                     className="cursor-pointer img-for-cart" 
                                     style={{marginRight:'25px'}} 
                                     src={ImageApple}/></th>
-                                <td className='cart-body'>{item.name}</td>
-                                <td className='cart-body'>Rs.{item.price}</td>
+                                <td className='cart-body'>{item.filterProduct.name}</td>
+                                <td className='cart-body'>Rs.{item.filterProduct.price}</td>
                                 <td className='cart-body cart-qty-td' ><input className="crt-qty-fnl" type='number' name='quantity' id="quantity" min='1' defaultValue='1'/></td>
                                 <td className='cart-body' style={{color:"#5BA616"}}>$60</td>
-                                <td className='cart-body ' style={{color:"#5BA616"}}><img className='cursor-pointer' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/></td>
+                                <td className='cart-body ' style={{color:"#5BA616"}}><img onClick={this.delCart.bind(this,item.cartSchemaId,index)}
+                                 className='cursor-pointer' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/></td>
 
 
                                 </tr>
@@ -115,7 +175,7 @@ import {userCart} from '../../../actions/productsAction'
                                    <b> <span style={{ color:'#5BA616',float:'right', marginRight:'25px', marginTop:'20px', fontSize:'20px'}}>$80</span></b>
                                 </div>
                                 <div >
-                                    <button type="submit" class="btn btn-success btn-lg cart-btn">PROCEED TO CKECKOUT</button>
+                                    <button onClick={this.proceed} type="submit" class="btn btn-success btn-lg cart-btn">PROCEED TO CKECKOUT</button>
                                 </div>
                             </div>
                     </div>

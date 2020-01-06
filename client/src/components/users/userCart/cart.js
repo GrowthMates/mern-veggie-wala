@@ -12,7 +12,7 @@ import {userCart} from '../../../actions/productsAction'
      constructor(Props){
         super(Props);
         this.state={
-            cartProducts: JSON.parse(localStorage.getItem('addCart')) ,
+            cartProducts: JSON.parse(localStorage.getItem('CartProduct')) ,
             loader:true
         }
      }
@@ -58,7 +58,7 @@ import {userCart} from '../../../actions/productsAction'
                                 </tr>
                             </thead>
                             <tbody className='cart-body'>
-                            {this.props.cartProducts.map((item,index) => {
+                            {this.state.cartProducts.map((item,index) => {
                             return(
                                 <tr>
                                 <th scope="row"><img 

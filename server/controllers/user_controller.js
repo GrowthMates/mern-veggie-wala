@@ -14,35 +14,31 @@ module.exports = {
     },
     //Need to be fixed........
     addToCart(req, res){
-        const { productId } = req.body;
+        const { productId, quantity } = req.body;
         // const { id } = req.params;
         console.log('addtocart-----------:', req.body.productId )
 
         let productInCart = new UserCart({
             
             productId,
+            quantity
             
-               
-            // product.productId:
         });
-        // Product.findById(productId).exec((err, prodId)=>{
-            // if(err){
-            //     console.log('find if ka err',err);
-            // }
-            // else{
                 
-                productInCart.save().then(data=>{
-                    res.status(200).json({success:true, data})
-                });
-            // }
-        // })
-
+            productInCart.save().then(data=>{
+            res.status(200).json({success:true, data})
+            .catch(err => {
+                console.log('AddToCart Save Err--------',err.message)
+                res.json(err);
+            })
+            
+            });
 
     },
     viewCart(req, res){
         UserCart.find().exec((err, products)=>{
             if(err){
-                console.log('View cart err------:', err)
+                console.log('View cart err------:', err.message)
             }
             else{
                 // const  =products.productId

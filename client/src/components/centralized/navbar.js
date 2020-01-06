@@ -140,7 +140,7 @@ export default class Navbar extends Component{
 
                             </li>
                             <li className="nav-item col-lg-2">
-                              <Link to='/collection' className="nav-link">Information</Link>
+                              <Link to='/information' className="nav-link">Information</Link>
                               <hr className='hra' />
 
                             </li>

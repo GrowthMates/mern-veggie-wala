@@ -7,7 +7,7 @@ import {
   ADD_CART,
 } from "./types";
 
-const arr=[]
+const arr=JSON.parse(localStorage.getItem('CartProduct')) || [];
 var getCartProdLocalStorage=[]
 
 export const getProducts = (productData, history) => dispatch => {
@@ -30,23 +30,54 @@ export const getProducts = (productData, history) => dispatch => {
       );
   };
 
- export const addToCart = (productId) => dispatch => {
+ export const addToCart = (productCart) => dispatch => {
     axios
-      .post("http://localhost:5000/api/user-data/addToCart", productId)
+      .post("http://localhost:5000/api/user-data/addToCart", productCart)
       .then((res) => {
-          
+           
              localStorage.setItem('addCart',JSON.stringify(res.data))
-              
+              console.log('ProductId API', productCart.productId)
             var currId = JSON.parse(localStorage.getItem('addCart')).data.productId
             console.log(currId, 'abhi ki id') 
 
             var prod = JSON.parse(localStorage.getItem('Products'));
               getCartProdLocalStorage = JSON.parse(localStorage.getItem('CartProduct'))
+              console.log('No1:--GetCartProdLocalStorage------',getCartProdLocalStorage)
             var filterObj = prod.filter((e) => {
-                console.log(e._id, 'filter') 
-                return e._id === currId
+              return e._id === currId
             });
-            var pushData = undefined
+            console.log('No.8:--OurArray-----',arr)
+
+        // Checking data (available || not) in Storage 
+            if( localStorage.getItem('CartProduct')){
+              
+                  console.log('No2:--If K Andar ka GetCart-----',getCartProdLocalStorage)
+
+                  //Function to match items
+                  function checkItem(item){
+                      return item._id==currId
+                  }
+
+                  // Array.find() to find each data matching the params
+                  var result=getCartProdLocalStorage.find(checkItem);
+
+                  console.log('No5:--fnl array--------:',JSON.stringify(result));
+
+                  //Result will be undefiend when current data isn't available in prev data array
+                    if(result===undefined){
+                        console.log(filterObj[0]._id, 'No6:--find hua wa id');
+                        arr.push(filterObj[0])
+                        localStorage.setItem('CartProduct', JSON.stringify(arr))
+                        }
+
+            }
+            else{
+                    console.log('NEW DATA-----' ,currId)
+                    console.log('filterObject[0]-----',filterObj[0])
+                    arr.push(filterObj[0])
+                    localStorage.setItem('CartProduct', JSON.stringify(arr))
+          
+            }
 
 
                         // for(var i=0; i<getCartProdLocalStorage.length; i++){
@@ -63,23 +94,23 @@ export const getProducts = (productData, history) => dispatch => {
             // else
             //     console.log('match ho gai')
             // }
-            if( localStorage.getItem('CartProduct')){
+            // if( localStorage.getItem('CartProduct')){
 
          
-                // solution
-                var hasDuplicate = false;
-                getCartProdLocalStorage.map(v => v._id).sort().sort((a, b) => {
-                  if (a === b) {
-                    hasDuplicate = true;
+            //     // solution
+            //     var hasDuplicate = false;
+            //     getCartProdLocalStorage.map(v => v._id).sort().sort((a, b) => {
+            //       if (a === b) {
+            //         hasDuplicate = true;
 
-                  }
-                //   else if(hasDuplicate === false){
-                //     arr.push(filterObj[0])
-                //     console.log('dplcte nh hy')
-                //   }
-            })
-            console.log('hasDuplicate', hasDuplicate)
-            localStorage.setItem('CartProduct', JSON.stringify(arr))
+            //       }
+            //     //   else if(hasDuplicate === false){
+            //     //     arr.push(filterObj[0])
+            //     //     console.log('dplcte nh hy')
+            //     //   }
+            // })
+            // console.log('hasDuplicate', hasDuplicate)
+            // localStorage.setItem('CartProduct', JSON.stringify(arr))
                 // if(getCartProdLocalStorage)
                 // var valueArr = getCartProdLocalStorage.map(function(item,index){ return item._id });
                 
@@ -114,21 +145,21 @@ export const getProducts = (productData, history) => dispatch => {
                 // console.log( 'filter if wala' , filterObj[0]) 
                 // console.log("Products sent in cart success", res.data);
                         //   localStorage.setItem('UserCart',)
-                              return(
-                                  dispatch({
-                                      type: CART_PRODUCTS,
-                                      payload: arr
-                                    })
-                                    )  
+                            //   return(
+                            //       dispatch({
+                            //           type: CART_PRODUCTS,
+                            //           payload: arr
+                            //         })
+                            //         )  
                 // console.log('lcl nh hy' ,valueArr)
                 
-            }
-            else{
-               console.log('else id nh hy')
-               arr.push(filterObj[0]) 
-               localStorage.setItem('CartProduct', JSON.stringify(arr))
+            // }
+            // else{
+            //    console.log('else id nh hy')
+            //    arr.push(filterObj[0]) 
+            //    localStorage.setItem('CartProduct', JSON.stringify(arr))
 
-            }
+            // }
             // var isDuplicate = valueArr.some(function(item, idx){ 
             //     return valueArr.indexOf(item) != idx 
             // });
@@ -144,8 +175,9 @@ export const getProducts = (productData, history) => dispatch => {
             // console.log(isDuplicate, 'locl strge')
 
             // console.log(valueArr[0], 'find hua wa array')
-            console.log(filterObj[0]._id, 'find hua wa id');
-
+            // console.log(filterObj[0]._id, 'find hua wa id');
+            // arr.push(filterObj[0])
+            // localStorage.setItem('CartProduct', JSON.stringify(arr))
             
                         }) // re-direct to login on successful register
       .catch(err =>

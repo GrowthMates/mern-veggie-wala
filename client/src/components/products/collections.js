@@ -67,7 +67,8 @@ class Collections extends Component{
         // })
         
         let productId = {
-            productId: id
+            productId: id,
+            quantity:1
         }
 
         // this.props.history.push('/cart')

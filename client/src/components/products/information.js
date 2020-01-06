@@ -1,17 +1,62 @@
 import React,{Component} from 'react';
-import {Link} from 'react-router-dom'
+import {Link,withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
 import './stylesheet/information.css'
 import bana3 from '.././centralized/images/bana3.webp'
+import {proceed} from '../../actions/productsAction'
 
 
 
-export default class Information extends Component{
+class Information extends Component{
 
+    constructor(){
+      super()
+      this.state = {
+        number: '',
+        fname: '',
+        lname: '',
+        address: '',
+        appartment: '',
+        city: '',
+
+      }
+    }
+
+    onChange = e => {
+      e.preventDefault();
+        this.setState({ [e.target.id]: e.target.value });
+        // console.log('e hy', this.state)
+      };
+
+    onSubmit(e){
+      e.preventDefault()
+      let {number,address,fname,lname,appartment,city} = this.state;
+
+      // getting date
+
+      var timeStamp = new Date()
+      var date = timeStamp.getDate() + '-' + (timeStamp.getMonth()+1) + '-' + timeStamp.getFullYear() 
+      var time = timeStamp.getHours() + '-' + timeStamp.getMinutes() + '-' + timeStamp.getSeconds() 
+      let newProceed = {
+        number: ')3070084689',
+        fname: 'Khan',
+        lname : 'fkfhdsf',
+        address : 'mc 1469 shah faisal colony',
+        appartment : 'gali 414 py hy',
+        city : 'karachi',
+        timeStamp: 'Date: ' +date +  '\n' + ' Time: '  + time,
+      }
+
+      this.props.proceed(newProceed)
+      console.log(date,time, newProceed)
+    }
+  
    click(){
        console.log(this.props)
        this.props.history.push('/combined')
    }
     render(){
+      const {number,address,fname,lname,appartment,city} = this.state
         return(
             <div>
             <div className='container'>
@@ -34,21 +79,44 @@ export default class Information extends Component{
                   
                   <div>
 
-                  <form>
+                  <form noValidate onSubmit={this.onSubmit.bind(this)} >
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+                        <input type="text"
+                           onChange={this.onChange}
+                           value={number}
+                           id= 'number'
+                           class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Number" />
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group form-inline">
                         {/* <label for="exampleInputPassword1">Password</label> <br/> */}
-                        <input style={{textAlign: 'left'}} type="text" class="form-control col-lg-5" id="exampleInputPassword1" placeholder="First Name" />
-                        <input style={{marginRight: '-60'}}  type="text" class="form-control col-lg-5" id="exampleInputPassword1" placeholder="Last Name" />
+                        <input style={{textAlign: 'left'}} type="text" 
+                         onChange={this.onChange}
+                         value={this.state.fname}
+                         id='fname'
+                         class="form-control col-lg-5" id="exampleInputPassword1" placeholder="First Name" />
+                        <input style={{marginRight: '-60'}}  type="text"
+                         onChange={this.onChange}
+                         value={lname}
+                         class="form-control col-lg-5" id="exampleInputPassword1" placeholder="Last Name" />
                     </div>
 
-                    <input  type="text" class="form-control " id="exampleInputPassword1" placeholder="Address" />< br/>
-                    <input  type="text" class="form-control " id="exampleInputPassword1" placeholder="Appartments suits etc" /> <br/>
-                    <input  type="text" class="form-control " id="exampleInputPassword1" placeholder="City" /> <br/>
+                    <input  type="text" 
+                     onChange={this.onChange}
+                     value={address}
+                     id='address'
+                     class="form-control " id="exampleInputPassword1" placeholder="Address" />< br/>
+                    <input  type="text" 
+                     onChange={this.onChange}
+                     value={appartment}
+                     id='appartment'
+                     class="form-control " id="exampleInputPassword1" placeholder="Appartments suits etc" /> <br/>
+                    <input  type="text" 
+                     onChange={this.onChange}
+                     value={city}
+                     id='city'
+                     class="form-control " id="exampleInputPassword1" placeholder="City" /> <br/>
                     {/* <input  type="text" class="form-control " id="exampleInputPassword1" placeholder="City" /> <br/> */}
                   <div className='container'>
                    <div className='col-lg-6' style={{float: 'left', textAlign: 'left' , paddingLeft: '0px' }}>
@@ -127,3 +195,8 @@ export default class Information extends Component{
         )
     }
 }
+
+export default connect(
+  null,
+  { proceed }
+)(withRouter(Information));

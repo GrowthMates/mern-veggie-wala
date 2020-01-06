@@ -1,17 +1,29 @@
 import React,{Component} from 'react';
-import './collections.css'
+import './collections.css';
+import {connect} from 'react-redux';
 import ImageAppla from '../centralized/images/apple.jpg' 
 import ImageIconList from '../centralized/images/list-icon.png' 
 import ImageIconGrid from '../centralized/images/grid-icon.png' 
+import {userCart} from '../../actions/productsAction'
+import {addToCart} from '../../actions/productsAction'
+import cart from '../users/userCart/cart';
+
+// import { connect } from 'mongoose';
 
 
 
 
-export default class Collections extends Component{
+class Collections extends Component{
     constructor(Props){
         super(Props);
         this.state={
-            veiwOption:false
+            loader: true,
+            veiwOption:false,
+            name:'',
+            price:undefined,
+            description:'',
+            quantity:undefined,
+            products: JSON.parse(localStorage.getItem('Products')),
         }
     }
     changer1=()=>{
@@ -28,8 +40,46 @@ export default class Collections extends Component{
 
     }
 
+    componentDidMount(){
+        console.log(this.props)
+    }
+    componentWillReceiveProps(nextProps){
+        if(nextProps){
+            console.log("Prev. props......",this.props.product)
+            console.log("Cart Array......",nextProps)
+            this.setState({
+                loader:false
+            })
+        }
+        else{
+            console.log("nhi aya beta.......")
+        }
+    }
+
+     onSubmit=(id,e)=>{
+        e.preventDefault();
+        console.log('onsubmit',id)
+        // return false;
+        // this.setState({
+        //     name ,
+        //     price ,
+        //     description
+        // })
+        
+        let productId = {
+            productId: id
+        }
+
+        // this.props.history.push('/cart')
+
+        // this.props.userCart(this.props.history);
+        this.props.addToCart(productId)
+        console.log('new prod')
+        // this.props.history.push('/cart')
+    }
 
     render(){
+        console.log("Collection of Products: ", this.state.products)
         return(
             <div>
                  <section className='contact-upper col-lg-12' >
@@ -111,57 +161,54 @@ export default class Collections extends Component{
                             </div>
                             
                         </div>
+                    
+               
 
-                        {(this.state.veiwOption === false)?(
-                            <div>
-                                    <div className='container team' >
+                        {
+                          (this.state.veiwOption === false)?(
+                            this.state.products.map((item,index) => {  
+                           return(
+                           <div>
+                             <form >
+                                 <div className='container team' >
                                             <div className='col-lg-4 prodImg'>
                                                 <img className="cursor-pointer" src={ImageAppla} width='250' height='250' />
                                             </div>
                                             <div className="col-md-8 col-lg-8 data">
-                                                <h6 className="item-name cursor-pointer">Apple</h6>
-                                                <h6 className="stretch">From $60</h6><br/>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. luctus ligula ac faucibu</p><br/>
-                                                <button type="button" class="btn btn-success btn-lg cart-btn">Add to cart</button>
+                                                <h6 className="item-name cursor-pointer">{item.name}</h6>
+                                                <h6 className="stretch">From Rs.{item.price}</h6><br/>
+                                                <p>{item.description}</p><br/>
+                                                <button  onClick={this.onSubmit.bind(this,item._id)} type="button" class="btn btn-success btn-lg cart-btn">Add to cart</button>
                                             </div>
                     
                                     </div>
+                             </form>
 
-                           {/* 2nd */}
-
-
-                            <div className='container team' >
-                                            <div className='col-md-4 col-lg-4 prodImg'>
-                                            <img src={ImageAppla} width='250' height='250' />
-                                            </div>
-                                            <div className="col-md-8 col-lg-8 data">
-                                            <h6 style={{color: '#1ebbd7', paddingTop: '30px'}}>M, Azeem khan</h6>
-                                            <h6>Founder & CEO , Veggie Walas fruits and vegetables</h6><br/>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. luctus ligula ac faucibu</p><br/>
-                                        
-                                            </div>
-                    
-                            </div> 
-                    </div>         
+                         
+                            </div>)      })  
 
                         ):
                    (
+                    
                         <div className="container">
                             
-                                 <div className="row row-col-3">  
+                                 <div className="row ">  
+                                { this.state.products.map((item,index) => {  
+                        return(
                                    <div className="col-md-4 col-lg-4 col-sm-4"> 
-                                    <div class="card grid-view grid-card-styling" style={{width: '18rem',textAlign:'left'}}>
+                                    <div class="card grid-view grid-card-styling" style={{width: '18rem'}}>
                                         <img className="card-img-top cursor-pointer img-grid" src={ImageAppla} alt="..."/>
-                                            <div class="card-body" style={{paddingTop:'0px'}}>
-                                                <h5 class="card-title cursor-pointer" style={{fontSize:'30px'}}>Apple</h5>
-                                                <p class="card-text">From $60</p>
-                                                <button className="btn btn-success">Add to cart</button>
+                                            <div class="card-body" style={{paddingTop:'0px',textAlign:'left'}}>
+                                                <h5 class="card-title cursor-pointer" style={{fontSize:'30px'}}>{item.name}</h5>
+                                                <p class="card-text">From Rs.{item.price}</p>
+                                                <button className="btn btn-success" >Add to cart</button>
                                             </div>
                                     </div>
                                    </div> 
+                        )})}
 
                                     {/* 2nd */}
-
+{/* 
                                     <div className="col-md-4 col-lg-4 col-sm-4"> 
                                     <div class="card grid-view grid-card-styling" style={{width: '18rem'}}>
                                         <img className="card-img-top cursor-pointer img-grid" src={ImageAppla} alt="..."/>
@@ -171,10 +218,10 @@ export default class Collections extends Component{
                                                 <button className="btn btn-success">Add to cart</button>
                                             </div>
                                     </div>
-                                   </div> 
+                                   </div>  */}
 
                                    {/* 3rd */}
-
+{/* 
                                    <div className="col-md-3 col-lg-4 col-sm-4"> 
                                     <div class="card grid-view  grid-card-styling" style={{width: '18rem',textAlign:'left'}}>
                                         <img className="card-img-top cursor-pointer img-grid" src={ImageAppla} alt="..."/>
@@ -184,11 +231,11 @@ export default class Collections extends Component{
                                                 <button className="btn btn-success">Add to cart</button>
                                             </div>
                                     </div>
-                                   </div> 
+                                   </div>  */}
 
                                 </div>    
 
-                         </div>)
+                   </div>   )     
                    }
                    
 
@@ -204,3 +251,27 @@ export default class Collections extends Component{
     }
 
 }
+
+// redux
+
+const mapStateToProps = (state) => {
+    console.log('Collections ki product',state.products.products,state.cart)
+  return{
+      products: state.products,
+      cart:state.cart
+  }
+}
+
+// const mapDispatchToProps = (dispatch) => {
+//     return ({ 
+//         productDetail: (productDetail) => {
+//             dispatch(getProducts(productDetail))
+//         }
+//     });
+
+// }
+
+export default connect(
+    mapStateToProps,
+    { userCart, addToCart }
+  )(Collections);

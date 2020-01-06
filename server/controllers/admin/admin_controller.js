@@ -1,5 +1,7 @@
-const User = require('../models/user');
-const Product = require('../models/product');
+const User = require('../../models/user');
+const Product = require('../../models/product');
+const Proceed = require('../../models/proceed');
+const PendingProduct = require('../../models/admin/pending')
 
 module.exports = {
     
@@ -50,6 +52,26 @@ module.exports = {
             res.status(200).json({seccess:true,product});
         })
 
-    }
+    },
 
+    pendingProduct(req, res) {
+        const {name, description, quantity,user,price} = req.body;
+
+        PendingProduct.find().exec((err,product) => {
+            if(err){
+             res.status(400).json({success:false,err})
+            }
+            else
+            res.status(200).json({success:true,product})
+        })
+
+    },
+
+    bookedProduct(req,res){
+        
+        Proceed.find()
+        .then(data => res.status(200).json({data}))
+        .catch(err => err.json)
+    }
 }
+

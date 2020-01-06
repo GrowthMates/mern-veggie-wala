@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const userController = require('./controllers/user_controller');
-const adminController = require('./controllers/admin_controller');
+const adminController = require('./controllers/admin/admin_controller');
 const productsController = require('./controllers/products_controller');
 const PORT = process.env.PORT || 5000;
 
@@ -38,10 +38,12 @@ app.use(cors());
 setTimeout(()=>{
     app.get('/api/user-data', userController.readUserData);
     //Add a item to cart.
-    app.post('/api/user-data/cart', userController.addToCart);
+    app.post('/api/user-data/addToCart', userController.addToCart);
+    //view cart items
+    app.get('/api/user-data/cart', userController.viewCart);
     //Remove a item from the cart.
     // Use request parameter to remove item from cart since you are looking a specific item in cart.
-    app.delete('/api/user-data/cart/:id', userController.removeFromCart);
+    app.post("/api/user-data/delCart", userController.removeFromCart);
     //User Register to place order
     app.post('/api/register', userController.register)
     //When user login
@@ -59,10 +61,18 @@ setTimeout(()=>{
     app.get('/api/users', adminController.getAdminUsers);
     //When a admin creates a product. No need for request parameter in this case. Since we are inserting data to database.
     app.post('/api/products', adminController.createProduct);
+
+    app.get('/api/bookedProducts', adminController.bookedProduct);
     //When a admin update a current product. Need request parameter since updating a specific product based on  the id.
     app.put('/api/products/:id', adminController.updateProduct);
     //When a admin deletes a product, need an id to specify a product to delete.
     app.delete('/api/products/:id', adminController.deleteProduct);
+
+    app.get('/api/products/pending', adminController.pendingProduct);
+
+    app.post('/api/products/proceed', userController.proceed);
+
+
 
 },200);
 

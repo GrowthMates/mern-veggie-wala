@@ -76,6 +76,14 @@ import axios from 'axios'
 
      }
 
+     onChange(e){
+         e.preventDefault();
+         this.setState({
+            [e.target.name] : e.target.defaultValue     
+         });
+         console.log(e.target.value ,'crt qnty')
+
+     }
      proceed(){
         // console.log(this.props, 'props')
         // this.props.history.push('/information')
@@ -126,7 +134,8 @@ import axios from 'axios'
                                     src={ImageApple}/></th>
                                 <td className='cart-body'>{item.filterProduct.name}</td>
                                 <td className='cart-body'>Rs.{item.filterProduct.price}</td>
-                                <td className='cart-body cart-qty-td' ><input className="crt-qty-fnl" type='number' name='quantity' id="quantity" min='1' defaultValue='1'/></td>
+                                <td className='cart-body cart-qty-td' ><input className="crt-qty-fnl" type='number' name='quantity'
+                                onChange={this.onChange.bind(this)} value={item.quantity} id={index} min='1'/></td>
                                 <td className='cart-body' style={{color:"#5BA616"}}>$60</td>
                                 <td className='cart-body ' style={{color:"#5BA616"}}><img onClick={this.delCart.bind(this,item.cartSchemaId,index)}
                                  className='cursor-pointer' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/></td>

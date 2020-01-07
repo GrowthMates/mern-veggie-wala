@@ -24,7 +24,7 @@ import {
         case CART_PRODUCTS:
             return {
                 ...state,
-                cart: state.cart.push(action.payload),
+                cart: action.payload,
                 // cartProducts: action.payload
             };
         case USER_LOADING:

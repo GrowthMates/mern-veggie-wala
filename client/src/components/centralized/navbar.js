@@ -15,7 +15,7 @@ export default class Navbar extends Component{
         mobileNavVisible: false,
         scrollled: undefined,
         evein: true,
-        cartItem: JSON.parse(localStorage.getItem('CartProduct'))
+        cartItem: JSON.parse(localStorage.getItem('CartProduct')) || []
     }
 
     handleResize() {
@@ -70,7 +70,7 @@ export default class Navbar extends Component{
                                      <div  className='col-lg-6 heart' >
                                          <img className='cursor-pointer' src={heart}  width='20' height='20.52' />
                                          <span> | </span>
-                                         <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/> <sup>12</sup>
+                                         <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/> <sup>{this.state.cartItem.length}</sup>
                                      </div>
                                     
                                       <div  className='col-lg-6 cart' >

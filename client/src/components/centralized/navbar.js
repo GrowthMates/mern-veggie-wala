@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import './style/navbar.css';
 // import { Link, BrowserRouter } from "react-router-dom";
-import {BrowserRouter as Router,Link,Redirect} from 'react-router-dom';
+import {BrowserRouter as Router,Link,Redirect,withRouter} from 'react-router-dom';
+import { connect } from "react-redux";
 import heart from './images/heart.png'
 import shoppingcart from './images/shopping-cart.png'
 import axios from 'axios'
@@ -9,14 +10,17 @@ import axios from 'axios'
 
 
 
-export default class Navbar extends Component{
+class Navbar extends Component{
  
     state = {
         windowWidth: window.innerWidth,
         mobileNavVisible: false,
         scrollled: undefined,
         evein: true,
-        cartItem: JSON.parse(localStorage.getItem('CartProduct')) || []
+
+        cartItem: JSON.parse(localStorage.getItem('CartProduct')) || [],
+        qty: 0
+
     }
 
     handleResize() {
@@ -35,19 +39,34 @@ export default class Navbar extends Component{
                 console.log('false')
             }
         })
+
+        console.log(this.state.cartItem.length, 'navbar will mnt')
+
         // window.addEventListener('resize', this.handleResize.bind(this));
     }
    
+             
+    componentWillReceiveProps(nextProps) {
+        if (nextProps) {
+        // var item = nextProps.cartProducts.cart.length
+        // this.setState({
+        //     qty: item,
             
+        // })
+        //  console.log(item, 'nextprops navbar sy')
+             console.log(this.state.cartItem, 'navbar will mnt')
 
-       
-    
+        }
+      }
+
 
     componentWillMount(){
         window.removeEventListener('scroll ', ()=>{
             window.removeEventListener('resize', this.handleResize.bind(this));
+
         })
 
+       
         axios
         .get("http://localhost:5000/api/products")
         .then((res) => {
@@ -89,7 +108,15 @@ export default class Navbar extends Component{
                                      <div  className='col-lg-6 heart' >
                                          <img className='cursor-pointer' src={heart}  width='20' height='20.52' />
                                          <span> | </span>
+
+                                         <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/> 
+                                         
+                                                <sup>{ this.props.cartProducts === 0 ?
+                                                this.state.cartItem.length : this.props.cartProducts || this.state.cartItem.length === 0 ?
+                                                this.props.cartProducts : this.state.cartItem.length} </sup>
+
                                          <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/> <sup>{this.state.cartItem.length}</sup>
+
                                      </div>
                                     
                                       <div  className='col-lg-6 cart' >
@@ -182,3 +209,17 @@ export default class Navbar extends Component{
         )
     }
 }
+
+// redux
+
+const mapStateToProps = state => {
+    console.log(state.products.cart.length)
+        return {
+            cartProducts: state.products.cart.length
+
+        }
+  };
+  export default connect(
+    mapStateToProps,
+    null
+  )(withRouter(Navbar));

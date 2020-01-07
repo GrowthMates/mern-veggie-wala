@@ -20,7 +20,13 @@ export default class Admin extends Component{
     render(){
         return(
             <div>
-                <h1>Admin</h1>  
+                <div className='container'>
+                    <div className='row'>
+                        <div>
+                            
+                        </div>
+                    </div>
+                </div> 
             </div>
         )
     }

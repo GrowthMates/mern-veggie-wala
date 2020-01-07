@@ -74,8 +74,8 @@ export const getProducts = (productData, history) => dispatch => {
                         .then((res) => {
                              
                                localStorage.setItem('addCart',JSON.stringify(res.data))
-                                console.log('ProductId API', productCart.productId)
-                              var currId = JSON.parse(localStorage.getItem('addCart')).data.productId
+                                console.log('ProductId quantity', res.data)
+                              var currId = JSON.parse(localStorage.getItem('addCart')).data
                               console.log(currId, 'abhi ki id') 
                   
                               var prod = JSON.parse(localStorage.getItem('Products'));
@@ -88,11 +88,15 @@ export const getProducts = (productData, history) => dispatch => {
 
                         var newProd = {
                           filterProduct: filterObj[0],
-                          cartSchemaId:  currId
+                          cartSchemaId:  currId.productId,
+                          quantity:      currId.quantity,
                         }
                         arr.push(newProd)
-                        localStorage.setItem('CartProduct', JSON.stringify(arr))
-                        
+                          localStorage.setItem('CartProduct', JSON.stringify(arr))
+                        dispatch({
+                          type: CART_PRODUCTS,
+                          payload: arr
+                        })
                       }) 
                       .catch(err =>
                         {

@@ -210,5 +210,20 @@ export const getProducts = (productData, history) => dispatch => {
       })
   }
 
+  
+  export const addProduct = (newPoduct) => dispatch => {
+    axios
+      .post('http://localhost:5000/api/createProducts',newPoduct)
+      .then(res => {
+        dispatch({
+          type: PROCEED_PRODUCT,
+          payload: res.data
+        })
+        console.log('create product admin sy ka data ', res.data)
+      })
+      .catch(err => {
+        console.log('create product error......., ', err.message)
+      })
+  }
 
  

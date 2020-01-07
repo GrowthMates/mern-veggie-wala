@@ -11,6 +11,8 @@ import About from '../components/centralized/about';
 import Navbar from '../components/centralized/navbar';
 import AdminDashboard from '../components/admin/dashboard';
 import BookedOrder from '../components/admin/bookedOrder';
+import AddProducts from '../components/admin/addProducts';
+import DelProducts from '../components/admin/delProducts';
 import UserDashboard from '../components/users/dashboard';
 import Footer from '../components/centralized/footer'
 import Product from '../components/products/product'
@@ -61,6 +63,8 @@ render(){
                    <Route exact path="/collections" component={Collections} />
                    <Route path='/cart' component={Cart}/>
                    <Route path='/bookedOrder' component={BookedOrder}/>
+                   <Route path='/addProducts' component={AddProducts}/>
+                   <Route path='/delProducts' component={DelProducts}/>
                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
                </Switch>
              <Footer/>

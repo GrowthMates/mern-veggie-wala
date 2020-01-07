@@ -58,22 +58,22 @@ export default class Home extends Component{
         }
     }
 
-    componentDidMount(){
+    // componentDidMount(){
             
 
-        axios
-        .get("http://localhost:5000/api/products")
-        .then((res) => {
-                        console.log("Products success", res.data)
+    //     axios
+    //     .get("http://localhost:5000/api/products")
+    //     .then((res) => {
+    //                     console.log("Products success", res.data)
 
-                        localStorage.setItem('Products', JSON.stringify(res.data));
-                        console.log('Products from Storage: ',localStorage.getItem('Products'));
+    //                     localStorage.setItem('Products', JSON.stringify(res.data));
+    //                     console.log('Products from Storage: ',localStorage.getItem('Products'));
 
-                          }) // re-direct to login on successful register
-        .catch(err =>
-        console.log('Product err: ',err.message)
-        );
-    }
+    //                       }) // re-direct to login on successful register
+    //     .catch(err =>
+    //     console.log('Product err: ',err.message)
+    //     );
+    // }
 
 
     p1(){

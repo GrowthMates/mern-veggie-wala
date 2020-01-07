@@ -22,10 +22,10 @@ class Information extends Component{
       }
     }
 
-    onChange = e => {
-      e.preventDefault();
-        this.setState({ [e.target.id]: e.target.value });
-        // console.log('e hy', this.state)
+    onChange (e) {
+      // e.preventDefault();
+        this.setState({ [e.target.name]: e.target.value });
+        console.log('e hy', e.target,this)
       };
 
     onSubmit(e){
@@ -38,12 +38,12 @@ class Information extends Component{
       var date = timeStamp.getDate() + '-' + (timeStamp.getMonth()+1) + '-' + timeStamp.getFullYear() 
       var time = timeStamp.getHours() + '-' + timeStamp.getMinutes() + '-' + timeStamp.getSeconds() 
       let newProceed = {
-        number: ')3070084689',
-        fname: 'Khan',
-        lname : 'fkfhdsf',
-        address : 'mc 1469 shah faisal colony',
-        appartment : 'gali 414 py hy',
-        city : 'karachi',
+        number,
+        fname,
+        lname,
+        address,
+        appartment,
+        city ,
         timeStamp: 'Date: ' +date +  '\n' + ' Time: '  + time,
       }
 
@@ -79,43 +79,44 @@ class Information extends Component{
                   
                   <div>
 
-                  <form noValidate onSubmit={this.onSubmit.bind(this)} >
+                  <form >
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
+                        <label for="exampleInputEmail1">number</label>
                         <input type="text"
-                           onChange={this.onChange}
-                           value={number}
-                           id= 'number'
+                           onChange={this.onChange.bind(this)}
+                           value={this.state.number}
+                           name='number'
                            class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Number" />
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group form-inline">
                         {/* <label for="exampleInputPassword1">Password</label> <br/> */}
                         <input style={{textAlign: 'left'}} type="text" 
-                         onChange={this.onChange}
+                         onChange={this.onChange.bind(this)}
                          value={this.state.fname}
-                         id='fname'
+                         name='fname'
                          class="form-control col-lg-5" id="exampleInputPassword1" placeholder="First Name" />
                         <input style={{marginRight: '-60'}}  type="text"
-                         onChange={this.onChange}
+                         onChange={this.onChange.bind(this)}
+                         name='lname'
                          value={lname}
                          class="form-control col-lg-5" id="exampleInputPassword1" placeholder="Last Name" />
                     </div>
 
                     <input  type="text" 
-                     onChange={this.onChange}
+                     onChange={this.onChange.bind(this)}
                      value={address}
-                     id='address'
+                     name='address'
                      class="form-control " id="exampleInputPassword1" placeholder="Address" />< br/>
                     <input  type="text" 
-                     onChange={this.onChange}
+                     onChange={this.onChange.bind(this)}
                      value={appartment}
-                     id='appartment'
+                     name='appartment'
                      class="form-control " id="exampleInputPassword1" placeholder="Appartments suits etc" /> <br/>
                     <input  type="text" 
-                     onChange={this.onChange}
+                     onChange={this.onChange.bind(this)}
                      value={city}
-                     id='city'
+                     name='city'
                      class="form-control " id="exampleInputPassword1" placeholder="City" /> <br/>
                     {/* <input  type="text" class="form-control " id="exampleInputPassword1" placeholder="City" /> <br/> */}
                   <div className='container'>
@@ -123,7 +124,7 @@ class Information extends Component{
                      <Link> <span> <i class="fa fa-angle-left" style={{margin: '0px'}}></i> </span> Return to Cart</Link>
                     </div>
                     <div className='col-lg-6 ' style={{float: 'right', textAlign: 'right' , paddingRight: '0px' }}> 
-                     <button type="submit" class="btn btn-primary btn-block" style={{lineHeight: '50px'}}>Continue to shopping</button>
+                     <button onClick={this.onSubmit.bind(this)}  type="submit" class="btn btn-primary btn-block" style={{lineHeight: '50px'}}>Continue to shopping</button>
                     </div>
                   </div>
                   </form>

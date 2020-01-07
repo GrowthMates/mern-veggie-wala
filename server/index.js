@@ -74,6 +74,7 @@ setTimeout(()=>{
 
     app.post('/api/products/proceed', userController.proceed);
 
+    app.get('/api/get-stock', adminController.getStock);
 
 
 },200);

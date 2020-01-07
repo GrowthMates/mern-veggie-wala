@@ -22,6 +22,7 @@ import Information from '../components/products/information' ;
 import PrivateRoute from "../components/private-route/PrivateRoute";
 import Dashboard from "../components/dashboard/Dashboard"; 
 import Cart from '../components/users/userCart/cart'  
+import Admin from '../components/admin/dashboard';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -65,6 +66,7 @@ render(){
                    <Route path='/bookedOrder' component={BookedOrder}/>
                    <Route path='/addProducts' component={AddProducts}/>
                    <Route path='/delProducts' component={DelProducts}/>
+                   <Route path='/admin' component={Admin}/>
                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
                </Switch>
              <Footer/>

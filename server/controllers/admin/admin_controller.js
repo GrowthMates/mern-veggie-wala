@@ -16,12 +16,17 @@ module.exports = {
     },
     createProduct(req, res){
 
-        const { name, description,price } = req.body;
+        const { name, description,price,stock } = req.body;
+        console.log('rquest body',req.body)
         let newProduct = new Product({
             name,
             description,
-            price
+            price,
+            stock,
+
         });
+        // newProduct.img.data =  fs.readFileSync(req.body.imgPath);
+        // newProduct.img.contentType = 'image/png'
 
         newProduct.save().then((result)=>{res.status(200).json({Product:result})})
         .catch((err) => {console.log('Product save err---------:',err)})
@@ -69,6 +74,13 @@ module.exports = {
         Proceed.find()
         .then(data => res.status(200).json({data}))
         .catch(err => err.json)
+    },
+    
+    getStock(req,res){
+        Product.find().then(product=>{
+            res.status(200).json({success:true,product})
+        }).catch(err=>{
+            res.status(400).json({success:false,err})
+        })
     }
 }
-

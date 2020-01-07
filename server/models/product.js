@@ -13,7 +13,15 @@ const Product = new Schema({
         price:{
                 type:Number,
                 required:true
+        },
+        stock:{
+                type:Number,
+                default:1
         }
+        // img:{
+        //         data:Buffer,
+        //         contentType: String
+        // }
 
 });
 module.exports = mongoose.model('Product',Product);

@@ -27,6 +27,7 @@ module.exports = {
         .catch((err) => {console.log('Product save err---------:',err)})
 
     },
+    
     updateProduct(req, res){
 
         const { id } = req.params;
@@ -43,15 +44,11 @@ module.exports = {
     },
     deleteProduct(req, res){
 
-        const { id } = req.params;
-        Product.deleteOne({_id:id}).exec((err, product)=>{
-            if(err){
-                console.log('Delete Product err---------:',err);
-            }
-            else
-            res.status(200).json({seccess:true,product});
-        })
-
+        const { key } = req.body;
+        console.log(req.body)
+        Product.findOneAndDelete(key)
+        .then(cart => {cart.remove().then(() => res.json({ success: true,cart }))})
+        .catch(err => res.status(404).json({ success: false }));
     },
 
     pendingProduct(req, res) {

@@ -4,6 +4,7 @@ import './style/navbar.css';
 import {BrowserRouter as Router,Link,Redirect} from 'react-router-dom';
 import heart from './images/heart.png'
 import shoppingcart from './images/shopping-cart.png'
+import axios from 'axios'
 
 
 
@@ -35,11 +36,29 @@ export default class Navbar extends Component{
         })
         // window.addEventListener('resize', this.handleResize.bind(this));
     }
+   
+            
+
+       
+    
 
     componentWillMount(){
         window.removeEventListener('scroll ', ()=>{
             window.removeEventListener('resize', this.handleResize.bind(this));
         })
+
+        axios
+        .get("http://localhost:5000/api/products")
+        .then((res) => {
+                        console.log("Products success", res.data)
+
+                        localStorage.setItem('Products', JSON.stringify(res.data));
+                        console.log('Products from Storage: ',localStorage.getItem('Products'));
+
+                          }) // re-direct to login on successful register
+        .catch(err =>
+        console.log('Product err: ',err.message)
+        );
     }
 
     render(){

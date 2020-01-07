@@ -60,13 +60,15 @@ setTimeout(()=>{
     //Gets the admin users.
     app.get('/api/users', adminController.getAdminUsers);
     //When a admin creates a product. No need for request parameter in this case. Since we are inserting data to database.
-    app.post('/api/products', adminController.createProduct);
+    app.post('/api/createProducts', adminController.createProduct);
 
     app.get('/api/bookedProducts', adminController.bookedProduct);
+
+    // app.get('/api/delProducts', adminController.delProducts);
     //When a admin update a current product. Need request parameter since updating a specific product based on  the id.
     app.put('/api/products/:id', adminController.updateProduct);
     //When a admin deletes a product, need an id to specify a product to delete.
-    app.delete('/api/products/:id', adminController.deleteProduct);
+    app.post('/api/delProducts', adminController.deleteProduct);
 
     app.get('/api/products/pending', adminController.pendingProduct);
 

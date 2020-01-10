@@ -16,8 +16,15 @@ import axios from 'axios'
             cartProducts: JSON.parse(localStorage.getItem('CartProduct')) ,
             loader:true,
             cartData: [],
+            quantity:undefined,
             evein: true
         }
+
+        setTimeout(()=>{
+            
+        }
+        ,10800000)
+        
      }
      componentDidMount(){
          console.log('local styorge',this.state.cartProducts)
@@ -79,9 +86,9 @@ import axios from 'axios'
      onChange(e){
          e.preventDefault();
          this.setState({
-            [e.target.name] : e.target.defaultValue     
+            [e.target.name] : e.target.value     
          });
-         console.log(e.target.value ,'crt qnty')
+         console.log(e.target.name,e.target.value ,'crt qnty')
 
      }
      proceed(){
@@ -134,8 +141,8 @@ import axios from 'axios'
                                     src={ImageApple}/></th>
                                 <td className='cart-body'>{item.filterProduct.name}</td>
                                 <td className='cart-body'>Rs.{item.filterProduct.price}</td>
-                                <td className='cart-body cart-qty-td' ><input className="crt-qty-fnl" type='number' name='quantity'
-                                onChange={this.onChange.bind(this)} value={item.quantity} id={index} min='1'/></td>
+                                <td className='cart-body cart-qty-td' ><input className="crt-qty-fnl" type='number' name={`quantity${index}`}
+                                onChange={this.onChange.bind(this)} value={this.state.quantity} id={index} min='1'/></td>
                                 <td className='cart-body' style={{color:"#5BA616"}}>$60</td>
                                 <td className='cart-body ' style={{color:"#5BA616"}}><img onClick={this.delCart.bind(this,item.cartSchemaId,index)}
                                  className='cursor-pointer' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/></td>

@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import {Link} from 'react-router-dom';
 import './collections.css';
 import {connect} from 'react-redux';
 import ImageAppla from '../centralized/images/apple.jpg' 
@@ -6,6 +7,7 @@ import ImageIconList from '../centralized/images/list-icon.png'
 import ImageIconGrid from '../centralized/images/grid-icon.png' 
 import {userCart} from '../../actions/productsAction'
 import {addToCart} from '../../actions/productsAction'
+
 import cart from '../users/userCart/cart';
 
 // import { connect } from 'mongoose';
@@ -68,7 +70,7 @@ class Collections extends Component{
         
         let productId = {
             productId: id,
-            quantity:1
+            quantity:2
         }
 
         // this.props.history.push('/cart')
@@ -173,13 +175,15 @@ class Collections extends Component{
                              <form >
                                  <div className='container team' >
                                             <div className='col-lg-4 prodImg'>
-                                                <img className="cursor-pointer" src={ImageAppla} width='250' height='250' />
+                                               <Link to = {`/product/${item._id}`} ><img className="cursor-pointer" src={ImageAppla} width='250' height='250' /></Link>
                                             </div>
                                             <div className="col-md-8 col-lg-8 data">
-                                                <h6 className="item-name cursor-pointer">{item.name}</h6>
+                                            <Link to = {`/product/${item._id}`} className='link-name'> <h6 className="item-name cursor-pointer">{item.name}</h6></Link>
                                                 <h6 className="stretch">From Rs.{item.price}</h6><br/>
                                                 <p>{item.description}</p><br/>
-                                                <button  onClick={this.onSubmit.bind(this,item._id)} type="button" class="btn btn-success btn-lg cart-btn">Add to cart</button>
+                                                {item.stock>0
+                                                ?<button  onClick={this.onSubmit.bind(this,item._id)} type="button" class="btn btn-success btn-lg cart-btn">Add to cart</button>
+                                                :<p><u style={{color:'red'}}>Out of Stock</u></p>}
                                             </div>
                     
                                     </div>
@@ -198,11 +202,13 @@ class Collections extends Component{
                         return(
                                    <div className="col-md-4 col-lg-4 col-sm-4"> 
                                     <div class="card grid-view grid-card-styling" style={{width: '18rem'}}>
-                                        <img className="card-img-top cursor-pointer img-grid" src={ImageAppla} alt="..."/>
+                                    <Link to = {`/product/${item._id}`}><img className="card-img-top cursor-pointer img-grid" src={ImageAppla} alt="..."/></Link>
                                             <div class="card-body" style={{paddingTop:'0px',textAlign:'left'}}>
-                                                <h5 class="card-title cursor-pointer" style={{fontSize:'30px'}}>{item.name}</h5>
+                                            <Link to = {`/product/${item._id}`} className='link-name'> <h5 class="card-title cursor-pointer" style={{fontSize:'30px'}}>{item.name}</h5></Link>
                                                 <p class="card-text">From Rs.{item.price}</p>
-                                                <button className="btn btn-success" >Add to cart</button>
+                                                {item.stock>0
+                                                ?<button  onClick={this.onSubmit.bind(this,item._id)} className="btn btn-success" >Add to cart</button>
+                                                :<p><u style={{color:'red'}}>Out of Stock</u></p>}
                                             </div>
                                     </div>
                                    </div> 

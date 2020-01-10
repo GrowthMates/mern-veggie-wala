@@ -60,7 +60,7 @@ render(){
                    <Route exact path="/information" component={Information} />
                    <Route path='/contact' component={Contact} />
                    <Route path='/combined' component={Combined} />
-                   <Route path='/product' component={Product} />
+                   <Route path='/product/:id' component={Product} />
                    <Route exact path="/collections" component={Collections} />
                    <Route path='/cart' component={Cart}/>
                    <Route path='/bookedOrder' component={BookedOrder}/>

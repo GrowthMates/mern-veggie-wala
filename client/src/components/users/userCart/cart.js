@@ -13,15 +13,15 @@ import axios from 'axios'
      constructor(Props){
         super(Props);
         this.state={
-            cartProducts: JSON.parse(localStorage.getItem('CartProduct')) ,
+            cartProducts: JSON.parse(localStorage.getItem('CartProduct')) || [],
             loader:true,
             cartData: [],
             evein: true
         }
      }
+     
      componentDidMount(){
-         console.log('local styorge',this.state.cartProducts)
-         
+         console.log('local styorge',this.state.cartProducts)         
      }
 
     //  try{

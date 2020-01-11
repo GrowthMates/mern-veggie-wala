@@ -12,7 +12,6 @@ import cart from '../users/userCart/cart';
 
 
 
-
 class Collections extends Component{
     constructor(Props){
         super(Props);

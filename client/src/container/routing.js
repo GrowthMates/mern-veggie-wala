@@ -11,6 +11,7 @@ import About from '../components/centralized/about';
 import Navbar from '../components/centralized/navbar';
 import AdminDashboard from '../components/admin/dashboard';
 import BookedOrder from '../components/admin/bookedOrder';
+import Admin from '../components/admin/dashboard';
 import AddProducts from '../components/admin/addProducts';
 import DelProducts from '../components/admin/delProducts';
 import UserDashboard from '../components/users/dashboard';
@@ -52,7 +53,7 @@ render(){
             <div>
 
             <div>
-            <Navbar/>     
+            {/* <Navbar/>      */}
                <Switch>
                    <Route exact path='/' component={Home} />
                    <Route path='/about' component={About} />
@@ -65,6 +66,7 @@ render(){
                    <Route path='/bookedOrder' component={BookedOrder}/>
                    <Route path='/addProducts' component={AddProducts}/>
                    <Route path='/delProducts' component={DelProducts}/>
+                   <Route path='/admin' component={Admin}/>
                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
                </Switch>
              <Footer/>

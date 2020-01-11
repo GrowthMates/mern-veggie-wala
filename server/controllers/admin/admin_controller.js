@@ -27,14 +27,14 @@ module.exports = {
         .catch((err) => {console.log('Product save err---------:',err)})
 
     },
-    
+
     updateProduct(req, res){
 
         const { id } = req.params;
         const { name, description, price } = req.body;
         Product.findById(id).exec((err, product)=>{
             product.name=name;
-            product.description=description;
+            // product.description=description;
             product.price=price;
             product.save().then(()=>{
                 res.status(200).json({product})

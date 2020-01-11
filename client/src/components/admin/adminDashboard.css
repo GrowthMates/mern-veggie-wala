@@ -1,0 +1,21 @@
+.adminDashboard{
+    background-color: rgb(229, 233, 236);
+}
+
+.left h2{
+    color: #2A2A2D;
+    margin-bottom: 0px ;
+}
+
+.left span{
+    color: #676B79;
+    text-align: left;
+}
+
+.adminProd{
+    background-color: #ffffff;
+}
+
+.dataTd td{
+    padding-top: 10px !important;
+}

@@ -6,9 +6,10 @@ import {
   CART_PRODUCTS,
   ADD_CART,
   PROCEED_PRODUCT,
+  UPDATE_PRODUCT,
 } from "./types";
 
-const arr=JSON.parse(localStorage.getItem('CartProduct')) || [];
+var arr=JSON.parse(localStorage.getItem('CartProduct')) || [];
 var getCartProdLocalStorage=[]
 
 export const getProducts = (productData, history) => dispatch => {
@@ -32,25 +33,11 @@ export const getProducts = (productData, history) => dispatch => {
   };
 
  export const addToCart = (productCart) => dispatch => {
-    // axios
-    //   .post("http://localhost:5000/api/user-data/addToCart", productCart)
-    //   .then((res) => {
-           
-    //          localStorage.setItem('addCart',JSON.stringify(res.data))
-    //           console.log('ProductId API', productCart.productId)
-    //         var currId = JSON.parse(localStorage.getItem('addCart')).data.productId
-    //         console.log(currId, 'abhi ki id') 
-
-    //         var prod = JSON.parse(localStorage.getItem('Products'));
-    //           getCartProdLocalStorage = JSON.parse(localStorage.getItem('CartProduct'))
-    //           console.log('No1:--GetCartProdLocalStorage------',getCartProdLocalStorage)
-    //         var filterObj = prod.filter((e) => {
-    //           return e._id === productCart.productId
-    //         });
+   
             console.log('No.8:--OurArray-----',arr)
-
+            console.log('LocalStorageCheck----',JSON.parse(localStorage.getItem('CartProduct')))
         // Checking data (available || not) in Storage 
-            if( localStorage.getItem('CartProduct')){
+            if( JSON.parse(localStorage.getItem('CartProduct'))!=null && JSON.parse(localStorage.getItem('CartProduct')).length!=0){
               
                   console.log('No2:--If K Andar ka GetCart-----',getCartProdLocalStorage)
 
@@ -83,7 +70,7 @@ export const getProducts = (productData, history) => dispatch => {
                               var filterObj = prod.filter((e) => {
                                 return e._id === productCart.productId
                               });
-                              console.log('No.8:--OurArray-----',arr)
+                              console.log('No.8:--IfOurArray-----',arr)
 
 
                         var newProd = {
@@ -130,13 +117,16 @@ export const getProducts = (productData, history) => dispatch => {
                         var filterObj = prod.filter((e) => {
                           return e._id === productCart.productId
                         });
-                        console.log('No.8:--OurArray-----',arr)
+                        console.log('No.8:--Else1-OurArray-----',arr)
                     console.log('NEW DATA-----' ,currId)
                     console.log('filterObject[0]-----',filterObj[0])
                     var newProd = {
                       filterProduct: filterObj[0],
                       cartSchemaId:  currId
                     }
+                    // arr=[]
+                     arr.length=0;
+                    console.log('No.8:--Else2-OurArray-----',arr)
                     arr.push(newProd)
                     localStorage.setItem('CartProduct', JSON.stringify(arr))
 
@@ -227,6 +217,21 @@ export const getProducts = (productData, history) => dispatch => {
       })
       .catch(err => {
         console.log('create product error......., ', err.message)
+      })
+  }
+
+  export const updateProduct = (updatePoduct) => dispatch => {
+    axios
+      .put('http://localhost:5000/api/updateProducts',updatePoduct)
+      .then(res => {
+        dispatch({
+          type: UPDATE_PRODUCT,
+          payload: res.data
+        })
+        console.log('Update product admin sy ka data ', res.data)
+      })
+      .catch(err => {
+        console.log('Update product error......., ', err.message)
       })
   }
 

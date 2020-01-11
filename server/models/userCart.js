@@ -9,7 +9,8 @@ const UserCart = new Schema({
         quantity:{
                 type:Number,
                 default: 1
-        }
+        },
+        
 
 });
 module.exports = mongoose.model('UserCart',UserCart);

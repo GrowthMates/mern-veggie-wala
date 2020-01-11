@@ -17,8 +17,10 @@ class Navbar extends Component{
         mobileNavVisible: false,
         scrollled: undefined,
         evein: true,
+
         cartItem: JSON.parse(localStorage.getItem('CartProduct')) || [],
         qty: 0
+
     }
 
     handleResize() {
@@ -106,12 +108,14 @@ class Navbar extends Component{
                                      <div  className='col-lg-6 heart' >
                                          <img className='cursor-pointer' src={heart}  width='20' height='20.52' />
                                          <span> | </span>
+
                                          <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/> 
                                          
                                                 <sup>{ this.props.cartProducts === 0 ?
                                                 this.state.cartItem.length : this.props.cartProducts || this.state.cartItem.length === 0 ?
                                                 this.props.cartProducts : this.state.cartItem.length} </sup>
-                                            
+
+
                                      </div>
                                     
                                       <div  className='col-lg-6 cart' >

@@ -6,4 +6,6 @@ export const GET_PRODUCTS = "GET_PRODUCTS";
 export const CART_PRODUCTS = "CART_PRODUCTS";
 export const ADD_CART = "ADD_CART";
 export const PROCEED_PRODUCT = "PROCEED_PRODUCT";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+
 

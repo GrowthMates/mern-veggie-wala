@@ -16,12 +16,17 @@ module.exports = {
     },
     createProduct(req, res){
 
-        const { name, description,price } = req.body;
+        const { name, description,price,stock } = req.body;
+        console.log('rquest body',req.body)
         let newProduct = new Product({
             name,
             description,
-            price
+            price,
+            stock,
+
         });
+        // newProduct.img.data =  fs.readFileSync(req.body.imgPath);
+        // newProduct.img.contentType = 'image/png'
 
         newProduct.save().then((result)=>{res.status(200).json({Product:result})})
         .catch((err) => {console.log('Product save err---------:',err)})
@@ -30,11 +35,12 @@ module.exports = {
 
     updateProduct(req, res){
 
-        const { id } = req.params;
-        const { name, description, price } = req.body;
+        // const { id } = req.params;
+        const { name, id, price,stock } = req.body;
+        console.log(req.body)
         Product.findById(id).exec((err, product)=>{
             product.name=name;
-            // product.description=description;
+            product.stock=stock;
             product.price=price;
             product.save().then(()=>{
                 res.status(200).json({product})
@@ -69,6 +75,13 @@ module.exports = {
         Proceed.find()
         .then(data => res.status(200).json({data}))
         .catch(err => err.json)
+    },
+    
+    getStock(req,res){
+        Product.find().then(product=>{
+            res.status(200).json({success:true,product})
+        }).catch(err=>{
+            res.status(400).json({success:false,err})
+        })
     }
 }
-

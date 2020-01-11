@@ -1,13 +1,13 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const UserCart = require('../models/userCart');
-// const Product = require('../models/product');
+const Product = require('../models/product');
 const User = require('../models/user');
 const Proceed = require('../models/proceed');
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 // var ip = require("ip");
-
+ var currentProduct=undefined
 module.exports = {
 
     readUserData(req, res){
@@ -27,11 +27,15 @@ module.exports = {
         });
                 
             productInCart.save().then(data=>{
+            Product.findByIdAndUpdate(productId,{ $inc: { stock: -1 } }).then((product)=>{
+                currentProduct=product
+                console.log('ProductUpdate success: ',product)
+            })    
             res.status(200).json({success:true, data})
-            .catch(err => {
-                console.log('AddToCart Save Err--------',err.message)
-                res.json(err);
-            })
+        })
+                .catch(err => {
+                    console.log('AddToCart Save Err--------',err.message)
+                    res.json(err);
             
             });
 
@@ -59,7 +63,9 @@ module.exports = {
 
         UserCart.findOneAndDelete(key)
         .then(cart => {cart.remove().then(() => res.json({ success: true,cart }))})
-        .catch(err => res.status(404).json({ success: false }));
+        .catch(err => {res.status(404).json({ success: false })
+    console.log(err.message)
+    });
     
         // UserCart.findByIdAndDelete(key).exec((err, data)=>{
         //     if(err) console.log("removeFromCart err-----------:",err.message)

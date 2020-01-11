@@ -14,7 +14,9 @@ class AddProducts extends Component{
         this.state = {
           name: "",
           description: '',
-          price: '',      
+          price: '',   
+          stock:'',
+          // imgPath:'',   
           errors: {}
         };
       }
@@ -35,16 +37,27 @@ class AddProducts extends Component{
     onChange = e => {
       e.preventDefault();
         this.setState({ [e.target.id]: e.target.value });
+        console.log('total Data',[e.target.id], e.target.value );
       };
     onSubmit = e => {
         e.preventDefault();
-
+  console.log('oNsubmit State-------',this.state)
     const newProduct = {
           name: this.state.name,          
           description: this.state.description,
-          price: this.state.price
+          price: this.state.price,
+          stock: this.state.stock,
+          // imgPath: this.state.imgPath,
+          // imgType: this.state.imgType
         };
-    this.props.addProduct(newProduct, this.props.history); 
+    this.props.addProduct(newProduct, this.props.history);
+    this.setState({
+      name: "",
+      description: '',
+      price: '',   
+      stock:'',
+       });
+
     console.log(newProduct)
       };
       
@@ -107,14 +120,53 @@ class AddProducts extends Component{
               onChange={this.onChange}
               value={this.state.price}
               error={errors.price}
-              autoComplete='price'
               className='textfields' 
               id="price" 
               label="price" 
               required
+              className={classnames("", {
+                invalid: errors.name
+              })}
               />
               <span className="red-text">{errors.price}</span>
               <br/><br/>
+
+              <h5 class>
+                  Stock <span style={{color: 'red'}}> *</span>
+              </h5>
+              <TextField 
+              onChange={this.onChange}
+              value={this.state.stock}
+              error={errors.stock}
+              className='textfields' 
+              id="stock" 
+              label="stock" 
+              required
+              className={classnames("", {
+                invalid: errors.name
+              })}
+              />
+              <span className="red-text">{errors.stock}</span>
+              <br/><br/>
+
+
+              <h5 class>
+                  Image <span style={{color: 'red'}}> *</span>
+              </h5>
+              <TextField 
+              onChange={this.onChange}
+              value={this.state.imgPath}
+              error={errors.image}
+              autoComplete='image'
+              className='file'
+              type='file' 
+              id="imgPath" 
+              label="image" 
+              required
+              />
+              <span className="red-text">{errors.image}</span>
+              <br/><br/>
+
              
            
               <br/><br/>

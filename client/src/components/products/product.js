@@ -4,21 +4,82 @@ import ImageAppla from '../centralized/images/apple.jpg'
 import FacebookIcon from '../centralized/images/facebook-icon.png'
 import TwitterIcon from '../centralized/images/twitter-icon.png'
 import PinterestIcon from '../centralized/images/pinterest-icon.png'
+import {connect} from 'react-redux';
+import {userCart} from '../../actions/productsAction'
+import {addToCart} from '../../actions/productsAction'
 
 
 
 
 
-export default class Product extends Component{
+class Product extends Component{
     constructor(Props){
         super(Props);
         this.state={
+            loader: true,
+            name:'',
+            price:undefined,
+            description:'',
+            quantity:undefined,
+            product:undefined
         }
     }
-   
+    
+componentWillMount(){
+    var prod = JSON.parse(localStorage.getItem('Products'));
+       var filterObj = prod.filter((e) => {
+        return e._id === this.props.match.params.id
+      });
+      console.log('Product Comp Filter',filterObj[0])
+      this.setState({
+          product:filterObj[0]
+      })
+}
+
+componentDidMount(){
+    console.log(this.props)
+}
+componentWillReceiveProps(nextProps){
+    if(nextProps){
+        console.log("Prev. props......",this.props.product)
+        console.log("Cart Array......",nextProps)
+        this.setState({
+            loader:false
+        })
+    }
+    else{
+        console.log("nhi aya beta.......")
+    }
+}
+
+ onSubmit=(id,e)=>{
+    e.preventDefault();
+    console.log('onsubmit',id)
+    // return false;
+    // this.setState({
+    //     name ,
+    //     price ,
+    //     description
+    // })
+    
+    let productId = {
+        productId: id,
+        quantity:1
+    }
+
+    // this.props.history.push('/cart')
+
+    // this.props.userCart(this.props.history);
+    this.props.addToCart(productId)
+    console.log('new prod')
+    // this.props.history.push('/cart')
+}
+
 
 
     render(){
+        console.log('Product Compnents',this.state.product)
+        var currProduct=this.state.product
         return(
             <div>
                  <section className='contact-upper col-lg-12' >
@@ -43,15 +104,13 @@ export default class Product extends Component{
                         <div className="container">
                         
                             <div className="product-data">
-                               <h3>Apple</h3>
-                               <h5>$60.00 USD</h5>
-                               <h5 className="product-data-desc">Mangosteen fruit is a
-                                    rich source of polyphenolic compounds called xanthones. 
-                                    These xanthones are good at combating cardiovascular diseases, thrombosis...</h5>
+                               <h3>{this.state.product.name}</h3>
+                               <h5>Rs.{this.state.product.price}</h5>
+                                 <h5 className="product-data-desc">{this.state.product.description}</h5>
                               <div className="container">
                                 <div className="row">  
                                  
-                                 <form action=''>
+                                 <form>
                                     <div className="container">   
                                         <div className="row">  
                                         <div className="col-md-12 col-lg-12 col-sm-12 size-qty" >
@@ -78,8 +137,9 @@ export default class Product extends Component{
 
                                                 </div>          
                                         </div>
-
-                                        <button type="submit" class="btn btn-success btn-lg cart-btn" style={{marginTop:''}}>Add to cart</button>
+                                        {currProduct.stock>0
+                                                ?<button onClick={this.onSubmit.bind(this,currProduct._id)}  type="button" class="btn btn-success btn-lg cart-btn" style={{marginTop:''}}>Add to cart</button>
+                                                :<p style={{fontSize:'30px'}}><u style={{color:'red'}}>Out of Stock</u></p>}
                                         </div>
                                      </div>   
                                    </form>
@@ -136,3 +196,24 @@ export default class Product extends Component{
 
 }
 
+const mapStateToProps = (state) => {
+    console.log('Collections ki product',state.products.products,state.cart)
+  return{
+      products: state.products,
+      cart:state.cart
+  }
+}
+
+// const mapDispatchToProps = (dispatch) => {
+//     return ({ 
+//         productDetail: (productDetail) => {
+//             dispatch(getProducts(productDetail))
+//         }
+//     });
+
+// }
+
+export default connect(
+    mapStateToProps,
+    { userCart, addToCart }
+  )(Product);

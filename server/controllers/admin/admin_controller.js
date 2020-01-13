@@ -51,8 +51,8 @@ module.exports = {
     deleteProduct(req, res){
 
         const { key } = req.body;
-        console.log(req.body)
-        Product.findOneAndDelete(key)
+        console.log(key)
+        Product.findByIdAndDelete(key)
         .then(cart => {cart.remove().then(() => res.json({ success: true,cart }))})
         .catch(err => res.status(404).json({ success: false }));
     },

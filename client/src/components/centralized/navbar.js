@@ -87,7 +87,7 @@ class Navbar extends Component{
         }
         return(
             <div className="div1"> 
-              <div className={this.state.scrolled ? ' nav scrolled' : 'nav'}>
+              <div >
 
                 <div className='container navUpper' >
                     <div className='row'>                
@@ -130,30 +130,13 @@ class Navbar extends Component{
                     </div>
 
                 <div className='container'>
+                    
                     <hr style={{color: ' #cecdcd'}} />
 
                 </div>
-                {/* <section>
-                    <div className={this.state.scrolled ? ' nav scrolled' : 'navreact'}>
-                    <nav className="navbar navbar-light bg-light" >
-                        
-                    <div className="logo-header col-md-2 col-sm-2" > 
-            
-                         <Link to="/"><img style={{width: "95px"}} src="//cdn.shopify.com/s/files/1/0027/9642/1229/files/gf.png?v=1559959830" className="img-fluid"/></Link>
-        
-                    </div>
-                    <form className="form-inline col-md-4 col-sm-8 form1">
-                        <input className="form-control mr-sm-2 col-md-8" type="search" placeholder="Search" aria-label="Search"/>
-                        <i className="fa fa-search" type="submit"></i>
-                    </form>
-                    <div className="col-md-2 col-sm-2">
-                    <i className="fa fa-shopping-cart" ></i>
-                    </div>
-                    </nav>
-                    </div>
-                    </section> */}
+              
 
-
+                    <div className={this.state.scrolled ? ' nav scrolled' : 'nav'}>
                     <div className='container'>
                       <div classname='row'>
                         <nav className="navbar navbar-expand-lg navbar-light bg-light nav1 col-lg-12" >
@@ -200,6 +183,7 @@ class Navbar extends Component{
                         </div>
                         </nav>
                      </div>
+                    </div>
                     </div>
                     </div>
 

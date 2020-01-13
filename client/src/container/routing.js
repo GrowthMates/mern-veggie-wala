@@ -58,7 +58,7 @@ render(){
                <Switch>
                    <Route exact path='/' component={Home} />
                    <Route path='/about' component={About} />
-                   <Route exact path="/information" component={Information} />
+                   <Route exact path="/information"  />
                    <Route path='/contact' component={Contact} />
                    <Route path='/combined' component={Combined} />
                    <Route path='/product/:id' component={Product} />

@@ -20,13 +20,13 @@ import './adminDashboard.css'
             delProduct: [],
             edit: false,
             price: undefined,
-            name: '',
+            name: undefined,
             stocke: undefined,
             currentRow: [],
             updateProductId: undefined,
             adddPrice: undefined,
             adddStock: undefined,
-            adddName: undefined,
+            addName: undefined,
             adddDescription: undefined,
         }
     }
@@ -47,10 +47,13 @@ import './adminDashboard.css'
         );
     }
 
-    delete(key,index){
+    delete(key,index,e){
+        e.preventDefault()
         console.log(key, 'id')
-
-        axios.post("http://localhost:5000/api/delProducts", key)
+        let id = {
+            key,
+        }
+        axios.post("http://localhost:5000/api/delProducts", id)
             .then(res => {
 
                 // cartProducts.splice(index,1);
@@ -184,7 +187,7 @@ import './adminDashboard.css'
                                       <TextField label="Image"
                                        /> <br/>
                                       <TextField value={this.state.addName} 
-                                         onChange={eve => this.setState({adddName: eve.target.value} )} label="Name" /> <br/>
+                                         onChange={eve => this.setState({addName: eve.target.value} )} label="Name" /> <br/>
                                       <TextField value={this.state.addPrice} 
                                          onChange={eve => this.setState({addPrice: eve.target.value} )} label="Price" /> <br/>
                                       <TextField value={this.state.addStock} 
@@ -235,7 +238,29 @@ import './adminDashboard.css'
                                                 { this.state.edit === false ?
                                                      <div>
                                                         <img onClick={this.edit.bind(this,i._id,index)} width='22' height='22' src={tree}  />
-                                                         <img onClick={this.delete.bind(this,)} width='22' height='22'   src={heart} />
+                                                         <img  width='22' height='22'   src={heart} data-toggle="modal" data-target={`#exampleModalCenter${index}`} />
+                                                         {/* modal */}
+                   
+                                                            <div class="modal fade" id={`exampleModalCenter${index}`} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    ...
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button onClick={this.delete.bind(this,i._id,index)} class="btn btn-primary">Delete Product</button>
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                    </div>
+
                                                      </div> 
                                                        : void(0)
                                                      

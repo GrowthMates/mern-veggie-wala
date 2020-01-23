@@ -33,9 +33,9 @@ import {addToCart} from '../../../actions/productsAction'
         ,10800000)
         
      }
+     
      componentDidMount(){
-         console.log('local styorge',this.state.cartProducts)
-         
+         console.log('local styorge',this.state.cartProducts)         
      }
 
     //  try{

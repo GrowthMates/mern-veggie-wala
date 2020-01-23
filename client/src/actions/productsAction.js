@@ -6,6 +6,7 @@ import {
   CART_PRODUCTS,
   ADD_CART,
   PROCEED_PRODUCT,
+  UPDATE_PRODUCT,
 } from "./types";
 
 var arr=JSON.parse(localStorage.getItem('CartProduct')) || [];
@@ -244,6 +245,21 @@ export const getProducts = (productData, history) => dispatch => {
       })
       .catch(err => {
         console.log('create product error......., ', err.message)
+      })
+  }
+
+  export const updateProduct = (updatePoduct) => dispatch => {
+    axios
+      .put('http://localhost:5000/api/updateProducts',updatePoduct)
+      .then(res => {
+        dispatch({
+          type: UPDATE_PRODUCT,
+          payload: res.data
+        })
+        console.log('Update product admin sy ka data ', res.data)
+      })
+      .catch(err => {
+        console.log('Update product error......., ', err.message)
       })
   }
 

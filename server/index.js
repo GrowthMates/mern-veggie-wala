@@ -68,7 +68,7 @@ setTimeout(()=>{
 
     // app.get('/api/delProducts', adminController.delProducts);
     //When a admin update a current product. Need request parameter since updating a specific product based on  the id.
-    app.put('/api/products/:id', adminController.updateProduct);
+    app.put('/api/updateProducts', adminController.updateProduct);
     //When a admin deletes a product, need an id to specify a product to delete.
     app.post('/api/delProducts', adminController.deleteProduct);
 

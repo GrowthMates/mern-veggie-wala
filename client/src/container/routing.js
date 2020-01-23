@@ -11,6 +11,7 @@ import About from '../components/centralized/about';
 import Navbar from '../components/centralized/navbar';
 // import AdminDashboard from '../components/admin/dashboard';
 import BookedOrder from '../components/admin/bookedOrder';
+import Admin from '../components/admin/dashboard';
 import AddProducts from '../components/admin/addProducts';
 import DelProducts from '../components/admin/delProducts';
 // import UserDashboard from '../components/users/dashboard';
@@ -22,7 +23,7 @@ import Information from '../components/products/information' ;
 import PrivateRoute from "../components/private-route/PrivateRoute";
 import Dashboard from "../components/dashboard/Dashboard"; 
 import Cart from '../components/users/userCart/cart'  
-import Admin from '../components/admin/dashboard';
+// import Admin from '../components/admin/dashboard';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -57,7 +58,7 @@ render(){
                <Switch>
                    <Route exact path='/' component={Home} />
                    <Route path='/about' component={About} />
-                   <Route exact path="/information" component={Information} />
+                   <Route exact path="/information"  />
                    <Route path='/contact' component={Contact} />
                    <Route path='/combined' component={Combined} />
                    <Route path='/product/:id' component={Product} />

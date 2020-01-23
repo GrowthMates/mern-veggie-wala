@@ -32,14 +32,15 @@ module.exports = {
         .catch((err) => {console.log('Product save err---------:',err)})
 
     },
-    
+
     updateProduct(req, res){
 
-        const { id } = req.params;
-        const { name, description, price } = req.body;
+        // const { id } = req.params;
+        const { name, id, price,stock } = req.body;
+        console.log(req.body)
         Product.findById(id).exec((err, product)=>{
             product.name=name;
-            product.description=description;
+            product.stock=stock;
             product.price=price;
             product.save().then(()=>{
                 res.status(200).json({product})
@@ -50,8 +51,8 @@ module.exports = {
     deleteProduct(req, res){
 
         const { key } = req.body;
-        console.log(req.body)
-        Product.findOneAndDelete(key)
+        console.log(key)
+        Product.findByIdAndDelete(key)
         .then(cart => {cart.remove().then(() => res.json({ success: true,cart }))})
         .catch(err => res.status(404).json({ success: false }));
     },

@@ -1,9 +1,9 @@
 import React,{Component} from 'react';
-import axios from 'axios'
-import frt1 from './images/frt1.jpeg'
-import frt2 from './images/frt2.jpeg'
-import veg1 from './images/veg1.jpeg'
-import veg2  from './images/veg2.jpeg'
+// import axios from 'axios'
+// import frt1 from './images/frt1.jpeg'
+// import frt2 from './images/frt2.jpeg'
+// import veg1 from './images/veg1.jpeg'
+// import veg2  from './images/veg2.jpeg'
 import fresh from './images/fresh.webp'
 import Center from './images/Center.webp'
 import eco from './images/eco.webp'
@@ -30,7 +30,7 @@ import plums from './images/plums.webp'
 import pchs from './images/pchs.webp'
 import cmbr from './images/cmbr.webp'
 import mrtls from './images/mrtls.webp'
-import spice from './images/spice.png'
+// import spice from './images/spice.png'
 import l1 from './images/l1.webp'
 import l2 from './images/l2.webp'
 import l3 from './images/l3.webp'
@@ -39,13 +39,13 @@ import l5 from './images/l5.webp'
 import l6 from './images/l6.webp'
 import h1 from './images/h1.webp'
 import h2 from './images/h2.webp'
-import bgLower from './images/bgLower.webp'
+// import bgLower from './images/bgLower.webp'
 
 
 // import premium from './images/premium.webp'
 
 import './style/home.css'
-import Axios from 'axios';
+// import Axios from 'axios';
 
 
 export default class Home extends Component{
@@ -118,23 +118,23 @@ export default class Home extends Component{
                <div className='container'>
                     <div className='row topProd' >
                         <div className='col-lg-3' >
-                            <img  src={plums} width='270' hwight='289' />
+                            <img  src={plums} width='270' height='289' alt='' />
                         </div>
                         <div className='col-lg-3' >
-                          <img  src={pchs} width='270' hwight='289' />
+                          <img  src={pchs} width='270' height='289' alt=''/>
                         </div>
                         <div className='col-lg-3' >
-                          <img  src={cmbr} width='270' hwight='289' />
+                          <img  src={cmbr} width='270' height='289' alt=''/>
                         </div>
                         <div className='col-lg-3' >
-                          <img  src={mrtls} width='270' hwight='289' />
+                          <img  src={mrtls} width='270' height='289' alt=''/>
                         </div>
 
                     </div>
                </div>
 
                <div className='homeMiddle'>
-                  <img src={leaf} width='190' height='40' />
+                  <img src={leaf} width='190' height='40' alt=''/>
                    <h2 style={{color: '#5ba616'}}>We GrowBest Food</h2>
                    <h6  style={{color: '#949494',fontSize: '0.8em', opacity: '0.8'}} > <i>It is a long established fact that a reader will be distracted by the readable</i></h6>
                </div>
@@ -142,30 +142,30 @@ export default class Home extends Component{
                <div className='container threeMiddlw'>
                     <div className='row' >
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 middleLeft' >
-                            <img src={fresh} />
+                            <img src={fresh} alt=''/>
                             <h4>Fresh</h4>
                             <p>There are many a variations passages Ipsum available, a majority have</p>
 
-                            <img src={hearts} />
+                            <img src={hearts} alt=''/>
                             <h4>Healthy</h4>
                             <p>There are many a variations passages Ipsum available, a majority have</p>
 
-                            <img src={eco} />
+                            <img src={eco} alt=''/>
                             <h4>Eco</h4>
                             <p>There are many a variations passages Ipsum available, a majority have</p>
                         </div>
                         <div className='col-lg-6 col-md-12 col-sm-12 col-xs-12' >
-                            <img src={Center} height='380' />
+                            <img src={Center} height='380' alt=''/>
                         </div>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 middleRight' >
                             <h4>Tasty</h4>
-                            <img src={tasty} />
+                            <img src={tasty} alt=''/>
                             <p>There are many a variations passages Ipsum available, a majority have</p>
                             <h4>Yammu</h4>
-                            <img src={yammy} />
+                            <img src={yammy} alt=''/>
                             <p>There are many a variations passages Ipsum available, a majority have</p>
                             <h4>Pemium</h4>
-                            <img src={yammy} />
+                            <img src={yammy} alt=''/>
                             <p>There are many a variations passages Ipsum available, a majority have</p>
                         </div>
                     </div>
@@ -174,17 +174,17 @@ export default class Home extends Component{
                 <div className='container'>
                     <div className='row'>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow ' >
-                            <img src={dlv} width='56' height='42' />
+                            <img src={dlv} width='56' height='42' alt=''/>
                             <h4>Fast Delivery</h4>
                             <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}}>Delivery wIthin 12 hour</p>
                         </div>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow' >
-                            <img  src={ser} width='49' height='42'/>
+                            <img  src={ser} width='49' height='42' alt=''/>
                             <h4>Best Services</h4>
                             <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}} >Support online 24/7</p>
                         </div>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow' >
-                            <img src={all} width='49' height='42' />
+                            <img src={all} width='49' height='42' alt=''/>
                             <h4>All-in-one</h4>
                             <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}} >Fruits&Vegetable</p>
                         </div>
@@ -192,7 +192,7 @@ export default class Home extends Component{
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow' >                          
                  
 
-                            <img src={love} width='49' height='42'/>
+                            <img src={love} width='49' height='42' alt=''/>
                             <h4>Made with Love</h4>
                             <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}} >Best Services</p>
                         
@@ -206,22 +206,22 @@ export default class Home extends Component{
                            {/* <div className='topInner'>
                                 <p>-57%</p>
                             </div> */}
-                            <img src={bana3} width='270' height='270' />
+                            <img src={bana3} width='270' height='270' alt=''/>
                             <div className='lowerProd' >
                            
-                                <img src={shoppingcart1} width='25' height='25' />
-                                <img src={heart1} width='23' height='23' />
-                                <img src={search1} width='23' height='23' />                                
+                                <img src={shoppingcart1} width='25' height='25' alt=''/>
+                                <img src={heart1} width='23' height='23' alt=''/>
+                                <img src={search1} width='23' height='23' alt=''/>                                
                             </div>
                             <h5  >Banana</h5>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$20</h5>
                         </div>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p2' >
-                            <img src={jack} width='270' height='270' /> 
+                            <img src={jack} width='270' height='270' alt=''/> 
                             <div className='lowerProd' >
-                                <img src={shoppingcart1} width='23' height='23' />
-                                <img src={heart1} width='23' height='23' />
-                                <img src={search1} width='23' height='23' />                                
+                                <img src={shoppingcart1} width='23' height='23' alt=''/>
+                                <img src={heart1} width='23' height='23' alt=''/>
+                                <img src={search1} width='23' height='23' alt=''/>                                
                             </div>
                             <h5 >JackFruits</h5>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$40</h5>
@@ -231,22 +231,22 @@ export default class Home extends Component{
                             {/* <div className='topInner'>
                                 <p>-27%</p>
                             </div> */}
-                            <img src={kiwi3} width='270' height='270' />
+                            <img src={kiwi3} width='270' height='270' alt=''/>
                             <div className='lowerProd' >
-                                <img src={shoppingcart1} width='23' height='23' />
-                                <img src={heart1} width='23' height='23' />
-                                <img src={search1} width='23' height='23' />                                
+                                <img src={shoppingcart1} width='23' height='23' alt=''/>
+                                <img src={heart1} width='23' height='23' alt=''/>
+                                <img src={search1} width='23' height='23' alt=''/>                                
                             </div>
 
                             <h5 >Kiwi</h5>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$80</h5>
                         </div>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p4' >
-                            <img src={papa4} width='270' height='270' />
+                            <img src={papa4} width='270' height='270' alt=''/>
                             <div className='lowerProd' >
-                                <img src={shoppingcart1} width='23' height='23' />
-                                <img src={heart1} width='23' height='23' />
-                                <img src={search1} width='23' height='23' />                                
+                                <img src={shoppingcart1} width='23' height='23' alt='' />
+                                <img src={heart1} width='23' height='23' alt=''/>
+                                <img src={search1} width='23' height='23' alt=''/>                                
                             </div>
                             <h5 >Papaya </h5>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$220</h5>
@@ -258,43 +258,43 @@ export default class Home extends Component{
                 <div className='container' style={{marginTop: '30px'}} >
                     <div className='row '>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p1' >
-                            <img src={apple} width='270' height='270' />
+                            <img src={apple} width='270' height='270' alt=''/>
                             <div className='lowerProd' >
-                                <img src={shoppingcart1} width='25' height='25' />
-                                <img src={heart1} width='23' height='23' />
-                                <img src={search1} width='23' height='23' />                                
+                                <img src={shoppingcart1} width='25' height='25' alt=''/>
+                                <img src={heart1} width='23' height='23' alt=''/>
+                                <img src={search1} width='23' height='23' alt=''/>                                
                             </div>
                             <h5  >Banana</h5>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$20</h5>
                         </div>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p2' >
-                            <img src={low2} width='270' height='270' /> 
+                            <img src={low2} width='270' height='270' alt=''/> 
                             <div className='lowerProd' >
-                                <img src={shoppingcart1} width='23' height='23' />
-                                <img src={heart1} width='23' height='23' />
-                                <img src={search1} width='23' height='23' />                                
+                                <img src={shoppingcart1} width='23' height='23' alt=''/>
+                                <img src={heart1} width='23' height='23' alt=''/>
+                                <img src={search1} width='23' height='23' alt=''/>                                
                             </div>
                             <h5 >JackFruits</h5>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$40</h5>
 
                         </div>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p3' >
-                            <img src={low3} width='270' height='270' />
+                            <img src={low3} width='270' height='270' alt=''/>
                             <div className='lowerProd' >
-                                <img src={shoppingcart1} width='23' height='23' />
-                                <img src={heart1} width='23' height='23' />
-                                <img src={search1} width='23' height='23' />                                
+                                <img src={shoppingcart1} width='23' height='23' alt=''/>
+                                <img src={heart1} width='23' height='23' alt=''/>
+                                <img src={search1} width='23' height='23' alt=''/>                                
                             </div>
 
                             <h5 >Kiwi</h5>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$80</h5>
                         </div>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p4' >
-                            <img src={low4} width='270' height='270' />
+                            <img src={low4} width='270' height='270' alt=''/>
                             <div className='lowerProd' >
-                                <img src={shoppingcart1} width='23' height='23' />
-                                <img src={heart1} width='23' height='23' />
-                                <img src={search1} width='23' height='23' />                                
+                                <img src={shoppingcart1} width='23' height='23' alt=''/>
+                                <img src={heart1} width='23' height='23' alt=''/>
+                                <img src={search1} width='23' height='23' alt=''/>                                
                             </div>
                             <h5 >Papaya </h5>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$220</h5>
@@ -321,7 +321,7 @@ export default class Home extends Component{
                 </div> */}
 
                 <div className='homeMiddle'>
-                  <img src={leaf} width='190' height='40' />
+                  <img src={leaf} width='190' height='40' alt=''/>
                    <h2 style={{color: '#5ba616'}}>Our Supplier</h2>
                    <h6  style={{color: '#949494',fontSize: '0.8em', opacity: '0.8'}} > <i>We present our achievement and and awards</i></h6>
                </div>
@@ -329,22 +329,22 @@ export default class Home extends Component{
                <div className='container' style={{marginTop: '40px', marginBottom: '130px'}}  >
                 <div className='row' >
                     <div className='col-lg-2' >
-                        <img src={l1} />
+                        <img src={l1} alt=''/>
                     </div>
                     <div className='col-lg-2' >
-                     <img src={l2} />
+                     <img src={l2} alt=''/>
                     </div>
                     <div className='col-lg-2' >
-                     <img src={l3} />
+                     <img src={l3} alt=''/>
                     </div>
                     <div className='col-lg-2' >
-                     <img src={l4} />
+                     <img src={l4} alt=''/>
                     </div>
                     <div className='col-lg-2' >
-                     <img src={l5} />
+                     <img src={l5} alt=''/>
                     </div>
                     <div className='col-lg-2' >
-                     <img src={l6} />
+                     <img src={l6} alt=''/>
                     </div>
                 </div>
                </div>

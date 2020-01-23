@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter ,Redirect,Link,Route, Switch} from 'react-router-dom';
+import {BrowserRouter ,Route, Switch} from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "../actions/authActions";
@@ -9,12 +9,12 @@ import Home from '../components/centralized/home';
 import Contact from '../components/centralized/contact';
 import About from '../components/centralized/about';
 import Navbar from '../components/centralized/navbar';
-import AdminDashboard from '../components/admin/dashboard';
+// import AdminDashboard from '../components/admin/dashboard';
 import BookedOrder from '../components/admin/bookedOrder';
 import Admin from '../components/admin/dashboard';
 import AddProducts from '../components/admin/addProducts';
 import DelProducts from '../components/admin/delProducts';
-import UserDashboard from '../components/users/dashboard';
+// import UserDashboard from '../components/users/dashboard';
 import Footer from '../components/centralized/footer'
 import Product from '../components/products/product'
 import Combined from '../components/authentication/combine'    

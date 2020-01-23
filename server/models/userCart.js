@@ -6,11 +6,7 @@ const UserCart = new Schema({
         productId: String,
         name: String,
         price: Number,
-        quantity:{
-                type:Number,
-                default: 1
-        },
-        
+        quantity:Number
 
 });
 module.exports = mongoose.model('UserCart',UserCart);

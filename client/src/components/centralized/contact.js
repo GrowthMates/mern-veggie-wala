@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import images from './images/images.jpg'
+// import images from './images/images.jpg'
 import './contact.css'
 
 

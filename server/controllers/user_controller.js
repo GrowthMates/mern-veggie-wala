@@ -30,7 +30,7 @@ module.exports = {
             Product.findByIdAndUpdate(productId,{ $inc: { stock: -1 } }).then((product)=>{
                 currentProduct=product
                 console.log('ProductUpdate success: ',product)
-            })    
+            })     
             res.status(200).json({success:true, data})
         })
                 .catch(err => {
@@ -54,15 +54,76 @@ module.exports = {
 
     },
 
+    updateCart(req, res){
+        var {qnty}=req.body
+        console.log('Update',req.body)
+        var finalArr=[]
+        qnty.forEach((element,index )=> {
+            
+            const { cartSchemaId,filterProduct, quantity } = element
+           
+            UserCart.findById(cartSchemaId).exec((err, productCart)=>{
+                if(err){
+                    console.log('Err usercart',err.message)
+                }
+               else{ 
+                   if(productCart.quantity!=qnty[index].quantity){
+                    var newStock = productCart.quantity-qnty[index].quantity
+                    console.log('New Stock=====',newStock)
+                    return (
+                         Product.findById(filterProduct._id).then((product)=>{
+                        currentProduct=product
+                        console.log('UpdateCart Change Stock success:===== ',product)
+                        product.stock=product.stock+newStock
+                        product.save().then((success)=>{
+                        console.log('PeoductNew Stock======',product.stock)
+                        productCart.quantity = qnty[index].quantity
+                        productCart.save().then(()=>{
+    
+                        finalArr.push(productCart);
+                        console.log('If FinalArray====',finalArr,index,qnty.length-1)
+                        if(finalArr.length==qnty.length){
+                            res.status(200).json({finalArr})
+                        }
+                    })
+                    });
+                    })    )
+                    }
+                    else{
+                        console.log('Else New Stock=====',productCart.quantity,quantity)
+                        productCart.quantity = quantity
+                        productCart.save().then(()=>{
+    
+                        finalArr.push(productCart)
+                        if(finalArr.length==qnty.length){
+                            console.log('Else FinalArray====',finalArr,index,qnty.length-1)
+                            res.status(200).json({finalArr})
+                        }
+                    })
+                    }
+                  }
+            })
+        });
+        
+
+    },
 
     //Need to be fixed........
     removeFromCart(req, res){
         // const { id } = req.params;
-        const { key } = req.body;
+        const { key,productId,quantity } = req.body;
         console.log(req.body);
 
         UserCart.findOneAndDelete(key)
-        .then(cart => {cart.remove().then(() => res.json({ success: true,cart }))})
+        .then(cart => {cart.remove()
+                      .then(() =>{
+                        Product.findById(productId).then((res)=>{
+                            res.stock=res.stock+quantity
+                            res.save().then(success=>console.log('deletecart added stock===',success))
+                        })
+                        res.json({ success: true,cart })
+                        })
+                    })
         .catch(err => {res.status(404).json({ success: false })
     console.log(err.message)
     });

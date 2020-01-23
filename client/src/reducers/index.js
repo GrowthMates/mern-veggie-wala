@@ -8,5 +8,5 @@ export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
   products : productsReducer,
-  cart: cartReducer
+  cartReducer: cartReducer
 });

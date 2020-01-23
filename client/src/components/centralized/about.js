@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Link,BrowserRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import './about.css'
 
 import male1 from './images/male1.jpeg'

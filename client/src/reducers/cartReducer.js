@@ -1,18 +1,24 @@
 import {
     CART_PRODUCTS,
   } from "../actions/types";
+import axios from "axios";
   const isEmpty = require("is-empty");
   const initialState = {
-    products: undefined,
-    cartProducts: undefined ,
     loading: false,
     cart: undefined
   };
+  const newCart=  JSON.parse(localStorage.getItem('CartProduct'));
+  console.log('newCart==========',newCart)
   export default function(state = initialState, action) {
+    if(state.cart==undefined){
+      state.cart=newCart
+    }
     switch (action.type) {
       case CART_PRODUCTS:
+        // console.log('cartproduct type----------',...state)
         return {
           ...state,
+          loading: true,
         //   isAuthenticated: !isEmpty(action.payload),
          cart: action.payload,
                 // cartProducts: 

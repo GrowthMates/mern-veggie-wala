@@ -21,12 +21,12 @@ import {
         //   isAuthenticated: !isEmpty(action.payload),
           products: action.payload
         };
-        case CART_PRODUCTS:
-            return {
-                ...state,
-                cart: action.payload,
-                // cartProducts: action.payload
-            };
+        // case CART_PRODUCTS:
+        //     return {
+        //         ...state,
+        //         cart: action.payload,
+        //         // cartProducts: action.payload
+        //     };
         case USER_LOADING:
             return {
               ...state,

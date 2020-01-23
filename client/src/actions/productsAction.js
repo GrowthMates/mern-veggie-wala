@@ -74,7 +74,7 @@ export const getProducts = (productData, history) => dispatch => {
 
                         var newProd = {
                           filterProduct: filterObj[0],
-                          cartSchemaId:  currId.productId,
+                          cartSchemaId:   currId._id,
                           quantity:      currId.quantity,
                         }
                         arr.push(newProd)
@@ -91,11 +91,33 @@ export const getProducts = (productData, history) => dispatch => {
                         dispatch({
                           type: GET_ERRORS,
                           payload: err.message
-                        }))}
+                        })
+                        )}
                       );
                 
                       }
-
+    //                   else{
+    //                     var newArr=[{filterProduct:result.filterProduct,cartSchemaId:result.cartSchemaId,quantity:result.quantity+1}]
+    //                     const update = {
+    //                       qnty: newArr
+    //                     }
+    //                     console.log('Api Call se pehle newArr----',result,newArr,arr)
+    //                     axios.put("http://localhost:5000/api/user-data/updateCart", update )
+    //                     .then(res => {
+    //                         console.log('Update cart res----',res.data)
+    //                         var matchItem = arr.findIndex(i => i._id == result.cartSchemaId );
+    //                          arr.splice(matchItem,1,newArr[0])
+    //                          console.log('Api Call k bd newArr----',newArr,arr)
+    //  //need to be update .... // localStorage.setItem('CartProduct',JSON.stringify(arr))
+    //                         // console.log(this.state.cartProducts)
+    //                         // this.setState({tick:'inline',loader:'none'})
+                       
+    //                     })
+                
+    //                     .catch(err => {
+    //                         console.log('cart update ka error.. >',err.message)
+    //                     })
+    //                   }
 
             }
             else
@@ -107,7 +129,7 @@ export const getProducts = (productData, history) => dispatch => {
                        
                          localStorage.setItem('addCart',JSON.stringify(res.data))
                           console.log('ProductId API', productCart.productId)
-                        var currId = JSON.parse(localStorage.getItem('addCart')).data.productId
+                        var currId = JSON.parse(localStorage.getItem('addCart')).data
                         console.log(currId, 'abhi ki id') 
             
                         var prod = JSON.parse(localStorage.getItem('Products'));
@@ -121,7 +143,9 @@ export const getProducts = (productData, history) => dispatch => {
                     console.log('filterObject[0]-----',filterObj[0])
                     var newProd = {
                       filterProduct: filterObj[0],
-                      cartSchemaId:  currId
+                      // matchId: currId._id,
+                      cartSchemaId:  currId._id,
+                      quantity: productCart.quantity
                     }
                     // arr=[]
                      arr.length=0;
@@ -129,11 +153,15 @@ export const getProducts = (productData, history) => dispatch => {
                     arr.push(newProd)
                     localStorage.setItem('CartProduct', JSON.stringify(arr))
 
+                    dispatch({
+                      type: CART_PRODUCTS,
+                      payload: arr
+                    })
 
                   }) 
                   .catch(err =>
                     {
-                    console.log('Cart reducer err---- ', err.message);
+                    console.log('Cart reducer err---- ', err);
                             return(
                     dispatch({
                       type: GET_ERRORS,
@@ -168,10 +196,10 @@ export const getProducts = (productData, history) => dispatch => {
                       localStorage.setItem('UserCart',JSON.stringify(res.data))
                       console.log('Cart in local-----:',localStorage.getItem('UserCart') )
                       
-                          dispatch({
-                              type: CART_PRODUCTS,
-                              payload: res.data
-                            })
+                          // dispatch({
+                          //     type: CART_PRODUCTS,
+                          //     payload: res.data
+                          //   })
                        
                             // history.push('/cart');
                             console.log("Products sent in cart success", res.data);

@@ -52,6 +52,11 @@ componentWillReceiveProps(nextProps){
     }
 }
 
+onChangeQty(e){
+ e.preventDefault();
+ this.setState({quantity: parseInt(e.target.value)})
+}
+
  onSubmit=(id,e)=>{
     e.preventDefault();
     console.log('onsubmit',id)
@@ -64,7 +69,7 @@ componentWillReceiveProps(nextProps){
     
     let productId = {
         productId: id,
-        quantity:1
+        quantity:this.state.quantity
     }
 
     // this.props.history.push('/cart')
@@ -78,7 +83,7 @@ componentWillReceiveProps(nextProps){
 
 
     render(){
-        console.log('Product Compnents',this.state.product)
+        console.log('Product Compnents',this.state.product,this.state.quantity)
         var currProduct=this.state.product
         return(
             <div>
@@ -133,7 +138,7 @@ componentWillReceiveProps(nextProps){
 
                                                 <div className="col-md-5 col-lg-5 col-sm-5" style={{float:'right'}}>
                                                 <label for="quantity" >QUANTITY</label>
-                                                <input type="number" name="quantity" min="1" defaultValue='1' className="form-control qty-inp" id="quantity"/>
+                                                <input onChange={this.onChangeQty.bind(this)} type="number" name="quantity" min="1" defaultValue='1' value={this.state.value} className="form-control qty-inp" id="quantity"/>
 
                                                 </div>          
                                         </div>

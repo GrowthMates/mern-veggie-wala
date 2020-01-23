@@ -11,18 +11,19 @@ import axios from 'axios'
 
 
 class Navbar extends Component{
- 
-    state = {
+ constructor(){
+     super();
+    this.state = {
         windowWidth: window.innerWidth,
         mobileNavVisible: false,
         scrollled: undefined,
         evein: true,
 
-        cartItem: JSON.parse(localStorage.getItem('CartProduct')) || [],
-        qty: 0
+        // cartItem: JSON.parse(localStorage.getItem('CartProduct')) || [],
+        qty: undefined
 
     }
-
+}
     handleResize() {
         this.setState({windowWidth: window.innerWidth, mobileNavVisible: !this.state.mobileNavVisible, evein: !this.state.evein});
         console.log('resize')
@@ -40,21 +41,21 @@ class Navbar extends Component{
             }
         })
 
-        console.log(this.state.cartItem.length, 'navbar will mnt')
+        // console.log(this.state.cartItem.length, 'navbar will mnt')
 
         // window.addEventListener('resize', this.handleResize.bind(this));
     }
    
              
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps,props) {
         if (nextProps) {
         // var item = nextProps.cartProducts.cart.length
-        // this.setState({
-        //     qty: item,
+         console.log('nextprops navbar sy---------',nextProps,props)
+        this.setState({
+            qty: nextProps.cartProducts,
             
-        // })
-        //  console.log(item, 'nextprops navbar sy')
-             console.log(this.state.cartItem, 'navbar will mnt')
+        })
+             console.log(this.state.qty, 'navbar will mnt')
 
         }
       }
@@ -109,13 +110,11 @@ class Navbar extends Component{
                                          <img className='cursor-pointer' src={heart}  width='20' height='20.52' />
                                          <span> | </span>
 
-                                         <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/> 
+                                         {/* <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/>  */}
                                          
-                                                <sup>{ this.props.cartProducts === 0 ?
-                                                this.state.cartItem.length : this.props.cartProducts || this.state.cartItem.length === 0 ?
-                                                this.props.cartProducts : this.state.cartItem.length} </sup>
+                                                {/* <sup>  { this.state.qty} </sup> */}
 
-                                         <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/> <sup>{this.state.cartItem.length}</sup>
+                                         <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/> <sup>{this.state.qty || this.props.cartProducts }</sup>
 
                                      </div>
                                     
@@ -213,9 +212,9 @@ class Navbar extends Component{
 // redux
 
 const mapStateToProps = state => {
-    console.log(state.products.cart.length)
+    // console.log('Navbar nunnuu-------',state.cartReducer.cart.length)
         return {
-            cartProducts: state.products.cart.length
+            cartProducts: state.cartReducer.cart.length
 
         }
   };

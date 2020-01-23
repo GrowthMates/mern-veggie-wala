@@ -39,6 +39,8 @@ setTimeout(()=>{
     app.get('/api/user-data', userController.readUserData);
     //Add a item to cart.
     app.post('/api/user-data/addToCart', userController.addToCart);
+    //update cart item
+    app.put('/api/user-data/updateCart', userController.updateCart);
     //view cart items
     app.get('/api/user-data/cart', userController.viewCart);
     //Remove a item from the cart.

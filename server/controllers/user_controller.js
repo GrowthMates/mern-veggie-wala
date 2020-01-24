@@ -67,6 +67,7 @@ module.exports = {
                     console.log('Err usercart',err.message)
                 }
                else{ 
+                   console.log("Product Cart Quantity------",productCart)
                    if(productCart.quantity!=qnty[index].quantity){
                     var newStock = productCart.quantity-qnty[index].quantity
                     console.log('New Stock=====',newStock)

@@ -3,22 +3,27 @@ import {
     USER_LOADING,
     CART_PRODUCTS
   } from "../actions/types";
+  import axios from 'axios'
+import { getProducts } from "../actions/productsAction";
   const isEmpty = require("is-empty");
   const initialState = {
     products: undefined,
     cart:[],
     cartProducts: undefined ||JSON.parse(localStorage.getItem('UserCart')) ,
-    loading: false
+    loading: false,
+    apiProducts:undefined
   };
-  export default function(state = initialState, action) {
 
-// var lclcrt = cart.push
-
+  
+  export default  function(state = initialState, action) {
+ 
+  console.log('get product ne bulaya h=======',action)
     switch (action.type) {
       case GET_PRODUCTS:
         return {
           ...state,
         //   isAuthenticated: !isEmpty(action.payload),
+          loading: true,
           products: action.payload
         };
         // case CART_PRODUCTS:

@@ -198,7 +198,7 @@ class Navbar extends Component{
 
                     <div className={this.state.scrolled ? ' nav scrolled' : 'nav'}>
                     <div className='container'>
-                      <div classname='row'>
+                      <div className='row'>
                         <nav className="navbar navbar-expand-lg navbar-light bg-light nav1 col-lg-12" >
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
@@ -238,6 +238,11 @@ class Navbar extends Component{
                               <hr className='hra' />
 
                             </li>
+                            <li className="nav-item col-lg-2">
+                              <Link to='/collections' className="nav-link">Collections</Link>
+                              <hr className='hra' />
+
+                            </li>
                             </ul>
                             </div>
                         </div>
@@ -257,9 +262,16 @@ class Navbar extends Component{
 
 const mapStateToProps = state => {
     // console.log('Navbar nunnuu-------',state.cartReducer.cart.length)
-        return {
+    if(state.cartReducer.cart)
+        {return {
             cartProducts: state.cartReducer.cart.length
 
+        }}
+        else{
+            return {
+                cartProducts:0
+    
+            }
         }
   };
   export default connect(

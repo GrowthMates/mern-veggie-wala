@@ -8,7 +8,7 @@ import heart from '../centralized/images/del.png'
 import tick from '../centralized/images/tick.png'
 import x from '../centralized/images/x.png'
 import eco from '../centralized/images/eco.webp'
-import {updateProduct,addProduct} from'../../actions/productsAction'
+import {updateProduct,addProduct,getProducts} from'../../actions/productsAction'
 import './adminDashboard.css'
 
 
@@ -28,8 +28,33 @@ import './adminDashboard.css'
             adddStock: undefined,
             addName: undefined,
             adddDescription: undefined,
+            dataState:false,
         }
     }
+    componentWillMount(){
+
+console.log('WillMount Admin -------')
+
+    }
+
+    componentWillReceiveProps(nextProps){
+
+        console.log('props admin will rcve props sy', nextProps);
+        this.setState({
+            bookedOrderData: nextProps.products
+        })
+    }
+    // shouldComponentUpdate(nextProps,nextState){
+    //     console.log('should Update admin=======',nextProps,nextState)
+    //     if(nextState.dataState==true){
+    //         console.log('NExtstate.datastate======',nextState.dataState)
+    //         // this.props.getProducts();
+    //         return true
+    //     }
+    //     else{
+    //         return true
+    //     }
+    // }
 
     componentDidMount(){
         axios
@@ -124,11 +149,13 @@ import './adminDashboard.css'
        
         };
     this.props.addProduct(newProduct, this.props.history);
+
     this.setState({
       addName: "",
       addDescription: '',
-      addPrice: '',   
+      addPrice: '',
       addStock:'',
+      
        });
 
     console.log(newProduct)
@@ -153,6 +180,11 @@ import './adminDashboard.css'
        
 
     render(){
+        if(this.state.dataState==true){
+            console.log('Render Admin======')
+
+
+        }
         return(
             <div className='adminDashboard'>
                 <div className='row'>
@@ -309,7 +341,15 @@ import './adminDashboard.css'
     }
 }
 
+const mapStateToProps=(state)=>{
+  console.log('admin stateto props', state.products)
+
+  return{
+      products: state.products.products
+  }
+}
+
 export default connect(
-    null,
-    { addProduct,updateProduct }
+    mapStateToProps,
+    { addProduct,updateProduct,getProducts }
   )(withRouter(Admin));

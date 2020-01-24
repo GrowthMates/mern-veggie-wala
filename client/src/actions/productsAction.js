@@ -12,16 +12,18 @@ import {
 var arr=JSON.parse(localStorage.getItem('CartProduct')) || [];
 var getCartProdLocalStorage=[]
 
-export const getProducts = (productData, history) => dispatch => {
+ export const getProducts = () => dispatch => {
+  console.log('GEtPRoducts called=====')
     axios
-      .get("http://localhost:5000/api/products", productData)
+      .get("http://localhost:5000/api/products")
       .then((res) => {
                       console.log("Products success", res)
                       return(
-                          dispatch({
+                         dispatch({
                               type: GET_PRODUCTS,
                               payload: res.data
                             })
+                         
                             )    
                         }) // re-direct to login on successful register
       .catch(err =>
@@ -237,10 +239,7 @@ export const getProducts = (productData, history) => dispatch => {
     axios
       .post('http://localhost:5000/api/createProducts',newPoduct)
       .then(res => {
-        dispatch({
-          type: PROCEED_PRODUCT,
-          payload: res.data
-        })
+        dispatch(getProducts());
         console.log('create product admin sy ka data ', res.data)
       })
       .catch(err => {

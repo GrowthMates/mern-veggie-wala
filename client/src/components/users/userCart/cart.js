@@ -160,7 +160,7 @@ import {addToCart} from '../../../actions/productsAction'
      componentWillReceiveProps(nextProps){
 
          if(nextProps){
-             console.log("done h boss......",this.props.cartProducts)
+             console.log("done h boss......",this.props.products)
              console.log("nxt prop......",nextProps)
              this.setState({
                  loader:false
@@ -261,7 +261,7 @@ import {addToCart} from '../../../actions/productsAction'
         console.log("Reducer check cart prod.............", state.cartReducer.cart)
         return{ 
             cartProducts: state.cartReducer.cart,
-            
+            products: state.products,
         }
     } 
 

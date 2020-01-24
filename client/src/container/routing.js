@@ -1,5 +1,10 @@
 import React from 'react';
+
+import 
+ {getProducts}
+  from "../actions/productsAction";
 import {BrowserRouter ,Route, Switch} from 'react-router-dom';
+import {connect} from 'react-redux'
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "../actions/authActions";
@@ -45,8 +50,11 @@ if (localStorage.jwtToken) {
  class Routes extends React.Component{
 
 render(){
-    return (
-        <Provider store={store}>
+ 
+this.props.getProducts()
+  
+  return (
+    <Provider store={store}>
         <div>
             <BrowserRouter>
                 <div>
@@ -57,6 +65,7 @@ render(){
                    <Route exact path='/' component={Home} />
                    <Route path='/about' component={About} />                 
                    <Route path='/contact' component={Contact} />
+                   <Route path='/information' component={Information} />
                    <Route path='/combined' component={Combined} />
                    <Route path='/product/:id' component={Product} />
                    <Route exact path="/collections" component={Collections} />
@@ -81,4 +90,8 @@ render(){
  }
 }
 
-export default Routes
+
+export default connect(
+  null,
+  { getProducts }
+)(Routes); ;

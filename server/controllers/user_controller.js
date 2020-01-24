@@ -166,7 +166,7 @@ module.exports = {
     },
 
     proceed(req, res){
-        const {fname,lname,city,appartment,address,number,timeStamp} = req.body
+        const {fname,lname,city,appartment,address,number,timeStamp,cartProducts,quantity} = req.body
         console.log(req.body)
 
         let newProceed = new Proceed({
@@ -176,7 +176,12 @@ module.exports = {
             address,
             appartment,
             number,
-            timeStamp
+            timeStamp,
+            quantity: cartProducts.quantity,
+            price: cartProducts.filterProduct.price,
+            productName: cartProducts.filterProduct.name,
+           
+            
         });
 
         newProceed.save().then(data=>{

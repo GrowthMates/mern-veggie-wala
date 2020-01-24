@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter,Redirect } from "react-router-dom";
 import {connect} from 'react-redux'
 import './cart.css'
 import ImageApple from '../../centralized/images/apple.jpg'
@@ -24,7 +24,7 @@ import {addToCart} from '../../../actions/productsAction'
             tick:'none',
             cart:[],
             arr:[],
-            loader:'none'
+            loader:'none',
         }
 
         setTimeout(()=>{
@@ -153,8 +153,8 @@ import {addToCart} from '../../../actions/productsAction'
      }
 
      proceed(){
-        // console.log(this.props, 'props')
-        // this.props.history.push('/information')
+        this.props.history.push('/information')
+       
      }
 
      componentWillReceiveProps(nextProps){
@@ -172,10 +172,11 @@ import {addToCart} from '../../../actions/productsAction'
      }
 
      componentWillMount(){
-        console.log('WILL MOUNT')
+        console.log('props cart', this.props.cartReducers)
     }
 
         render(){
+           
             var arr=[0]
             
             return(
@@ -238,7 +239,7 @@ import {addToCart} from '../../../actions/productsAction'
                                     <b> <span style={{ color:'#5BA616',float:'right', marginRight:'25px', marginTop:'20px', fontSize:'20px'}}>Rs.{arr.reduce((a, b) => {return a + b})}</span></b>
                                     </div>
                                     <div >
-                                        <button onClick={this.proceed} type="submit" class="btn btn-success btn-lg cart-btn">PROCEED TO CKECKOUT</button>
+                                        <button onClick={this.proceed.bind(this)} type="submit" class="btn btn-success btn-lg cart-btn">PROCEED TO CKECKOUT</button>
                                     </div>
                                 </div>
                     </div>

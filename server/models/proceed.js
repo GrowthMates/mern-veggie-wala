@@ -31,6 +31,15 @@ const Proceed = new Schema({
     timeStamp:{
         type: String,
         required: true,
+    },
+    quantity: {
+        type: Number
+    },
+    price: {
+        type: Number
+    },
+    productName: {
+        type: String
     }
 });
 module.exports = mongoose.model('Proceed', Proceed);

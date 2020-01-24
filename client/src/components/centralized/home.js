@@ -75,7 +75,9 @@ export default class Home extends Component{
     //     );
     // }
 
-
+    changer(){
+        this.props.history.push('/collections')
+    }
     p1(){
         console.log('p1',)
         // this.props.history.push('/collections')  
@@ -85,7 +87,7 @@ export default class Home extends Component{
         return(
             <div>
              
-             <section  className='col-lg-12 homeImg'> 
+             <section onClick={this.changer.bind(this)}  className='col-lg-12 homeImg'> 
              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

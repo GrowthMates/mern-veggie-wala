@@ -33,7 +33,13 @@ class Information extends Component{
       let {number,address,fname,lname,appartment,city} = this.state;
 
       // getting date
-
+      var cartProducts;
+      var prod = this.props.cartProducts.forEach(i => {
+          return (
+            // console.log('for each' , i)
+            cartProducts=i
+          )
+      })
       var timeStamp = new Date()
       var date = timeStamp.getDate() + '-' + (timeStamp.getMonth()+1) + '-' + timeStamp.getFullYear() 
       var time = timeStamp.getHours() + '-' + timeStamp.getMinutes() + '-' + timeStamp.getSeconds() 
@@ -44,7 +50,10 @@ class Information extends Component{
         address,
         appartment,
         city ,
+        // productName,
+        // quantity: this.props.cartProducts.quantity,
         timeStamp: 'Date: ' +date +  '\n' + ' Time: '  + time,
+        cartProducts: this.props.cartProducts
       }
 
       this.props.proceed(newProceed)
@@ -121,7 +130,7 @@ class Information extends Component{
                     {/* <input  type="text" class="form-control " id="exampleInputPassword1" placeholder="City" /> <br/> */}
                   <div className='container'>
                    <div className='col-lg-6' style={{float: 'left', textAlign: 'left' , paddingLeft: '0px' }}>
-                     <Link> <span> <i class="fa fa-angle-left" style={{margin: '0px'}}></i> </span> Return to Cart</Link>
+                     <Link to='cart'> <span> <i class="fa fa-angle-left" style={{margin: '0px'}}></i> </span> Return to Cart</Link>
                     </div>
                     <div className='col-lg-6 ' style={{float: 'right', textAlign: 'right' , paddingRight: '0px' }}> 
                      <button onClick={this.onSubmit.bind(this)}  type="submit" class="btn btn-primary btn-block" style={{lineHeight: '50px'}}>Continue to shopping</button>
@@ -197,7 +206,16 @@ class Information extends Component{
     }
 }
 
+//redux
+
+const mapStateToProps =  (state) => {
+console.log('infor cart', state.cartReducer.cart)
+
+return{ 
+  cartProducts: state.cartReducer.cart,
+}
+}
 export default connect(
-  null,
+  mapStateToProps,
   { proceed }
 )(withRouter(Information));

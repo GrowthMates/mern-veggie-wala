@@ -80,7 +80,7 @@ console.log('WillMount Admin -------')
         }
         axios.post("http://localhost:5000/api/delProducts", id)
             .then(res => {
-
+              this.props.getProducts('Admin Delete');
                 // cartProducts.splice(index,1);
                 var delFromLocalStorage=this.state.bookedOrderData.findIndex(i=> i._id===key);
                 if(delFromLocalStorage!==-1){

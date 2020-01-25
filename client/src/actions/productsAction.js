@@ -12,8 +12,8 @@ import {
 var arr=JSON.parse(localStorage.getItem('CartProduct')) || [];
 var getCartProdLocalStorage=[]
 
- export const getProducts = () => dispatch => {
-  console.log('GEtPRoducts called=====')
+ export const getProducts = (caller) => dispatch => {
+  console.log(`GEtPRoducts called by ${caller}=====`)
     axios
       .get("http://localhost:5000/api/products")
       .then((res) => {
@@ -239,7 +239,7 @@ var getCartProdLocalStorage=[]
     axios
       .post('http://localhost:5000/api/createProducts',newPoduct)
       .then(res => {
-        dispatch(getProducts());
+        dispatch(getProducts('Add Products'));
         console.log('create product admin sy ka data ', res.data)
       })
       .catch(err => {

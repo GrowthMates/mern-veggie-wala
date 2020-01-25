@@ -10,7 +10,7 @@ import { getProducts } from "../actions/productsAction";
     products: undefined,
     cart:[],
     cartProducts: undefined ||JSON.parse(localStorage.getItem('UserCart')) ,
-    loading: false,
+    loading: true,
     apiProducts:undefined
   };
 
@@ -23,7 +23,7 @@ import { getProducts } from "../actions/productsAction";
         return {
           ...state,
         //   isAuthenticated: !isEmpty(action.payload),
-          loading: true,
+          loading: false,
           products: action.payload
         };
         // case CART_PRODUCTS:

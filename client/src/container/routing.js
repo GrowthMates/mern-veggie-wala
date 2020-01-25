@@ -53,10 +53,9 @@ if (localStorage.jwtToken) {
 
 render(){
  
-this.props.getProducts()
+this.props.getProducts('Routing')
   
   return (
-    <Provider store={store}>
         <div>
             <BrowserRouter>
             <div>
@@ -87,7 +86,6 @@ this.props.getProducts()
             </BrowserRouter>
 
         </div>
-        </Provider>
     )
  }
 }

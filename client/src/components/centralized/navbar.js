@@ -110,17 +110,15 @@ class Navbar extends Component{
                                          <img className='cursor-pointer' src={heart}  width='20' height='20.52' />
                                          <span> | </span>
 
-                                         {/* <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/>  */}
-                                         
-                                                {/* <sup>  { this.state.qty} </sup> */}
-
+                                        
+                                          <Link to='/cart'>
                                          <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/> <sup>{this.state.qty || this.props.cartProducts }</sup>
-
+                                         </Link>
                                      </div>
                                     
                                       <div  className='col-lg-6 cart' >
                                         <p>Shopping cart
-                                            <span className='cartPrice' >$140.00</span>
+                                            <span className='cartPrice' >Rs.140.00</span>
                                         </p>
                                      </div>
                                  </div>

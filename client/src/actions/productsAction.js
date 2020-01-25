@@ -26,11 +26,12 @@ var getCartProdLocalStorage=[]
                          
                             )    
                         }) // re-direct to login on successful register
-      .catch(err =>
+      .catch(err => { 
         dispatch({
           type: GET_ERRORS,
-          payload: err.response.data
+          payload: err.message
         })
+        console.log("Products success", err.message)}
       );
   };
 

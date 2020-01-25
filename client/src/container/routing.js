@@ -14,12 +14,10 @@ import Home from '../components/centralized/home';
 import Contact from '../components/centralized/contact';
 import About from '../components/centralized/about';
 import Navbar from '../components/centralized/navbar';
-// import AdminDashboard from '../components/admin/dashboard';
 import BookedOrder from '../components/admin/bookedOrder';
 import Admin from '../components/admin/dashboard';
 import AddProducts from '../components/admin/addProducts';
 import DelProducts from '../components/admin/delProducts';
-// import UserDashboard from '../components/users/dashboard';
 import Footer from '../components/centralized/footer'
 import Product from '../components/products/product'
 import Combined from '../components/authentication/combine'    
@@ -28,7 +26,7 @@ import Information from '../components/products/information' ;
 import PrivateRoute from "../components/private-route/PrivateRoute";
 import Dashboard from "../components/dashboard/Dashboard"; 
 import Cart from '../components/users/userCart/cart'  
-// import Admin from '../components/admin/dashboard';
+
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -56,17 +54,16 @@ render(){
 this.props.getProducts()
   
   return (
-    <Provider store={store}>
+  
         <div>
             <BrowserRouter>
-            <div>
-
-            <div>
+                <div>
+                                          
+                <div>
             <Navbar/>     
                <Switch>
                    <Route exact path='/' component={Home} />
-                   <Route path='/about' component={About} />
-                   <Route exact path="/information"  />
+                   <Route path='/about' component={About} />                 
                    <Route path='/contact' component={Contact} />
                    <Route path='/information' component={Information} />
                    <Route path='/combined' component={Combined} />
@@ -76,6 +73,7 @@ this.props.getProducts()
                    <Route path='/bookedOrder' component={BookedOrder}/>
                    <Route path='/addProducts' component={AddProducts}/>
                    <Route path='/delProducts' component={DelProducts}/>
+                   <Route path='/information' component={Information}/>
                    <Route path='/admin' component={Admin}/>
                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
                </Switch>
@@ -87,7 +85,7 @@ this.props.getProducts()
             </BrowserRouter>
 
         </div>
-        </Provider>
+    
     )
  }
 }

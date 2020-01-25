@@ -18,7 +18,9 @@ class Navbar extends Component{
         mobileNavVisible: false,
         scrollled: undefined,
         evein: true,
-
+        search: '',
+        products: undefined,
+        filteredProduct:undefined,
         // cartItem: JSON.parse(localStorage.getItem('CartProduct')) || [],
         qty: undefined
 
@@ -29,6 +31,22 @@ class Navbar extends Component{
         console.log('resize')
       }
     componentDidMount(){
+
+        axios
+            .get("http://localhost:5000/api/products")
+            .then((res) => {
+                            console.log("Products success navbar .........", res.data)
+                           
+                            console.log(this.state.products, 'state products did mnt sy')
+                            localStorage.setItem('Products', JSON.stringify(res.data));
+                            console.log('Products from Storage: ',localStorage.getItem('Products'));
+    
+                              }) // re-direct to login on successful register
+            .catch(err =>
+            console.log('Product err: ',err.message)
+            );
+
+
         window.addEventListener('scroll', ()=> {
             const isTop = window.scrollY < 100;
             if (isTop !== true){
@@ -71,8 +89,16 @@ class Navbar extends Component{
         axios
         .get("http://localhost:5000/api/products")
         .then((res) => {
-                        console.log("Products success", res.data)
-
+                    this.setState({
+                        products: res.data
+                        })
+                        var filterProduct = this.state.products.filter((product) => {
+                            return product.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+                          })
+                          this.setState({
+                              filteredProduct: filterProduct
+                            })
+                            console.log("Products filteres",this.state.filteredProduct )
                         localStorage.setItem('Products', JSON.stringify(res.data));
                         console.log('Products from Storage: ',localStorage.getItem('Products'));
 
@@ -82,10 +108,34 @@ class Navbar extends Component{
         );
     }
 
+    updateSearch(e){
+        this.setState({
+            search: e.target.value.substr(0,20)
+        })
+    }
+
     render(){
-        if(this.state.red == true) {
-            // <Redirect to='/contacts' />
+        if(this.state.products){
+            // console.log('yessssssssssssssssssssssssssssss')p
         }
+        // axios
+        // .get("http://localhost:5000/api/products")
+        // .then((res) => {
+        //                 console.log("Products success", res.data)
+        //                 var filterProduct = res.data.filter((product) => {
+        //                     return product.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+        //                 })
+                                  
+        //                        console.log(filterProduct, 'filtered')
+        //                 localStorage.setItem('Products', JSON.stringify(res.data));
+        //                 console.log('Products from Storage: ',localStorage.getItem('Products'));
+
+        //                   }) 
+        // .catch(err =>
+        // console.log('Product err: ',err.message)
+        // );
+       
+        // console.log( this.state.products, 'render sy')
         return(
             <div className="div1"> 
               <div >
@@ -99,9 +149,19 @@ class Navbar extends Component{
                          </div>
                          <div className='col-lg-5'>
                            <form>
-                               <input placeholder='Type to search' className='navInput' />
+                               <input value={this.state.search} onChange={this.updateSearch.bind(this)} placeholder='Type to search' className='navInput' />
                                <button className='navBtn'>Search</button>
                            </form>
+                           <div>
+                           
+                               {/* {this.state.filteredProduct.map(item => {
+                                   return (
+                                       <div>{item.name}</div>
+                                   )
+                               })} */}
+                               
+                                
+                           </div>
                          </div>
                          <div className='col-lg-4'>                        
                              <div className='container'>

@@ -83,5 +83,43 @@ module.exports = {
         }).catch(err=>{
             res.status(400).json({success:false,err})
         })
-    }
+    },
+    cartOwner(req,res){
+        const {fname,lname,city,appartment,address,number,timeStamp,cartProducts,} = req.body
+        console.log(req.body)
+        var crtProduct=[];
+        // var productData=cartProducts.filterProduct
+        cartProducts.forEach(i => {
+            crtProduct.push({
+                name:i.filterProduct.name,
+                price:i.filterProduct.price,
+                stock:i.filterProduct.stock,
+                productId:i.filterProduct._id,
+                quantity:i.quantity})
+            
+        })
+
+        let newProceed = new Proceed({
+            fname,
+            lname,
+            city,
+            address,
+            appartment,
+            number,
+            timeStamp,
+            cartProducts: crtProduct
+              
+        });
+
+        console.log('Anday wala burger',crtProduct)
+        newProceed.save().then(data=>{
+            console.log('Anday wala burger',data)
+            res.status(200).json({success:true, data})
+        })
+        .catch(err => {
+            console.log('ksadkjhsakj-------',err.message)
+            res.status(404).json({success:false,err})
+        });
+    },
 }
+

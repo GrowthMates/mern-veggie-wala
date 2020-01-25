@@ -41,6 +41,14 @@ const Proceed = new Schema({
     productName: {
         type: String
     },
-    products:[String]
+    cartProducts:[
+        {
+           name:String,
+           price:Number,
+           stock:Number,
+           productId:String,
+           quantity:Number
+        }
+    ]
 });
 module.exports = mongoose.model('Proceed', Proceed);

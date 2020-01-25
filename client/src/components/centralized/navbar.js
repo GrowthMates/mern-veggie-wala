@@ -116,7 +116,7 @@ class Navbar extends Component{
 
     render(){
         if(this.state.products){
-            console.log('yessssssssssssssssssssssssssssss')
+            // console.log('yessssssssssssssssssssssssssssss')p
         }
         // axios
         // .get("http://localhost:5000/api/products")

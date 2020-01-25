@@ -25,7 +25,7 @@ class Information extends Component{
     onChange (e) {
       // e.preventDefault();
         this.setState({ [e.target.name]: e.target.value });
-        console.log('e hy', e.target,this)
+        // console.log('e hy', e.target,this)
       };
 
     onSubmit(e){
@@ -33,13 +33,25 @@ class Information extends Component{
       let {number,address,fname,lname,appartment,city} = this.state;
 
       // getting date
-      var cartProducts;
-      var prod = this.props.cartProducts.forEach(i => {
-          return (
-            // console.log('for each' , i)
-            cartProducts=i
-          )
+      var prcd=[]
+      var prodName= [];
+      var prodPrice= [];
+      var prodQuantity= [];
+      var prodStock= [];
+      var prodId= [];
+
+      this.props.cartProducts.forEach(i => {
+
+        // prodName.push(i.filterProduct.name)
+        // prodPrice.push(i.filterProduct.name)
+        // prodQuantity.push(i.filterProduct.name)
+        // prodId.push(i.filterProduct.name)
+        prcd.push(i)
+        return true
       })
+     let esi = prodId.join("-")
+      console.log('bahar', prcd)
+      console.log(prodPrice)
       var timeStamp = new Date()
       var date = timeStamp.getDate() + '-' + (timeStamp.getMonth()+1) + '-' + timeStamp.getFullYear() 
       var time = timeStamp.getHours() + '-' + timeStamp.getMinutes() + '-' + timeStamp.getSeconds() 
@@ -53,7 +65,7 @@ class Information extends Component{
         // productName,
         // quantity: this.props.cartProducts.quantity,
         timeStamp: 'Date: ' +date +  '\n' + ' Time: '  + time,
-        cartProducts: this.props.cartProducts
+        cartProducts: prcd
       }
 
       this.props.proceed(newProceed)

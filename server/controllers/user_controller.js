@@ -167,7 +167,7 @@ module.exports = {
     },
 
     proceed(req, res){
-        const {fname,lname,city,appartment,address,number,timeStamp,cartProducts,quantity} = req.body
+        const {fname,lname,city,appartment,address,number,timeStamp,cartProducts,} = req.body
         console.log(req.body)
 
         let newProceed = new Proceed({
@@ -178,17 +178,16 @@ module.exports = {
             appartment,
             number,
             timeStamp,
-            quantity: cartProducts.quantity,
-            price: cartProducts.filterProduct.price,
-            productName: cartProducts.filterProduct.name,
-           
-            
+            products: cartProducts.filterProduct
+              
         });
 
         newProceed.save().then(data=>{
+            console.log('Anday wala burger',data)
             res.status(200).json({success:true, data})
         })
         .catch(err => {
+            console.log('ksadkjhsakj-------',err.message)
             res.status(404).json({success:false,err})
         });
 

@@ -40,6 +40,7 @@ const Proceed = new Schema({
     },
     productName: {
         type: String
-    }
+    },
+    products:[String]
 });
 module.exports = mongoose.model('Proceed', Proceed);

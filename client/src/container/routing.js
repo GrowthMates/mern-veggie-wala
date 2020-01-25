@@ -54,7 +54,7 @@ render(){
 this.props.getProducts()
   
   return (
-    <Provider store={store}>
+  
         <div>
             <BrowserRouter>
                 <div>
@@ -85,7 +85,7 @@ this.props.getProducts()
             </BrowserRouter>
 
         </div>
-        </Provider>
+    
     )
  }
 }

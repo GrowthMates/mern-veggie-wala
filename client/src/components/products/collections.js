@@ -49,9 +49,9 @@ class Collections extends Component{
     componentWillReceiveProps (nextProps,props){
         // if(nextProps!=props){
             console.log("Prev. props......",props.products)
-            console.log("Cart Array next......",nextProps.products.products)
+            console.log("Cart Array next......",nextProps.products)
             this.setState({
-                products:nextProps.products.products,
+                products:nextProps.products,
                 loader:false
             })
         }
@@ -172,7 +172,7 @@ class Collections extends Component{
 
                         {
                           (this.state.veiwOption === false)?(
-                            this.state.products || this.props.products.map((item,index) => {  
+                             this.state.products || this.props.products.map((item,index) => {  
                            return(
                            <div key={index}>
                              <form >
@@ -230,7 +230,7 @@ class Collections extends Component{
                 </div>
             </div>
 
-            </div>  
+        </div>  
         )
     }
 
@@ -241,7 +241,7 @@ class Collections extends Component{
 const mapStateToProps = (state) => {
 
     // while(state.product.apiProducts)
-    console.log('Collections ki product',state.products.products)
+    console.log('Collections ki product',state)
   
     return{
       products: state.products.products,

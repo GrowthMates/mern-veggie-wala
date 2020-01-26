@@ -104,6 +104,9 @@ setTimeout(()=>{
 
     app.get('/api/get-stock', adminController.getStock);
 
+    app.post('/api/cartOwner/confirmOrder', adminController.cartOwner);
+
+
 
 },200);
 

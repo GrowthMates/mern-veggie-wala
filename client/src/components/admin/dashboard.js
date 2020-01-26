@@ -17,6 +17,7 @@ import './adminDashboard.css'
         super()
         this.state = {
             bookedOrderData: [],
+            products:[],
             delProduct: [],
             edit: false,
             price: undefined,
@@ -29,6 +30,29 @@ import './adminDashboard.css'
             addName: undefined,
             adddDescription: undefined,
             dataState:false,
+            selectOwnerId:'',
+            selectedProductId:'',
+            selectedProduct:undefined,
+            cartOwners: [
+                {
+                    name: 'Arslan',
+                    location: 'malir',
+                    id: 'q1w2e3'
+
+                },
+                {
+                    name: 'Rehan Saeed',
+                    location: 'Gulistane Johar',
+                    id:'aqswde123'
+                    
+                },
+                {
+                    name: 'Akmal Lashari',
+                    location: 'Model',
+                    id:'r4t5y6u7123'
+                    
+                }
+            ]
         }
     }
     componentWillMount(){
@@ -40,9 +64,9 @@ console.log('WillMount Admin -------')
     componentWillReceiveProps(nextProps){
 
         console.log('props admin will rcve props sy', nextProps);
-        this.setState({
-            bookedOrderData: nextProps.products
-        })
+        // this.setState({
+        //     bookedOrderData: nextProps.products
+        // })
     }
     // shouldComponentUpdate(nextProps,nextState){
     //     console.log('should Update admin=======',nextProps,nextState)
@@ -62,7 +86,7 @@ console.log('WillMount Admin -------')
         .then((res) => {
                        
             this.setState({
-                bookedOrderData: res.data
+                products: res.data
             })
             
             console.log("Products success", this.state.bookedOrderData._id)
@@ -70,6 +94,23 @@ console.log('WillMount Admin -------')
         .catch(err =>
         console.log('Product err: ',err.message)
         );
+
+        axios
+        .get('http://localhost:5000/api/bookedProducts')
+        .then(res => {
+            this.setState({
+                bookedOrderData: res.data.data
+            })
+
+            // var mydata = this.state.bookedOrderData.map(i => {
+
+            // })
+            console.log('booked order ka',this.state.bookedOrderData)
+        })
+        .catch(err => {
+            console.log('admin sy',err.message)
+        })
+
     }
 
     delete(key,index,e){
@@ -178,6 +219,35 @@ console.log('WillMount Admin -------')
         console.log(updateProduct, 'update new')
     }
        
+    approve(id){
+        // e.preventDefault()
+        
+        let filteredProduct = this.state.bookedOrderData.filter(i => {
+            return i._id === id
+        })
+        
+        this.setState({selectedProduct:filteredProduct})
+        console.log('working aproval',this.state.selectedProduct)
+        console.log('working aproval',filteredProduct)
+
+
+
+    }
+
+    selectOwners(id){
+        console.log(id,'crt ownrs id');
+
+        this.setState({selectOwnerId: id})
+    }
+    sendToOwner(){
+        
+        const filteredCartOwner = this.state.cartOwners.filter(i => {
+            return i.id === this.state.selectOwnerId
+        })
+        
+        console.log(filteredCartOwner, 'select ho gya owner')
+
+    }
 
     render(){
         if(this.state.dataState==true){
@@ -195,6 +265,172 @@ console.log('WillMount Admin -------')
                     </div>
                     <div className='col-lg-10'>
                        <div className='container'>
+
+                    {/* Products for approval */}
+                         <div class="jumbotron adminProd">
+                         <form > 
+                           <table class="table table-striped scroll">
+                                    <thead className=''>
+                                        <tr className='upperTr'>
+                                            <th scope='col'>Sr No</th>
+                                            {/* <th scope='col'>item</th> */}
+                                            <th scope='col'>F.name</th>
+                                            <th scope='col'>Time Stamp</th>
+                                            <th scope='col'>Number</th>
+                                            <th scope='col'>City</th>
+                                            <th scope='col'>Aprroved</th>
+                                            <th scope='col'>View</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className='cart-body'>
+                                  { this.state.edit === false ?
+                                    this.state.bookedOrderData !== [] ? this.state.bookedOrderData.map((i,index) => {
+                                     return (         
+                               
+                                          <tr className='dataTd '>
+                                          
+                                                <td className='cart-body' style={{textAlign: 'center'}}>{index+1} </td>
+                                                <td className='cart-body'>{i.fname} </td>
+                                                <td className='cart-body'>{i.timeStamp} </td>
+                                                <td className='cart-body'>{i.number}</td>
+                                                <td className='cart-body'>{i.city} </td>   
+                                                <td className='cart-body'>
+                                                    <button type='button' style={{backgroundColor: 'red !important',}} 
+                                                     onClick={this.approve.bind(this,i._id)}
+                                                     className="btn btn-info"   data-toggle="modal" data-target={`#cartOwner${index}`} >Approved</button>
+                                                     </td>     
+
+                                                 <div class="modal fade" id={`cartOwner${index}`} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                          <table>
+                                                              <tr>
+                                                                  <th>Sr No</th>
+                                                                  <th>Cart Owner Name</th>
+                                                                  <th>Location</th>
+                                                                  <th>Action</th>
+                                                              </tr>
+
+                                                                  {this.state.cartOwners.map((i,index) =>{
+                                                                      return(
+                                                                     <tr className='dataTd '>
+                                                                        <td className='cart-body'>1 </td>   
+                                                                        <td className='cart-body'>{i.name} </td>   
+                                                                        <td className='cart-body'>{i.location} </td>   
+                                                                        <td className='cart-body'> 
+                                                                            <button type='button' onClick={this.selectOwners.bind(this,i.id)}>Select</button>
+                                                                        </td>   
+                                                                     </tr>
+                                                                      )
+                                                                  })}
+                                                             
+
+                                                          </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                          
+                                                            <button type="button" class="btn btn-primary" onClick={this.sendToOwner.bind(this)}>Send To Cart Owner</button>
+                                                            <button type="button" class="btn btn-primary">Cancel Order</button>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>                                   
+                                                <td className='cart-body'> 
+                                                { this.state.edit === false ?
+                                                     <div>
+                                                         
+                                                 <button type='button' className="btn btn-warning"  data-toggle="modal" data-target={`#cartProducts${index}`}>View</button>
+                                                        {/* <img onClick={this.edit.bind(this,i._id,index)} width='22' height='22' src={tree}  /> */}
+                                                         {/* <img  width='22' height='22'   src={heart} data-toggle="modal" data-target={`#exampleModalCenter${index}`} /> */}
+                                                         {/* modal */}
+                   
+                                                            <div class="modal fade" id={`cartProducts${index}`} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                <table>
+                                                                    <tr>
+
+                                                                    <th scope='col'>Sr No</th>                                                                
+                                                                    <th scope='col'>Product name</th>
+                                                                    <th scope='col'>Price</th>
+                                                                    <th scope='col'>Stock</th>
+                                                                    <th scope='col'>Quantity</th>
+                                                                    </tr>
+                                                                  {i.cartProducts.map((item,index) => {
+                                                                      return(
+                                                                          <tr>
+                                                                             <td className='cart-body' style={{textAlign: 'center'}}>{index+1} </td>
+                                                                    <td className='cart-body'>{item.name} </td>
+                                                                    <td className='cart-body'> {item.price} </td>
+                                                                  <td className='cart-body'>{item.stock}</td>
+                                                                  <td className='cart-body'> {item.quantity}</td>   
+                                                                        </tr>
+                                                                    )
+                                                                })}
+                                                                   
+                                                                </table>
+                                                                
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button onClick={this.delete.bind(this,i._id,index)} class="btn btn-primary">Delete Product</button>
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                    </div>
+
+                                                     </div> 
+                                                       : void(0)
+                                                     
+                                                       }
+                                                </td>
+                                        </tr>
+                           
+                                          )
+                                        })
+                                      :
+                                 <tr><td>no data</td></tr>
+                                        :
+                                        
+                                        <tr className='dataTd'>
+                                              <td className='cart-body' style={{textAlign: 'center'}}> </td>
+                                                <td className='cart-body'> <input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'} onChange={this}  />  </td>
+                                                <td className='cart-body'><input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'} value={this.state.name} 
+                                                         onChange={eve => this.setState({name: eve.target.value} )} /> </td>
+                                                <td className='cart-body'>
+                                                    <input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'}  value={this.state.price}
+                                                        onChange={eve => this.setState({price: eve.target.value} )}  /></td> 
+                                                <td className='cart-body'><input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'}  value={this.state.stock}
+                                                         onChange={eve => this.setState({stock: eve.target.value} )}                  /> </td> 
+                                                <td className='cart-body'>
+                                                    {this.state.edit === true ?
+                                                      <div>
+                                                      <img  onClick={this.updateProduct.bind(this,this.state.updateProductId)} width='22' height='22' src={tick}  /> 
+                                                      <img  onClick={this.cancel.bind(this)} width='29' height='18' src={x}  /> 
+                                                      </div> : void(0)}
+                                                </td>
+                                        </tr>
+                                }
+                                </tbody>
+                           </table>
+                           </form>
+                         </div>
+
+                    {/* All Products */}
                        <div class="jumbotron adminProd">
                          
                          <div className='col-md-6'>
@@ -253,7 +489,7 @@ console.log('WillMount Admin -------')
                                     </thead>
                                     <tbody className='cart-body'>
                                   { this.state.edit === false ?
-                                    this.state.bookedOrderData !== [] ? this.state.bookedOrderData.map((i,index) => {
+                                    this.state.products !== [] ? this.state.products.map((i,index) => {
                                      return (         
                                
                                           <tr className='dataTd '>
@@ -330,9 +566,7 @@ console.log('WillMount Admin -------')
                            </form>
                        </div>
 
-                       <div class="jumbotron adminProd">
-                           
-                        </div>
+                      
                        </div>
                     </div>
                 </div> 

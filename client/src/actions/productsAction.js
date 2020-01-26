@@ -263,4 +263,18 @@ var getCartProdLocalStorage=[]
       })
   }
 
+  export const sendToCartOwner = (orderData) => dispatch => {
+    axios
+      .post('http://localhost:5000/api/cartOwner/confirmOrder',orderData)
+      .then(res => {
+        dispatch({
+          type: PROCEED_PRODUCT,
+          payload: res.data
+        })
+        console.log('proceed ka data ', res.data)
+      })
+      .catch(err => {
+        console.log('proceedsy error......., ', err.message)
+      })
+  }
  

@@ -40,12 +40,14 @@ import l5 from './images/l5.webp'
 import l6 from './images/l6.webp'
 import h1 from './images/h1.webp'
 import h2 from './images/h2.webp'
+import './style/home.css'
+import socketIOClient from "socket.io-client";
+var socket=socketIOClient("http://localhost:5000/")
 // import bgLower from './images/bgLower.webp'
 
 
 // import premium from './images/premium.webp'
 
-import './style/home.css'
 // import { connect } from 'mongoose';
 // import Axios from 'axios';
 
@@ -104,6 +106,9 @@ import './style/home.css'
             })
         }
         }
+    changer(){
+        this.props.history.push('/collections')
+    }
     p1(){
         console.log('p1',)
         // this.props.history.push('/collections')  
@@ -113,7 +118,7 @@ import './style/home.css'
         return(
             <div>
              
-             <section  className='col-lg-12 homeImg'> 
+             <section onClick={this.changer.bind(this)}  className='col-lg-12 homeImg'> 
              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

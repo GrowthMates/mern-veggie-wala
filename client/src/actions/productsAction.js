@@ -26,11 +26,12 @@ var getCartProdLocalStorage=[]
                          
                             )    
                         }) // re-direct to login on successful register
-      .catch(err =>
+      .catch(err => { 
         dispatch({
           type: GET_ERRORS,
-          payload: err.response.data
+          payload: err.message
         })
+        console.log("Products success", err.message)}
       );
   };
 
@@ -56,7 +57,7 @@ var getCartProdLocalStorage=[]
                  
 
                   //Result will be undefiend when current data isn't available in prev data array
-                    if(result===undefined){
+                    if(result===undefined){ 
                         // console.log(filterObj[0]._id, 'No6:--find hua wa id');
                         axios
                         .post("http://localhost:5000/api/user-data/addToCart", productCart)

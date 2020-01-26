@@ -10,6 +10,7 @@ import setAuthToken from "../utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "../actions/authActions";
 import { Provider } from "react-redux";
 import store from "../store";
+import TestComp from './TestComp'
 import Home from '../components/centralized/home';
 import Contact from '../components/centralized/contact';
 import About from '../components/centralized/about';
@@ -51,15 +52,15 @@ if (localStorage.jwtToken) {
 
 render(){
  
-this.props.getProducts()
+this.props.getProducts('Routing')
   
   return (
-  
         <div>
             <BrowserRouter>
                 <div>
                                           
                 <div>
+            <TestComp/>
             <Navbar/>     
                <Switch>
                    <Route exact path='/' component={Home} />
@@ -85,7 +86,6 @@ this.props.getProducts()
             </BrowserRouter>
 
         </div>
-    
     )
  }
 }

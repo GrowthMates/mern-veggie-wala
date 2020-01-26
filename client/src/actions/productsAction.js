@@ -12,8 +12,8 @@ import {
 var arr=JSON.parse(localStorage.getItem('CartProduct')) || [];
 var getCartProdLocalStorage=[]
 
- export const getProducts = () => dispatch => {
-  console.log('GEtPRoducts called=====')
+ export const getProducts = (caller) => dispatch => {
+  console.log(`GEtPRoducts called by ${caller}=====`)
     axios
       .get("http://localhost:5000/api/products")
       .then((res) => {
@@ -57,7 +57,7 @@ var getCartProdLocalStorage=[]
                  
 
                   //Result will be undefiend when current data isn't available in prev data array
-                    if(result===undefined){
+                    if(result===undefined){ 
                         // console.log(filterObj[0]._id, 'No6:--find hua wa id');
                         axios
                         .post("http://localhost:5000/api/user-data/addToCart", productCart)
@@ -240,7 +240,7 @@ var getCartProdLocalStorage=[]
     axios
       .post('http://localhost:5000/api/createProducts',newPoduct)
       .then(res => {
-        dispatch(getProducts());
+        dispatch(getProducts('Add Products'));
         console.log('create product admin sy ka data ', res.data)
       })
       .catch(err => {

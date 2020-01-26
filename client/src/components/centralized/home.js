@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import {connect} from 'react-redux';
 // import axios from 'axios'
 // import frt1 from './images/frt1.jpeg'
 // import frt2 from './images/frt2.jpeg'
@@ -39,22 +40,25 @@ import l5 from './images/l5.webp'
 import l6 from './images/l6.webp'
 import h1 from './images/h1.webp'
 import h2 from './images/h2.webp'
+import './style/home.css'
+import socketIOClient from "socket.io-client";
+var socket=socketIOClient("http://localhost:5000/")
 // import bgLower from './images/bgLower.webp'
 
 
 // import premium from './images/premium.webp'
 
-import './style/home.css'
+// import { connect } from 'mongoose';
 // import Axios from 'axios';
 
 
-export default class Home extends Component{
+ class Home extends Component{
 
     constructor(Props){
         super(Props);
         this.state={
-            loader: true,
-            products:''
+            loading: true,
+            products:undefined
         }
     }
 
@@ -74,7 +78,34 @@ export default class Home extends Component{
     //     console.log('Product err: ',err.message)
     //     );
     // }
+    componentWillReceiveProps(nextProps){
+        if(nextProps){
+            console.log('Home Products Next Props',nextProps)
+            var newProducts=[];
+            for(let i=0;i<=7;i++){
+                newProducts.push(nextProps.products[i])
+            }
+            this.setState({
+                products:newProducts,
+                loading:nextProps.loading,
 
+            })
+        }
+    }
+    componentDidMount(){
+        console.log('Home DidMount====',this.props.products)
+       if(this.props.products){  
+        var newProducts=[];
+            for(let i=0;i<=7;i++){
+                newProducts.push(this.props.products[i])
+            }
+            this.setState({
+                products:newProducts,
+                loading:this.props.loading,
+
+            })
+        }
+        }
     changer(){
         this.props.history.push('/collections')
     }
@@ -204,21 +235,26 @@ export default class Home extends Component{
 
                 <div className='container' style={{marginTop: '25px'}} >
                     <div className='row '>
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p1' onClick={this.p1} >
-                           {/* <div className='topInner'>
-                                <p>-57%</p>
-                            </div> */}
-                            <img src={bana3} width='270' height='270' alt=''/>
-                            <div className='lowerProd' >
-                           
-                                <img src={shoppingcart1} width='25' height='25' alt=''/>
-                                <img src={heart1} width='23' height='23' alt=''/>
-                                <img src={search1} width='23' height='23' alt=''/>                                
-                            </div>
-                            <h5  >Banana</h5>
-                            <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$20</h5>
-                        </div>
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p2' >
+                        {
+                        (this.state.loading==true)?('LOADING...'):(
+                         this.state.products.map((item,index) => {  
+                         return(
+                            <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p1' onClick={this.p1} >
+                            {/* <div className='topInner'>
+                                    <p>-57%</p>
+                                </div> */}
+                                <img src={bana3} width='270' height='270' alt=''/>
+                                <div className='lowerProd' >
+                            
+                                    <img src={shoppingcart1} width='25' height='25' alt=''/>
+                                    <img src={heart1} width='23' height='23' alt=''/>
+                                    <img src={search1} width='23' height='23' alt=''/>                                
+                                </div>
+                                <h5  >{item.name}</h5>
+                            <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.{item.price}</h5>
+                            </div>)})
+                        )}
+                        {/* <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p2' >
                             <img src={jack} width='270' height='270' alt=''/> 
                             <div className='lowerProd' >
                                 <img src={shoppingcart1} width='23' height='23' alt=''/>
@@ -229,11 +265,11 @@ export default class Home extends Component{
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$40</h5>
 
                         </div>
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p3' >
+                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p3' > */}
                             {/* <div className='topInner'>
                                 <p>-27%</p>
                             </div> */}
-                            <img src={kiwi3} width='270' height='270' alt=''/>
+                            {/* <img src={kiwi3} width='270' height='270' alt=''/>
                             <div className='lowerProd' >
                                 <img src={shoppingcart1} width='23' height='23' alt=''/>
                                 <img src={heart1} width='23' height='23' alt=''/>
@@ -252,12 +288,12 @@ export default class Home extends Component{
                             </div>
                             <h5 >Papaya </h5>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$220</h5>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
                 {/* product lower 2nd */}
-                <div className='container' style={{marginTop: '30px'}} >
+                {/* <div className='container' style={{marginTop: '30px'}} >
                     <div className='row '>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p1' >
                             <img src={apple} width='270' height='270' alt=''/>
@@ -302,7 +338,7 @@ export default class Home extends Component{
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$220</h5>
                         </div>
                     </div>
-                </div>
+                </div> */}
                     {/* 4th section */}
                 {/* <div className='container scndLower' >
                 <div className='row' >
@@ -371,3 +407,20 @@ export default class Home extends Component{
         )
     }
 }
+
+const mapStateToProps = (state) => {
+
+    // while(state.product.apiProducts)
+    console.log('Home ki Top product',state.products.products)
+  
+    return{
+      products: state.products.products,
+      loading: state.products.loading,
+      cart:state.cart
+  }
+}
+
+export default connect(
+    mapStateToProps,
+   null
+  )(Home);

@@ -1,14 +1,20 @@
 require('dotenv').config();
 const express = require('express');
+const http = require("http");
+const socketIO = require("socket.io");
 const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const Test = require('./models/socketTest');
+
 const userController = require('./controllers/user_controller');
 const adminController = require('./controllers/admin/admin_controller');
 const productsController = require('./controllers/products_controller');
 const PORT = process.env.PORT || 5000;
+const server = http.createServer(app);
+const io = socketIO(server);
 
 app.use(
     bodyParser.urlencoded({
@@ -34,6 +40,26 @@ app.use(session({
 }));
 
 app.use(cors());
+
+//socket io working...
+io.on("connection", socket => {
+    console.log("New client connected" + socket.id);
+    // Returning the initial data of food menu from FoodItems collection
+    socket.on("initial_data", () => {
+        let test = new Test({
+            name:'Abdul Ghafoor',
+            description:'Yeh Bik Gai Hai Gormint'
+        })
+        productInCart.save().then(data=>{
+               
+            Test.find({}).then(docs => {
+            io.sockets.emit("get_data", docs);
+            });
+            // res.status(200).json({success:true, data})
+        })
+
+     });
+})
 
 setTimeout(()=>{
     app.get('/api/user-data', userController.readUserData);
@@ -84,4 +110,4 @@ setTimeout(()=>{
 
 },200);
 
-app.listen(PORT,()=>{console.log('Server running on Localhost:',PORT)});
+server.listen(PORT,()=>{console.log('Server running on Localhost:',PORT)});

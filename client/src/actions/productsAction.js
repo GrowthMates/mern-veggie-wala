@@ -8,12 +8,24 @@ import {
   PROCEED_PRODUCT,
   UPDATE_PRODUCT,
 } from "./types";
+import {socket} from '../components/centralized/navbar'
 
 var arr=JSON.parse(localStorage.getItem('CartProduct')) || [];
 var getCartProdLocalStorage=[]
 
  export const getProducts = (caller) => dispatch => {
   console.log(`GEtPRoducts called by ${caller}=====`)
+  // socket.emit("call_products")
+  // socket.on("get_products",(products)=>{
+  //   console.log('socket products====',products)
+  //   return(
+  //     dispatch({
+  //          type: GET_PRODUCTS,
+  //          payload: products
+  //        })
+      
+  //        )   
+  // })
     axios
       .get("http://localhost:5000/api/products")
       .then((res) => {

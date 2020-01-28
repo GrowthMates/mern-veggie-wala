@@ -7,5 +7,8 @@ export const CART_PRODUCTS = "CART_PRODUCTS";
 export const ADD_CART = "ADD_CART";
 export const PROCEED_PRODUCT = "PROCEED_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+export const ADD_IMAGE = "ADD_IMAGE";
+export const GET_IMAGES = "GET_IMAGES";
+
 
 

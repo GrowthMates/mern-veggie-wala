@@ -6,8 +6,9 @@ import { connect } from "react-redux";
 import heart from './images/heart.png'
 import shoppingcart from './images/shopping-cart.png'
 import axios from 'axios'
+// import socketIOClient from "socket.io-client";
 
-
+// export const socket = socketIOClient("http://localhost:5000");
 
 
 class Navbar extends Component{
@@ -31,7 +32,7 @@ class Navbar extends Component{
         console.log('resize')
       }
     componentDidMount(){
-
+  
         axios
             .get("http://localhost:5000/api/products")
             .then((res) => {
@@ -232,7 +233,11 @@ class Navbar extends Component{
 
                             </li>
                             <li className="nav-item col-lg-2">
-                              <Link to='/cart' className="nav-link">Blog</Link>
+                              <Link to='/AllImages' className="nav-link">AllImages</Link>
+                              <hr className='hra' />
+                              </li>  
+                            <li className="nav-item col-lg-2">
+                              <Link to='/image' className="nav-link">Blog</Link>
                               <hr className='hra' />
 
                             </li>

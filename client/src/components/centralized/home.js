@@ -41,8 +41,8 @@ import l6 from './images/l6.webp'
 import h1 from './images/h1.webp'
 import h2 from './images/h2.webp'
 import './style/home.css'
-import socketIOClient from "socket.io-client";
-var socket=socketIOClient("http://localhost:5000/")
+// import socketIOClient from "socket.io-client";
+// var socket=socketIOClient("http://localhost:5000/")
 // import bgLower from './images/bgLower.webp'
 
 
@@ -78,30 +78,31 @@ var socket=socketIOClient("http://localhost:5000/")
     //     console.log('Product err: ',err.message)
     //     );
     // }
-    componentWillReceiveProps(nextProps){
+    UNSAFE_componentWillReceiveProps(nextProps){
         if(nextProps){
             console.log('Home Products Next Props',nextProps)
             var newProducts=[];
             for(let i=0;i<=7;i++){
+                console.log('ForLoopNextProps====',nextProps.products[i])
                 newProducts.push(nextProps.products[i])
             }
             this.setState({
                 products:newProducts,
-                loading:nextProps.loading,
+                loading:false
 
             })
         }
     }
     componentDidMount(){
         console.log('Home DidMount====',this.props.products)
-       if(this.props.products){  
+       if(this.props.products!==undefined){  
         var newProducts=[];
             for(let i=0;i<=7;i++){
                 newProducts.push(this.props.products[i])
             }
             this.setState({
                 products:newProducts,
-                loading:this.props.loading,
+                loading:false,
 
             })
         }

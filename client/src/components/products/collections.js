@@ -16,7 +16,7 @@ class Collections extends Component{
     constructor(Props){
         super(Props);
         this.state={
-            loader: true,
+            loading: true,
             veiwOption:false,
             name:'',
             price:undefined,
@@ -41,6 +41,14 @@ class Collections extends Component{
 
     componentDidMount(){
         console.log(this.props)
+            console.log('Home DidMount====',this.props.products)
+           if(this.props.products){ 
+                this.setState({
+                    products:this.props.products,
+                    loading:this.props.loading,
+                })
+            }
+            
     }
     shouldComponentUpdate(propd,state){
        console.log('shld cltn sy', propd,state)
@@ -52,7 +60,7 @@ class Collections extends Component{
             console.log("Cart Array next......",nextProps.products)
             this.setState({
                 products:nextProps.products,
-                loader:false
+                loading:false
             })
         }
         // else{
@@ -170,9 +178,9 @@ class Collections extends Component{
                     
                
 
-                        {
+                        { (this.state.loading==true)?('Loading...'):(
                           (this.state.veiwOption === false)?(
-                             this.state.products || this.props.products.map((item,index) => {  
+                             this.state.products.map((item,index) => {  
                            return(
                            <div key={index}>
                              <form >
@@ -222,7 +230,7 @@ class Collections extends Component{
                                 </div>    
 
                    </div>   )     
-                   }
+                        )}
                    
          
                     </div>
@@ -245,7 +253,8 @@ const mapStateToProps = (state) => {
   
     return{
       products: state.products.products,
-      cart:state.cart
+      cart:state.cart,
+      loading:state.products.loading
   }
 }
 

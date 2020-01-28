@@ -23,6 +23,9 @@ module.exports = {
             description,
             price,
             stock,
+            title,
+            image,
+            imageId,
 
         });
         // newProduct.img.data =  fs.readFileSync(req.body.imgPath);

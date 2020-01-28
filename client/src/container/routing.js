@@ -1,5 +1,4 @@
 import React from 'react';
-
 import 
  {getProducts}
   from "../actions/productsAction";
@@ -27,7 +26,7 @@ import Information from '../components/products/information' ;
 import PrivateRoute from "../components/private-route/PrivateRoute";
 import Dashboard from "../components/dashboard/Dashboard"; 
 import Cart from '../components/users/userCart/cart'  
-
+import AllImages from './AllImages'
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -60,8 +59,8 @@ this.props.getProducts('Routing')
                 <div>
                                           
                 <div>
-            <TestComp/>
             <Navbar/>     
+            {/* <TestComp/> */}
                <Switch>
                    <Route exact path='/' component={Home} />
                    <Route path='/about' component={About} />                 
@@ -72,11 +71,13 @@ this.props.getProducts('Routing')
                    <Route exact path="/collections" component={Collections} />
                    <Route path='/cart' component={Cart}/>
                    <Route path='/bookedOrder' component={BookedOrder}/>
+                   <Route path='/image' component={TestComp}/>
                    <Route path='/addProducts' component={AddProducts}/>
                    <Route path='/delProducts' component={DelProducts}/>
                    <Route path='/information' component={Information}/>
                    <Route path='/admin' component={Admin}/>
                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                   <Route path='/Allimages' component={AllImages}/>
                </Switch>
              <Footer/>
             </div>

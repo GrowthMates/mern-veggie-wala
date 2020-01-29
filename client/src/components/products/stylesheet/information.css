@@ -93,9 +93,23 @@
 }
 
 
+    /* Chrome, Safari, Edge, Opera */
+.number input::-webkit-outer-spin-button,
+.number input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.number input[type=number] {
+  -moz-appearance:textfield;
+}
+
+
 .priceCol{
 
-    padding-left: 8.8rem;
+    padding-left: 8.5rem;
+    padding-right: 3rem;
     /* float: right; */
     text-align: right;
     /* position: absolute; */

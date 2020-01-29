@@ -158,7 +158,7 @@ console.log('WillMount Admin -------')
     }
     edit(id,index,e){
 
-        let filterId = this.state.bookedOrderData.filter(i => {return i._id === id})
+        let filterId = this.state.products.filter(i => {return i._id === id})
 
         console.log('edit k liye ', filterId, 'index' , index)
         

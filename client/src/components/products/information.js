@@ -3,6 +3,7 @@ import {Link,withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import './stylesheet/information.css'
 import bana3 from '.././centralized/images/bana3.webp'
+import classnames from "classnames";
 import {proceed} from '../../actions/productsAction'
 
 
@@ -61,7 +62,7 @@ class Information extends Component{
         lname,
         address,
         appartment,
-        city ,
+        city:'Karachi' ,
         // productName,
         // quantity: this.props.cartProducts.quantity,
         timeStamp: 'Date: ' +date +  '\n' + ' Time: '  + time,
@@ -70,6 +71,14 @@ class Information extends Component{
 
       this.props.proceed(newProceed)
       console.log(date,time, newProceed)
+      this.setState({
+        number:'',
+        fname:'',
+        lname:'',
+        address:'',
+        appartment:'',
+        city:'', 
+      })
     }
   
    click(){
@@ -100,15 +109,19 @@ class Information extends Component{
                   
                   <div>
 
-                  <form >
-                    <div class="form-group">
+                  <form onSubmit={this.onSubmit.bind(this)} >
+                    <div class="form-group number">
                         <label for="exampleInputEmail1">number</label>
-                        <input type="text"
+                        <input type="number"
                            onChange={this.onChange.bind(this)}
                            value={this.state.number}
                            name='number'
-                           class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Number" />
+                           required
+                           class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           placeholder="Number (ex.03331234567)"
+                            />
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <span></span>
                     </div>
                     <div class="form-group form-inline">
                         {/* <label for="exampleInputPassword1">Password</label> <br/> */}
@@ -116,36 +129,49 @@ class Information extends Component{
                          onChange={this.onChange.bind(this)}
                          value={this.state.fname}
                          name='fname'
-                         class="form-control col-lg-5" id="exampleInputPassword1" placeholder="First Name" />
+                         class="form-control col-lg-5" id="exampleInputPassword1" placeholder="First Name"
+                         required
+                         />
                         <input style={{marginRight: '-60'}}  type="text"
                          onChange={this.onChange.bind(this)}
                          name='lname'
                          value={lname}
-                         class="form-control col-lg-5" id="exampleInputPassword1" placeholder="Last Name" />
+                         required
+                         class="form-control col-lg-5" id="exampleInputPassword1" placeholder="Last Name"
+                         />
+                         <span></span>
                     </div>
 
                     <input  type="text" 
                      onChange={this.onChange.bind(this)}
                      value={address}
                      name='address'
+                     required
                      class="form-control " id="exampleInputPassword1" placeholder="Address" />< br/>
+                     <span></span>
                     <input  type="text" 
                      onChange={this.onChange.bind(this)}
                      value={appartment}
                      name='appartment'
-                     class="form-control " id="exampleInputPassword1" placeholder="Appartments suits etc" /> <br/>
+                     required
+                     class="form-control " id="exampleInputPassword1" placeholder="Appartments suits etc"
+                     /><span></span> <br/>
+                     
                     <input  type="text" 
                      onChange={this.onChange.bind(this)}
-                     value={city}
+                     value='Karachi'
                      name='city'
-                     class="form-control " id="exampleInputPassword1" placeholder="City" /> <br/>
+                     required
+                     disabled
+                     class="form-control " id="exampleInputPassword1" placeholder="City"
+                     /> <br/>
                     {/* <input  type="text" class="form-control " id="exampleInputPassword1" placeholder="City" /> <br/> */}
                   <div className='container'>
                    <div className='col-lg-6' style={{float: 'left', textAlign: 'left' , paddingLeft: '0px' }}>
                      <Link to='cart'> <span> <i class="fa fa-angle-left" style={{margin: '0px'}}></i> </span> Return to Cart</Link>
                     </div>
                     <div className='col-lg-6 ' style={{float: 'right', textAlign: 'right' , paddingRight: '0px' }}> 
-                     <button onClick={this.onSubmit.bind(this)}  type="submit" class="btn btn-primary btn-block" style={{lineHeight: '50px'}}>Continue to shopping</button>
+                     <button  type="submit" class="btn btn-primary btn-block" style={{lineHeight: '50px'}}>Continue to shopping</button>
                     </div>
                   </div>
                   </form>
@@ -169,15 +195,21 @@ class Information extends Component{
                     <table style={{width:'100%'}} className='infoTable'>
                       <div className='container'>
                         <div className='row'>
-  
-                            <tr>
-                              <td><img src={bana3} width='64.39' height='64.39'  />
-                              <span className='imgSup'>3</span>
+                         
+                        <div style={{overflowY:'scroll', height:'16em'}}> 
+                        <table>
+                          {this.props.cartProducts.map((item,index)=>{
+                           return( <tr>
+                              <td><img src={item.filterProduct.image} width='64.39' height='64.39'  />
+                          <span className='imgSup'>{item.quantity}</span>
                               </td>
-                              <td className='infoItem'><p>Banana</p></td>
+                              <td className='infoItem'><p>{item.filterProduct.name}</p></td>
                              
-                              <td className='priceCol'>$6.0</td>
+                              <td className='priceCol'>{item.filterProduct.price}</td>
                             </tr>
+                          )})}
+                          </table>
+                          </div>
                         </div>
                       </div>                  
 

@@ -186,7 +186,7 @@ class Collections extends Component{
                              <form >
                                  <div className='container team' >
                                             <div className='col-lg-4 prodImg'>
-                                               <Link to = {`/product/${item._id}`} ><img className="cursor-pointer" src={ImageAppla} width='250' height='250' /></Link>
+                                               <Link to = {`/product/${item._id}`} ><img className="cursor-pointer" src={item.image} width='250' height='250' /></Link>
                                             </div>
                                             <div className="col-md-8 col-lg-8 data">
                                             <Link to = {`/product/${item._id}`} className='link-name'> <h6 className="item-name cursor-pointer">{item.name}</h6></Link>
@@ -213,7 +213,7 @@ class Collections extends Component{
                         return(
                                    <div className="col-md-4 col-lg-4 col-sm-4"> 
                                     <div className="card grid-view grid-card-styling" style={{width: '18rem'}}>
-                                    <Link to = {`/product/${item._id}`}><img className="card-img-top cursor-pointer img-grid" src={ImageAppla} alt="..."/></Link>
+                                    <Link to = {`/product/${item._id}`}><img className="card-img-top cursor-pointer img-grid" src={item.image} alt="..."/></Link>
                                             <div className="card-body" style={{paddingTop:'0px',textAlign:'left'}}>
                                             <Link to = {`/product/${item._id}`} className='link-name'> <h5 class="card-title cursor-pointer" style={{fontSize:'30px'}}>{item.name}</h5></Link>
                                                 <p className="card-text">From Rs.{item.price}</p>

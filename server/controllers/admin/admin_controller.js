@@ -2,6 +2,27 @@ const User = require('../../models/user');
 const Product = require('../../models/product');
 const Proceed = require('../../models/proceed');
 const PendingProduct = require('../../models/admin/pending')
+//IMAGE UPLOAD CONFIGURATION
+const multer = require("multer");
+const storage = multer.diskStorage({
+filename: function(req, file, callback) {
+callback(null, Date.now() + file.originalname);
+}
+});
+const imageFilter = function(req, file, cb) {
+// accept image files only
+if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+return cb(new Error("Only image files are accepted!"), false);
+}
+cb(null, true);
+};
+const upload = multer({ storage: storage, fileFilter: imageFilter });
+const cloudinary = require("cloudinary");
+cloudinary.config({
+cloud_name: "dbevearco", //ENTER YOUR CLOUDINARY NAME
+api_key: process.env.CLOUDINARY_API_KEY, // THIS IS COMING FROM CLOUDINARY WHICH WE SAVED FROM EARLIER
+api_secret: process.env.CLOUDINARY_API_SECRET // ALSO COMING FROM CLOUDINARY WHICH WE SAVED EARLIER
+});
 
 module.exports = {
     
@@ -16,23 +37,42 @@ module.exports = {
     },
     createProduct(req, res){
 
-        const { name, description,price,stock } = req.body;
+        // const { name, description,price,stock } = req.body;
         console.log('rquest body',req.body)
-        let newProduct = new Product({
-            name,
-            description,
-            price,
-            stock,
-            title,
-            image,
-            imageId,
+        // console.log('/add called====',req.body)
+        cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
+          if (err) {
+            res.json(err.message);
+          }
+          req.body.image = result.secure_url;
+          // add image's public_id to image object
+          req.body.imageId = result.public_id;
+        // let newProduct = new Product({
+        //     name,
+        //     description,
+        //     price,
+        //     stock,
+        //     // title,
+        //     image,
+        //     imageId,
 
-        });
+        // });
+        Product.create(req.body, function(err, result) {
+            if (err) {
+              res.json(err.message);
+              return res.redirect("/");
+            }
+            console.log('res send',result)
+            res.status(200).json({Product:result})
+            // res.json(image)
+          });
+        })
+
         // newProduct.img.data =  fs.readFileSync(req.body.imgPath);
         // newProduct.img.contentType = 'image/png'
 
-        newProduct.save().then((result)=>{res.status(200).json({Product:result})})
-        .catch((err) => {console.log('Product save err---------:',err)})
+        // newProduct.save().then((result)=>{res.status(200).json({Product:result})})
+        // .catch((err) => {console.log('Product save err---------:',err)})
 
     },
 

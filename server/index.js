@@ -138,7 +138,7 @@ setTimeout(()=>{
     //Gets the admin users.
     app.get('/api/users', adminController.getAdminUsers);
     //When a admin creates a product. No need for request parameter in this case. Since we are inserting data to database.
-    app.post('/api/createProducts', adminController.createProduct);
+    app.post('/api/createProducts', upload.single("image") , adminController.createProduct);
 
     app.get('/api/bookedProducts', adminController.bookedProduct);
 

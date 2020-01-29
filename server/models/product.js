@@ -18,7 +18,6 @@ const Product = new Schema({
                 type:Number,
                 default:1
         },
-        title: String,
         image: String,
         imageId: String,
         // img:{

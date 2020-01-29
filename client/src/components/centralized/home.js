@@ -244,7 +244,7 @@ import './style/home.css'
                             {/* <div className='topInner'>
                                     <p>-57%</p>
                                 </div> */}
-                                <img src={bana3} width='270' height='270' alt=''/>
+                                <img src={item.image} width='270' height='270' alt=''/>
                                 <div className='lowerProd' >
                             
                                     <img src={shoppingcart1} width='25' height='25' alt=''/>

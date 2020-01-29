@@ -18,6 +18,7 @@ import './adminDashboard.css'
         this.state = {
             bookedOrderData: [],
             products:[],
+            image:'',
             delProduct: [],
             edit: false,
             price: undefined,
@@ -54,6 +55,7 @@ import './adminDashboard.css'
                 }
             ]
         }
+        this.onChangeImage = this.onChangeImage.bind(this);
     }
     componentWillMount(){
 
@@ -178,28 +180,44 @@ console.log('WillMount Admin -------')
         }
 
     }
+    onChangeImage = e => {
+        this.setState({ image: e.target.files[0] });
+        };
+
     onSubmit = e => {
         e.preventDefault();
-        const {addName,addPrice,addStock,addDescription} = this.state
+        const {addName,addPrice,addStock,addDescription,title,image} = this.state
   console.log('oNsubmit State-------',this.state)
-    const newProduct = {
-          name: addName,          
-          description: addDescription,
-          price: addPrice,
-          stock: addStock,
+    // const newProduct = {
+    //       name: addName,          
+    //       description: addDescription,
+    //       price: addPrice,
+    //       stock: addStock,
+    //     //   title: title,
+    //       image: image,
        
-        };
-    this.props.addProduct(newProduct, this.props.history);
+    //     };
+    let formData = new FormData();
+    //    formData.append("product","Apple Aya h")
+    //    formData.append("title", this.state.title);
+        formData.append("name", this.state.addName);
+        formData.append("description", this.state.addDescription);
+        formData.append("price", this.state.addPrice);
+        formData.append("stock", this.state.addStock);
+        formData.append("image", this.state.image);
+        console.log('New product-------',formData)
+    this.props.addProduct(formData, this.props.history);
 
     this.setState({
       addName: "",
       addDescription: '',
       addPrice: '',
       addStock:'',
+      image:'',
       
        });
 
-    console.log(newProduct)
+    // console.log(newProduct)
       };
 
     updateProduct(key){
@@ -452,7 +470,10 @@ console.log('WillMount Admin -------')
                                     </div>
                                       <form >
                                     <div class="modal-body">
-                                      <TextField label="Image"
+                                      <input label="Image"
+                                      type="file" 
+                                      className="form-input"
+                                      onChange={this.onChangeImage} 
                                        /> <br/>
                                       <TextField value={this.state.addName} 
                                          onChange={eve => this.setState({addName: eve.target.value} )} label="Name" /> <br/>

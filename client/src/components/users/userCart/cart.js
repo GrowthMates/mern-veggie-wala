@@ -25,6 +25,7 @@ import {addToCart} from '../../../actions/productsAction'
             cart:[],
             arr:[],
             loader:'none',
+            totalPrice:0
         }
 
         setTimeout(()=>{
@@ -154,7 +155,15 @@ import {addToCart} from '../../../actions/productsAction'
 
      proceed(){
         this.props.history.push('/information')
-       
+        var arr=[]
+       this.props.cartProducts.map((item)=>{
+        arr.push((item.filterProduct.price)*item.quantity)
+       })
+        var total=arr.reduce((a, b) => {return a + b})
+        this.setState({
+            totalPrice:total
+        })
+        
      }
 
      componentWillReceiveProps(nextProps){
@@ -178,6 +187,7 @@ import {addToCart} from '../../../actions/productsAction'
         render(){
            
             var arr=[0]
+
             
             return(
                 <div>
@@ -206,7 +216,7 @@ import {addToCart} from '../../../actions/productsAction'
                                         <th scope="row"><img 
                                             className="cursor-pointer img-for-cart" 
                                             style={{marginRight:'25px'}} 
-                                            src={ImageApple}/></th>
+                                            src={item.filterProduct.image}/></th>
                                         <td className='cart-body'>{item.filterProduct.name}</td>
                                         <td className='cart-body'>Rs.{item.filterProduct.price}</td>
                                         <td className='cart-body cart-qty-td' ><input className="crt-qty-fnl" type='number' name={item._id} defaultValue={item.quantity}
@@ -236,7 +246,7 @@ import {addToCart} from '../../../actions/productsAction'
                                     {console.log('array total price',arr)}
                                     <div>
                                         <span style={{float:'left',marginLeft:'20px', marginTop:'20px', fontSize:'20px'}}>TOTAL</span>
-                                    <b> <span style={{ color:'#5BA616',float:'right', marginRight:'25px', marginTop:'20px', fontSize:'20px'}}>Rs.{arr.reduce((a, b) => {return a + b})}</span></b>
+                                    <b> <span style={{ color:'#5BA616',float:'right', marginRight:'25px', marginTop:'20px', fontSize:'20px'}} value={this.state.totalPrice}>Rs.{arr.reduce((a, b) => {return a + b})}</span></b>
                                     </div>
                                     <div >
                                         <button onClick={this.proceed.bind(this)} type="submit" class="btn btn-success btn-lg cart-btn">PROCEED TO CKECKOUT</button>

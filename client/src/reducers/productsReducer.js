@@ -1,7 +1,8 @@
 import {
     GET_PRODUCTS,
     USER_LOADING,
-    CART_PRODUCTS
+    CART_PRODUCTS,
+    GET_ERRORS
   } from "../actions/types";
   import axios from 'axios'
 import { getProducts } from "../actions/productsAction";
@@ -11,7 +12,9 @@ import { getProducts } from "../actions/productsAction";
     cart:[],
     cartProducts: undefined ||JSON.parse(localStorage.getItem('UserCart')) ,
     loading: true,
-    apiProducts:undefined
+    apiProducts:undefined,
+    productErrors:undefined,
+    error:false
   };
 
   
@@ -26,12 +29,12 @@ import { getProducts } from "../actions/productsAction";
           loading: false,
           products: action.payload
         };
-        // case CART_PRODUCTS:
-        //     return {
-        //         ...state,
-        //         cart: action.payload,
-        //         // cartProducts: action.payload
-        //     };
+        case GET_ERRORS:
+            return {
+                ...state,
+                productErrors: action.payload,
+                error:true
+            };
         case USER_LOADING:
             return {
               ...state,

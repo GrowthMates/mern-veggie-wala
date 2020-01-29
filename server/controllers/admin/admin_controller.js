@@ -1,6 +1,7 @@
 const User = require('../../models/user');
 const Product = require('../../models/product');
 const Proceed = require('../../models/proceed');
+const CartOwner = require('../../models/cartOwner');
 const PendingProduct = require('../../models/admin/pending')
 
 module.exports = {
@@ -29,7 +30,7 @@ module.exports = {
         // newProduct.img.contentType = 'image/png'
 
         newProduct.save().then((result)=>{res.status(200).json({Product:result})})
-        .catch((err) => {console.log('Product save err---------:',err)})
+        .catch((err) => {console.log('errors add product sy ...', err)})
 
     },
 
@@ -84,22 +85,24 @@ module.exports = {
             res.status(400).json({success:false,err})
         })
     },
+
     cartOwner(req,res){
-        const {fname,lname,city,appartment,address,number,timeStamp,cartProducts,} = req.body
-        console.log(req.body)
+        const {fname,lname,city,appartment,address,number,timeStamp,cartProducts,cartOwnerName} = req.body
+        console.log(req.body,'cart owners')
+        
         var crtProduct=[];
         // var productData=cartProducts.filterProduct
         cartProducts.forEach(i => {
             crtProduct.push({
-                name:i.filterProduct.name,
-                price:i.filterProduct.price,
-                stock:i.filterProduct.stock,
-                productId:i.filterProduct._id,
+                name:i.name,
+                price:i.price,
+                stock:i.stock,
+                productId:i._id,
                 quantity:i.quantity})
             
         })
 
-        let newProceed = new Proceed({
+        let cartOwnerReciept = new CartOwner({
             fname,
             lname,
             city,
@@ -107,12 +110,13 @@ module.exports = {
             appartment,
             number,
             timeStamp,
-            cartProducts: crtProduct
+            cartProducts: crtProduct,
+            cartOwnerName,
               
         });
 
-        console.log('Anday wala burger',crtProduct)
-        newProceed.save().then(data=>{
+        console.log('Anday wala burger',cartOwnerReciept)
+        cartOwnerReciept.save().then(data=>{
             console.log('Anday wala burger',data)
             res.status(200).json({success:true, data})
         })
@@ -121,5 +125,23 @@ module.exports = {
             res.status(404).json({success:false,err})
         });
     },
+
+    cartOwnerReciept(req,res){
+        
+        CartOwner.find()
+        .then(data => res.status(200).json({data}))
+        .catch(err => err.json)
+    },
+
+    delAfterApproved(req,res){
+        
+        const { key } = req.body;
+        console.log(req.body)
+        Proceed.findByIdAndDelete(key)
+        .then(cart => {cart.remove().then(() => res.json({ success: true,cart }))})
+        .catch(err => res.status(404).json({ success: false }));
+    },
+
+    
 }
 

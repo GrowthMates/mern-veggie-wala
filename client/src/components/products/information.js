@@ -3,7 +3,7 @@ import {Link,withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import './stylesheet/information.css'
 import bana3 from '.././centralized/images/bana3.webp'
-import {proceed} from '../../actions/productsAction'
+import {proceed,delCartProducts} from '../../actions/productsAction'
 
 
 
@@ -49,6 +49,8 @@ class Information extends Component{
         prcd.push(i)
         return true
       })
+      let counter = 0
+      let orderNo = counter++
      let esi = prodId.join("-")
       console.log('bahar', prcd)
       console.log(prodPrice)
@@ -65,11 +67,13 @@ class Information extends Component{
         // productName,
         // quantity: this.props.cartProducts.quantity,
         timeStamp: 'Date: ' +date +  '\n' + ' Time: '  + time,
-        cartProducts: prcd
+        cartProducts: prcd,
+        orderNo
       }
 
       this.props.proceed(newProceed)
-      console.log(date,time, newProceed)
+      this.props.delCartProducts(newProceed)
+      console.log(newProceed)
     }
   
    click(){
@@ -229,5 +233,5 @@ return{
 }
 export default connect(
   mapStateToProps,
-  { proceed }
+  { proceed, delCartProducts }
 )(withRouter(Information));

@@ -16,7 +16,7 @@ class Collections extends Component{
     constructor(Props){
         super(Props);
         this.state={
-            loader: true,
+            loading: true,
             veiwOption:false,
             name:'',
             price:undefined,
@@ -41,18 +41,21 @@ class Collections extends Component{
 
     componentDidMount(){
         console.log(this.props)
+        if(this.props.products){
+            this.setState({
+                products: this.props.products,
+                loading: this.props.loading
+            })
+        }
     }
-    shouldComponentUpdate(propd,state){
-       console.log('shld cltn sy', propd,state)
-        return true
-    }
+   
     componentWillReceiveProps (nextProps,props){
         // if(nextProps!=props){
             console.log("Prev. props......",props.products)
             console.log("Cart Array next......",nextProps.products)
             this.setState({
                 products:nextProps.products,
-                loader:false
+                loading:false
             })
         }
         // else{
@@ -79,7 +82,7 @@ class Collections extends Component{
 
         // this.props.userCart(this.props.history);
         this.props.addToCart(productId)
-        console.log('new prod')
+        console.log('new prod', productId)
         // this.props.history.push('/cart')
     }
 
@@ -171,8 +174,9 @@ class Collections extends Component{
                
 
                         {
+                            this.state.loading === true ? <p>Loading</p> : (
                           (this.state.veiwOption === false)?(
-                             this.state.products || this.props.products.map((item,index) => {  
+                         this.state.products.map((item,index) => {  
                            return(
                            <div key={index}>
                              <form >
@@ -222,7 +226,7 @@ class Collections extends Component{
                                 </div>    
 
                    </div>   )     
-                   }
+                            )}
                    
          
                     </div>
@@ -245,6 +249,7 @@ const mapStateToProps = (state) => {
   
     return{
       products: state.products.products,
+      loading: state.products.loading,
       cart:state.cart
   }
 }

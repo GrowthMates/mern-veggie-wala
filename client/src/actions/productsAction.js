@@ -7,6 +7,8 @@ import {
   ADD_CART,
   PROCEED_PRODUCT,
   UPDATE_PRODUCT,
+  CONFIRM_ORDER,
+  DEL_APPROVALS
 } from "./types";
 
 var arr=JSON.parse(localStorage.getItem('CartProduct')) || [];
@@ -244,7 +246,11 @@ var getCartProdLocalStorage=[]
         console.log('create product admin sy ka data ', res.data)
       })
       .catch(err => {
-        console.log('create product error......., ', err.message)
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.message
+        })
+        console.log('added products sy ..........',err)
       })
   }
 
@@ -268,7 +274,7 @@ var getCartProdLocalStorage=[]
       .post('http://localhost:5000/api/cartOwner/confirmOrder',orderData)
       .then(res => {
         dispatch({
-          type: PROCEED_PRODUCT,
+          type: CONFIRM_ORDER,
           payload: res.data
         })
         console.log('proceed ka data ', res.data)
@@ -277,4 +283,32 @@ var getCartProdLocalStorage=[]
         console.log('proceedsy error......., ', err.message)
       })
   }
- 
+
+  export const delAfterApproved = (key) => dispatch => {
+    axios
+      .post('http://localhost:5000/api/del/approved',key)
+      .then(res => {
+        dispatch({
+          type: DEL_APPROVALS,
+          payload: res.data
+        })
+        console.log('approval wali product del ho gai admin sy ', res.data)
+      })
+      .catch(err => {
+        console.log('proceedsy error......., ', err.message)
+      })
+  }
+
+  export const delCartProducts = (prcd) => dispatch => {
+    axios
+      .post('http://localhost:5000/api/del/cart',prcd)
+      .then(res => {
+           localStorage.removeItem('CartProduct');
+        console.log('approval wali product del ho gai admin sy ', res.data)
+      })
+      .catch(err => {
+        console.log('proceedsy error......., ', err.message)
+      })
+  }
+  
+  

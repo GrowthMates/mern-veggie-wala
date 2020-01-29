@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, {Component,Lazy,Suspense} from 'react';
 import 
  {getProducts}
   from "../actions/productsAction";
@@ -17,6 +16,7 @@ import About from '../components/centralized/about';
 import Navbar from '../components/centralized/navbar';
 import BookedOrder from '../components/admin/bookedOrder';
 import Admin from '../components/admin/dashboard';
+import CartOwner from '../components/cartOwner/index.js';
 import AddProducts from '../components/admin/addProducts';
 import DelProducts from '../components/admin/delProducts';
 import Footer from '../components/centralized/footer'
@@ -48,7 +48,15 @@ if (localStorage.jwtToken) {
     }
   }
 
- class Routes extends React.Component{
+ class Routes extends Component{
+
+  componentWillReceiveProps(nextProps){
+
+    console.log('props Routing  will rcve props sy', nextProps);
+    // this.setState({
+    //     bookedOrderData: nextProps.products
+    // })
+}
 
 render(){
  
@@ -57,6 +65,7 @@ this.props.getProducts('Routing')
   return (
         <div>
             <BrowserRouter>
+            {/* <Suspense fallback={<div>Loading...</div>}>  */}
                 <div>
                                           
                 <div>
@@ -76,13 +85,14 @@ this.props.getProducts('Routing')
                    <Route path='/delProducts' component={DelProducts}/>
                    <Route path='/information' component={Information}/>
                    <Route path='/admin' component={Admin}/>
+                   <Route path='/cartOwner' component={CartOwner}/>
                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
                </Switch>
              <Footer/>
             </div>
             
             </div>
-
+            {/* </Suspense> */}
             </BrowserRouter>
 
         </div>

@@ -291,6 +291,37 @@ module.exports = {
                 });
             });
     },
+
+    delCartProducts(req, res){
+        // const { id } = req.params;
+        const { cartProducts } = req.body;
+        console.log('cart del sy------', cartProducts);
+
+        let cartSchemaId = []
+        cartProducts.forEach((i,index) => {
+
+            UserCart.findByIdAndDelete(i.cartSchemaId)
+            .then(cart => {cart.remove().then(() => {
+                if(index===cartProducts.length-1){
+
+                    console.log('pura ho gya----',cart)
+                    res.json({ success: true,cart })
+                }
+            }
+               )})
+            .catch(err => res.status(404).json({ success: false }));
+            // cartSchemaId.push({
+            //     id:i.cartSchemaId
+            // })
+        })
+
+        console.log('cart ki idssssssssssss..',cartSchemaId)
+       
+    
+      
+
+    },
+
     logout(req, res){
 
     }

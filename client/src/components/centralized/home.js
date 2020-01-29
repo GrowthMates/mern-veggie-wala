@@ -41,8 +41,8 @@ import l6 from './images/l6.webp'
 import h1 from './images/h1.webp'
 import h2 from './images/h2.webp'
 import './style/home.css'
-import socketIOClient from "socket.io-client";
-var socket=socketIOClient("http://localhost:5000/")
+// import socketIOClient from "socket.io-client";
+// var socket=socketIOClient("http://localhost:5000/")
 // import bgLower from './images/bgLower.webp'
 
 

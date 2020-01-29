@@ -21,8 +21,10 @@ class Navbar extends Component{
         search: '',
         products: undefined,
         filteredProduct:undefined,
+        filter: undefined,
         // cartItem: JSON.parse(localStorage.getItem('CartProduct')) || [],
-        qty: undefined
+        qty: undefined,
+        searchActive: false
 
     }
 }
@@ -32,6 +34,12 @@ class Navbar extends Component{
       }
     componentDidMount(){
 
+        if(this.props.products){
+            this.setState({
+                filter: this.props.products
+            })
+            console.log(this.state.filter,'ksihiu')
+        }
         axios
             .get("http://localhost:5000/api/products")
             .then((res) => {
@@ -39,7 +47,7 @@ class Navbar extends Component{
                            
                             console.log(this.state.products, 'state products did mnt sy')
                             localStorage.setItem('Products', JSON.stringify(res.data));
-                            console.log('Products from Storage: ',localStorage.getItem('Products'));
+                            // console.log('Products from Storage: ',localStorage.getItem('Products'));
     
                               }) // re-direct to login on successful register
             .catch(err =>
@@ -71,9 +79,9 @@ class Navbar extends Component{
          console.log('nextprops navbar sy---------',nextProps,props)
         this.setState({
             qty: nextProps.cartProducts,
+            filter: nextProps.products
             
         })
-             console.log(this.state.qty, 'navbar will mnt')
 
         }
       }
@@ -100,7 +108,7 @@ class Navbar extends Component{
                             })
                             console.log("Products filteres",this.state.filteredProduct )
                         localStorage.setItem('Products', JSON.stringify(res.data));
-                        console.log('Products from Storage: ',localStorage.getItem('Products'));
+                        // console.log('Products from Storage: ',localStorage.getItem('Products'));
 
                           }) // re-direct to login on successful register
         .catch(err =>
@@ -110,32 +118,36 @@ class Navbar extends Component{
 
     updateSearch(e){
         this.setState({
-            search: e.target.value.substr(0,20)
+            search: e.target.value.substr(0,20),
+            searchActive: true,
         })
+        // console.log(e.target.value=== )
+        // if(this.state.search==''){
+        //     this.setState({
+        //         searchActive: false,
+        //     })
+        // }
+
     }
 
     render(){
-        if(this.state.products){
-            // console.log('yessssssssssssssssssssssssssssss')p
-        }
-        // axios
-        // .get("http://localhost:5000/api/products")
-        // .then((res) => {
-        //                 console.log("Products success", res.data)
-        //                 var filterProduct = res.data.filter((product) => {
-        //                     return product.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
-        //                 })
-                                  
-        //                        console.log(filterProduct, 'filtered')
-        //                 localStorage.setItem('Products', JSON.stringify(res.data));
-        //                 console.log('Products from Storage: ',localStorage.getItem('Products'));
+        // console.log(this.state.filter, 'navbar will recve props')
 
-        //                   }) 
-        // .catch(err =>
-        // console.log('Product err: ',err.message)
-        // );
-       
-        // console.log( this.state.products, 'render sy')
+        if(this.state.filter){
+            
+            var filterProduct = this.state.filter.filter(product => {
+                
+                return product.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+            })
+            // this.setState({
+            //     filteredProduct: filterProduct
+            // })
+        }
+
+        // console.log(filterProduct, 'prdcts fltr k lye')
+
+      
+      
         return(
             <div className="div1"> 
               <div >
@@ -154,11 +166,15 @@ class Navbar extends Component{
                            </form>
                            <div>
                            
-                               {/* {this.state.filteredProduct.map(item => {
+                               {
+                                this.state.search===''? void 0 :
+                                this.state.searchActive===false ? void 0 :
+                                filterProduct ? filterProduct.map(item => {
                                    return (
                                        <div>{item.name}</div>
                                    )
-                               })} */}
+                               }) : void 0
+                               }
                                
                                 
                            </div>
@@ -260,14 +276,17 @@ class Navbar extends Component{
 
 const mapStateToProps = state => {
     // console.log('Navbar nunnuu-------',state.cartReducer.cart.length)
+    
     if(state.cartReducer.cart)
         {return {
-            cartProducts: state.cartReducer.cart.length
+            cartProducts: state.cartReducer.cart.length,
+            products: state.products.products
 
         }}
         else{
             return {
-                cartProducts:0
+                cartProducts:0,
+                products: state.products.products
     
             }
         }

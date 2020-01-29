@@ -8,7 +8,7 @@ import heart from '../centralized/images/del.png'
 import tick from '../centralized/images/tick.png'
 import x from '../centralized/images/x.png'
 import eco from '../centralized/images/eco.webp'
-import {updateProduct,addProduct,getProducts} from'../../actions/productsAction'
+import {updateProduct,addProduct,getProducts,sendToCartOwner,delAfterApproved} from'../../actions/productsAction'
 import './adminDashboard.css'
 
 
@@ -16,6 +16,7 @@ import './adminDashboard.css'
     constructor(){
         super()
         this.state = {
+            loading:true,
             bookedOrderData: [],
             products:[],
             delProduct: [],
@@ -33,6 +34,8 @@ import './adminDashboard.css'
             selectOwnerId:'',
             selectedProductId:'',
             selectedProduct:undefined,
+            successAlert: false,
+            errors: false,
             cartOwners: [
                 {
                     name: 'Arslan',
@@ -63,30 +66,44 @@ console.log('WillMount Admin -------')
 
     componentWillReceiveProps(nextProps){
 
-        console.log('props admin will rcve props sy', nextProps);
-        // this.setState({
-        //     bookedOrderData: nextProps.products
-        // })
+        console.log('props admin will rcve props sy',nextProps);
+        this.setState({
+            products:nextProps.products,
+            loading:false
+        })
+        console.log('loading',this.props.loading)
+        if(this.props.loading===false){
+            this.setState({
+                successAlert: true
+            })
+            console.log('loading mily gi----')
+        }
+        if(this.props.errors!==undefined && this.state.errors===true){
+            this.setState({
+                errors: true
+            })
+            console.log('error Add prdcts sy----', this.props.errors)
+
+        }
     }
-    // shouldComponentUpdate(nextProps,nextState){
-    //     console.log('should Update admin=======',nextProps,nextState)
-    //     if(nextState.dataState==true){
-    //         console.log('NExtstate.datastate======',nextState.dataState)
-    //         // this.props.getProducts();
-    //         return true
-    //     }
-    //     else{
-    //         return true
-    //     }
-    // }
+   
 
     componentDidMount(){
+
+        if(this.props.products){
+            this.setState({
+                products: this.props.products,
+                loading: this.props.loading
+            })
+        }
+
+
         axios
         .get("http://localhost:5000/api/products")
         .then((res) => {
                        
             this.setState({
-                products: res.data
+                // products: res.data
             })
             
             console.log("Products success", this.state.bookedOrderData._id)
@@ -123,9 +140,10 @@ console.log('WillMount Admin -------')
             .then(res => {
               this.props.getProducts('Admin Delete');
                 // cartProducts.splice(index,1);
-                var delFromLocalStorage=this.state.bookedOrderData.findIndex(i=> i._id===key);
+                console.log(this.props.products, 'reducers sy products')
+                var delFromLocalStorage=this.props.products.findIndex(i=> i._id===key);
                 if(delFromLocalStorage!==-1){
-                    this.state.bookedOrderData.splice(delFromLocalStorage,1);
+                    this.props.products.splice(delFromLocalStorage,1);
                 //   localStorage.setItem('CartProduct', JSON.stringify(cartProducts));
                   this.setState({
                                 evein: false
@@ -178,6 +196,22 @@ console.log('WillMount Admin -------')
         }
 
     }
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.successAlert) {
+          // when the state is updated (turned red), 
+          // a timeout is triggered to switch it back off
+          this.turnOffRedTimeout = setTimeout(() => { 
+            this.setState(() => ({successAlert: false,errors:false}))
+          }, 2000);
+        }
+      }
+      componentWillUnmount() {
+        // we set the timeout to this.turnOffRedTimeout so that we can
+        // clean it up when the component is unmounted.
+        // otherwise you could get your app trying to modify the state on an
+        // unmounted component, which will throw an error
+        clearTimeout(this.turnOffRedTimeout);
+      }
     onSubmit = e => {
         e.preventDefault();
         const {addName,addPrice,addStock,addDescription} = this.state
@@ -196,6 +230,7 @@ console.log('WillMount Admin -------')
       addDescription: '',
       addPrice: '',
       addStock:'',
+      errors:true,
       
        });
 
@@ -227,10 +262,8 @@ console.log('WillMount Admin -------')
         })
         
         this.setState({selectedProduct:filteredProduct})
-        console.log('working aproval',this.state.selectedProduct)
+        console.log('working aproval',this.state)
         console.log('working aproval',filteredProduct)
-
-
 
     }
 
@@ -241,12 +274,32 @@ console.log('WillMount Admin -------')
     }
     sendToOwner(){
         
-        const filteredCartOwner = this.state.cartOwners.filter(i => {
+        let filteredCartOwner = this.state.cartOwners.filter(i => {
             return i.id === this.state.selectOwnerId
         })
         
-        console.log(filteredCartOwner, 'select ho gya owner')
-
+        console.log(filteredCartOwner, 'data cart ownder ky liye')
+        console.log(this.state.selectedProduct[0], 'data cart ownder ky liye')
+        let selectedProduct = this.state.selectedProduct[0]
+        let newCart = {
+            number:selectedProduct.number,
+            fname:selectedProduct.fname,
+            lname:selectedProduct.lname,
+            address:selectedProduct.address,
+            appartment:selectedProduct.appartment,
+            city:selectedProduct.city ,
+            // productName,
+            // quantity: this.props.cartProducts.quantity,
+            timeStamp:selectedProduct.timeStamp,
+            cartProducts:selectedProduct.cartProducts,
+            cartOwnerName: filteredCartOwner[0].name
+          }
+        this.props.sendToCartOwner(newCart)
+        let key = {
+            key: selectedProduct._id
+        }
+        this.props.delAfterApproved(key)
+        console.log(selectedProduct._id, 'select hua wa product final')
     }
 
     render(){
@@ -257,6 +310,7 @@ console.log('WillMount Admin -------')
         }
         return(
             <div className='adminDashboard'>
+             
                 <div className='row'>
                     <div className='col-lg-2'>
                         <div>
@@ -287,7 +341,7 @@ console.log('WillMount Admin -------')
                                     this.state.bookedOrderData !== [] ? this.state.bookedOrderData.map((i,index) => {
                                      return (         
                                
-                                          <tr className='dataTd '>
+                                          <tr className='dataTd ' key={index}>
                                           
                                                 <td className='cart-body' style={{textAlign: 'center'}}>{index+1} </td>
                                                 <td className='cart-body'>{i.fname} </td>
@@ -320,7 +374,7 @@ console.log('WillMount Admin -------')
 
                                                                   {this.state.cartOwners.map((i,index) =>{
                                                                       return(
-                                                                     <tr className='dataTd '>
+                                                                     <tr className='dataTd' key={index}>
                                                                         <td className='cart-body'>1 </td>   
                                                                         <td className='cart-body'>{i.name} </td>   
                                                                         <td className='cart-body'>{i.location} </td>   
@@ -372,7 +426,7 @@ console.log('WillMount Admin -------')
                                                                     </tr>
                                                                   {i.cartProducts.map((item,index) => {
                                                                       return(
-                                                                          <tr>
+                                                                          <tr key={index}>
                                                                              <td className='cart-body' style={{textAlign: 'center'}}>{index+1} </td>
                                                                     <td className='cart-body'>{item.name} </td>
                                                                     <td className='cart-body'> {item.price} </td>
@@ -434,7 +488,18 @@ console.log('WillMount Admin -------')
                        <div class="jumbotron adminProd">
                          
                          <div className='col-md-6'>
-                             <h>Product</h>
+                         {
+                            this.state.successAlert===false ? void 0 :
+                            <div class="alert alert-success" role="alert">
+                                Succesfully Product Added
+                            </div>
+                        }
+                        {
+                             this.state.errors===false ? void 0 :
+                             <div class="alert alert-danger" role="alert">
+                                 product failed due to {this.props.errors}
+                             </div>
+                        }
                         </div>
                           <div className='col-md-6'>
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target='#exampleModalCenter'>
@@ -466,7 +531,7 @@ console.log('WillMount Admin -------')
                                     </div>
                                     <div class="modal-footer">
                                         {/* <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> */}
-                                        <button type="submit" onClick={this.onSubmit} class="btn btn-primary">Add Product </button>
+                                        <button type="submit" data-dismiss="modal" onClick={this.onSubmit} class="btn btn-primary">Add Product </button>
                                     </div>
                             </form>
                                   </div>
@@ -488,11 +553,12 @@ console.log('WillMount Admin -------')
                                         </tr>
                                     </thead>
                                     <tbody className='cart-body'>
-                                  { this.state.edit === false ?
-                                    this.state.products !== [] ? this.state.products.map((i,index) => {
+                                  { this.state.loading=== true ? <p>loading</p> :
+                                  this.state.edit === false ?
+                                    this.props.products !== [] ? this.props.products.map((i,index) => {
                                      return (         
                                
-                                          <tr className='dataTd '>
+                                          <tr className='dataTd ' key={index}>
                                           
                                                 <td className='cart-body' style={{textAlign: 'center'}}>{index+1} </td>
                                                 <td className='cart-body'> <input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'} onChange={this} value={i.name} />  </td>
@@ -561,6 +627,7 @@ console.log('WillMount Admin -------')
                                                 </td>
                                         </tr>
                                 }
+                                {/* // yhn lrny  */}
                                 </tbody>
                            </table>
                            </form>
@@ -576,14 +643,16 @@ console.log('WillMount Admin -------')
 }
 
 const mapStateToProps=(state)=>{
-  console.log('admin stateto props', state.products)
+  console.log('admin stateto props', state.products.productErrors)
 
   return{
-      products: state.products.products
+      products: state.products.products,
+      loading: state.products.loading,
+      errors: state.products.productErrors
   }
 }
 
 export default connect(
     mapStateToProps,
-    { addProduct,updateProduct,getProducts }
+    { addProduct,updateProduct,getProducts,sendToCartOwner,delAfterApproved }
   )(withRouter(Admin));

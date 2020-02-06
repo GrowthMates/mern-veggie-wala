@@ -65,7 +65,6 @@ this.props.getProducts('Routing')
                    <Route exact path='/' component={Home} />
                    <Route path='/about' component={About} />                 
                    <Route path='/contact' component={Contact} />
-                   <Route path='/information' component={Information} />
                    <Route path='/combined' component={Combined} />
                    <Route path='/product/:id' component={Product} />
                    <Route exact path="/collections" component={Collections} />
@@ -74,8 +73,8 @@ this.props.getProducts('Routing')
                    <Route path='/image' component={TestComp}/>
                    <Route path='/addProducts' component={AddProducts}/>
                    <Route path='/delProducts' component={DelProducts}/>
-                   <Route path='/information' component={Information}/>
                    <Route path='/admin' component={Admin}/>
+                   <PrivateRoute exact path='/information' component={Information}/>
                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
                    <Route path='/Allimages' component={AllImages}/>
                </Switch>

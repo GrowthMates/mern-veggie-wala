@@ -14,6 +14,8 @@ const userController = require('./controllers/user_controller');
 const adminController = require('./controllers/admin/admin_controller');
 const productsController = require('./controllers/products_controller');
 const PORT = process.env.PORT || 5000;
+const passport = require("passport");
+
 // const server = http.createServer(app);
 // const io = socketIO(server);
 
@@ -46,7 +48,8 @@ app.use(
 app.use(bodyParser.json());
 mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true},(err)=>{
     if(err){
-        console.log('Database Connection Err-------------:',err);
+        console.log('Database Connection Err-------------:',err.message);
+        
     }
     else
     console.log('Database Connected-------------');
@@ -62,7 +65,8 @@ app.use(session({
 }));
 
 app.use(cors());
-
+app.use(passport.initialize()); 
+require("./config/passport");
 
 //socket io working...
 
@@ -112,6 +116,23 @@ setTimeout(()=>{
     
     //      });
     // })
+
+    /* -----------GET Google Authentication API.----------- */
+        app.get(
+          "/auth/google",
+          passport.authenticate("google", { scope: ["profile", "email"] })
+        );
+        app.get(
+          "/auth/google/callback",
+          passport.authenticate("google", { failureRedirect: "/", session: false }),userController.authGoogleCallback);
+          // function(req, res) {
+          //     var token = req.user.token;
+          //     console.log('res.user>>>=====',req.user)
+          //     res.redirect("http://localhost:3000?token=" + token);
+          // }
+        // );
+
+  /*---------Data Call APIs---------*/ 
     app.get('/api/user-data', userController.readUserData);
     //Add a item to cart.
     app.post('/api/user-data/addToCart', userController.addToCart);

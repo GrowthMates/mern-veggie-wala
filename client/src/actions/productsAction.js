@@ -138,7 +138,8 @@ var getCartProdLocalStorage=[]
             }
             else
             {
-
+              productCart.checker=true
+               console.log('products cart else======',productCart)
               axios
                   .post("http://localhost:5000/api/user-data/addToCart", productCart)
                   .then((res) => {
@@ -244,6 +245,10 @@ var getCartProdLocalStorage=[]
       })
       .catch(err => {
         console.log('proceedsy error......., ', err.message)
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
       })
   }
 

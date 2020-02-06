@@ -46,7 +46,7 @@ import {addToCart} from '../../../actions/productsAction'
 
     //  }
 
-     delCart(key,productId,quantity,index){
+     delCart(key,productId,quantity){
         let {cartProducts} = this.state
 
         let delBody = {
@@ -58,7 +58,7 @@ import {addToCart} from '../../../actions/productsAction'
         
         // cartProducts.splice(0,1);
        
-        console.log('cart del Ponka. >', delBody)
+        console.log('cart del Ponka. >>>>', delBody)
 
         axios.post("http://localhost:5000/api/user-data/delCart", delBody)
             .then(res => {
@@ -92,17 +92,7 @@ import {addToCart} from '../../../actions/productsAction'
 
      }
 
-    //  update(data, index){
-    //     axios.put('http://localhost:5000/api/user-data/updateCart',data).then(res=>{
-
-
-
-    //     }).catch(err=>{
-    //         console.log('Update Cart Err----',err.message)
-    //     })
-
-    //  }
-
+    
 
 
      onChange(id,index,e){
@@ -145,6 +135,7 @@ import {addToCart} from '../../../actions/productsAction'
             localStorage.setItem('CartProduct',JSON.stringify(this.state.cartProducts))
             console.log(this.state.cartProducts)
             this.setState({tick:'inline',loader:'none',quantity:undefined})
+            window.location.reload()
        
         })
 
@@ -222,7 +213,7 @@ import {addToCart} from '../../../actions/productsAction'
                                         <td className='cart-body cart-qty-td' ><input className="crt-qty-fnl" type='number' name={item._id} defaultValue={item.quantity}
                                         onChange={this.onChange.bind(this,item.cartSchemaId,index)} value={this.state.quantity} id={index} min='1' max={item.filterProduct.stock} /></td>
                                     <td className='cart-body' style={{color:"#5BA616"}}>Rs. {(item.filterProduct.price)*item.quantity }</td>
-                                        <td className='cart-body ' style={{color:"#5BA616"}}><img onClick={this.delCart.bind(this,item.cartSchemaId,item.filterProduct._id,item.quantity,index)}
+                                        <td className='cart-body ' style={{color:"#5BA616"}}><img onClick={this.delCart.bind(this,item.cartSchemaId,item.filterProduct._id,item.quantity)}
                                         className='cursor-pointer' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/></td>
         
         

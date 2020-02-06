@@ -18,11 +18,11 @@ const User = new Schema({
     },
     address:{
         type:String,
-        required:true
+        // required:true
     },
     number:{
         type:String,
-        required:true
+        // required:true
     }
 });
 module.exports = mongoose.model('User', User);

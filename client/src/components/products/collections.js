@@ -69,6 +69,14 @@ class Collections extends Component{
     
 
      onSubmit=(id,e)=>{
+        // function uuidv4() {
+        //     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        //       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        //       return v.toString(16);
+        //     });
+        //   }
+          
+        //   console.log(uuidv4());
         e.preventDefault();
         console.log('onsubmit',id)
         // return false;
@@ -80,14 +88,16 @@ class Collections extends Component{
         
         let productId = {
             productId: id,
-            quantity:1
+            quantity:1,
+            // uuid:uuidv4(),
+            checker: false,
         }
 
         // this.props.history.push('/cart')
 
         // this.props.userCart(this.props.history);
         this.props.addToCart(productId)
-        console.log('new prod')
+        console.log('new prod====',productId)
         // this.props.history.push('/cart')
     }
 

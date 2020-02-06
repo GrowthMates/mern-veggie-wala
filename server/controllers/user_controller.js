@@ -5,6 +5,7 @@ const Product = require('../models/product');
 const User = require('../models/user');
 const Proceed = require('../models/proceed');
 const validateRegisterInput = require('../validation/register');
+const validateInformationInput = require('../validation/information');
 const validateLoginInput = require('../validation/login');
 // var ip = require("ip");
  var currentProduct=undefined
@@ -113,7 +114,7 @@ module.exports = {
     removeFromCart(req, res){
         // const { id } = req.params;
         const { key,productId,quantity } = req.body;
-        console.log(req.body);
+        console.log('remove cart=====',req.body);
 
         UserCart.findOneAndDelete(key)
         .then(cart => {cart.remove()
@@ -169,6 +170,15 @@ module.exports = {
     proceed(req, res){
         const {fname,lname,city,appartment,address,number,timeStamp,cartProducts,} = req.body
         console.log(req.body)
+
+         // Form validation
+         const { errors, isValid } = validateInformationInput(req.body);
+         // Check validation
+             if (!isValid) {
+             return res.status(400).json(errors);
+             console.log('isValid bad: ',errors);      
+             }
+
         var crtProduct=[];
         // var productData=cartProducts.filterProduct
         cartProducts.forEach(i => {
@@ -292,6 +302,80 @@ module.exports = {
             });
     },
     logout(req, res){
+
+    },
+
+    authGoogleCallback(req,res){
+        // var token = req.user.token;
+        console.log('res.user>>>=====',req.user)
+        User.findOne({email:req.user.email}).exec((err,user)=>{
+            if(user){
+                console.log('Gmail Already Exist',user)
+                const payload = {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    // userType: user.userType
+                    };
+            // Sign token
+                    jwt.sign(
+                    payload,
+                    process.env.secretOrKey,
+                    {
+                        expiresIn: 31556926 // 1 year in seconds
+                    },
+                    (err, token) => {
+                        res.redirect("http://localhost:3000?token=" + token);
+                        // res.json({
+                        // success: true,
+                        // token: "Bearer " + token
+                        // });
+                    }
+                    );
+            }
+            else if(!user){
+                const newUser = new User({
+                    name: req.user.name,
+                    email: req.user.email,
+                    password: `#Pael526${req.user.email}q1w2e3zaxscd`,
+                  });
+            // Hash password before saving in database
+                  bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                      if (err) throw err;
+                      newUser.password = hash;
+                      newUser
+                        .save()
+                        .then((user) =>{ 
+                            const payload = {
+                            id: user.id,
+                            name: user.name,
+                            email: user.email,
+                            // userType: user.userType
+                            };
+                    // Sign token
+                            jwt.sign(
+                            payload,
+                            process.env.secretOrKey,
+                            {
+                                expiresIn: 31556926 // 1 year in seconds
+                            },
+                            (err, token) => {
+                                res.redirect("http://localhost:3000?token=" + token);
+
+                                // res.json({
+                                // success: true,
+                                // token: "Bearer " + token
+                                // });
+                            }
+                            )}
+                            )
+                        .catch(err => console.log(err));
+                    });
+                  });
+            }
+        })
+        // res.redirect("http://localhost:3000?token=" + token);
 
     }
 }

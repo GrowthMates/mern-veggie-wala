@@ -34,6 +34,7 @@ import './adminDashboard.css'
             selectOwnerId:'',
             selectedProductId:'',
             selectedProduct:undefined,
+            eka:'',
             cartOwners: [
                 {
                     name: 'Arslan',
@@ -119,7 +120,8 @@ console.log('WillMount Admin -------')
         e.preventDefault()
         console.log(key, 'id')
         let id = {
-            key,
+            imageId:key.imageId,
+            key:key._id,
         }
         axios.post("http://localhost:5000/api/delProducts", id)
             .then(res => {
@@ -250,6 +252,18 @@ console.log('WillMount Admin -------')
 
 
 
+    }
+
+    onChangePrice(eve){
+        // var abc = e.target.value[e.target.value.length-1]!=='0'
+     
+    //   if(eve.target.value[eve.target.value.length-1]!=='e'){
+        // console.log('Price onshange=======',eve.target.value)
+        this.setState({
+            addPrice: eve.target.value
+        })
+
+        
     }
 
     selectOwners(id){
@@ -468,26 +482,28 @@ console.log('WillMount Admin -------')
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                      <form >
-                                    <div class="modal-body">
+                                      <form onSubmit={this.onSubmit}>
+                                    <div class="modal-body number">
                                       <input label="Image"
                                       type="file" 
+                                      required
                                       className="form-input"
                                       onChange={this.onChangeImage} 
                                        /> <br/>
-                                      <TextField value={this.state.addName} 
+                                      <TextField required value={this.state.addName} 
                                          onChange={eve => this.setState({addName: eve.target.value} )} label="Name" /> <br/>
-                                      <TextField value={this.state.addPrice} 
-                                         onChange={eve => this.setState({addPrice: eve.target.value} )} label="Price" /> <br/>
-                                      <TextField value={this.state.addStock} 
+                                      <TextField required value={this.state.addPrice} 
+                                         type='number'
+                                         onChange={this.onChangePrice.bind(this)} label="Price" /> <br/>
+                                      <TextField required value={this.state.addStock} type='number'
                                          onChange={eve => this.setState({addStock: eve.target.value} )} label="Stock" /> <br/>
-                                       <TextField value={this.state.addDescription} 
+                                       <TextField required value={this.state.addDescription} 
                                          onChange={eve => this.setState({addDescription: eve.target.value} )} label="Description" /> <br/>
                                      
                                     </div>
                                     <div class="modal-footer">
                                         {/* <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> */}
-                                        <button type="submit" onClick={this.onSubmit} class="btn btn-primary">Add Product </button>
+                                        <button type="submit" class="btn btn-primary">Add Product </button>
                                     </div>
                             </form>
                                   </div>
@@ -544,7 +560,7 @@ console.log('WillMount Admin -------')
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button onClick={this.delete.bind(this,i._id,index)} class="btn btn-primary">Delete Product</button>
+                                                                    <button onClick={this.delete.bind(this,i,index)} class="btn btn-primary">Delete Product</button>
                                                                 </div>
                                                                 </div>
                                                             </div>

@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {addImage} from '../actions/imageAction'
 import {connect} from 'react-redux'
+import axios from 'axios'
 // import socketIOClient from "socket.io-client";
 
 
@@ -41,16 +42,28 @@ class TestComp extends Component{
         };
        onSubmit(e) {
        e.preventDefault();
-       let formData = new FormData();
-       formData.append("product","Apple Aya h")
-       formData.append("title", this.state.title);
-       formData.append("image", this.state.image);
-       this.props.addImage(formData);
-       console.log('Image Submit====',formData)
-       this.setState({
-       title: "",
-       image: ""
-       });
+       console.log('get apis')
+        // axios{
+        //   GET
+        // }
+
+       axios.get('http://localhost:4000/auth/google', {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        }
+        }).then(res=>{
+         console.log('oogle login res======',res)
+       })
+      //  let formData = new FormData();
+      //  formData.append("product","Apple Aya h")
+      //  formData.append("title", this.state.title);
+      //  formData.append("image", this.state.image);
+      //  this.props.addImage(formData);
+      //  console.log('Image Submit====',formData)
+      //  this.setState({
+      //  title: "",
+      //  image: ""
+      //  });
       }
        render() {
         return (

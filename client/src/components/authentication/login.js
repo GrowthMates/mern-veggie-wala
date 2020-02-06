@@ -1,10 +1,14 @@
-import React,{Component} from 'react';
+import React from 'react';
+import { Component } from 'react'
 import TextField from '@material-ui/core/TextField';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {Redirect} from 'react-router-dom'
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
+import GIcon from '../centralized/images/googleIcon.png'
+import queryString from "query-string";
+import "./login.css"
 
 
 class Login extends Component{
@@ -18,17 +22,10 @@ class Login extends Component{
           auth: false
         };
       }
-      componentDidMount() {
-        // If logged in and user navigates to Login page, should redirect them to dashboard
-        if (this.props.auth.isAuthenticated) {
-          this.props.history.push("/dashboard");
-        }
-      }
+     
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
           console.log("Login Props", this.props)
-          // this.props.history.push("/dashboard"); // push user to dashboard when they login
-        // <Redirect to='/dashboad'/>
         this.setState({
           auth: true
         })
@@ -40,6 +37,13 @@ class Login extends Component{
           });
         }
       }
+
+      googleAuth(e){
+
+        window.location.replace("http://localhost:5000/auth/google");
+      }
+
+
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
       };
@@ -110,7 +114,14 @@ class Login extends Component{
                         
                         <br/>
                         
-                        <button type="submit" class="btn btn-secondary btn-lg btn-block">Block level button</button>
+                        <button type="submit" className='loginBtn'>Login</button>
+                            <span style={{margin:'20px', fontWeight:'600'}}>OR</span>
+                        {/* <input style={{width:'250px',height:'50px', marginTop:'25px'}} type='button' value='Sign In with Gmail' onClick={this.googleAuth}/>
+                        <i style={{position:'sticky',marginTop:'25px'}}><img src={GIcon}/></i> */}
+                        <button className='gmail-btn' onClick={this.googleAuth}>
+                          <span>Sign In with Gmail</span>
+                          <i style={{marginTop:'25px'}}><img src={GIcon} style={{backgroundColor:'white'}}  /></i>
+                          </button>
                         </div>
                 </form>
           

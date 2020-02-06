@@ -66,11 +66,23 @@ onChangeQty(e){
     //     price ,
     //     description
     // })
-    
-    let productId = {
+    let productId;
+    if(this.state.quantity==undefined){
+        productId = {
+            productId: id,
+            quantity:1
+        }
+        this.setState({
+            quantity:1
+        })
+    }
+    // console.log('product quantity====',this.state.quantity)
+    else{
+     productId = {
         productId: id,
         quantity:this.state.quantity
     }
+}
 
     // this.props.history.push('/cart')
 
@@ -119,8 +131,10 @@ onChangeQty(e){
                                     <div className="container">   
                                         <div className="row">  
                                         <div className="col-md-12 col-lg-12 col-sm-12 size-qty" >
-                                            
-                                            <div className="col-md-5 col-lg-5 col-sm-5 details-style">
+                                       
+                                        {/*For Size of packets (1Kg, 2Kg, 3Kg...)*/ }
+
+                                            {/* <div className="col-md-5 col-lg-5 col-sm-5 details-style">
                                                     <label for="dropdownMenuButton">
                                                         SIZE
                                                     </label>  
@@ -134,9 +148,11 @@ onChangeQty(e){
                                                             <option class="dropdown-item drop-item" >5 KG</option>
                                                         </select>
                                                     </div>
-                                                </div>
+                                                </div> */}
 
-                                                <div className="col-md-5 col-lg-5 col-sm-5" style={{float:'right'}}>
+
+                                                {/*For quantity of packets (if there are kgs above, change the float to right)*/ }   
+                                                <div className="col-md-5 col-lg-5 col-sm-5" style={{float:'left'}}>
                                                 <label for="quantity" >QUANTITY</label>
                                                 <input onChange={this.onChangeQty.bind(this)} type="number" name="quantity" min="1" defaultValue='1' value={this.state.value} className="form-control qty-inp" id="quantity"/>
 

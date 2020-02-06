@@ -93,10 +93,18 @@ module.exports = {
     },
     deleteProduct(req, res){
 
-        const { key } = req.body;
+        const { key, imageId } = req.body;
         console.log(key)
         Product.findByIdAndDelete(key)
-        .then(cart => {cart.remove().then(() => res.json({ success: true,cart }))})
+        .then(cart => {cart.remove().then(() => {
+            cloudinary.v2.uploader.destroy(imageId, function(error,result) {
+                if(error){
+                    console.log('Destroy image=======',error)
+                } 
+                console.log('Destroy image=======',result)
+                res.json({ success: true,cart })
+            });
+        })})
         .catch(err => res.status(404).json({ success: false }));
     },
 

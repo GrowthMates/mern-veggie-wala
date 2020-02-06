@@ -21,6 +21,7 @@
     "jwt-decode": "^2.2.0",
     "mongoose": "^5.8.2",
     "prop-types": "^15.7.2",
+    "query-string": "^6.10.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",

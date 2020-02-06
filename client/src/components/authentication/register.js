@@ -81,9 +81,7 @@ class Register extends Component{
               id="name" 
               label="UserName"
               required 
-              className={classnames("", {
-                invalid: errors.name
-              })}
+             
               />
               <span className="red-text">{errors.name}</span>
               <br/><br/>
@@ -98,9 +96,7 @@ class Register extends Component{
               id="email" 
               label="Email Address" 
               required
-              className={classnames("", {
-                invalid: errors.email
-              })}
+              
               />
                <span className="red-text">{errors.email}</span>
               <br/><br/>
@@ -131,9 +127,7 @@ class Register extends Component{
               type='password' 
               label='Password'
               required
-              className={classnames("", {
-                invalid: errors.password
-              })}
+             
               />
               <span className="red-text">{errors.password}</span>
               <br/><br/>
@@ -150,9 +144,7 @@ class Register extends Component{
               type='password' 
               label='ConfirmPassword'
               required
-              className={classnames("", {
-                invalid: errors.password2
-              })}
+             
               />
               <span className="red-text">{errors.password2}</span>
               <br/><br/>

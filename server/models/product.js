@@ -17,10 +17,13 @@ const Product = new Schema({
         stock:{
                 type:Number,
                 default:1
-        }
+        },
+        image: String,
+        imageId: String,
         // img:{
-        //         data:Buffer,
-        //         contentType: String
+        //        title:String,
+        //        image:String,
+        //        imageId:String
         // }
 
 });

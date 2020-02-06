@@ -139,10 +139,16 @@ h5.cursor-pointer:hover{
       cursor: pointer;
   }
 
+  .team img{
+
+      border-radius: 20px;
+  }
   .prodImg{
       float: left;
       padding-left: 0px;
       text-align: left;
+      height: 45vh;
+      border-radius: 25px !important;
       
     }
 .data{

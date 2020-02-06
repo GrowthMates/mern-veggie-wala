@@ -1,14 +1,15 @@
 require('dotenv').config();
 const express = require('express');
-const http = require("http");
-const socketIO = require("socket.io");
+// const http = require("http");
+// const socketIO = require("socket.io");
 const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 // const Test = require('./models/socketTest');
-
+const Product = require('./models/product')
+const Image = require('./models/socketTest')
 const userController = require('./controllers/user_controller');
 const adminController = require('./controllers/admin/admin_controller');
 const productsController = require('./controllers/products_controller');
@@ -16,6 +17,27 @@ const PORT = process.env.PORT || 5000;
 // const server = http.createServer(app);
 // const io = socketIO(server);
 
+//IMAGE UPLOAD CONFIGURATION
+const multer = require("multer");
+const storage = multer.diskStorage({
+filename: function(req, file, callback) {
+callback(null, Date.now() + file.originalname);
+}
+});
+const imageFilter = function(req, file, cb) {
+// accept image files only
+if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+return cb(new Error("Only image files are accepted!"), false);
+}
+cb(null, true);
+};
+const upload = multer({ storage: storage, fileFilter: imageFilter });
+const cloudinary = require("cloudinary");
+cloudinary.config({
+cloud_name: "dbevearco", //ENTER YOUR CLOUDINARY NAME
+api_key: process.env.CLOUDINARY_API_KEY, // THIS IS COMING FROM CLOUDINARY WHICH WE SAVED FROM EARLIER
+api_secret: process.env.CLOUDINARY_API_SECRET // ALSO COMING FROM CLOUDINARY WHICH WE SAVED EARLIER
+});
 app.use(
     bodyParser.urlencoded({
       extended: false
@@ -62,6 +84,51 @@ app.use(cors());
 // })
 
 setTimeout(()=>{
+    app.get("/viewImages", (req, res) => {
+        Image.find(function(err, images) {
+          if (err) {
+            res.json(err.message);
+          } else {
+            res.json(images);
+          }
+        });
+      });
+      
+      app.post("/add", upload.single("image"), (req, res) => {
+          console.log('/add called====',req.body)
+        cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
+          if (err) {
+            req.json(err.message);
+          }
+          req.body.image = result.secure_url;
+          // add image's public_id to image object
+          req.body.imageId = result.public_id;
+      
+          Image.create(req.body, function(err, image) {
+            if (err) {
+              res.json(err.message);
+              return res.redirect("/viewImages");
+            }
+            console.log('res send',image)
+            res.json(image)
+          });
+        });
+      });
+    // io.on("connection", socket => {
+    //     console.log("New client connected" + socket.id);
+    //     // Returning the initial data of food menu from FoodItems collection
+    //     socket.on("call_products", () => {
+    //         console.log('initial data called by client=====')
+               
+    //             // Product.find({}).then(docs => {
+    //             //     console.log('emitted data====',docs)
+    //             //     io.sockets.emit("get_products", docs);
+    //             // });
+    //             // res.status(200).json({success:true, data})
+           
+    
+    //      });
+    // })
     app.get('/api/user-data', userController.readUserData);
     //Add a item to cart.
     app.post('/api/user-data/addToCart', userController.addToCart);
@@ -88,7 +155,7 @@ setTimeout(()=>{
     //Gets the admin users.
     app.get('/api/users', adminController.getAdminUsers);
     //When a admin creates a product. No need for request parameter in this case. Since we are inserting data to database.
-    app.post('/api/createProducts', adminController.createProduct);
+    app.post('/api/createProducts', upload.single("image") , adminController.createProduct);
 
     app.get('/api/bookedProducts', adminController.bookedProduct);
 
@@ -111,6 +178,16 @@ setTimeout(()=>{
     app.post('/api/cartOwner/confirmOrder', adminController.cartOwner);
 
     app.get('/api/cartOwner/reciept', adminController.cartOwnerReciept);
+
+    app.post('/api/wishList', userController.wishList)
+
+    app.post('/api/getWishList', userController.getWishList)
+
+    app.post('/api/del/wishList', userController.delWishList)
+
+
+    
+
 
 
 

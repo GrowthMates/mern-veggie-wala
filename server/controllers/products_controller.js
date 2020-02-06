@@ -8,7 +8,8 @@ module.exports = {
             if(err){
                 console.log('All products err--------',err);
             }
-            res.status(200).send(products);
+            // console.log('Products Find====',products.reverse())
+            res.status(200).send(products.reverse());
         })
 
     },

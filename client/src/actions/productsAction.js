@@ -8,17 +8,34 @@ import {
   PROCEED_PRODUCT,
   UPDATE_PRODUCT,
   CONFIRM_ORDER,
-  DEL_APPROVALS
+  DEL_APPROVALS,
+  TOTAL_PRICE,
+  WISHLIST,
+  DEL_WISHLIST,
+  PATH_CHECKER
 } from "./types";
+import {socket} from '../components/centralized/navbar'
 
 var arr=JSON.parse(localStorage.getItem('CartProduct')) || [];
 var getCartProdLocalStorage=[]
 
  export const getProducts = (caller) => dispatch => {
   console.log(`GEtPRoducts called by ${caller}=====`)
+  // socket.emit("call_products")
+  // socket.on("get_products",(products)=>{
+  //   console.log('socket products====',products)
+  //   return(
+  //     dispatch({
+  //          type: GET_PRODUCTS,
+  //          payload: products
+  //        })
+      
+  //        )   
+  // })
     axios
       .get("http://localhost:5000/api/products")
       .then((res) => {
+
                       console.log("Products success", res)
                       return(
                          dispatch({
@@ -37,8 +54,12 @@ var getCartProdLocalStorage=[]
       );
   };
 
- export const addToCart = (productCart) => dispatch => {
+ export const addToCart = (product) => dispatch => {
    
+          const productCart={
+            productId:product.item._id,
+            quantity:product.quantity
+          }
             console.log('No.8:--OurArray-----',arr)
             console.log('LocalStorageCheck----',JSON.parse(localStorage.getItem('CartProduct')))
         // Checking data (available || not) in Storage 
@@ -51,7 +72,7 @@ var getCartProdLocalStorage=[]
                   function checkItem(item){
                       return item.filterProduct._id==productCart.productId
                   }
-
+                  
                   // Array.find() to find each data matching the params
                   var result=getCartProdLocalStorage.find(checkItem);
 
@@ -61,6 +82,7 @@ var getCartProdLocalStorage=[]
                   //Result will be undefiend when current data isn't available in prev data array
                     if(result===undefined){ 
                         // console.log(filterObj[0]._id, 'No6:--find hua wa id');
+                        
                         axios
                         .post("http://localhost:5000/api/user-data/addToCart", productCart)
                         .then((res) => {
@@ -70,16 +92,16 @@ var getCartProdLocalStorage=[]
                               var currId = JSON.parse(localStorage.getItem('addCart')).data
                               console.log(currId, 'abhi ki id') 
                   
-                              var prod = JSON.parse(localStorage.getItem('Products'));
-                                console.log('No1:--GetCartProdLocalStorage------',getCartProdLocalStorage)
-                              var filterObj = prod.filter((e) => {
-                                return e._id === productCart.productId
-                              });
+                              // var prod = JSON.parse(localStorage.getItem('Products'));
+                              //   console.log('No1:--GetCartProdLocalStorage------',getCartProdLocalStorage)
+                              // var filterObj = prod.filter((e) => {
+                              //   return e._id === productCart.productId
+                              // });
                               console.log('No.8:--IfOurArray-----',arr)
 
 
                         var newProd = {
-                          filterProduct: filterObj[0],
+                          filterProduct: product.item,
                           cartSchemaId:   currId._id,
                           quantity:      currId.quantity,
                         }
@@ -138,17 +160,17 @@ var getCartProdLocalStorage=[]
                         var currId = JSON.parse(localStorage.getItem('addCart')).data
                         console.log(currId, 'abhi ki id') 
             
-                        var prod = JSON.parse(localStorage.getItem('Products'));
-                          getCartProdLocalStorage = JSON.parse(localStorage.getItem('CartProduct'))
-                          console.log('No1:--GetCartProdLocalStorage------',getCartProdLocalStorage)
-                        var filterObj = prod.filter((e) => {
-                          return e._id === productCart.productId
-                        });
+                        // var prod = JSON.parse(localStorage.getItem('Products'));
+                        //   getCartProdLocalStorage = JSON.parse(localStorage.getItem('CartProduct'))
+                        //   console.log('No1:--GetCartProdLocalStorage------',getCartProdLocalStorage)
+                        // var filterObj = prod.filter((e) => {
+                        //   return e._id === productCart.productId
+                        // });
                         console.log('No.8:--Else1-OurArray-----',arr)
-                    console.log('NEW DATA-----' ,currId)
-                    console.log('filterObject[0]-----',filterObj[0])
+                    // console.log('NEW DATA-----' ,currId)
+                    // console.log('filterObject[0]-----',filterObj[0])
                     var newProd = {
-                      filterProduct: filterObj[0],
+                      filterProduct: product.item,
                       // matchId: currId._id,
                       cartSchemaId:  currId._id,
                       quantity: productCart.quantity
@@ -310,5 +332,76 @@ var getCartProdLocalStorage=[]
         console.log('proceedsy error......., ', err.message)
       })
   }
+
+  export const totalPrice = (data) => dispatch => {
+    dispatch({
+      type: TOTAL_PRICE,
+      payload: data
+    })
+  }
+
+  export const wishList = (data) => dispatch => {
+        axios
+        .post('http://localhost:5000/api/wishList',data)
+        .then(res => {
+            dispatch({
+              type: WISHLIST,
+              payload: data
+            })
+          console.log('Wish List Ka Action then sy', res.data)
+        })
+        .catch(err => {
+          console.log('Wish List ka error......., ', err.message)
+        })
+  }
+
+  export const getWishList = (data) => dispatch => {
+    // console.log(data)
+    axios
+    .post('http://localhost:5000/api/getWishList',data)
+    .then(res => {
+      console.log(res.data)
+        dispatch({
+          type: WISHLIST,
+          payload: res
+        })
+      // console.log('Wish List Get ki Req sy', res.data)
+    })
+    .catch(err => {
+      console.log('Wish List ka error......., ', err.message)
+    })
+}
+
+export const delWishList = (data) => dispatch => {
+  // console.log(data)
+  axios
+  .post('http://localhost:5000/api/del/wishList',data)
+  .then(res => {
+    console.log(res.data)
+      dispatch({
+        type: DEL_WISHLIST,
+        payload: res.data
+      })
+    // console.log('Wish List Get ki Req sy', res.data)
+  })
+  .catch(err => {
+    console.log('Wish List ka error......., ', err.message)
+  })
+}
+export const infoPathCheck = (data) => dispatch => {
+  // console.log(data)
+      dispatch({
+        type: PATH_CHECKER,
+        payload: data
+      })
+    // console.log('Wish List Get ki Req sy', res.data)
+ 
+}
+
+
+
+  
+
+  
   
   

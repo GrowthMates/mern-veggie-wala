@@ -58,3 +58,58 @@
 .able{
     background-color: red;
 }
+
+.adminNav{
+    background-color: #0E2F5A;
+    width: 100%;
+    text-align: left;
+}
+
+
+.adminNav li{
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 2em;
+    padding-bottom: 10px;
+}
+.adminNav li a{
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+    padding:  15px;
+    
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.adminNav li:hover{
+    /* color: #ffffff;    */
+    text-decoration: none;
+    background-color: #0754ad ;
+    background: linear-gradient(180deg,#0754ad 0,#133762);
+}
+.adminNav li a:hover{
+    color: #ffffff !important;
+    text-decoration: none;
+}
+.brandLogo i{
+    cursor: pointer;
+    position: relative;
+    top: 5px;
+    left: -10px;
+    color: #ffffff;
+    font-size: 1.2em !important;
+    /* padding-bottom: -20px !important; */
+
+}
+
+.adminIcons{
+    padding-right: 10px;
+    color: white;
+}
+
+.allProduct{
+    display: inline !important;
+    background-color: aqua;
+
+}

@@ -2,7 +2,9 @@ import {
     GET_PRODUCTS,
     USER_LOADING,
     CART_PRODUCTS,
-    GET_ERRORS
+    GET_ERRORS,
+    WISHLIST,
+    DEL_WISHLIST,PATH_CHECKER
   } from "../actions/types";
   import axios from 'axios'
 import { getProducts } from "../actions/productsAction";
@@ -14,7 +16,10 @@ import { getProducts } from "../actions/productsAction";
     loading: true,
     apiProducts:undefined,
     productErrors:undefined,
-    error:false
+    error:false,
+    wishList:undefined,
+    delProduct: false,
+    pathChecker: false
   };
 
   
@@ -40,6 +45,24 @@ import { getProducts } from "../actions/productsAction";
               ...state,
               loading: true
             };
+        case WISHLIST:
+          return {
+            ...state,
+            loading: true,
+            wishList:action.payload
+          };
+        case DEL_WISHLIST:
+          return {
+            ...state,
+            delProduct: true,
+            // wishList:action.payload
+          };
+        case PATH_CHECKER:
+          return {
+            ...state,
+            pathChecker: true ,
+            // wishList:action.payload
+          };
       default:
         return state;
     }

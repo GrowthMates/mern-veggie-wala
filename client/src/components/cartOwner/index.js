@@ -19,7 +19,7 @@ import axios from 'axios'
         .then((res) => {
                        
             this.setState({
-                products: res.data.data
+                products: res.data
             })
             
             console.log("Products success", this.state.products)

@@ -2,6 +2,7 @@ import React, {Component,Lazy,Suspense} from 'react';
 import 
  {getProducts}
   from "../actions/productsAction";
+  
 import {BrowserRouter ,Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux'
 import jwt_decode from "jwt-decode";
@@ -11,11 +12,15 @@ import { Provider } from "react-redux";
 import store from "../store";
 import TestComp from './TestComp'
 import Home from '../components/centralized/home';
+import WishList from '../components/centralized/wishList';
 import Contact from '../components/centralized/contact';
 import About from '../components/centralized/about';
 import Navbar from '../components/centralized/navbar';
 import BookedOrder from '../components/admin/bookedOrder';
 import Admin from '../components/admin/dashboard';
+import AllProducts from '../components/admin/allProducts';
+import ApprovalProducts from '../components/admin/approvalProduct';
+import AdminNavbar from '../components/admin/adminNavbar';
 import CartOwner from '../components/cartOwner/index.js';
 import AddProducts from '../components/admin/addProducts';
 import DelProducts from '../components/admin/delProducts';
@@ -27,7 +32,8 @@ import Information from '../components/products/information' ;
 import PrivateRoute from "../components/private-route/PrivateRoute";
 import Dashboard from "../components/dashboard/Dashboard"; 
 import Cart from '../components/users/userCart/cart'  
-
+import NoMatch from './not-found.js'  
+// import AllImages from './AllImages'
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -44,11 +50,21 @@ if (localStorage.jwtToken) {
       // Logout user
       store.dispatch(logoutUser());
       // Redirect to login
-      window.location.href = "./login";
+      window.location.href = "./combined";
     }
   }
 
+
+  // 404 page not found
+
+//  
+
  class Routes extends Component{
+
+
+  state={
+    loading:true
+  }
 
   componentWillReceiveProps(nextProps){
 
@@ -58,19 +74,54 @@ if (localStorage.jwtToken) {
     // })
 }
 
+// componentDidMount(){
+//   this.setState({
+//     loading:false
+//   })
+// }
 render(){
- 
+//  console.log('routing ka render==---->',this.props)
 this.props.getProducts('Routing')
-  
+  // const information = window.location.pathname='/information'
+  console.log(window.location)
+  if(window.location.pathname=='/information'){
+    var info = true
+    // console.log(info, 'info')
+  }
+  else if(window.location.pathname=='/admin' ){
+    console.log('admin aya hy ry baba')
+    var adminAndCartOwner = true
+  }
   return (
+    
         <div>
-            <BrowserRouter>
+           
             {/* <Suspense fallback={<div>Loading...</div>}>  */}
                 <div>
                                           
-                <div>
-            <TestComp/>
-            <Navbar/>     
+              
+
+                  {  adminAndCartOwner==true ? 
+                  <BrowserRouter>
+                  <AdminNavbar/>
+                      <Switch>
+                          <Route exact path='/admin' component={Admin}/>
+                          <Route path='/approvalProducts' component={ApprovalProducts}/>
+                          <Route path='/admin/allProducts' component={AllProducts}/>
+                          {/* <Route path='/delProducts' component={DelProducts}/> */}
+                          {/* <PrivateRoute exact path="/dashboard" component={Dashboard} /> */}
+                          {/* <Route component={NoMatch}  /> */}
+                          {/* <Route path='/Allimages' component={AllImages}/> */}
+                    </Switch>
+                </BrowserRouter>
+                  
+                  :
+                   info==true ? null :
+                   
+                   <BrowserRouter> 
+                    <Navbar/> 
+                
+            {/* <TestComp/> */}
                <Switch>
                    <Route exact path='/' component={Home} />
                    <Route path='/about' component={About} />                 
@@ -80,28 +131,43 @@ this.props.getProducts('Routing')
                    <Route path='/product/:id' component={Product} />
                    <Route exact path="/collections" component={Collections} />
                    <Route path='/cart' component={Cart}/>
-                   <Route path='/bookedOrder' component={BookedOrder}/>
-                   <Route path='/addProducts' component={AddProducts}/>
-                   <Route path='/delProducts' component={DelProducts}/>
+              
+                   {/* <Route path='/image' component={TestComp}/> */}
+              
                    <Route path='/information' component={Information}/>
-                   <Route path='/admin' component={Admin}/>
-                   <Route path='/cartOwner' component={CartOwner}/>
-                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                 
+           
+                   <PrivateRoute exact path="/wishList" component={WishList} />
+                   {/* <Route component={NoMatch}  /> */}
+                   {/* <Route path='/Allimages' component={AllImages}/> */}
                </Switch>
-             <Footer/>
-            </div>
+               <Footer/>
+               </BrowserRouter> 
+                  }
+               {/* {this.props.pathChecker==true || info==true? null : <Footer/> } */}
+
+
+            
+       
             
             </div>
             {/* </Suspense> */}
-            </BrowserRouter>
 
         </div>
     )
  }
 }
 
+const mapStateToProps = (state) =>{
+  // var array= Array.from(state.products.cartProducts)
+  console.log("Reducer check cart prod.............", state.cartReducer.totalPrice)
+  return{ 
+      pathChecker: state.products.pathChecker,
+     
+  }
+}
 
 export default connect(
-  null,
+  mapStateToProps,
   { getProducts }
 )(Routes); ;

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import {Redirect} from 'react-router-dom'
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
+import './register.css'
 
 
 class Login extends Component{
@@ -15,13 +16,20 @@ class Login extends Component{
           email: "",
           password: "",
           errors: {},
-          auth: false
+          auth: false,
+          loading:false,
+          isAuth:false,
         };
       }
       componentDidMount() {
         // If logged in and user navigates to Login page, should redirect them to dashboard
+        console.log('login ka did mount', this.props)
         if (this.props.auth.isAuthenticated) {
-          this.props.history.push("/dashboard");
+          // this.props.history.push("/dashboard");
+         this.setState({
+           auth:true
+
+         })
         }
       }
     componentWillReceiveProps(nextProps) {
@@ -34,9 +42,10 @@ class Login extends Component{
         })
         }
     if (nextProps.errors) {
-        console.log("nextProp: ", nextProps.errors.message)
+        console.log("nextProp: ", nextProps.errors)
           this.setState({
-            errors: nextProps.errors
+            errors: nextProps.errors,
+            loading:false
           });
         }
       }
@@ -50,9 +59,14 @@ class Login extends Component{
           password: this.state.password
         };
     this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
-      };
+     
+        this.setState({
+          loading:true
+        })
+  };
 
     render(){
+
         const { errors } = this.state;
         if(this.state.auth==true){
           return(
@@ -82,7 +96,8 @@ class Login extends Component{
                             invalid: errors.email || errors.emailnotfound
                           })} 
                         />
-                        <span className="red-text">
+                        <br/>
+                        <span className="red-text" style={{color: 'red'}}>
                             {errors.email}
                             {errors.emailnotfound}
                         </span>
@@ -103,14 +118,15 @@ class Login extends Component{
                             invalid: errors.password || errors.passwordincorrect
                           })}
                           />
-                          <span className="red-text">
+                          <br/>
+                          <span className="red-text" style={{color: 'red'}}>
                                 {errors.password}
                                 {errors.passwordincorrect}
                           </span>
                         
                         <br/>
-                        
-                        <button type="submit" class="btn btn-secondary btn-lg btn-block">Block level button</button>
+                        {this.state.loading===true?<div class="loader"></div>:
+                        <button type="submit" class="btn btn-secondary btn-lg btn-block"> Login </button>}
                         </div>
                 </form>
           

@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import './collections.css';
 import {connect} from 'react-redux';
 import ImageAppla from '../centralized/images/apple.jpg' 
@@ -23,6 +24,7 @@ class Collections extends Component{
             description:'',
             quantity:undefined,
             products: undefined ,
+            addToCart: false,
         }
     }
     changer1=()=>{
@@ -41,12 +43,14 @@ class Collections extends Component{
 
     componentDidMount(){
         console.log(this.props)
-        if(this.props.products){
-            this.setState({
-                products: this.props.products,
-                loading: this.props.loading
-            })
-        }
+            console.log('Home DidMount====',this.props.products)
+           if(this.props.products){ 
+                this.setState({
+                    products:this.props.products,
+                    loading:this.props.loading,
+                })
+            }
+            
     }
    
     componentWillReceiveProps (nextProps,props){
@@ -63,9 +67,9 @@ class Collections extends Component{
         // }
     
 
-     onSubmit=(id,e)=>{
+     onSubmit=(item,e)=>{
         e.preventDefault();
-        console.log('onsubmit',id)
+        console.log('onsubmit',item)
         // return false;
         // this.setState({
         //     name ,
@@ -73,19 +77,27 @@ class Collections extends Component{
         //     description
         // })
         
-        let productId = {
-            productId: id,
+        let product = {
+            item,
             quantity:1
         }
 
         // this.props.history.push('/cart')
 
         // this.props.userCart(this.props.history);
-        this.props.addToCart(productId)
-        console.log('new prod', productId)
+        this.props.addToCart(product)
+        console.log('new prod', product)
         // this.props.history.push('/cart')
     }
 
+    contniueShoping(){
+        this.setState({
+            addToCart: !this.state.addToCart
+        })
+    }
+    goCart(){
+        this.props.history.push('/cart')
+    }
     render(props){
         console.log("Collection of Products render sr: ", this.props)
         return(
@@ -138,6 +150,7 @@ class Collections extends Component{
                                 <div className="col-lg-12 col-md-12 item-view-sort">
                                     <div className="col-lg-5 col-md-5 item-view">
                                     {/* <i class="fas fa-list icon1"></i> */}
+                                    
                                     <img 
                                     className="cursor-pointer" 
                                     style={{marginRight:'25px'}} 
@@ -156,7 +169,7 @@ class Collections extends Component{
                                     </div>
                                     <div className="col-lg-6 col-md-6 item-sort">
                                         <div className="dropdown">
-                                            <button className="btn  dropdown-toggle drop-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button  className="btn  dropdown-toggle drop-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Alphabetically, A-Z
                                             </button>
                                             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -173,23 +186,49 @@ class Collections extends Component{
                     
                
 
-                        {
-                            this.state.loading === true ? <p>Loading</p> : (
+                        { (this.state.loading==true)?('Loading...'):(
                           (this.state.veiwOption === false)?(
-                         this.state.products.map((item,index) => {  
+                             this.state.products.map((item,index) => {  
                            return(
                            <div key={index}>
                              <form >
                                  <div className='container team' >
-                                            <div className='col-lg-4 prodImg'>
-                                               <Link to = {`/product/${item._id}`} ><img className="cursor-pointer" src={ImageAppla} width='250' height='250' /></Link>
+                                            <div className='col-lg-4 '>
+                                               <Link to = {`/product/${item._id}`} ><img className="cursor-pointer prodImg" src={item.image} width='250' height='250' /></Link>
                                             </div>
                                             <div className="col-md-8 col-lg-8 data">
                                             <Link to = {`/product/${item._id}`} className='link-name'> <h6 className="item-name cursor-pointer">{item.name}</h6></Link>
                                                 <h6 className="stretch">From Rs.{item.price}</h6><br/>
                                                 <p>{item.description}</p><br/>
                                                 {item.stock>0
-                                                ?<button  onClick={this.onSubmit.bind(this,item._id)} type="button" className="btn btn-success btn-lg cart-btn">Add to cart</button>
+                                                ? this.state.addToCart=== false ? 
+                                                <div>
+                                                <button onClick={this.onSubmit.bind(this,item)}  data-toggle="modal" data-target={`#addToCart${index}`} type="button" className="btn btn-success btn-lg cart-btn">Add to cart</button>
+
+                                                <div class="modal fade" id={`addToCart${index}`} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle"> {item.name} </h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <img src={item.image} width='120' height='120' style={{marginTop: '0px', marginBottom: '0px'}} />
+                                                            Added To Cart Succesfully
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" onClick={this.contniueShoping.bind(this)} class="btn btn-secondary" data-dismiss="modal">Continue Shipping</button>
+                                                            <button type="button" data-dismiss="modal" onClick={this.goCart.bind(this)} class="btn btn-primary">Go to Cart</button>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                 </div>
+
+
+                                                :      <button  onClick={this.onSubmit.bind(this,item)} type="button" className="btn btn-success btn-lg cart-btn">Add to cart</button>
                                                 :<p><u style={{color:'red'}}>Out of Stock</u></p>}
                                             </div>
                     
@@ -209,12 +248,12 @@ class Collections extends Component{
                         return(
                                    <div className="col-md-4 col-lg-4 col-sm-4"> 
                                     <div className="card grid-view grid-card-styling" style={{width: '18rem'}}>
-                                    <Link to = {`/product/${item._id}`}><img className="card-img-top cursor-pointer img-grid" src={ImageAppla} alt="..."/></Link>
+                                    <Link to = {`/product/${item._id}`}><img style={{borderRadius: '12px'}} className="card-img-top cursor-pointer img-grid prodImg" src={item.image} alt="..."/></Link>
                                             <div className="card-body" style={{paddingTop:'0px',textAlign:'left'}}>
                                             <Link to = {`/product/${item._id}`} className='link-name'> <h5 class="card-title cursor-pointer" style={{fontSize:'30px'}}>{item.name}</h5></Link>
                                                 <p className="card-text">From Rs.{item.price}</p>
                                                 {item.stock>0
-                                                ?<button  onClick={this.onSubmit.bind(this,item._id)} className="btn btn-success" >Add to cart</button>
+                                                ?<button  onClick={this.onSubmit.bind(this,item)} className="btn btn-success" >Add to cart</button>
                                                 :<p><u style={{color:'red'}}>Out of Stock</u></p>}
                                             </div>
                                     </div>
@@ -226,7 +265,7 @@ class Collections extends Component{
                                 </div>    
 
                    </div>   )     
-                            )}
+                        )}
                    
          
                     </div>
@@ -249,8 +288,8 @@ const mapStateToProps = (state) => {
   
     return{
       products: state.products.products,
-      loading: state.products.loading,
-      cart:state.cart
+      cart:state.cart,
+      loading:state.products.loading
   }
 }
 

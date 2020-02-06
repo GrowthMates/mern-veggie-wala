@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { Link, withRouter,Redirect } from "react-router-dom";
+import { Link,  } from "react-router-dom";
 import {connect} from 'react-redux'
 import './cart.css'
 import ImageApple from '../../centralized/images/apple.jpg'
@@ -7,15 +7,18 @@ import Tick from '../../centralized/images/tick.png'
 import DeleteBtnIcon from '../../centralized/images/delete-button.png'
 import {userCart} from '../../../actions/productsAction'
 import axios from 'axios'
-import {addToCart} from '../../../actions/productsAction'
+import {addToCart,totalPrice,infoPathCheck} from '../../../actions/productsAction'
 
 
+// var totalPrice = []
+var lineTotalArr = []
 
  class Cart extends Component{
      constructor(Props){
+         
         super(Props);
         this.state={
-            cartProducts: JSON.parse(localStorage.getItem('CartProduct')) ,
+            cartProducts: undefined,
             cartArray:undefined,
             loader:true,
             cartData: [],
@@ -25,6 +28,9 @@ import {addToCart} from '../../../actions/productsAction'
             cart:[],
             arr:[],
             loader:'none',
+            totalPrices:undefined,
+            edit:false,
+            totalPrice:'' || this.props.totalPrice,
         }
 
         setTimeout(()=>{
@@ -35,7 +41,12 @@ import {addToCart} from '../../../actions/productsAction'
      }
      
      componentDidMount(){
-         console.log('local styorge',this.state.cartProducts)         
+         console.log('local styorge',this.props.cartProducts) 
+         this.setState({
+             cartProducts:this.props.cartProducts
+         })        
+         this.props.totalPrice(this.state.totalPrice)
+
      }
 
     //  try{
@@ -54,7 +65,12 @@ import {addToCart} from '../../../actions/productsAction'
             quantity: quantity
 
         }
-        
+        if(this.state.totalPrice){
+            console.log('andar total prce ky',this.state.totalPrice)
+        }
+        this.props.totalPrice(this.state.totalPrice)
+        localStorage.setItem('totalPrice',JSON.stringify(this.state.totalPrice))
+
         // cartProducts.splice(0,1);
        
         console.log('cart del Ponka. >', delBody)
@@ -62,13 +78,13 @@ import {addToCart} from '../../../actions/productsAction'
         axios.post("http://localhost:5000/api/user-data/delCart", delBody)
             .then(res => {
 
-                // cartProducts.splice(index,1);
-                // this.setState({
-                //     evein: false
-                // })
+             
+                if(this.state.totalPrice){
+                    console.log('andar total prce ky',this.state.totalPrice)
+                }
+                localStorage.setItem('totalPrice',JSON.stringify(this.state.totalPrice))
+                this.props.totalPrice(this.state.totalPrice)
 
-                // console.log('del ka res', res.data.cart)
-                // console.log('del ka res', cartProducts.filterProduct._id)
                 var delFromLocalStorage=cartProducts.findIndex(cart=>cart.cartSchemaId===key);
                 if(delFromLocalStorage!==-1){
                     cartProducts.splice(delFromLocalStorage,1);
@@ -103,10 +119,11 @@ import {addToCart} from '../../../actions/productsAction'
     //  }
 
 
+     onChange(id,index,price,e){
+        // var totatPrice = []
 
-     onChange(id,index,e){
          e.preventDefault();
-
+        console.log('price', this.state.totalPrice)
          const arr = this.state.cartProducts
        
          var qnty  = arr.map((item,i) => {
@@ -116,9 +133,25 @@ import {addToCart} from '../../../actions/productsAction'
                 return arr
             }
         })
-        console.log('qty',qnty[index])
-        this.setState({cartArray:qnty[index],tick:'none'})
+        // console.log('qty',qnty[index][index].quantity)
+        var lineTotal = (qnty[index][index].quantity*price)
+        // console.log('line total', lineTotal)
+        // totatPrice=[qnty[index][index].quantity*price]
+        // totalPrice.push(lineTotal)
+        // console.log()
+        var finalIndex = totalPrice[totalPrice.length-1]
+        var secondLast = totalPrice[totalPrice.length-2]
+        // console.log('akhri ky sum',finalIndex+secondLast)
+        lineTotalArr.push(qnty[index][index].quantity*price)
+        // console.log('line total arr', lineTotalArr)
+        var newPrice = lineTotalArr.reduce((a, b) => {return a+b })
+        // console.log('array total price ki', newPrice )
+        this.setState({cartArray:qnty[index],tick:'none',})
 
+        // this.setState({
+        //     totalPrices: this.state.totalPrice
+        // })
+        this.props.totalPrice(this.state.totalPrice)
 
             // localStorage.setItem('CartProduct',JSON.stringify(qnty))        
 
@@ -131,6 +164,8 @@ import {addToCart} from '../../../actions/productsAction'
         let update={
             qnty:this.state.cartArray
         }
+        console.log('price ki state',this.state.totalPrice)
+        this.props.totalPrice(this.state.totalPrice)
     //  console.log()
         axios.put("http://localhost:5000/api/user-data/updateCart", update )
         .then(res => {
@@ -140,9 +175,12 @@ import {addToCart} from '../../../actions/productsAction'
                 var matchItem = res.data.finalArr.findIndex(i => i._id == item.cartSchemaId );
                 console.log('MatchItem ID-------',matchItem);
                 item.quantity=res.data.finalArr[matchItem].quantity
+
+                localStorage.setItem('totalPrice',JSON.stringify(this.state.totalPrice))
             })
             localStorage.setItem('CartProduct',JSON.stringify(this.state.cartProducts))
             console.log(this.state.cartProducts)
+            this.props.totalPrice(this.state.totalPrice)
             this.setState({tick:'inline',loader:'none',quantity:undefined})
        
         })
@@ -153,31 +191,45 @@ import {addToCart} from '../../../actions/productsAction'
      }
 
      proceed(){
+         let checker = {
+             flag: true
+         }
+         this.props.infoPathCheck(checker)
         this.props.history.push('/information')
-       
+        var arr=[]
+       this.props.cartProducts.map((item)=>{
+        arr.push((item.filterProduct.price)*item.quantity)
+       })
+        var total=arr.reduce((a, b) => {return a + b})
+        this.setState({
+            totalPrice:total
+        })
+        
      }
 
      componentWillReceiveProps(nextProps){
 
-         if(nextProps){
-             console.log("done h boss......",this.props.products)
-             console.log("nxt prop......",nextProps)
+          console.log("Will recieve props h boss......",nextProps)
+         if(nextProps.cartProducts){
+            //  console.log("nxt prop......",nextProps)
              this.setState({
-                 loader:false
+                 loader:false,
+                 cartProducts:nextProps.cartProducts
              })
          }
          else{
-             console.log("nhi aya beta.......")
+            //  console.log("nhi aya beta.......")
          }
      }
 
      componentWillMount(){
-        console.log('props cart', this.props.cartReducers)
+        // console.log('props cart will mnt sy', this.props)
     }
 
         render(){
            
             var arr=[0]
+
             
             return(
                 <div>
@@ -199,22 +251,25 @@ import {addToCart} from '../../../actions/productsAction'
                                 </thead>
                                 <tbody className='cart-body'>
                                     
-                                    {this.props.cartProducts.map((item,index) => {
-                                        arr.push((item.filterProduct.price)*item.quantity)
+                                    {this.state.cartProducts.map((item,index) => {
+                                        arr.push(item.quantity*(item.filterProduct.price))
                                     return(
                                         <tr>
                                         <th scope="row"><img 
+                                        
                                             className="cursor-pointer img-for-cart" 
                                             style={{marginRight:'25px'}} 
-                                            src={ImageApple}/></th>
+                                            src={item.filterProduct.image}/></th>
                                         <td className='cart-body'>{item.filterProduct.name}</td>
                                         <td className='cart-body'>Rs.{item.filterProduct.price}</td>
                                         <td className='cart-body cart-qty-td' ><input className="crt-qty-fnl" type='number' name={item._id} defaultValue={item.quantity}
-                                        onChange={this.onChange.bind(this,item.cartSchemaId,index)} value={this.state.quantity} id={index} min='1' max={item.filterProduct.stock} /></td>
-                                    <td className='cart-body' style={{color:"#5BA616"}}>Rs. {(item.filterProduct.price)*item.quantity }</td>
+                                        onChange={this.onChange.bind(this,item.cartSchemaId,index,arr.reduce((a, b) => {return a + b}))} value={this.state.quantity} id={index} min='1' max={item.filterProduct.stock} /></td>
+                                    <td className='cart-body' style={{color:"#5BA616"}}>Rs. {
+                                    (this.state.cartArray)? this.state.cartArray[index].quantity*(item.filterProduct.price) :
+                                    (item.filterProduct.price)*item.quantity}  </td>
                                         <td className='cart-body ' style={{color:"#5BA616"}}><img onClick={this.delCart.bind(this,item.cartSchemaId,item.filterProduct._id,item.quantity,index)}
                                         className='cursor-pointer' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/></td>
-        
+
         
                                         </tr>
                                     )})}
@@ -236,7 +291,11 @@ import {addToCart} from '../../../actions/productsAction'
                                     {console.log('array total price',arr)}
                                     <div>
                                         <span style={{float:'left',marginLeft:'20px', marginTop:'20px', fontSize:'20px'}}>TOTAL</span>
-                                    <b> <span style={{ color:'#5BA616',float:'right', marginRight:'25px', marginTop:'20px', fontSize:'20px'}}>Rs.{arr.reduce((a, b) => {return a + b})}</span></b>
+                            
+                                       <input type='text' 
+                                       style={{ color:'#5BA616',float:'right', marginRight:'25px', marginTop:'20px', fontSize:'20px'}}
+                                       value={this.state.totalPrice=arr.reduce((a, b) => {return a + b})} className={this.state.edit === false ? 'inputStatic': void 0} />
+                                   
                                     </div>
                                     <div >
                                         <button onClick={this.proceed.bind(this)} type="submit" class="btn btn-success btn-lg cart-btn">PROCEED TO CKECKOUT</button>
@@ -248,7 +307,7 @@ import {addToCart} from '../../../actions/productsAction'
 
                     {/* testing */}
 
-                   
+                   <p>{this.state.totalPrice}</p>
                 </div>        
             )
         }
@@ -258,14 +317,15 @@ import {addToCart} from '../../../actions/productsAction'
 
     const mapStateToProps = (state) =>{
         // var array= Array.from(state.products.cartProducts)
-        console.log("Reducer check cart prod.............", state.cartReducer.cart)
+        console.log("Reducer check cart prod.............", state.cartReducer.totalPrice)
         return{ 
             cartProducts: state.cartReducer.cart,
             products: state.products,
+            totalPriceReducer: state.cartReducer.totalPrice
         }
     } 
 
     export default connect(
         mapStateToProps,
-        { userCart, addToCart }
+        { userCart, addToCart,totalPrice,infoPathCheck }
       )(Cart);

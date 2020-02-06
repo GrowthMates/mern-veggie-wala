@@ -8,6 +8,10 @@ export const ADD_CART = "ADD_CART";
 export const PROCEED_PRODUCT = "PROCEED_PRODUCT";
 export const CONFIRM_ORDER = "CONFIRM_ORDER";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+export const TOTAL_PRICE = "TOTAL_PRICE";
 export const DEL_APPROVALS = "DEL_APPROVALS";
+export const WISHLIST = "WISHLIST";
+export const PATH_CHECKER = "PATH_CHECKER";
+export const DEL_WISHLIST = "DEL_WISHLIST";
 
 

@@ -94,16 +94,25 @@ import queryString from "query-string";
         if(nextProps){
             console.log('Home Products Next Props',nextProps)
             if(nextProps.products){
-            var newProducts=[];
-            for(let i=0;i<=7;i++){
-                console.log('ForLoopNextProps====',nextProps.products[i])
-                newProducts.push(nextProps.products[i])
-            }
-            this.setState({
-                products:newProducts,
-                loading:false
+               if(nextProps.products.length>=8){ 
+                    var newProducts=[];
+                    for(let i=0;i<=7;i++){
+                        console.log('ForLoopNextProps====',nextProps.products[i])
+                        newProducts.push(nextProps.products[i])
+                    }
+                    this.setState({
+                        products:newProducts,
+                        loading:false           
+                    })
+                 }
+                else{
+                    this.setState({
+                        products:nextProps.products,
+                        loading:false           
+                    })
+                }
+        }
 
-            })}
         }
     }
     componentDidMount(){
@@ -117,15 +126,23 @@ import queryString from "query-string";
         console.log('Home DidMount====',this.props.products)
         }
        if(this.props.products!==undefined){  
-        var newProducts=[];
+        if(this.props.products.length>=8){ 
+            var newProducts=[];
             for(let i=0;i<=7;i++){
+                console.log('ForLoopNextProps====',this.props.products[i])
                 newProducts.push(this.props.products[i])
             }
             this.setState({
                 products:newProducts,
-                loading:false,
-
+                loading:false           
             })
+         }
+        else{
+            this.setState({
+                products:this.props.products,
+                loading:false           
+            })
+        }
         }
         }
     changer(){

@@ -8,11 +8,14 @@ import heart from '../centralized/images/del.png'
 import tick from '../centralized/images/tick.png'
 import x from '../centralized/images/x.png'
 import eco from '../centralized/images/eco.webp'
-import {updateProduct,addProduct,getProducts} from'../../actions/productsAction'
+import {updateProduct,addProduct,getProducts,sendToCartOwner,delAfterApproved} from'../../actions/productsAction'
 import './adminDashboard.css'
+import ApprovalProducts from './approvalProduct'
+import AllProducts from './allProducts'
 
 
  class Admin extends Component{
+
     constructor(){
         super()
         this.state = {
@@ -281,346 +284,28 @@ console.log('WillMount Admin -------')
 
     }
 
+
     render(){
-        if(this.state.dataState==true){
-            console.log('Render Admin======')
-
-
-        }
+       
         return(
             <div className='adminDashboard'>
-                <div className='row'>
-                    <div className='col-lg-2'>
-                        <div>
-                           <h2>left Navbar</h2>
-                        </div>
-                    </div>
-                    <div className='col-lg-10'>
-                       <div className='container'>
 
-                    {/* Products for approval */}
-                         <div class="jumbotron adminProd">
-                         <form > 
-                           <table class="table table-striped scroll">
-                                    <thead className=''>
-                                        <tr className='upperTr'>
-                                            <th scope='col'>Sr No</th>
-                                            {/* <th scope='col'>item</th> */}
-                                            <th scope='col'>F.name</th>
-                                            <th scope='col'>Time Stamp</th>
-                                            <th scope='col'>Number</th>
-                                            <th scope='col'>City</th>
-                                            <th scope='col'>Aprroved</th>
-                                            <th scope='col'>View</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className='cart-body'>
-                                  { this.state.edit === false ?
-                                    this.state.bookedOrderData !== [] ? this.state.bookedOrderData.map((i,index) => {
-                                     return (         
-                               
-                                          <tr className='dataTd '>
-                                          
-                                                <td className='cart-body' style={{textAlign: 'center'}}>{index+1} </td>
-                                                <td className='cart-body'>{i.fname} </td>
-                                                <td className='cart-body'>{i.timeStamp} </td>
-                                                <td className='cart-body'>{i.number}</td>
-                                                <td className='cart-body'>{i.city} </td>   
-                                                <td className='cart-body'>
-                                                    <button type='button' style={{backgroundColor: 'red !important',}} 
-                                                     onClick={this.approve.bind(this,i._id)}
-                                                     className="btn btn-info"   data-toggle="modal" data-target={`#cartOwner${index}`} >Approved</button>
-                                                     </td>     
-
-                                                 <div class="modal fade" id={`cartOwner${index}`} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                          <table>
-                                                              <tr>
-                                                                  <th>Sr No</th>
-                                                                  <th>Cart Owner Name</th>
-                                                                  <th>Location</th>
-                                                                  <th>Action</th>
-                                                              </tr>
-
-                                                                  {this.state.cartOwners.map((i,index) =>{
-                                                                      return(
-                                                                     <tr className='dataTd '>
-                                                                        <td className='cart-body'>1 </td>   
-                                                                        <td className='cart-body'>{i.name} </td>   
-                                                                        <td className='cart-body'>{i.location} </td>   
-                                                                        <td className='cart-body'> 
-                                                                            <button type='button' onClick={this.selectOwners.bind(this,i.id)}>Select</button>
-                                                                        </td>   
-                                                                     </tr>
-                                                                      )
-                                                                  })}
-                                                             
-
-                                                          </table>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                          
-                                                            <button type="button" class="btn btn-primary" onClick={this.sendToOwner.bind(this)}>Send To Cart Owner</button>
-                                                            <button type="button" class="btn btn-primary">Cancel Order</button>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                    </div>                                   
-                                                <td className='cart-body'> 
-                                                { this.state.edit === false ?
-                                                     <div>
-                                                         
-                                                 <button type='button' className="btn btn-warning"  data-toggle="modal" data-target={`#cartProducts${index}`}>View</button>
-                                                        {/* <img onClick={this.edit.bind(this,i._id,index)} width='22' height='22' src={tree}  /> */}
-                                                         {/* <img  width='22' height='22'   src={heart} data-toggle="modal" data-target={`#exampleModalCenter${index}`} /> */}
-                                                         {/* modal */}
-                   
-                                                            <div class="modal fade" id={`cartProducts${index}`} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                <table>
-                                                                    <tr>
-
-                                                                    <th scope='col'>Sr No</th>                                                                
-                                                                    <th scope='col'>Product name</th>
-                                                                    <th scope='col'>Price</th>
-                                                                    <th scope='col'>Stock</th>
-                                                                    <th scope='col'>Quantity</th>
-                                                                    </tr>
-                                                                  {i.cartProducts.map((item,index) => {
-                                                                      return(
-                                                                          <tr>
-                                                                             <td className='cart-body' style={{textAlign: 'center'}}>{index+1} </td>
-                                                                    <td className='cart-body'>{item.name} </td>
-                                                                    <td className='cart-body'> {item.price} </td>
-                                                                  <td className='cart-body'>{item.stock}</td>
-                                                                  <td className='cart-body'> {item.quantity}</td>   
-                                                                        </tr>
-                                                                    )
-                                                                })}
-                                                                   
-                                                                </table>
-                                                                
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button onClick={this.delete.bind(this,i._id,index)} class="btn btn-primary">Delete Product</button>
-                                                                </div>
-                                                                </div>
-                                                            </div>
-                                                    </div>
-
-                                                     </div> 
-                                                       : void(0)
-                                                     
-                                                       }
-                                                </td>
-                                        </tr>
-                           
-                                          )
-                                        })
-                                      :
-                                 <tr><td>no data</td></tr>
-                                        :
-                                        
-                                        <tr className='dataTd'>
-                                              <td className='cart-body' style={{textAlign: 'center'}}> </td>
-                                                <td className='cart-body'> <input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'} onChange={this}  />  </td>
-                                                <td className='cart-body'><input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'} value={this.state.name} 
-                                                         onChange={eve => this.setState({name: eve.target.value} )} /> </td>
-                                                <td className='cart-body'>
-                                                    <input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'}  value={this.state.price}
-                                                        onChange={eve => this.setState({price: eve.target.value} )}  /></td> 
-                                                <td className='cart-body'><input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'}  value={this.state.stock}
-                                                         onChange={eve => this.setState({stock: eve.target.value} )}                  /> </td> 
-                                                <td className='cart-body'>
-                                                    {this.state.edit === true ?
-                                                      <div>
-                                                      <img  onClick={this.updateProduct.bind(this,this.state.updateProductId)} width='22' height='22' src={tick}  /> 
-                                                      <img  onClick={this.cancel.bind(this)} width='29' height='18' src={x}  /> 
-                                                      </div> : void(0)}
-                                                </td>
-                                        </tr>
-                                }
-                                </tbody>
-                           </table>
-                           </form>
-                         </div>
-
-                    {/* All Products */}
-                       <div class="jumbotron adminProd">
-                         
-                         <div className='col-md-6'>
-                             <h>Product</h>
-                        </div>
-                          <div className='col-md-6'>
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target='#exampleModalCenter'>
-                               Add product
-                          </button>
-
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Add Product</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                      <form onSubmit={this.onSubmit}>
-                                    <div class="modal-body number">
-                                      <input label="Image"
-                                      type="file" 
-                                      required
-                                      className="form-input"
-                                      onChange={this.onChangeImage} 
-                                       /> <br/>
-                                      <TextField required value={this.state.addName} 
-                                         onChange={eve => this.setState({addName: eve.target.value} )} label="Name" /> <br/>
-                                      <TextField required value={this.state.addPrice} 
-                                         type='number'
-                                         onChange={this.onChangePrice.bind(this)} label="Price" /> <br/>
-                                      <TextField required value={this.state.addStock} type='number'
-                                         onChange={eve => this.setState({addStock: eve.target.value} )} label="Stock" /> <br/>
-                                       <TextField required value={this.state.addDescription} 
-                                         onChange={eve => this.setState({addDescription: eve.target.value} )} label="Description" /> <br/>
-                                     
-                                    </div>
-                                    <div class="modal-footer">
-                                        {/* <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> */}
-                                        <button type="submit" class="btn btn-primary">Add Product </button>
-                                    </div>
-                            </form>
-                                  </div>
-                                </div>
-                            </div>                        
-                         </div>
-
-                        <form > 
-                           <table class="table table-striped scroll">
-                                    <thead className=''>
-                                        <tr className='upperTr'>
-                                            <th scope='col'>Sr No</th>
-                                            {/* <th scope='col'>item</th> */}
-                                            <th scope='col'>item</th>
-                                            <th scope='col'>Name</th>
-                                            <th scope='col'>Price</th>
-                                            <th scope='col'>Stock</th>
-                                            <th scope='col'>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className='cart-body'>
-                                  { this.state.edit === false ?
-                                    this.state.products !== [] ? this.state.products.map((i,index) => {
-                                     return (         
-                               
-                                          <tr className='dataTd '>
-                                          
-                                                <td className='cart-body' style={{textAlign: 'center'}}>{index+1} </td>
-                                                <td className='cart-body'> <input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'} onChange={this} value={i.name} />  </td>
-                                                <td className='cart-body'><input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'} value={ i.name  } 
-                                                                         /> </td>
-                                                <td className='cart-body'><input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'} value={ i.price } 
-                                                                          /></td>
-                                                <td className='cart-body'><input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'} value={ i.stock } 
-                                                                          /> </td>                                            
-                                                <td className='cart-body'> 
-                                                { this.state.edit === false ?
-                                                     <div>
-                                                        <img onClick={this.edit.bind(this,i._id,index)} width='22' height='22' src={tree}  />
-                                                         <img  width='22' height='22'   src={heart} data-toggle="modal" data-target={`#exampleModalCenter${index}`} />
-                                                         {/* modal */}
-                   
-                                                            <div class="modal fade" id={`exampleModalCenter${index}`} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    ...
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button onClick={this.delete.bind(this,i,index)} class="btn btn-primary">Delete Product</button>
-                                                                </div>
-                                                                </div>
-                                                            </div>
-                                                    </div>
-
-                                                     </div> 
-                                                       : void(0)
-                                                     
-                                                       }
-                                                </td>
-                                        </tr>
-                           
-                                          )
-                                        })
-                                      :
-                                 <tr><td>no data</td></tr>
-                                        :
-                                        
-                                        <tr className='dataTd'>
-                                              <td className='cart-body' style={{textAlign: 'center'}}> </td>
-                                                <td className='cart-body'> <input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'} onChange={this}  />  </td>
-                                                <td className='cart-body'><input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'} value={this.state.name} 
-                                                         onChange={eve => this.setState({name: eve.target.value} )} /> </td>
-                                                <td className='cart-body'>
-                                                    <input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'}  value={this.state.price}
-                                                        onChange={eve => this.setState({price: eve.target.value} )}  /></td> 
-                                                <td className='cart-body'><input type='text' className={this.state.edit === false ? 'inputStatic': 'inputActive'}  value={this.state.stock}
-                                                         onChange={eve => this.setState({stock: eve.target.value} )}                  /> </td> 
-                                                <td className='cart-body'>
-                                                    {this.state.edit === true ?
-                                                      <div>
-                                                      <img  onClick={this.updateProduct.bind(this,this.state.updateProductId)} width='22' height='22' src={tick}  /> 
-                                                      <img  onClick={this.cancel.bind(this)} width='29' height='18' src={x}  /> 
-                                                      </div> : void(0)}
-                                                </td>
-                                        </tr>
-                                }
-                                </tbody>
-                           </table>
-                           </form>
-                       </div>
-
-                      
-                       </div>
-                    </div>
-                </div> 
             </div>
         )
     }
 }
 
 const mapStateToProps=(state)=>{
-  console.log('admin stateto props', state.products)
+  console.log('admin stateto props', state.products.productErrors)
 
   return{
-      products: state.products.products
+      products: state.products.products,
+      loading: state.products.loading,
+      errors: state.products.productErrors
   }
 }
 
 export default connect(
     mapStateToProps,
-    { addProduct,updateProduct,getProducts }
+    { addProduct,updateProduct,getProducts,sendToCartOwner,delAfterApproved }
   )(withRouter(Admin));

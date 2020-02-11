@@ -6,9 +6,13 @@ import { connect } from "react-redux";
 import {Redirect} from 'react-router-dom'
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
+
+import './register.css'
+
 import GIcon from '../centralized/images/googleIcon.png'
 import queryString from "query-string";
 import "./login.css"
+
 
 
 class Login extends Component{
@@ -19,10 +23,12 @@ class Login extends Component{
           email: "",
           password: "",
           errors: {},
-          auth: false
+          auth: false,
+          loading:false,
+          isAuth:false,
         };
       }
-     
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
           console.log("Login Props", this.props)
@@ -31,9 +37,10 @@ class Login extends Component{
         })
         }
     if (nextProps.errors) {
-        console.log("nextProp: ", nextProps.errors.message)
+        console.log("nextProp: ", nextProps.errors)
           this.setState({
-            errors: nextProps.errors
+            errors: nextProps.errors,
+            loading:false
           });
         }
       }
@@ -54,9 +61,14 @@ class Login extends Component{
           password: this.state.password
         };
     this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
-      };
+     
+        this.setState({
+          loading:true
+        })
+  };
 
     render(){
+
         const { errors } = this.state;
         if(this.state.auth==true){
           return(
@@ -86,7 +98,8 @@ class Login extends Component{
                             invalid: errors.email || errors.emailnotfound
                           })} 
                         />
-                        <span className="red-text">
+                        <br/>
+                        <span className="red-text" style={{color: 'red'}}>
                             {errors.email}
                             {errors.emailnotfound}
                         </span>
@@ -107,12 +120,14 @@ class Login extends Component{
                             invalid: errors.password || errors.passwordincorrect
                           })}
                           />
-                          <span className="red-text">
+                          <br/>
+                          <span className="red-text" style={{color: 'red'}}>
                                 {errors.password}
                                 {errors.passwordincorrect}
                           </span>
                         
                         <br/>
+
                         
                         <button type="submit" className='loginBtn'>Login</button>
                             <span style={{margin:'20px', fontWeight:'600'}}>OR</span>
@@ -122,6 +137,7 @@ class Login extends Component{
                           <span>Sign In with Gmail</span>
                           <i style={{marginTop:'25px'}}><img src={GIcon} style={{backgroundColor:'white'}}  /></i>
                           </button>
+
                         </div>
                 </form>
           

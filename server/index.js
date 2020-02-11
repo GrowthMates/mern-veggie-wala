@@ -65,10 +65,29 @@ app.use(session({
 }));
 
 app.use(cors());
+
 app.use(passport.initialize()); 
 require("./config/passport");
 
 //socket io working...
+// io.on("connection", socket => {
+//     console.log("New client connected" + socket.id);
+//     // Returning the initial data of food menu from FoodItems collection
+//     socket.on("initial_data", () => {
+//         let test = new Test({
+//             name:'Abdul Ghafoor',
+//             description:'Yeh Bik Gai Hai Gormint'
+//         })
+//         productInCart.save().then(data=>{
+               
+//             Test.find({}).then(docs => {
+//             io.sockets.emit("get_data", docs);
+//             });
+//             // res.status(200).json({success:true, data})
+//         })
+
+//      });
+// })
 
 setTimeout(()=>{
     app.get("/viewImages", (req, res) => {
@@ -173,9 +192,25 @@ setTimeout(()=>{
 
     app.post('/api/products/proceed', userController.proceed);
 
+    app.post('/api/del/approved', adminController.delAfterApproved);
+
     app.get('/api/get-stock', adminController.getStock);
 
+    app.post('/api/del/cart', userController.delCartProducts);
+
     app.post('/api/cartOwner/confirmOrder', adminController.cartOwner);
+
+    app.get('/api/cartOwner/reciept', adminController.cartOwnerReciept);
+
+    app.post('/api/wishList', userController.wishList)
+
+    app.post('/api/getWishList', userController.getWishList)
+
+    app.post('/api/del/wishList', userController.delWishList)
+
+
+    
+
 
 
 

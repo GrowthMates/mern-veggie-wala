@@ -26,14 +26,17 @@ class Product extends Component{
     }
     
 componentWillMount(){
-    var prod = JSON.parse(localStorage.getItem('Products'));
-       var filterObj = prod.filter((e) => {
-        return e._id === this.props.match.params.id
-      });
-      console.log('Product Comp Filter',filterObj[0])
-      this.setState({
-          product:filterObj[0]
-      })
+    // var prod = JSON.parse(localStorage.getItem('Products'));
+    console.log('abi ka error',this.props.products)
+      if(this.props.products){
+        var filterObj = this.props.products.filter((e) => {
+            return e._id === this.props.match.params.id
+          });
+          console.log('Product Comp Filter',filterObj[0])
+          this.setState({
+              product:filterObj[0]
+          })
+      }
 }
 
 componentDidMount(){
@@ -47,9 +50,16 @@ componentWillReceiveProps(nextProps){
             loader:false
         })
     }
-    else{
-        console.log("nhi aya beta.......")
-    }
+    console.log('jsvjd',nextProps)
+    if(nextProps.products){
+        var filterObj = nextProps.products.filter((e) => {
+            return e._id === this.props.match.params.id
+          });
+          console.log('Product Comp Filter',filterObj[0])
+          this.setState({
+              product:filterObj[0]
+          })
+      }
 }
 
 onChangeQty(e){
@@ -105,6 +115,7 @@ onChangeQty(e){
                         {/* <p>A Real Estate Organization You Can Trust</p> */}
                     </div>
                </section>
+               {this.state.product!==undefined?(
 
             <div className="container">
                 <div className="row">
@@ -119,7 +130,6 @@ onChangeQty(e){
                     <div className="col-md-6 col-lg-6 col-sm-6">
                                    
                         <div className="container">
-                        
                             <div className="product-data">
                                <h3>{this.state.product.name}</h3>
                                <h5>Rs.{this.state.product.price}</h5>
@@ -210,6 +220,7 @@ onChangeQty(e){
 
                 </div>
             </div>
+                            ):('Loading...')}
 
             </div>  
         )
@@ -218,9 +229,9 @@ onChangeQty(e){
 }
 
 const mapStateToProps = (state) => {
-    console.log('Collections ki product',state.products.products,state.cart)
+    console.log('Collections ki product',state)
   return{
-      products: state.products,
+      products: state.products.products,
       cart:state.cart
   }
 }

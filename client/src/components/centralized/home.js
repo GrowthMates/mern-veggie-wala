@@ -1,6 +1,9 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import { Link } from "react-router-dom";
+
+import HomeLoader from './home-loader'
+import {Link} from 'react-router-dom'
+
 // import axios from 'axios'
 // import frt1 from './images/frt1.jpeg'
 // import frt2 from './images/frt2.jpeg'
@@ -42,6 +45,8 @@ import l6 from './images/l6.webp'
 import h1 from './images/h1.webp'
 import h2 from './images/h2.webp'
 import './style/home.css'
+import {wishList} from '../../actions/productsAction'
+
 import {gmailLogin} from '../../actions/authActions'
 import queryString from "query-string";
 
@@ -62,7 +67,8 @@ import queryString from "query-string";
         super(Props);
         this.state={
             loading: true,
-            products:undefined
+            products:undefined,
+            user: {}
         }
     }
 
@@ -91,14 +97,24 @@ import queryString from "query-string";
     //     );
     // }
     UNSAFE_componentWillReceiveProps(nextProps){
+        if(nextProps.products){
+            // console.log('Home Products Next Props',nextProps)
+
         if(nextProps){
             console.log('Home Products Next Props',nextProps)
             if(nextProps.products){
+
             var newProducts=[];
-            for(let i=0;i<=7;i++){
-                console.log('ForLoopNextProps====',nextProps.products[i])
+            // for(let i=2;i<=9;i++){
+            //     console.log('ForLoopNextProps====',nextProps.products[i])
+            //     newProducts.push(nextProps.products[i])
+            // }
+          for(let i=0; i<=7;i++){
+
                 newProducts.push(nextProps.products[i])
-            }
+
+            //   console.log('fro loop', newProducts)
+          }
             this.setState({
                 products:newProducts,
                 loading:false
@@ -107,6 +123,7 @@ import queryString from "query-string";
         }
     }
     componentDidMount(){
+
         console.log('this.componentDidMount')
         var query = queryString.parse(this.props.location.search);
         console.log('query=====',query)
@@ -132,12 +149,25 @@ import queryString from "query-string";
         this.props.history.push('/collections')
     }
     p1(){
-        console.log('p1',)
+        // console.log('p1',)
         // this.props.history.push('/collections')  
     }
 
+    wishList(userId,productId){
+        
+        let wishList = {
+            userId,
+            productId,
+        }
+        console.log('items wishlist ky ',userId,productId)
+        this.props.wishList(wishList)
+    }
+
     render(){
+        const {user} = this.props.auth
+        // console.log('user', user.id)
         return(
+
             <div>
              
              <section onClick={this.changer.bind(this)}  className='col-lg-12 homeImg'> 
@@ -255,22 +285,30 @@ import queryString from "query-string";
                 </div>
                 {/* topsale */}
 
-                <div className='container' style={{marginTop: '25px'}} >
+                <div className='' style={{marginTop: '25px'}} >
                     <div className='row '>
                         {
-                        (this.state.loading==true)?('LOADING...'):(
+                        (this.state.loading==true)?(<HomeLoader/>):(
                          this.state.products.map((item,index) => {  
                          return(
                             <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p1' onClick={this.p1} >
                             {/* <div className='topInner'>
                                     <p>-57%</p>
                                 </div> */}
+
                                <Link to = {`/product/${item._id}`} > <img src={item.image} width='270' height='270' alt=''/></Link>
                                 <div className='lowerProd' >
                             
                                     <img src={shoppingcart1} width='25' height='25' alt=''/>
-                                    <img src={heart1} width='23' height='23' alt=''/>
-                                    <img src={search1} width='23' height='23' alt=''/>                                
+                                    {user.id?
+                                        
+                                            <img onClick={this.wishList.bind(this,user.id,item._id)}  src={heart1} width='23' height='23' alt=''/>
+                                     
+                                     :
+                                      <Link to='/combined'> <img src={heart1} width='23' height='23' alt=''/>  </Link> }
+                                    {/* <img src={heart1} width='23' height='23' alt=''/> */}
+                                    <img src={search1} width='23' height='23' alt=''/>  
+                                                               
                                 </div>
                                 <Link style={{textDecoration:'none', color:'black'}} to = {`/product/${item._id}`} > <h5  >{item.name}</h5></Link>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.{item.price}</h5>
@@ -418,7 +456,7 @@ import queryString from "query-string";
                        <div classname='col-lg-6'>    
                             <form>
                                <input placeholder='Type to search' className='navInput' />
-                               <button className='navBtn'>Search</button>
+                               {/* <button className='navBtn'>Search</button> */}
                            </form>
                        </div>
                    </div>
@@ -439,6 +477,7 @@ const mapStateToProps = (state) => {
       products: state.products.products,
       loading: state.products.loading,
       cart:state.cart,
+
       auth: state.auth,
       errors: state.errors
       
@@ -447,5 +486,6 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-   {gmailLogin}
+    {   wishList,gmailLogin }
+
   )(Home);

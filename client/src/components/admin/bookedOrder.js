@@ -3,7 +3,6 @@ import axios from 'axios'
 
 
 
-
 export default class BookedOrder extends Component{
 
     constructor(){
@@ -33,7 +32,9 @@ export default class BookedOrder extends Component{
 
     render(){
         return(
-                  <div className='container'>
+                  <div className=''>
+                      <div  style={{display: 'grid', gridTemplateColumns:'auto'}}>
+
                          <table className='table'>
                                     <thead className='cart-head'>
                                         <tr>
@@ -69,6 +70,7 @@ export default class BookedOrder extends Component{
                     }
                     </tbody>
                 </table>
+                    </div>
             </div>
         )
     }

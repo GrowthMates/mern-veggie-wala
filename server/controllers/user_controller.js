@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const UserCart = require('../models/userCart');
 const Product = require('../models/product');
 const User = require('../models/user');
+const WishList = require('../models/wishList');
 const Proceed = require('../models/proceed');
 const validateRegisterInput = require('../validation/register');
 const validateInformationInput = require('../validation/information');
@@ -301,6 +302,117 @@ module.exports = {
                 });
             });
     },
+
+    delCartProducts(req, res){
+        // const { id } = req.params;
+        const { cartProducts } = req.body;
+        console.log('cart del sy------', cartProducts);
+
+        let cartSchemaId = []
+        cartProducts.forEach((i,index) => {
+
+            UserCart.findByIdAndDelete(i.cartSchemaId)
+            .then(cart => {cart.remove().then(() => {
+                if(index===cartProducts.length-1){
+
+                    console.log('pura ho gya----',cart)
+                    res.json({ success: true,cart })
+                }
+            }
+               )})
+            .catch(err => res.status(404).json({ success: false }));
+            // cartSchemaId.push({
+            //     id:i.cartSchemaId
+            // })
+        })
+
+        console.log('cart ki idssssssssssss..',cartSchemaId)
+       
+    
+      
+
+    },
+
+    wishList(req,res){
+         // const { id } = req.params;
+         const {userId, productId } = req.body;
+         console.log('WishList sy------', req.body);
+        
+         WishList.findById(userId).exec((err, users) => {
+            if(!users){
+                let productsId=[]
+                productsId.push(productId)
+                let wishList = new WishList({
+                    _id:userId,
+                    products: productsId,
+                });
+                wishList.save().then(res => res.send()).catch(err => res.send(err))
+
+            }
+            else if(users){
+                WishList.updateOne({_id:users._id},{$push:{products:productId} })
+                .then(data => {
+                    res.status(200).json({data})})
+                    // console.log(data)
+                .catch(err => res.send(err))
+              
+                // console.log(res)
+            }
+            
+
+        });
+
+
+        
+ 
+         
+    },
+
+    getWishList(req, res){
+
+        const {key} = req.body
+        console.log(key)
+        WishList.findById(key) .exec((err, users) => {
+            if(err){
+                console.log('getAdminUsers err-----------:',err);
+            }
+            res.status(200).send(users);
+        });
+    },
+
+    delWishList(req, res){
+
+        const {key,productId} = req.body
+        console.log(req.body)
+
+        WishList.updateOne({_id:key},{$pull:{products:productId} })
+               .then(data => {
+                      console.log(data)
+                   res.status(200).json({data})
+                })
+               .catch(err => res.send(err))
+
+        // WishList.findById(key).exec((err, users) => {
+        //     if(!users){
+               
+
+        //     }
+        //     else if(users){
+        //        console.log('USer id del k lye---->',users.products)
+              
+        //        const delFinal = users.products.filter(i => {
+        //            return i === productId
+        //        })
+
+        //       
+        //         console.log('filter sy===>',delFinal[0])
+        //     }
+            
+
+        // });
+
+    },
+
     logout(req, res){
 
     },

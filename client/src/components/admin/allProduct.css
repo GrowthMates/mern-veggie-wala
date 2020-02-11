@@ -1,0 +1,22 @@
+.fa-plus-circle{
+font-size: 1.5em !important;    /* display: inline-block; */
+    position: relative;
+    top: -35px;
+    left: 120px;
+    cursor: pointer;
+    transition: 0.7s ease-in-out;
+    color: #5ba616;
+}
+
+.fa-plus-circle:hover{
+            transform: scale(1.3);
+    }
+
+.inputAllProd{
+    display: inline;
+}
+
+.searchAllProd{
+    position: relative;
+    top: 20px;
+}

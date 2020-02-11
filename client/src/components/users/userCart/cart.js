@@ -56,7 +56,7 @@ var lineTotalArr = []
 
     //  }
 
-     delCart(key,productId,quantity,index){
+     delCart(key,productId,quantity){
         let {cartProducts} = this.state
 
         let delBody = {
@@ -73,7 +73,7 @@ var lineTotalArr = []
 
         // cartProducts.splice(0,1);
        
-        console.log('cart del Ponka. >', delBody)
+        console.log('cart del Ponka. >>>>', delBody)
 
         axios.post("http://localhost:5000/api/user-data/delCart", delBody)
             .then(res => {
@@ -107,17 +107,7 @@ var lineTotalArr = []
 
      }
 
-    //  update(data, index){
-    //     axios.put('http://localhost:5000/api/user-data/updateCart',data).then(res=>{
-
-
-
-    //     }).catch(err=>{
-    //         console.log('Update Cart Err----',err.message)
-    //     })
-
-    //  }
-
+    
 
      onChange(id,index,price,e){
         // var totatPrice = []
@@ -182,6 +172,7 @@ var lineTotalArr = []
             console.log(this.state.cartProducts)
             this.props.totalPrice(this.state.totalPrice)
             this.setState({tick:'inline',loader:'none',quantity:undefined})
+            window.location.reload()
        
         })
 
@@ -268,6 +259,7 @@ var lineTotalArr = []
                                     (this.state.cartArray)? this.state.cartArray[index].quantity*(item.filterProduct.price) :
                                     (item.filterProduct.price)*item.quantity}  </td>
                                         <td className='cart-body ' style={{color:"#5BA616"}}><img onClick={this.delCart.bind(this,item.cartSchemaId,item.filterProduct._id,item.quantity,index)}
+
                                         className='cursor-pointer' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/></td>
 
         

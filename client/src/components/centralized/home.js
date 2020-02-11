@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
+
 import HomeLoader from './home-loader'
 import {Link} from 'react-router-dom'
+
 // import axios from 'axios'
 // import frt1 from './images/frt1.jpeg'
 // import frt2 from './images/frt2.jpeg'
@@ -44,6 +46,10 @@ import h1 from './images/h1.webp'
 import h2 from './images/h2.webp'
 import './style/home.css'
 import {wishList} from '../../actions/productsAction'
+
+import {gmailLogin} from '../../actions/authActions'
+import queryString from "query-string";
+
 // import socketIOClient from "socket.io-client";
 // var socket=socketIOClient("http://localhost:5000/")
 // import bgLower from './images/bgLower.webp'
@@ -67,7 +73,15 @@ import {wishList} from '../../actions/productsAction'
     }
 
     // componentDidMount(){
-            
+
+    //     console.log('this.componentDidMount')
+    //     var query = queryString.parse(this.props.location.search);
+    //     console.log('query=====',query)
+    //     if (query.token) {
+    //         this.props.gmailLogin(query.token);
+    //     //   localStorage.setItem("jwtToken", query.token);
+    //       this.props.history.push("/");
+    //   } 
 
     //     axios
     //     .get("http://localhost:5000/api/products")
@@ -85,6 +99,11 @@ import {wishList} from '../../actions/productsAction'
     UNSAFE_componentWillReceiveProps(nextProps){
         if(nextProps.products){
             // console.log('Home Products Next Props',nextProps)
+
+        if(nextProps){
+            console.log('Home Products Next Props',nextProps)
+            if(nextProps.products){
+
             var newProducts=[];
             // for(let i=2;i<=9;i++){
             //     console.log('ForLoopNextProps====',nextProps.products[i])
@@ -100,11 +119,20 @@ import {wishList} from '../../actions/productsAction'
                 products:newProducts,
                 loading:false
 
-            })
+            })}
         }
     }
     componentDidMount(){
-        // console.log('Home DidMount====',this.props.products)
+
+        console.log('this.componentDidMount')
+        var query = queryString.parse(this.props.location.search);
+        console.log('query=====',query)
+        if (query.token) {
+            this.props.gmailLogin(query.token);
+        //   localStorage.setItem("jwtToken", query.token);
+          this.props.history.push("/");
+        console.log('Home DidMount====',this.props.products)
+        }
        if(this.props.products!==undefined){  
         var newProducts=[];
             for(let i=0;i<=7;i++){
@@ -267,7 +295,8 @@ import {wishList} from '../../actions/productsAction'
                             {/* <div className='topInner'>
                                     <p>-57%</p>
                                 </div> */}
-                                <img className='prodImg' src={item.image} width='230' height='230' alt=''/>
+
+                               <Link to = {`/product/${item._id}`} > <img src={item.image} width='270' height='270' alt=''/></Link>
                                 <div className='lowerProd' >
                             
                                     <img src={shoppingcart1} width='25' height='25' alt=''/>
@@ -281,7 +310,7 @@ import {wishList} from '../../actions/productsAction'
                                     <img src={search1} width='23' height='23' alt=''/>  
                                                                
                                 </div>
-                                <h5  >{item.name}</h5>
+                                <Link style={{textDecoration:'none', color:'black'}} to = {`/product/${item._id}`} > <h5  >{item.name}</h5></Link>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.{item.price}</h5>
                             </div>)})
                         )}
@@ -448,12 +477,15 @@ const mapStateToProps = (state) => {
       products: state.products.products,
       loading: state.products.loading,
       cart:state.cart,
-      auth: state.auth
 
+      auth: state.auth,
+      errors: state.errors
+      
   }
 }
 
 export default connect(
     mapStateToProps,
-    {   wishList }
+    {   wishList,gmailLogin }
+
   )(Home);

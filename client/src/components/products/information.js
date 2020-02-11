@@ -5,6 +5,7 @@ import './stylesheet/information.css'
 import bana3 from '.././centralized/images/bana3.webp'
 import {proceed,delCartProducts} from '../../actions/productsAction'
 import classnames from "classnames";
+import PropTypes from "prop-types";
 import {proceed} from '../../actions/productsAction'
 
 
@@ -20,7 +21,16 @@ class Information extends Component{
         address: '',
         appartment: '',
         city: '',
+        errors:{}
 
+      }
+    }
+
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.errors) {
+        this.setState({
+          errors: nextProps.errors
+        });
       }
     }
 
@@ -93,7 +103,7 @@ class Information extends Component{
        this.props.history.push('/combined')
    }
     render(){
-      const {number,address,fname,lname,appartment,city} = this.state
+      const {number,address,fname,lname,appartment,city, errors} = this.state
         return(
             <div>
             <div className='container'>
@@ -122,45 +132,62 @@ class Information extends Component{
                         <input type="number"
                            onChange={this.onChange.bind(this)}
                            value={this.state.number}
+                           error={errors.number}
                            name='number'
                            required
-                           class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           id="exampleInputEmail1" aria-describedby="emailHelp"
                            placeholder="Number (ex.03331234567)"
+                           className={classnames("form-control", {
+                            invalid: errors.number
+                          })}
                             />
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        <span></span>
+                        <span className="red-text" style={{color:'red'}}>{errors.number}</span>
                     </div>
                     <div class="form-group form-inline">
                         {/* <label for="exampleInputPassword1">Password</label> <br/> */}
                         <input style={{textAlign: 'left'}} type="text" 
                          onChange={this.onChange.bind(this)}
                          value={this.state.fname}
+                         error={errors.fname}
                          name='fname'
-                         class="form-control col-lg-5" id="exampleInputPassword1" placeholder="First Name"
+                         id="exampleInputPassword1" placeholder="First Name"
                          required
+                         className={classnames("form-control col-lg-5", {
+                          invalid: errors.fname
+                        })}
                          />
+                          <span className="red-text" style={{color:'red'}}>{errors.fname}</span>
                         <input style={{marginRight: '-60'}}  type="text"
                          onChange={this.onChange.bind(this)}
                          name='lname'
                          value={lname}
+                         error={errors.lname}
                          required
-                         class="form-control col-lg-5" id="exampleInputPassword1" placeholder="Last Name"
+                          id="exampleInputPassword1" placeholder="Last Name"
+                         className={classnames("form-control col-lg-5", {
+                          invalid: errors.lname
+                        })}
                          />
-                         <span></span>
+                          <span className="red-text" style={{color:'red'}}>{errors.lname}</span>
                     </div>
 
                     <input  type="text" 
                      onChange={this.onChange.bind(this)}
                      value={address}
+                     error={errors.address}
                      name='address'
                      required
-                     class="form-control " id="exampleInputPassword1" placeholder="Address" />< br/>
-                     <span></span>
+                     id="exampleInputPassword1" placeholder="Address"
+                     className={classnames("form-control", {
+                      invalid: errors.address
+                    })} /> <span className="red-text" style={{color:'red'}}>{errors.address}</span>< br/>
                     <input  type="text" 
                      onChange={this.onChange.bind(this)}
                      value={appartment}
                      name='appartment'
                      required
+                     
                      class="form-control " id="exampleInputPassword1" placeholder="Appartments suits etc"
                      /><span></span> <br/>
                      
@@ -171,6 +198,7 @@ class Information extends Component{
                      required
                      disabled
                      class="form-control " id="exampleInputPassword1" placeholder="City"
+                    
                      /> <br/>
                     {/* <input  type="text" class="form-control " id="exampleInputPassword1" placeholder="City" /> <br/> */}
                   <div className='container'>
@@ -257,6 +285,12 @@ class Information extends Component{
     }
 }
 
+Information.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
 //redux
 
 const mapStateToProps =  (state) => {
@@ -264,6 +298,8 @@ console.log('infor cart', state.cartReducer.cart)
 
 return{ 
   cartProducts: state.cartReducer.cart,
+  errors: state.errors
+
 }
 }
 export default connect(

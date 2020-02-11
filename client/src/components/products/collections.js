@@ -68,6 +68,7 @@ class Collections extends Component{
     
 
      onSubmit=(item,e)=>{
+
         e.preventDefault();
         console.log('onsubmit',item)
         // return false;
@@ -77,16 +78,19 @@ class Collections extends Component{
         //     description
         // })
         
-        let product = {
+        let productId = {
             item,
-            quantity:1
+            quantity:1,
+           checker: false,
+
         }
 
         // this.props.history.push('/cart')
 
         // this.props.userCart(this.props.history);
-        this.props.addToCart(product)
-        console.log('new prod', product)
+
+        this.props.addToCart(productId)
+        console.log('new prod====',productId)
         // this.props.history.push('/cart')
     }
 

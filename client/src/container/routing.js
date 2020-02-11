@@ -126,11 +126,11 @@ this.props.getProducts('Routing')
                    <Route exact path='/' component={Home} />
                    <Route path='/about' component={About} />                 
                    <Route path='/contact' component={Contact} />
-                   <Route path='/information' component={Information} />
                    <Route path='/combined' component={Combined} />
                    <Route path='/product/:id' component={Product} />
                    <Route exact path="/collections" component={Collections} />
                    <Route path='/cart' component={Cart}/>
+
               
                    {/* <Route path='/image' component={TestComp}/> */}
               
@@ -140,6 +140,7 @@ this.props.getProducts('Routing')
                    <PrivateRoute exact path="/wishList" component={WishList} />
                    {/* <Route component={NoMatch}  /> */}
                    {/* <Route path='/Allimages' component={AllImages}/> */}
+
                </Switch>
                <Footer/>
                </BrowserRouter> 

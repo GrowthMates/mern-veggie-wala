@@ -37,6 +37,7 @@ import AllProducts from './allProducts'
             selectOwnerId:'',
             selectedProductId:'',
             selectedProduct:undefined,
+            eka:'',
             cartOwners: [
                 {
                     name: 'Arslan',
@@ -122,7 +123,8 @@ console.log('WillMount Admin -------')
         e.preventDefault()
         console.log(key, 'id')
         let id = {
-            key,
+            imageId:key.imageId,
+            key:key._id,
         }
         axios.post("http://localhost:5000/api/delProducts", id)
             .then(res => {
@@ -255,6 +257,18 @@ console.log('WillMount Admin -------')
 
     }
 
+    onChangePrice(eve){
+        // var abc = e.target.value[e.target.value.length-1]!=='0'
+     
+    //   if(eve.target.value[eve.target.value.length-1]!=='e'){
+        // console.log('Price onshange=======',eve.target.value)
+        this.setState({
+            addPrice: eve.target.value
+        })
+
+        
+    }
+
     selectOwners(id){
         console.log(id,'crt ownrs id');
 
@@ -275,9 +289,6 @@ console.log('WillMount Admin -------')
        
         return(
             <div className='adminDashboard'>
-                <div>
-                    
-                </div>
 
             </div>
         )

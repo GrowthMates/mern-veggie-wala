@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+// import { LazyLoadImage } from 'react-lazy-load-image-component';
 import './collections.css';
 import {connect} from 'react-redux';
 import ImageAppla from '../centralized/images/apple.jpg' 

@@ -6,7 +6,7 @@ import bana3 from '.././centralized/images/bana3.webp'
 import {proceed,delCartProducts} from '../../actions/productsAction'
 import classnames from "classnames";
 import PropTypes from "prop-types";
-import {proceed} from '../../actions/productsAction'
+// import {proceed} from '../../actions/productsAction'
 
 
 

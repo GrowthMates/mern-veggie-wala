@@ -25,7 +25,7 @@ class AllProducts extends React.Component {
             loading:true,
             bookedOrderData: [],
             products:[],
-            image:'',
+            image:undefined,
             delProduct: [],
             edit: false,
             price: undefined,
@@ -226,7 +226,14 @@ console.log('WillMount Admin -------')
         clearTimeout(this.turnOffRedTimeout);
       }
     onChangeImage = e => {
-        this.setState({ image: e.target.files[0] });
+        console.log('Image Files=======',e.target.files)
+        const files=[]
+        for (let i=0;i<e.target.files.length;i++){
+            console.log('for k andar',files);
+            files.push(e.target.files[i]);}
+        // e.target.files.forEach((file,i)=>{files.push(file)})
+        // console.log(files)
+        this.setState({ image: files });
         };
 
     onSubmit = e => {
@@ -245,11 +252,21 @@ console.log('WillMount Admin -------')
     let formData = new FormData();
     //    formData.append("product","Apple Aya h")
     //    formData.append("title", this.state.title);
+    const files = this.state.image;
+        console.log('state image=====',this.state.image)
         formData.append("name", this.state.addName);
         formData.append("description", this.state.addDescription);
         formData.append("price", this.state.addPrice);
         formData.append("stock", this.state.addStock);
-        formData.append("image", this.state.image);
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            console.log(file)
+            console.log(files.length)
+            formData.append('image', file);
+        }
+    
+
+        // formData.append("image", this.state.image);
         console.log('New product-------',formData)
     this.props.addProduct(formData, this.props.history);
 
@@ -336,6 +353,7 @@ console.log('WillMount Admin -------')
                                        <input label="Image"
                                       type="file" 
                                       className="form-input"
+                                      multiple
                                       onChange={this.onChangeImage} 
                                        /> <br/>
                                       <TextField value={this.state.addName} 

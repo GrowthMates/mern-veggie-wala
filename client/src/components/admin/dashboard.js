@@ -12,6 +12,7 @@ import {updateProduct,addProduct,getProducts,sendToCartOwner,delAfterApproved} f
 import './adminDashboard.css'
 import ApprovalProducts from './approvalProduct'
 import AllProducts from './allProducts'
+import AdminNavbar from './adminNavbar';
 
 
  class Admin extends Component{
@@ -289,6 +290,7 @@ console.log('WillMount Admin -------')
        
         return(
             <div className='adminDashboard'>
+                <AdminNavbar/>
 
             </div>
         )

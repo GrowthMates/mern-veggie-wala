@@ -4,20 +4,20 @@ const Proceed = require('../../models/proceed');
 const CartOwner = require('../../models/cartOwner');
 const PendingProduct = require('../../models/admin/pending')
 //IMAGE UPLOAD CONFIGURATION
-const multer = require("multer");
-const storage = multer.diskStorage({
-filename: function(req, file, callback) {
-callback(null, Date.now() + file.originalname);
-}
-});
-const imageFilter = function(req, file, cb) {
-// accept image files only
-if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
-return cb(new Error("Only image files are accepted!"), false);
-}
-cb(null, true);
-};
-const upload = multer({ storage: storage, fileFilter: imageFilter });
+// const multer = require("multer");
+// const storage = multer.diskStorage({
+// filename: function(req, file, callback) {
+// callback(null, Date.now() + file.originalname);
+// }
+// });
+// const imageFilter = function(req, file, cb) {
+// // accept image files only
+// if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+// return cb(new Error("Only image files are accepted!"), false);
+// }
+// cb(null, true);
+// };
+// const upload = multer({ storage: storage, fileFilter: imageFilter });
 const cloudinary = require("cloudinary");
 cloudinary.config({
 cloud_name: "dbevearco", //ENTER YOUR CLOUDINARY NAME
@@ -39,41 +39,36 @@ module.exports = {
     createProduct(req, res){
 
         // const { name, description,price,stock } = req.body;
+        req.body.image=[]
+        req.body.imageId=[]
         console.log('rquest body',req.body)
-        // console.log('/add called====',req.body)
-        cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
-          if (err) {
-            res.json(err.message);
-          }
-          req.body.image = result.secure_url;
-          // add image's public_id to image object
-          req.body.imageId = result.public_id;
-        // let newProduct = new Product({
-        //     name,
-        //     description,
-        //     price,
-        //     stock,
-        //     // title,
-        //     image,
-        //     imageId,
+        console.log('/add called====', req.files)
+        for(let i=0;i<req.files.length;++i){
 
-        // });
-        Product.create(req.body, function(err, result) {
-            if (err) {
-              res.json(err.message);
-              return res.redirect("/");
-            }
-            console.log('res send',result)
-            res.status(200).json({Product:result})
-            // res.json(image)
-          });
-        })
+            cloudinary.v2.uploader.upload(req.files[i].path, function(err, result) {
+              if (err) {
+                res.json(err.message);
+              }
+              
+              req.body.image.push(result.secure_url);
+              console.log('Secure URL=====-=-=-=-',result.secure_url,[i],req.body.image)
+              // add image's public_id to image object
+              req.body.imageId.push(result.public_id);
+            })
+            
+        }
+        console.log('After for loop=-=-=-=-')
+            // Product.create(req.body, function(err, result) {
+            //     if (err) {
+            //       res.json(err.message);
+            //       return res.redirect("/");
+            //     }
+            //     console.log('res send',result)
+            //     res.status(200).json({Product:result})
+            //     // res.json(image)
+            //   });
 
-        // newProduct.img.data =  fs.readFileSync(req.body.imgPath);
-        // newProduct.img.contentType = 'image/png'
-
-        // newProduct.save().then((result)=>{res.status(200).json({Product:result})})
-        // .catch((err) => {console.log('Product save err---------:',err)})
+       
 
     },
 

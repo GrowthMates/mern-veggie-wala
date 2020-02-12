@@ -22,18 +22,23 @@ const passport = require("passport");
 //IMAGE UPLOAD CONFIGURATION
 const multer = require("multer");
 const storage = multer.diskStorage({
+  destination : function(req, file, cb){
+    cb(null, 'server/uploads/');
+},
 filename: function(req, file, callback) {
+  console.log("storage====",file)
 callback(null, Date.now() + file.originalname);
 }
 });
 const imageFilter = function(req, file, cb) {
 // accept image files only
+console.log("ImageFilter====",file)
 if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
 return cb(new Error("Only image files are accepted!"), false);
 }
 cb(null, true);
 };
-const upload = multer({ storage: storage, fileFilter: imageFilter });
+const upload = multer({ storage: storage, fileFilter: imageFilter});//{ storage: storage, fileFilter: imageFilter}, fileFilter: imageFilter 
 const cloudinary = require("cloudinary");
 cloudinary.config({
 cloud_name: "dbevearco", //ENTER YOUR CLOUDINARY NAME
@@ -178,7 +183,7 @@ setTimeout(()=>{
     //Gets the admin users.
     app.get('/api/users', adminController.getAdminUsers);
     //When a admin creates a product. No need for request parameter in this case. Since we are inserting data to database.
-    app.post('/api/createProducts', upload.single("image") , adminController.createProduct);
+    app.post('/api/createProducts', upload.array("image") , adminController.createProduct);
 
     app.get('/api/bookedProducts', adminController.bookedProduct);
 

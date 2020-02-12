@@ -101,40 +101,40 @@ this.props.getProducts('Routing')
                                           
               
 
-                  {  adminAndCartOwner==true ? 
+                  {/* {  adminAndCartOwner==true ? 
                   <BrowserRouter>
                   <AdminNavbar/>
                       <Switch>
-                          <Route exact path='/admin' component={Admin}/>
-                          <Route path='/approvalProducts' component={ApprovalProducts}/>
-                          <Route path='/admin/allProducts' component={AllProducts}/>
                           {/* <Route path='/delProducts' component={DelProducts}/> */}
                           {/* <PrivateRoute exact path="/dashboard" component={Dashboard} /> */}
                           {/* <Route component={NoMatch}  /> */}
                           {/* <Route path='/Allimages' component={AllImages}/> */}
-                    </Switch>
-                </BrowserRouter>
+                    {/* </Switch> */}
+                {/* </BrowserRouter> */}
                   
-                  :
-                   info==true ? null :
-                   
-                   <BrowserRouter> 
+                  {/* : */}
+                  {/* info==true ? null : */} 
+                  
+                  <BrowserRouter> 
                     <Navbar/> 
                 
             {/* <TestComp/> */}
                <Switch>
+                  <Route path='/approvalProducts' component={ApprovalProducts}/>
+                  <Route path='/admin/allProducts' component={AllProducts}/>
                    <Route exact path='/' component={Home} />
-                   <Route path='/about' component={About} />                 
-                   <Route path='/contact' component={Contact} />
-                   <Route path='/combined' component={Combined} />
-                   <Route path='/product/:id' component={Product} />
+                  <Route exact path='/admin' component={Admin}/>
+                   <Route exact path='/about' component={About} />                 
+                   <Route exact path='/contact' component={Contact} />
+                   <Route exact path='/combined' component={Combined} />
+                   <Route exact path='/product/:id' component={Product} />
                    <Route exact path="/collections" component={Collections} />
-                   <Route path='/cart' component={Cart}/>
+                   <Route exact path='/cart' component={Cart}/>
 
               
                    {/* <Route path='/image' component={TestComp}/> */}
               
-                   <Route path='/information' component={Information}/>
+                   <PrivateRoute exact path='/information' component={Information}/>
                  
            
                    <PrivateRoute exact path="/wishList" component={WishList} />
@@ -144,7 +144,7 @@ this.props.getProducts('Routing')
                </Switch>
                <Footer/>
                </BrowserRouter> 
-                  }
+                  // }
                {/* {this.props.pathChecker==true || info==true? null : <Footer/> } */}
 
 

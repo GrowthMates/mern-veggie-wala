@@ -198,7 +198,7 @@ class Collections extends Component{
                              <form >
                                  <div className='container team' >
                                             <div className='col-lg-4 '>
-                                               <Link to = {`/product/${item._id}`} ><img className="cursor-pointer prodImg" src={item.image} width='250' height='250' /></Link>
+                                               <Link to = {`/product/${item._id}`} ><img className="cursor-pointer prodImg" src={item.image[0]} width='250' height='250' /></Link>
                                             </div>
                                             <div className="col-md-8 col-lg-8 data">
                                             <Link to = {`/product/${item._id}`} className='link-name'> <h6 className="item-name cursor-pointer">{item.name}</h6></Link>

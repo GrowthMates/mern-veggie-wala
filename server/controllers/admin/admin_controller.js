@@ -36,16 +36,18 @@ module.exports = {
             res.status(200).send(users);
         });
     },
-    createProduct(req, res){
+    
+// add product........
+   async createProduct(req, res){
 
         // const { name, description,price,stock } = req.body;
         req.body.image=[]
         req.body.imageId=[]
         console.log('rquest body',req.body)
         console.log('/add called====', req.files)
-        for(let i=0;i<req.files.length;++i){
-
-            cloudinary.v2.uploader.upload(req.files[i].path, function(err, result) {
+        for(let i=0;i<req.files.length;i++){
+        console.log('loop----',i,'--')
+           await cloudinary.v2.uploader.upload(req.files[i].path, function(err, result) {
               if (err) {
                 res.json(err.message);
               }
@@ -58,15 +60,15 @@ module.exports = {
             
         }
         console.log('After for loop=-=-=-=-')
-            // Product.create(req.body, function(err, result) {
-            //     if (err) {
-            //       res.json(err.message);
-            //       return res.redirect("/");
-            //     }
-            //     console.log('res send',result)
-            //     res.status(200).json({Product:result})
-            //     // res.json(image)
-            //   });
+            Product.create(req.body, function(err, result) {
+                if (err) {
+                  res.json(err.message);
+                  return res.redirect("/");
+                }
+                console.log('res send',result)
+                res.status(200).json({Product:result})
+                // res.json(image)
+              });
 
        
 

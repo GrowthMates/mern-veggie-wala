@@ -215,7 +215,7 @@ class Navbar extends Component{
                                          <img className='cursor-pointer dropbtn' src={shoppingcart} width='20' height='20.52'/> <sup>{this.state.qty || this.props.cartProducts }</sup>
                                             <div class="dropdown-content">
                                                 <div style={{overflowY: 'scroll', height: '30em'}} > 
-                                                {this.state.cartData===undefined?<p>loading</p> : (
+                                                {!this.state.cartData?<p>loading</p> : (
                                                 this.state.cartData.map((item,index) => {
                                                     return (
                                                         <div className='row hvr'>

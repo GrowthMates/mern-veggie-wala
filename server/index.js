@@ -13,6 +13,7 @@ const Image = require('./models/socketTest')
 const userController = require('./controllers/user_controller');
 const adminController = require('./controllers/admin/admin_controller');
 const productsController = require('./controllers/products_controller');
+const cartOwnerController = require('./controllers/cartOwner_controller');
 const PORT = process.env.PORT || 5000;
 const passport = require("passport");
 
@@ -160,8 +161,12 @@ setTimeout(()=>{
     app.get('/api/user-data', userController.readUserData);
     //Add a item to cart.
     app.post('/api/user-data/addToCart', userController.addToCart);
+    //Add a item to cart.
+    // app.post('/api/cart-owner/send-message', cartOwnerController.sendSMS);
     //update cart item
     app.put('/api/user-data/updateCart', userController.updateCart);
+    //view cart items
+    app.get('/api/user-data/cart', userController.viewCart);
     //view cart items
     app.get('/api/user-data/cart', userController.viewCart);
     //Remove a item from the cart.

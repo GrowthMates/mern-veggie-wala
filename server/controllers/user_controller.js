@@ -8,6 +8,10 @@ const Proceed = require('../models/proceed');
 const validateRegisterInput = require('../validation/register');
 const validateInformationInput = require('../validation/information');
 const validateLoginInput = require('../validation/login');
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+const client = require('twilio')(accountSid, authToken);
 // var ip = require("ip");
  var currentProduct=undefined
 module.exports = {
@@ -29,10 +33,10 @@ module.exports = {
         });
                 
             productInCart.save().then(data=>{
-            Product.findByIdAndUpdate(productId,{ $inc: { stock: -1 } }).then((product)=>{
-                currentProduct=product
-                console.log('ProductUpdate success: ',product)
-            })     
+            // Product.findByIdAndUpdate(productId,{ $inc: { stock: -1 } }).then((product)=>{
+            //     currentProduct=product
+            //     console.log('ProductUpdate success: ',product)
+            // })     
             res.status(200).json({success:true, data})
         })
                 .catch(err => {
@@ -73,13 +77,13 @@ module.exports = {
                    if(productCart.quantity!=qnty[index].quantity){
                     var newStock = productCart.quantity-qnty[index].quantity
                     console.log('New Stock=====',newStock)
-                    return (
-                         Product.findById(filterProduct._id).then((product)=>{
-                        currentProduct=product
-                        console.log('UpdateCart Change Stock success:===== ',product)
-                        product.stock=product.stock+newStock
-                        product.save().then((success)=>{
-                        console.log('PeoductNew Stock======',product.stock)
+                    // return (
+                        //  Product.findById(filterProduct._id).then((product)=>{
+                        // currentProduct=product
+                        // console.log('UpdateCart Change Stock success:===== ',product)
+                        // product.stock=product.stock+newStock
+                        // product.save().then((success)=>{
+                        // console.log('PeoductNew Stock======',product.stock)
                         productCart.quantity = qnty[index].quantity
                         productCart.save().then(()=>{
     
@@ -89,8 +93,9 @@ module.exports = {
                             res.status(200).json({finalArr})
                         }
                     })
-                    });
-                    })    )
+                    // });
+                    // })    
+                    // )
                     }
                     else{
                         console.log('Else New Stock=====',productCart.quantity,quantity)
@@ -120,10 +125,10 @@ module.exports = {
         UserCart.findOneAndDelete(key)
         .then(cart => {cart.remove()
                       .then(() =>{
-                        Product.findById(productId).then((res)=>{
-                            res.stock=res.stock+quantity
-                            res.save().then(success=>console.log('deletecart added stock===',success))
-                        })
+                        // Product.findById(productId).then((res)=>{
+                        //     res.stock=res.stock+quantity
+                        //     res.save().then(success=>console.log('deletecart added stock===',success))
+                        // })
                         res.json({ success: true,cart })
                         })
                     })
@@ -169,15 +174,15 @@ module.exports = {
     },
 
     proceed(req, res){
-        const {fname,lname,city,appartment,address,number,timeStamp,cartProducts,} = req.body
-        console.log(req.body)
-
+        const {fname,lname,city,appartment,address,number,timeStamp,cartProducts} = req.body
+        const productId = cartProducts.filterProduct
+        console.log('proceed request=====',cartProducts,productId)
          // Form validation
          const { errors, isValid } = validateInformationInput(req.body);
          // Check validation
              if (!isValid) {
              return res.status(400).json(errors);
-             console.log('isValid bad: ',errors);      
+            //  console.log('isValid bad: ',errors);      
              }
 
         var crtProduct=[];
@@ -205,14 +210,23 @@ module.exports = {
         });
 
         console.log('Anday wala burger',crtProduct)
-        newProceed.save().then(data=>{
-            console.log('Anday wala burger',data)
-            res.status(200).json({success:true, data})
+        newProceed.save().then((data)=>{
+                cartProducts.forEach( (item,i)=>{
+                    console.log('Index dekho===',i)
+                   Product.findByIdAndUpdate(item.filterProduct._id,{ $inc: { stock: -1 } }).then((product)=>{
+                       currentProduct=product
+                        console.log('ProductUpdate success: ',product)
+                        if(i===cartProducts.length-1){ 
+                           console.log('Anday wala burger1',data,i)
+                           res.status(200).json({success:true, data})
+                        }
+                    }) 
+               })
         })
-        .catch(err => {
-            console.log('ksadkjhsakj-------',err.message)
-            res.status(404).json({success:false,err})
-        });
+        // .catch(err => {
+        //     console.log('ksadkjhsakj-------',err.message)
+        //     res.status(404).json({success:false,err})
+        // });
 
 
     },

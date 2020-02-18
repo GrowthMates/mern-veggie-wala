@@ -3,6 +3,7 @@ const Product = require('../../models/product');
 const Proceed = require('../../models/proceed');
 const CartOwner = require('../../models/cartOwner');
 const PendingProduct = require('../../models/admin/pending')
+const ProductSpecs = require('../../models/categories')
 //IMAGE UPLOAD CONFIGURATION
 // const multer = require("multer");
 // const storage = multer.diskStorage({
@@ -35,6 +36,26 @@ module.exports = {
             }
             res.status(200).send(users);
         });
+    },
+    
+    createProductSpecs(req, res){
+        const { id, category, tag } = req.body
+        ProductSpecs.findById(id).exec((err,result)=>{
+            if(result){
+                console.log('create productSpec====')
+                res.json({specsError:'This specs already available'})
+                
+            }
+            else if(!result){
+                ProductSpecs.create(res.body, function(err, result){
+                        if(err){
+                            console.log('create product spec error====',err.message)
+                        }
+                        console.log('create product spec success====',result)
+                        res.status(200).json({success:true,specs:result})
+                    })
+        }
+    })
     },
     
 // add product........

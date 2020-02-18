@@ -77,6 +77,7 @@ console.log('WillMount Admin -------')
         console.log('props admin will rcve props sy',nextProps);
         this.setState({
             products:nextProps.products,
+            filter: nextProps.products,
             loading:false
         })
         console.log('loading',this.props.loading)
@@ -252,7 +253,7 @@ console.log('WillMount Admin -------')
     let formData = new FormData();
     //    formData.append("product","Apple Aya h")
     //    formData.append("title", this.state.title);
-    const files = this.state.image;
+    const files = this.state.image;     
         console.log('state image=====',this.state.image)
         formData.append("name", this.state.addName);
         formData.append("description", this.state.addDescription);
@@ -300,7 +301,7 @@ console.log('WillMount Admin -------')
         console.log(updateProduct, 'update new')
     }
        
-    ss
+    
 
    
   

@@ -7,6 +7,7 @@ import PinterestIcon from '../centralized/images/pinterest-icon.png'
 import {connect} from 'react-redux';
 import {userCart} from '../../actions/productsAction'
 import {addToCart} from '../../actions/productsAction'
+import axios from 'axios'
 
 
 
@@ -121,7 +122,7 @@ onChangeQty(e){
                 <div className="row">
                     <div className="col-md-6 col-lg-6 col-sm-6">
                     <div className='product-img'>
-                       <img className="cursor-pointer" src={this.state.product.image} width='540' height='540' />
+                       <img className="cursor-pointer" src={this.state.product.image[0]} width='540' height='540' />
                      </div> 
 
                    </div>
@@ -211,8 +212,14 @@ onChangeQty(e){
                             </div>
                             
                         </div>
-
-                   
+                      {/* SMS sending testing  */}
+                      
+                        {/* <input type='text' value={this.state.SMS} onchange={e=>{this.setState({SMS:e.target.value})}}/>
+                        <button onClick={
+                            (e)=>{
+                                axios.post('http://localhost:5000/api/cart-owner/send-message',{SMS:'Hello world'}).then(res=>console.log(res))
+                            }
+                        }>Send</button> */}
 
                    
                                       

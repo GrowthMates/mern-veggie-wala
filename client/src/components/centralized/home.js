@@ -306,7 +306,7 @@ import queryString from "query-string";
                                     <p>-57%</p>
                                 </div> */}
 
-                               <Link to = {`/product/${item._id}`} > <img src={item.image} width='270' height='270' alt=''/></Link>
+                               <Link to = {`/product/${item._id}`} > <img src={item.image[0]} width='270' height='270' alt=''/></Link>
                                 <div className='lowerProd' >
                             
                                     <img src={shoppingcart1} width='25' height='25' alt=''/>

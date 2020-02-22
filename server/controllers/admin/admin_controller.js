@@ -39,7 +39,7 @@ module.exports = {
                 res.status(200).json({product})
             })
         })
-
+        console.log('ponka')
     },
     deleteProduct(req, res){
 

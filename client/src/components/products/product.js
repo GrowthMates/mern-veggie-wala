@@ -109,7 +109,7 @@ onChangeQty(e){
 
 
     render(){
-        console.log('Product Compnents',this.state.product,this.state.quantity)
+        console.log('Product Compnents',this.state.product,this.state.quantity,this.props)
         var currProduct=this.state.product
         return(
             <div>

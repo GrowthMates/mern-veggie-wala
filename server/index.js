@@ -13,7 +13,7 @@ const Image = require('./models/socketTest')
 const userController = require('./controllers/user_controller');
 const adminController = require('./controllers/admin/admin_controller');
 const productsController = require('./controllers/products_controller');
-const cartOwnerController = require('./controllers/cartOwner_controller');
+const cartOwnerController = require('./controllers/cartOwner_controller')
 const PORT = process.env.PORT || 5000;
 const passport = require("passport");
 
@@ -188,7 +188,7 @@ setTimeout(()=>{
     //Gets the admin users.
     app.get('/api/users', adminController.getAdminUsers);
     //When a admin creates a product. No need for request parameter in this case. Since we are inserting data to database.
-    app.post('/api/createProducts', upload.array("image") , adminController.createProduct);
+    // app.post('/api/createProducts', upload.array("image") , adminController.createProduct);
 
     app.get('/api/bookedProducts', adminController.bookedProduct);
 
@@ -197,6 +197,9 @@ setTimeout(()=>{
     app.put('/api/updateProducts', adminController.updateProduct);
     //When a admin deletes a product, need an id to specify a product to delete.
     app.post('/api/delProducts', adminController.deleteProduct);
+
+    app.post('/api/createProduct', adminController.createProduct);
+
 
     app.get('/api/products/pending', adminController.pendingProduct);
 
@@ -211,6 +214,11 @@ setTimeout(()=>{
     app.post('/api/cartOwner/confirmOrder', adminController.cartOwner);
 
     app.get('/api/cartOwner/reciept', adminController.cartOwnerReciept);
+
+
+    app.get('/api/getCartOwners', adminController.getCartOwners);
+
+    
 
     app.post('/api/wishList', userController.wishList)
 

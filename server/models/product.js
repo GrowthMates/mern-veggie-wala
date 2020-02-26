@@ -20,6 +20,13 @@ const Product = new Schema({
         },
         image: Array,
         imageId: Array,
+
+        category: {
+                type: String
+        },
+        cartStock: Array,
+
+        
         // img:{
         //        title:String,
         //        image:String,

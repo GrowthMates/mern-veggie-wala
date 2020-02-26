@@ -14,7 +14,8 @@ import {
   WISHLIST,
   EMPTY_CART,
   DEL_WISHLIST,
-  PATH_CHECKER
+  PATH_CHECKER,
+  PRODUCTS
 } from "./types";
 import {socket} from '../components/centralized/navbar'
 
@@ -280,21 +281,41 @@ var getCartProdLocalStorage=[]
     })
   }
   
+  // export const addProduct = (newPoduct) => dispatch => {
+  //   axios
+  //     .post('http://localhost:5000/api/createProducts',newPoduct)
+  //     .then(res => {
+  //       dispatch(getProducts('Add Products'));
+  //       console.log('create product admin sy ka data ', res.data)
+  //     })
+  //     .catch(err => {
+  //       dispatch({
+  //         type: GET_ERRORS,
+  //         payload: err.message
+  //       })
+  //       console.log('added products sy ..........',err)
+  //     })
+  // }
+
   export const addProduct = (newPoduct) => dispatch => {
-    axios
-      .post('http://localhost:5000/api/createProducts',newPoduct)
-      .then(res => {
-        dispatch(getProducts('Add Products'));
-        console.log('create product admin sy ka data ', res.data)
-      })
-      .catch(err => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: err.message
+      axios
+        .post('http://localhost:5000/api/createProduct',newPoduct)
+        .then(res => {
+          // dispatch(getProducts('Add Products'));
+          dispatch({
+            type: PRODUCTS,
+            payload: res.data
+          })
+          console.log('create product admin sy ka data ', res.data)
         })
-        console.log('added products sy ..........',err)
-      })
-  }
+        .catch(err => {
+          dispatch({
+            type: GET_ERRORS,
+            payload: err.message
+          })
+          console.log('added products sy ..........',err)
+        })
+    }
 
   export const updateProduct = (updatePoduct) => dispatch => {
     axios

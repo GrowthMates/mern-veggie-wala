@@ -246,7 +246,7 @@ module.exports = {
                      cartId= await avilableCarts[2]._id
                    
                 }
-                NewCart.findByIdAndUpdate(cartId,{$push:{orders:data._id}}).exec((err, result)=>{
+                NewCart.findByIdAndUpdate(cartId,{$push:{orders:data}}).exec((err, result)=>{
                     if(err){
                         console.log('err adminCart update se===',err.message)
                         return res.status(400).json(err.message)

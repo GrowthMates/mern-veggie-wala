@@ -4,7 +4,8 @@ const Proceed = require('../../models/proceed');
 const CartOwner = require('../../models/cartOwner');
 const Cart =  require('../../models/cartOwner');
 const PendingProduct = require('../../models/admin/pending')
-const ProductSpecs = require('../../models/categories')
+const ProductSpecs = require('../../models/categories');
+const NewCart = require('../../models/admin/newCart');
 //IMAGE UPLOAD CONFIGURATION
 // const multer = require("multer");
 // const storage = multer.diskStorage({
@@ -60,37 +61,59 @@ module.exports = {
     },
     
 // add product........
-   async createProduct(req, res){
+    createProduct(req, res){
 
-        // const { name, description,price,stock } = req.body;
-        req.body.image=[]
-        req.body.imageId=[]
-        console.log('rquest body',req.body)
-        console.log('/add called====', req.files)
-        for(let i=0;i<req.files.length;i++){
-        console.log('loop----',i,'--')
-           await cloudinary.v2.uploader.upload(req.files[i].path, function(err, result) {
-              if (err) {
-                res.json(err.message);
-              }
+        const { name, description,price,stock,image,cartsStock,category } = req.body;
+
+        let createProduct = new Product({
+            name,
+            price,
+            description,
+            image,
+            stock,
+            cartStock:cartsStock,
+            category
+        })
+
+        createProduct.save()
+        .then(data => {
+            res.status(200).send(data)
+            console.log(data)
+        })
+        .catch(err => {
+            res.status(400).send(err.message)
+        })
+        // rehan ka kam yahan sy previous wala
+
+
+        // req.body.image=[]
+        // req.body.imageId=[]
+        // console.log('rquest body',req.body)
+        // console.log('/add called====', req.files)
+        // for(let i=0;i<req.files.length;i++){
+        // console.log('loop----',i,'--')
+        //    await cloudinary.v2.uploader.upload(req.files[i].path, function(err, result) {
+        //       if (err) {
+        //         res.json(err.message);
+        //       }
               
-              req.body.image.push(result.secure_url);
-              console.log('Secure URL=====-=-=-=-',result.secure_url,[i],req.body.image)
-              // add image's public_id to image object
-              req.body.imageId.push(result.public_id);
-            })
+        //       req.body.image.push(result.secure_url);
+        //       console.log('Secure URL=====-=-=-=-',result.secure_url,[i],req.body.image)
+        //       // add image's public_id to image object
+        //       req.body.imageId.push(result.public_id);
+        //     })
             
-        }
-        console.log('After for loop=-=-=-=-')
-            Product.create(req.body, function(err, result) {
-                if (err) {
-                  res.json(err.message);
-                  return res.redirect("/");
-                }
-                console.log('res send',result)
-                res.status(200).json({Product:result})
-                // res.json(image)
-              });
+        // }
+        // console.log('After for loop=-=-=-=-')
+        //     Product.create(req.body, function(err, result) {
+        //         if (err) {
+        //           res.json(err.message);
+        //           return res.redirect("/");
+        //         }
+        //         console.log('res send',result)
+        //         res.status(200).json({Product:result})
+        //         // res.json(image)
+        //       });
 
        
 
@@ -234,6 +257,18 @@ module.exports = {
         .then(cart => {cart.remove().then(() => res.json({ success: true,cart }))})
         .catch(err => res.status(404).json({ success: false }));
     },
+
+    getCartOwners(req,res){
+
+        NewCart.find()
+        .then(data => {
+            res.status(200).send(data)
+        })
+        .catch(err => {
+            res.status(400).send(err.message)
+        })
+
+    }
 
     
 }

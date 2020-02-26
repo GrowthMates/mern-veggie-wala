@@ -32,6 +32,7 @@ import Information from '../components/products/information' ;
 import PrivateRoute from "../components/private-route/PrivateRoute";
 import Dashboard from "../components/dashboard/Dashboard"; 
 import Cart from '../components/users/userCart/cart'  
+import AdminLandingPage from '../components/vendor/vendorLandingPage'
 import NoMatch from './not-found.js'  
 // import AllImages from './AllImages'
 
@@ -120,16 +121,17 @@ this.props.getProducts('Routing')
                 
             {/* <TestComp/> */}
                <Switch>
-                  <Route path='/approvalProducts' component={ApprovalProducts}/>
-                  <Route path='/admin/allProducts' component={AllProducts}/>
+                  {/* <Route path='/approvalProducts' component={ApprovalProducts}/> */}
+                  {/* <Route path='/admin/allProducts' component={AllProducts}/> */}
                    <Route exact path='/' component={Home} />
-                  <Route exact path='/admin' component={Admin}/>
+                  {/* <Route exact path='/admin' component={Admin}/> */}
                    <Route exact path='/about' component={About} />                 
                    <Route exact path='/contact' component={Contact} />
                    <Route exact path='/combined' component={Combined} />
                    <Route exact path='/product/:id' component={Product} />
                    <Route exact path="/collections" component={Collections} />
                    <Route exact path='/cart' component={Cart}/>
+                   <Route exact path='/admin/landingPage' component={AdminLandingPage}/>
 
               
                    {/* <Route path='/image' component={TestComp}/> */}
@@ -138,13 +140,14 @@ this.props.getProducts('Routing')
                  
            
                    <PrivateRoute exact path="/wishList" component={WishList} />
+
                    {/* <Route component={NoMatch}  /> */}
                    {/* <Route path='/Allimages' component={AllImages}/> */}
 
                </Switch>
                <Footer/>
                </BrowserRouter> 
-                  // }
+                  
                {/* {this.props.pathChecker==true || info==true? null : <Footer/> } */}
 
 

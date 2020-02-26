@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import {Link, withRouter, Redirect} from 'react-router-dom';
 // import { LazyLoadImage } from 'react-lazy-load-image-component';
 import './collections.css';
 import {connect} from 'react-redux';
@@ -25,6 +25,8 @@ class Collections extends Component{
             quantity:undefined,
             products: undefined ,
             addToCart: false,
+            user:undefined,
+            redirect:false
         }
     }
     changer1=()=>{
@@ -48,6 +50,7 @@ class Collections extends Component{
                 this.setState({
                     products:this.props.products,
                     loading:this.props.loading,
+                    user:this.props.auth
                 })
             }
             
@@ -59,7 +62,8 @@ class Collections extends Component{
             console.log("Cart Array next......",nextProps.products)
             this.setState({
                 products:nextProps.products,
-                loading:false
+                loading:false,
+                user:nextProps.auth
             })
         }
         // else{
@@ -78,20 +82,21 @@ class Collections extends Component{
         //     description
         // })
         
-        let productId = {
-            item,
-            quantity:1,
-           checker: false,
-
-        }
-
-        // this.props.history.push('/cart')
-
-        // this.props.userCart(this.props.history);
-
-        this.props.addToCart(productId)
-        console.log('new prod====',productId)
-        // this.props.history.push('/cart')
+            let productId = {
+                item,
+                quantity:1,
+               checker: false,
+    
+            }
+            // this.props.history.push('/cart')
+    
+            // this.props.userCart(this.props.history);
+    
+            this.props.addToCart(productId)
+            console.log('new prod====',productId)
+            // this.props.history.push('/cart')
+        
+        
     }
 
     contniueShoping(){
@@ -104,6 +109,9 @@ class Collections extends Component{
     }
     render(props){
         console.log("Collection of Products render sr: ", this.props)
+        if(this.state.redirect){
+            return <Redirect to='/combined'/>
+        }
         return(
             <div>
                  <section className='contact-upper col-lg-12' >
@@ -188,7 +196,12 @@ class Collections extends Component{
                             
                         </div>
                     
-               
+               {/* { {user.id?
+                                        
+                                            <img onClick={this.wishList.bind(this,user.id,item._id)}  src={heart1} width='23' height='23' alt=''/>
+                                     
+                                     :
+                                      <Link to='/combined'> <img src={heart1} width='23' height='23' alt=''/>  </Link> }} */}
 
                         { (this.state.loading==true)?('Loading...'):(
                           (this.state.veiwOption === false)?(
@@ -205,7 +218,8 @@ class Collections extends Component{
                                                 <h6 className="stretch">From Rs.{item.price}</h6><br/>
                                                 <p>{item.description}</p><br/>
                                                 {item.stock>0
-                                                ? this.state.addToCart=== false ? 
+                                                ? !this.state.user.isAuthenticated?<button  onClick={e=>{this.setState({redirect:true})}} type="button" className="btn btn-success btn-lg cart-btn">Add to cart</button>
+                                                :this.state.addToCart=== false ? 
                                                 <div>
                                                 <button onClick={this.onSubmit.bind(this,item)}  data-toggle="modal" data-target={`#addToCart${index}`} type="button" className="btn btn-success btn-lg cart-btn">Add to cart</button>
 
@@ -252,7 +266,7 @@ class Collections extends Component{
                         return(
                                    <div className="col-md-4 col-lg-4 col-sm-4"> 
                                     <div className="card grid-view grid-card-styling" style={{width: '18rem'}}>
-                                    <Link to = {`/product/${item._id}`}><img style={{borderRadius: '12px'}} className="card-img-top cursor-pointer img-grid prodImg" src={item.image} alt="..."/></Link>
+                                    <Link to = {`/product/${item._id}`}><img style={{borderRadius: '12px'}} className="card-img-top cursor-pointer img-grid prodImg" src={item.image[0]} alt="..."/></Link>
                                             <div className="card-body" style={{paddingTop:'0px',textAlign:'left'}}>
                                             <Link to = {`/product/${item._id}`} className='link-name'> <h5 class="card-title cursor-pointer" style={{fontSize:'30px'}}>{item.name}</h5></Link>
                                                 <p className="card-text">From Rs.{item.price}</p>
@@ -293,7 +307,8 @@ const mapStateToProps = (state) => {
     return{
       products: state.products.products,
       cart:state.cart,
-      loading:state.products.loading
+      loading:state.products.loading,
+      auth: state.auth,
   }
 }
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+// import history from '../history'
 // import setAuthToken from "../utils/setAuthToken";
 import {
   GET_ERRORS,
@@ -11,6 +12,7 @@ import {
   DEL_APPROVALS,
   TOTAL_PRICE,
   WISHLIST,
+  EMPTY_CART,
   DEL_WISHLIST,
   PATH_CHECKER
 } from "./types";
@@ -50,7 +52,7 @@ var getCartProdLocalStorage=[]
           type: GET_ERRORS,
           payload: err.message
         })
-        console.log("Products success", err.message)}
+        console.log("Products success", err)}
       );
   };
 
@@ -225,10 +227,10 @@ var getCartProdLocalStorage=[]
                       localStorage.setItem('UserCart',JSON.stringify(res.data))
                       console.log('Cart in local-----:',localStorage.getItem('UserCart') )
                       
-                          // dispatch({
-                          //     type: CART_PRODUCTS,
-                          //     payload: res.data
-                          //   })
+                          dispatch({
+                              type: CART_PRODUCTS,
+                              payload: res.data
+                            })
                        
                             // history.push('/cart');
                             console.log("Products sent in cart success", res.data);
@@ -245,18 +247,24 @@ var getCartProdLocalStorage=[]
       );
   };
 
-  export const proceed = (newProceed) => dispatch => {
+  export const proceed = (newProceed, history) => dispatch => {
     axios
       .post('http://localhost:5000/api/products/proceed',newProceed)
       .then(res => {
+        localStorage.removeItem('CartProduct')
+        
+        console.log('proceed ka data action se=== ', res.data)
         dispatch({
           type: PROCEED_PRODUCT,
           payload: res.data
         })
-        console.log('proceed ka data ', res.data)
+        if(res.data.success){
+          history.push('/')
+          dispatch(emptyCart());
+        }
       })
       .catch(err => {
-        console.log('proceedsy error......., ', err.message)
+        console.log('proceedsy error......., ', err)
         dispatch({
           type: GET_ERRORS,
           payload: err.response.data
@@ -264,6 +272,13 @@ var getCartProdLocalStorage=[]
       })
   }
 
+ export const emptyCart= () => dispatch => {
+   console.log('Empty Cart Action=====>');
+   dispatch({
+      type: EMPTY_CART,
+      payload: undefined
+    })
+  }
   
   export const addProduct = (newPoduct) => dispatch => {
     axios

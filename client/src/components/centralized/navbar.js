@@ -221,7 +221,7 @@ class Navbar extends Component{
                                                         <div className='row hvr'>
                                                             <div className='col-lg-3'>
                                                                 
-                                                                <img src={item.filterProduct.image} height='40' width='40' />
+                                                                <img src={item.filterProduct.image[0]} height='40' width='40' />
                                                             </div>
                                                             <div className='col-lg-8'>
                                                                 <p>{item.filterProduct.name}</p>

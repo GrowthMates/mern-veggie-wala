@@ -2,6 +2,7 @@ const User = require('../../models/user');
 const Product = require('../../models/product');
 const Proceed = require('../../models/proceed');
 const CartOwner = require('../../models/cartOwner');
+const Cart =  require('../../models/cartOwner');
 const PendingProduct = require('../../models/admin/pending')
 const ProductSpecs = require('../../models/categories')
 //IMAGE UPLOAD CONFIGURATION
@@ -157,6 +158,26 @@ module.exports = {
             res.status(400).json({success:false,err})
         })
     },
+
+    // createCart(req, res){
+    //     const {products} = req.body
+    //     Cart.find().exec((err, result)=>{
+    //         if(!result){
+
+    //             let cart = new Cart({
+    //                 products,
+    //             })
+    //             cart.save().then(data=>{
+
+    //             })
+    //         }
+    //         else if(result){
+                
+    //         }
+    //     })
+    // },
+
+
 
     cartOwner(req,res){
         const {fname,lname,city,appartment,address,number,timeStamp,cartProducts,cartOwnerName} = req.body

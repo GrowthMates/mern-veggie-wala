@@ -1,6 +1,7 @@
 import {
     CART_PRODUCTS,
     TOTAL_PRICE,
+    EMPTY_CART,
   } from "../actions/types";
 import axios from "axios";
   const isEmpty = require("is-empty");
@@ -15,6 +16,7 @@ import axios from "axios";
     if(state.cart==undefined){
       state.cart=newCart
     }
+    
     switch (action.type) {
       case CART_PRODUCTS:
         // console.log('cartproduct type----------',...state)
@@ -25,6 +27,12 @@ import axios from "axios";
          cart: action.payload,
                 // cartProducts: 
         };
+        case EMPTY_CART:
+          return{
+            loading: false,
+            cart: action.payload,
+            totalPrice: 0
+          }
         case TOTAL_PRICE:
         // console.log('cartproduct type----------',...state)
         return {

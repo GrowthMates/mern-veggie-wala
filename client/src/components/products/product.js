@@ -68,9 +68,9 @@ onChangeQty(e){
  this.setState({quantity: parseInt(e.target.value)})
 }
 
- onSubmit=(id,e)=>{
+ onSubmit=(item,e)=>{
     e.preventDefault();
-    console.log('onsubmit',id)
+    // console.log('onsubmit',id)
     // return false;
     // this.setState({
     //     name ,
@@ -80,8 +80,10 @@ onChangeQty(e){
     let productId;
     if(this.state.quantity==undefined){
         productId = {
-            productId: id,
-            quantity:1
+            item,
+            quantity:1,
+           checker: false,
+
         }
         this.setState({
             quantity:1
@@ -90,8 +92,9 @@ onChangeQty(e){
     // console.log('product quantity====',this.state.quantity)
     else{
      productId = {
-        productId: id,
-        quantity:this.state.quantity
+        item,
+        quantity:this.state.quantity,
+        checker: false,
     }
 }
 
@@ -170,7 +173,7 @@ onChangeQty(e){
                                                 </div>          
                                         </div>
                                         {currProduct.stock>0
-                                                ?<button onClick={this.onSubmit.bind(this,currProduct._id)}  type="button" class="btn btn-success btn-lg cart-btn" style={{marginTop:''}}>Add to cart</button>
+                                                ?<button onClick={this.onSubmit.bind(this,currProduct)}  type="button" class="btn btn-success btn-lg cart-btn" style={{marginTop:''}}>Add to cart</button>
                                                 :<p style={{fontSize:'30px'}}><u style={{color:'red'}}>Out of Stock</u></p>}
                                         </div>
                                      </div>   

@@ -13,5 +13,6 @@ export const DEL_APPROVALS = "DEL_APPROVALS";
 export const WISHLIST = "WISHLIST";
 export const PATH_CHECKER = "PATH_CHECKER";
 export const DEL_WISHLIST = "DEL_WISHLIST";
+export const EMPTY_CART = "EMPTY_CART";
 
 

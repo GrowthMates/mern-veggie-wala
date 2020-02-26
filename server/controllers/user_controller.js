@@ -3,8 +3,10 @@ const jwt = require("jsonwebtoken");
 const UserCart = require('../models/userCart');
 const Product = require('../models/product');
 const User = require('../models/user');
+const Carts = require('../models/carts');
 const WishList = require('../models/wishList');
 const Proceed = require('../models/proceed');
+const NewCart = require('../models/admin/newCart');
 const validateRegisterInput = require('../validation/register');
 const validateInformationInput = require('../validation/information');
 const validateLoginInput = require('../validation/login');
@@ -13,7 +15,8 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 const client = require('twilio')(accountSid, authToken);
 // var ip = require("ip");
- var currentProduct=undefined
+var currentProduct=undefined
+var avilableCarts = undefined
 module.exports = {
 
     readUserData(req, res){
@@ -132,7 +135,7 @@ module.exports = {
                         res.json({ success: true,cart })
                         })
                     })
-        .catch(err => {res.status(404).json({ success: false })
+        .catch(err => {res.status(404).json({ success: false, err })
     console.log(err.message)
     });
     
@@ -173,8 +176,8 @@ module.exports = {
 
     },
 
-    proceed(req, res){
-        const {fname,lname,city,appartment,address,number,timeStamp,cartProducts} = req.body
+     async proceed(req, res){
+        const {fname,lname,city,appartment,address,number,timeStamp,cartProducts,area,block} = req.body
         const productId = cartProducts.filterProduct
         console.log('proceed request=====',cartProducts,productId)
          // Form validation
@@ -184,7 +187,7 @@ module.exports = {
              return res.status(400).json(errors);
             //  console.log('isValid bad: ',errors);      
              }
-
+       
         var crtProduct=[];
         // var productData=cartProducts.filterProduct
         cartProducts.forEach(i => {
@@ -197,6 +200,18 @@ module.exports = {
             
         })
 
+       await NewCart.find().exec((err, result)=>{
+            if(!result){
+                console.log('No cart available====')
+                return 0;
+                
+            }
+           else if(result){
+            console.log('reaslt.orders====>',result.orders)
+            avilableCarts=result
+           }
+        })
+
         let newProceed = new Proceed({
             fname,
             lname,
@@ -204,23 +219,58 @@ module.exports = {
             address,
             appartment,
             number,
+            area,
+            block,
             timeStamp,
             cartProducts: crtProduct
               
         });
 
-        console.log('Anday wala burger',crtProduct)
-        newProceed.save().then((data)=>{
+        newProceed.save().then(async (data)=>{
+            if(block){
+                let cartId;
+                if(block<6&&block>0){
+                    console.log('Cart 1 Selected=====')
+                     cartId= await avilableCarts[0]._id
+                    
+                }
+                else if(block<14&&block>5){
+                    //cart 2
+                    console.log('Cart 2 Selected=====')
+                     cartId= await avilableCarts[1]._id
+                    
+                }
+                else if(block<21&&block>13){
+                    //cart 3
+                    console.log('Cart 3 Selected=====')
+                     cartId= await avilableCarts[2]._id
+                   
+                }
+                NewCart.findByIdAndUpdate(cartId,{$push:{orders:data._id}}).exec((err, result)=>{
+                    if(err){
+                        console.log('err adminCart update se===',err.message)
+                        return res.status(400).json(err.message)
+                     }
+                    res.status(200).json({success:true,result})
+
+                })
+
+         }  
+
                 cartProducts.forEach( (item,i)=>{
-                    console.log('Index dekho===',i)
-                   Product.findByIdAndUpdate(item.filterProduct._id,{ $inc: { stock: -1 } }).then((product)=>{
+                    console.log('Index dekho===',i,data)
+                   Product.findByIdAndUpdate(item.filterProduct._id,{ $inc: { stock: -item.quantity } }).then((product)=>{
                        currentProduct=product
                         console.log('ProductUpdate success: ',product)
-                        if(i===cartProducts.length-1){ 
+                        if(cartProducts[i]===cartProducts[cartProducts.length-1]){ 
                            console.log('Anday wala burger1',data,i)
-                           res.status(200).json({success:true, data})
+                        //    res.status(200).json({success:true, data})
                         }
-                    }) 
+                    })
+                    .catch(err => {
+                            console.log('Stock Change From Proceed Error-------',err.message)
+                            res.status(400).json(err.message)
+                        }); 
                })
         })
         // .catch(err => {

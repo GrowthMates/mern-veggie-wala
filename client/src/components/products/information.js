@@ -20,13 +20,23 @@ class Information extends Component{
         lname: '',
         address: '',
         appartment: '',
+        selectArea:['Gulistan e Johar'],
+        selectBlock:20,
         city: '',
-        errors:{}
+        area:'',
+        block:'',
+        errors:{},
+        cartProducts:undefined
 
       }
     }
 
     componentWillReceiveProps(nextProps) {
+      if(nextProps.cart==='empty'){
+        this.setState({
+          cartProducts:[]
+        })
+      }
       if (nextProps.errors) {
         this.setState({
           errors: nextProps.errors
@@ -40,9 +50,9 @@ class Information extends Component{
         // console.log('e hy', e.target,this)
       };
 
-    onSubmit(e){
+   async onSubmit(e){
       e.preventDefault()
-      let {number,address,fname,lname,appartment,city} = this.state;
+      let {number,address,fname,lname,appartment,city,area,block} = this.state;
 
       // getting date
       var prcd=[]
@@ -76,6 +86,8 @@ class Information extends Component{
         address,
         appartment,
         city:'Karachi' ,
+        area,
+        block,
         // productName,
         // quantity: this.props.cartProducts.quantity,
         timeStamp: 'Date: ' +date +  '\n' + ' Time: '  + time,
@@ -83,9 +95,9 @@ class Information extends Component{
         orderNo
       }
 
-      this.props.proceed(newProceed)
+      this.props.proceed(newProceed, this.props.history)
 
-      this.props.delCartProducts(newProceed)
+      // this.props.delCartProducts(newProceed)
       console.log(newProceed)
       console.log(date,time, newProceed)
       this.setState({
@@ -95,6 +107,8 @@ class Information extends Component{
         address:'',
         appartment:'',
         city:'', 
+        area:'',
+        block:'',
       })
     }
   
@@ -102,7 +116,13 @@ class Information extends Component{
        console.log(this.props)
        this.props.history.push('/combined')
    }
+
+   onChangeBlock(e){
+    this.setState({ [e.target.name]: parseInt(e.target.value) });
+   }
+
     render(){
+      console.log('Select value handler===',this.state.area,this.state.block)
       const {number,address,fname,lname,appartment,city, errors} = this.state
         return(
             <div>
@@ -148,6 +168,7 @@ class Information extends Component{
                         {/* <label for="exampleInputPassword1">Password</label> <br/> */}
                         <input style={{textAlign: 'left'}} type="text" 
                          onChange={this.onChange.bind(this)}
+                         style={{marginRight:'15px'}}
                          value={this.state.fname}
                          error={errors.fname}
                          name='fname'
@@ -157,7 +178,7 @@ class Information extends Component{
                           invalid: errors.fname
                         })}
                          />
-                          <span className="red-text" style={{color:'red'}}>{errors.fname}</span>
+                          {/* <span className="red-text" style={{color:'red'}}>{errors.fname}</span> */}
                         <input style={{marginRight: '-60'}}  type="text"
                          onChange={this.onChange.bind(this)}
                          name='lname'
@@ -169,7 +190,7 @@ class Information extends Component{
                           invalid: errors.lname
                         })}
                          />
-                          <span className="red-text" style={{color:'red'}}>{errors.lname}</span>
+                          <span className="red-text" style={{color:'red'}}>{errors.fname}{errors.lname}</span>
                     </div>
 
                     <input  type="text" 
@@ -190,6 +211,46 @@ class Information extends Component{
                      
                      class="form-control " id="exampleInputPassword1" placeholder="Appartments suits etc"
                      /><span></span> <br/>
+
+                    <div className='row'>
+                      <div className='col'>
+                        <label for="selectArea" style={{paddingRight:'5px', color:'grey'}}>Area: </label>
+                        <select className="form-control-sm"
+                              style={{color:'grey'}}
+                                id='area'
+                                name='area'
+                                required
+                                value={this.state.area} 
+                                onChange={this.onChange.bind(this)} 
+                              >
+                               <option value=''>Select Area</option>  
+                              {this.state.selectArea.map(place=>{
+                                return <option value={place}>{place}</option>
+
+                              })} 
+                              
+                          </select>
+                      </div>    
+                      <div className='col '>
+                          <label for="selectArea" style={{paddingRight:'5px', color:'grey'}}>Block: </label>
+                       
+                           <input type="number"
+                           onChange={this.onChangeBlock.bind(this)}
+                           value={this.state.block}
+                           error={errors.block}
+                           name='block'
+                           required
+                           id="exampleInputEmail1" aria-describedby="emailHelp"
+                           placeholder="1"
+                           min= '1'
+                           max={this.state.selectBlock}
+                           className={classnames("form-control-sm", {
+                            invalid: errors.block
+                          })}
+                            />
+                          </div>    
+                      </div>
+                      <br/><br/>
                      
                     <input  type="text" 
                      onChange={this.onChange.bind(this)}
@@ -233,7 +294,8 @@ class Information extends Component{
                          
                         <div style={{overflowY:'scroll', height:'16em'}}> 
                         <table>
-                          {this.props.cartProducts.map((item,index)=>{
+                          {!this.props.cartProducts?void 0:
+                          this.props.cartProducts.map((item,index)=>{
                            return( <tr>
                               <td><img src={item.filterProduct.image[0]} width='64.39' height='64.39'  />
                           <span className='imgSup'>{item.quantity}</span>
@@ -243,6 +305,7 @@ class Information extends Component{
                               <td className='priceCol'>{item.filterProduct.price}</td>
                             </tr>
                           )})}
+                          
                           </table>
                           </div>
                         </div>
@@ -283,6 +346,7 @@ class Information extends Component{
          </div>
         )
     }
+    
 }
 
 Information.propTypes = {

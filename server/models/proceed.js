@@ -28,6 +28,14 @@ const Proceed = new Schema({
         type:String,
         required:true
     },
+    area:{
+        type:String,
+        required:true
+    },
+    block:{
+        type:String,
+        required:true
+    },
     timeStamp:{
         type: String,
         required: true,

@@ -1,0 +1,119 @@
+.myContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+    margin-top: 10vh;
+    position: relative;
+}
+/* .hrLine{
+    position: absolute;
+    border-top: 1px solid #999;
+    top: 45px;
+    width: 55vw;
+    height: 0.1vh;
+    z-index: -10000;
+    margin: auto 20vh auto 20vh;
+    display: flex;
+    justify-content: center;
+} */
+
+.vendorRegisterUl{
+    padding: 0px;
+}
+.vendorRegisterUl li{
+    /* background-color: turquoise; */
+    /* color: #FB005B; */
+    display: inline-block;
+    font-weight: 600;
+    font: 1.em;
+    /* padding: 20px; */
+    /* border-bottom: 2px solid #FB005B; */
+    margin: 20px 20vh;
+    cursor: pointer;
+    
+    /* border: 1px solid #999; */
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.active{
+    border: 1px solid #FB005B;
+    background-color: #FB005B;
+    border-radius: 50%;
+    color: white;
+    font-weight: 600;
+    font-size: 24px;
+    padding: 10px 20px;
+}
+.normal{
+    border: 1px solid #c4c3c3;
+    background-color: #f7f5f5;
+    border-radius: 50%;
+    color: black;
+    font-weight: 600;
+    font-size: 24px;
+    padding: 10px 20px;
+    cursor: not-allowed !important;
+    pointer-events:none; 
+    opacity:0.6;
+}
+
+
+@media screens and (min-width: 700px){
+    .myContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center !important;
+        margin-top: 10vh;
+        position: relative;
+    }
+    .hrLine{
+        position: absolute;
+        border-top: 1px solid #999;
+        top: 45px;
+        width: 55vw;
+        height: 0.1vh;
+        z-index: -10000;
+        margin: auto 20vh auto 20vh;
+    }
+    
+    .vendorRegisterUl{
+        padding: 0px;
+    }
+    .vendorRegisterUl li{
+        /* background-color: turquoise; */
+        /* color: #FB005B; */
+        display: inline-block;
+        font-weight: 600;
+        font: 1.em;
+        /* padding: 20px; */
+        /* border-bottom: 2px solid #FB005B; */
+        margin: 20px 20vh;
+        cursor: pointer;
+        
+        /* border: 1px solid #999; */
+        /* display: flex; */
+        /* justify-content: center; */
+        /* align-items: center; */
+    }
+    
+    .active{
+        border: 1px solid #FB005B;
+        background-color: #FB005B;
+        border-radius: 50%;
+        color: white;
+        font-weight: 600;
+        font-size: 24px;
+        padding: 10px 20px;
+    }
+    .normal{
+        border: 1px solid #c4c3c3;
+        background-color: #f7f2f2;
+        border-radius: 50%;
+        color: black;
+        font-weight: 600;
+        font-size: 24px;
+        padding: 10px 20px
+    }
+}

@@ -1,0 +1,71 @@
+.vendorDashboarTop{
+    background-color: whitesmoke;
+}
+.sideNavbar{
+    background-color: black;
+    padding: 0px;
+}
+.sideNavbar li a{
+    color: white;
+    text-decoration: none;
+    text-align: left !important;
+    /* padding-left: 10px; */
+}
+.sideNavbar li a i{
+    color: white;
+    text-decoration: none;
+    text-align: left !important;
+    /* padding-left: 10px; */
+}
+.sideNavbar li{
+    list-style: none;
+    padding: 20px;
+    font-size: 1.6em;
+    font-weight: 700;
+    cursor: pointer;
+    padding-left:5px;
+    text-align: left !important;
+
+    /* color: white; */
+}
+.sideNavbar li:hover{
+    background-color: #FF4747;
+}
+.dashboardReports{
+    margin: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+.dashboardReports ul li{
+    display: inline-block;
+    padding: 20px;
+    font-size: 1.4em;
+    color: #333333;
+    text-align: center;
+}
+.dashboardSales{
+    margin: 20px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+.dashboardOrder{
+    margin: 20px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+.respContainer{
+    display: flex;
+}
+
+/* @media screens and (max-width:700){
+    .sideNav{
+      display: flex;
+    }
+    .sideNavbar li{
+        display: inline-block;
+        background-color: lawngreen;
+    }
+} */
+

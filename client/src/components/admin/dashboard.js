@@ -39,26 +39,8 @@ import AdminNavbar from './adminNavbar';
             selectedProductId:'',
             selectedProduct:undefined,
             eka:'',
-            cartOwners: [
-                {
-                    name: 'Arslan',
-                    location: 'malir',
-                    id: 'q1w2e3'
-
-                },
-                {
-                    name: 'Rehan Saeed',
-                    location: 'Gulistane Johar',
-                    id:'aqswde123'
-                    
-                },
-                {
-                    name: 'Akmal Lashari',
-                    location: 'Model',
-                    id:'r4t5y6u7123'
-                    
-                }
-            ]
+            cartOwners:[],
+            counter :0
         }
         this.onChangeImage = this.onChangeImage.bind(this);
     }
@@ -118,6 +100,15 @@ console.log('WillMount Admin -------')
             console.log('admin sy',err.message)
         })
 
+        for(let i=0; i<=100;i++){
+              this.setState({
+                counter: i
+            })
+            console.log(i)
+        }
+        // this.setState({
+
+        // })
     }
 
     delete(key,index,e){

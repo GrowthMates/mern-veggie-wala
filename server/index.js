@@ -213,6 +213,8 @@ setTimeout(()=>{
 
     app.post('/api/cartOwner/confirmOrder', adminController.cartOwner);
 
+    app.get('/api/getOrders', adminController.getOrders);
+
     app.get('/api/cartOwner/reciept', adminController.cartOwnerReciept);
 
 

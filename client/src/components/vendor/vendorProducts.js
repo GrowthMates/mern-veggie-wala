@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect}  from 'react-redux'
+import {selectedproduct} from '../../actions/adminAction'
 import axios from 'axios'
 import './style/vendorProducts.css'
 // import prod1 from '../centralized/images/prod1.png'
@@ -9,25 +10,97 @@ const log = console.log
 class VendorProducts extends Component {
     constructor(props) {
         super(props);
-        this.state = { stockShort:false }
+        this.state = { stockShort:false,products:undefined,loading:false,error:'',successAlert:false,delAction:false,id:'' }
     }
 
     componentDidMount(){
 
     }
-
-    delItem(id){
-        log(id)
-
-        axios.post("http://localhost:5000/api/deleteProduct",id)
-        .then(res => {
-            log("delete ka res",res)
-        })
-        .catch(err => {
-            log("error delete prdct ka",err)
+    delAction(id,index){
+        this.setState({
+            delAction:true,
+            id:id
         })
     }
-    render() { 
+    delItem(id,index){
+        this.setState({
+            // products:filtered,
+            loading:true,
+            // error:err.message
+        })
+        // log(id)
+        let _id = {id}
+        axios.post("http://localhost:5000/api/deleteProduct",_id)
+        
+        .then(res => {
+            log("delete ka res",res);
+            if(res.data._id){
+                let filtered = this.props.products;
+                filtered.splice(index,1)
+                this.setState({
+                    products:filtered,
+                    loading:false,
+                    successAlert:true,
+                    delAction:false,
+                })
+                
+            }
+        })
+        .catch(err => {
+            log("error delete prdct ka",err);
+            this.setState({
+                // products:filtered,
+                loading:false,
+                error:err.message
+            })
+        })
+
+        let filtered = this.props.products;
+        filtered.splice(index,1)
+        this.setState({
+            products:filtered
+        })
+    }
+
+    product(item){
+        this.props.selectedproduct(item)
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        log(nextProps)
+        if(nextProps.products){
+            let product = nextProps.products
+            this.setState({
+                // product:filtered[0],
+                name: product.name,
+                price: product.price,
+                description: product.description,
+                stock: product.stock,
+                category: product.category,
+                imagePreviewUrl: product.image,
+                cartStock: product.cartStock,
+                id: product.id
+            })
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.successAlert) {
+          // when the state is updated (turned red), 
+          // a timeout is triggered to switch it back off
+          this.turnOffRedTimeout = setTimeout(() => { 
+            this.setState(() => ({successAlert: false,errors:false}))
+          }, 2000);
+        }
+      }
+      componentWillUnmount() {
+        // we set the timeout to this.turnOffRedTimeout so that we can
+        // clean it up when the component is unmounted.
+        // otherwise you could get your app trying to modify the state on an
+        // unmounted component, which will throw an error
+        clearTimeout(this.turnOffRedTimeout);
+      }
+        render() { 
         
         let products = []
         let fl = []
@@ -37,49 +110,68 @@ class VendorProducts extends Component {
         if(this.props.products.length>=1){
             products = this.props.products
             // let dummy = [85,45,5,8,2,6,7,10,52,35,3,4,20,]
-            let filtered = products.filter((i,ind) => {return (i.cartStock.filter(el=>{return el.stock<=5}))})
-            let greater = products.filter((i,ind) => {return (i.cartStock.filter(el=>{return el.stock>5}))})
-            // let greater = products.filter(e=>{return e.stock>5})
-             let final = filtered;
-             greater.forEach(element => {
-                 final.push(element)
-             });
-             final.sort(function(a,b){return a-b})
+        
             //  log(final)
             
              products.forEach(i => {
-                 let totalStock=[0]
+                 let totalStock=[]
+                 let stock=[0]
                  let filtered = bilkulFinal.filter(element => {
                      return element.id === i._id
                     })
 
-                    let hmra = bilkulFinal.indexOf(i) 
-                    log(hmra)
-                if(bilkulFinal.indexOf(i)===-1){
+                if(bilkulFinal.indexOf(i)===-1 && (i.cartStock!==null) ){
                     i.cartStock.forEach(e => {
                      
                         totalStock.push(parseInt(e.stock));
-                        totalStock.reduce((a,b)=> {return a+b} )
-                        // let stock = totalStock
+      
+                       stock=totalStock
                        
-                        bilkulFinal.push({id:i._id, stock:totalStock,image: i.image,price: i.price,name:i.name})    
+
                     })
                 }
+                bilkulFinal.push({id:i._id, stock,image: i.image,price: i.price,name:i.name,description:i.description,category:i.category,cartStock:i.cartStock})    
+
                 
                 // fl=bilkulFinal
 
             });
             
-             products=bilkulFinal;
+            //  products=bilkulFinal;
+            log(bilkulFinal)
+            // let addedStock = bilkulFinal
+             let filtered = bilkulFinal.filter(e =>  {return e.stock.reduce((a,b) => {return a+b}   ) <= 5 })
+             let greater = bilkulFinal.filter(e =>  {return e.stock.reduce((a,b) => {return a+b}   ) > 5 })
+             // let greater = products.filter(e=>{return e.stock>5})
+              let final = [...filtered,...greater];
+            //   greater.forEach(element => {
+            //       final.push(element)
+            //   });
+            log(filtered,greater,bilkulFinal)
+              final.sort(function(a,b){return a-b})
+
+              products=final
             //   log(bilkulFinal.map(i => {return i.stock.reduce((a,b)=> {return a+b} )}))
             //   final.forEach(e => {
             //   })
-            log(products)
+            // log(products)
         }
       }
+      console.log(this.state)
       
         return ( 
             <div>
+
+               {this.state.successAlert!==true ? void 0 : ( <div className='row' style={{position: 'fixed',zIndex: '10000',width:'100%'}} >
+                    <div className='col-6' >
+                     <div class="alert alert-primary" role="alert" style={{textAlign:'left'}}>
+                             Product Succesfully deleted..........("_")
+                     </div>
+                    </div>
+                    <div className='col-6' >
+
+                    </div>
+                </div>)}
                 <div className='row' >
                     <div className='col-lg-6' >
                         <ul className='productsHeaderUl' >
@@ -116,26 +208,37 @@ class VendorProducts extends Component {
                             </thead>
                             <tbody >
                                 { this.props.status===true ? (<p>{this.props.error}</p>) :  products.length==0? <p>Loading...</p> : (
-                                    bilkulFinal.map((item,index) => {
+                                    products.map((item,index) => {
                                         return (
                                             <tr className='productRows'  style={{textAlign: 'left'}} >
                                             <td scope='row' > {index+1} </td>
                                             <td scope='row' > <img src={item.image} width='60' height='60' /> </td>
-                                            <td style={{color: '#FF4747'}} > {item.name}
+                                          { this.state.delAction!==false && (this.state.id===item.id) ? 
+                                             ( <td  className="alert alert-danger row" role="alert" style={{margin:"10px",position:"relative"}} >                                                   
+
+                                                        <div  className="col-12"  >
+                                                            Your Product  <b>" {item.name} "</b>  will be delete Permanantly. Are you Sure ("_")...!
+                                                        </div>
+                                                        <div className='col-12' >
+                                                         <button type='button' style={{backgroundColor: '#C82333',marginTop:'10px'}} className='btn btn-block btn-danger' onClick={this.delItem.bind(this,item.id,index)}>Delete</button>                                                                                                                                                                                
+                                                        </div>
+                                                    <p style={{position:'absolute',top:'0px',right:'10px',color:'#FB005B',cursor:'pointer'}} onClick={()=> {this.setState({delAction:false})}}> X </p>
+                                                </td>) :
+                                          (<td style={{color: '#FF4747'}} > {item.name}
                                                 <br/>
                                                 <ul className='productActions' >
-                                                    <li style={{paddingleft: '0px'}}> <Link style={{color: 'brown'}} className='text-decoration-none' to = {`/admin/edit/${item._id}`} > Edit</Link></li>
+                                                    <li onClick={this.product.bind(this,item)} style={{paddingleft: '0px'}}> <Link style={{color: 'brown'}} className='text-decoration-none' to = {`/admin/edit/${item._id}`} > Edit</Link></li>
                                                     <li >|</li>
-                                                    <li onClick={this.delItem.bind(this,item._id)}>Delete Permanantly</li>
+                                                     {this.state.loading===true? (<li> Loading...... </li>) : !this.state.error ? (<li onClick={this.delAction.bind(this,item.id,index)}>  Delete Permanantly</li>) : (<li> {this.state.error} </li>) } 
                                                     <li >|</li>
                                                     <li >View</li>
                                                 </ul>
-                                            </td>
-                                            {/* <td> <span style={{marginTop: '10px', backgroundColor: 'limegreen', color: '#ffffff',padding: '5px',fontWeight: '500'}} >Online</span> </td> */}
-                                            <td> {item.stock} </td>
-                                            {/* {item.stock<=5? <td style={{color: 'red',fontWeight: '700'}} > {item.stock} </td>:
-                                            
-                                            <td style={{ color: 'limegreen',fontWeight: '600'} } > {item.stock}  </td>} */}
+                                            </td>)}
+                                            {item.stock.reduce((a,b)=> {return a+b} )<=5? (<td style={{color: 'red',fontWeight: '700'}}>  {item.stock.reduce((a,b)=> {return a+b} )} </td>): 
+                                                (<td style={{ color: 'limegreen',fontWeight: '600'} } > {item.stock.reduce((a,b)=> {return a+b} )}  </td>)
+                                        }
+                                           
+
                                             <td> {item.price} </td>
                                             <td>8</td>
                                             <td>14-feb-2020 <br/>Published</td>
@@ -163,4 +266,4 @@ const mapStateToprops = state => {
     }
 }
  
-export default connect(mapStateToprops,null)(VendorProducts);
+export default connect(mapStateToprops,{selectedproduct})(VendorProducts);

@@ -23,7 +23,7 @@ class Navbar extends Component{
         search: '',
         products: undefined,
         filteredProduct:undefined,
-        filter: undefined,
+        filter:  [],
         qty: undefined,
         searchActive: false,
         totalPrice: JSON.parse(localStorage.getItem('totalPrice')),
@@ -145,7 +145,8 @@ class Navbar extends Component{
     render(){
         // console.log(this.state.filter, '=====>navbar will recve props')
 
-        if(this.state.filter){
+        if(!this.state.filter){ console.log('nh i') }
+        else{ 
             
             var filterProduct = this.state.filter.filter(product => {
                 

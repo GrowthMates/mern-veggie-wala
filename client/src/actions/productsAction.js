@@ -301,11 +301,11 @@ var getCartProdLocalStorage=[]
       axios
         .post('http://localhost:5000/api/createProduct',newPoduct)
         .then(res => {
-          // dispatch(getProducts('Add Products'));
-          dispatch({
-            type: PRODUCTS,
-            payload: res.data
-          })
+          dispatch(getProducts('Add Products'));
+          // dispatch({
+          //   type: GET_PRODUCTS,
+          //   payload: res.data
+          // })
           console.log('create product admin sy ka data ', res.data)
         })
         .catch(err => {

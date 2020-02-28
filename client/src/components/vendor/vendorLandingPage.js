@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {Link,BrowserRouter,Route,Switch} from 'react-router-dom'
+import {carts} from '../../actions/adminAction'
 import AddProduct from './vendorAddProduct'
 import './style/dashboard.css'
 import VendorDashboard from './vendorDashboard';
@@ -12,23 +13,31 @@ import Reports from './reports';
 import VendorSetting from './setting';
 import axios from 'axios';
 import Inventory from './inventory';
+import Carts from './carts.js';
 import Edit from './productActions/edit';
 
-
+let log = console.log
 class AdminLandingPage extends Component{
     constructor(){
         super();
         this.state={
             isApproved: false,
             isStore:false,
+            counter :0
         }
 
     }
     
     componentDidMount() {
-  
-        
+        this.props.carts()
+     
+        axios.get('http://localhost:5000/api/getCartOwners')
+        .then(res => {
+            log('carta ka data',res.data);
+        })
+        .catch(err => log('cart ka error',err))        
     }
+
     componentWillReceiveProps(nextProps){
         
     }
@@ -61,6 +70,9 @@ class AdminLandingPage extends Component{
                                     <li><Link to='/admin/inventory'>
                                         <i style={{marginRight: '10px'}} class="fa fa-tachometer" aria-hidden="true"></i> Inventory</Link>
                                     </li>
+                                    <li><Link to='/admin/carts'>
+                                        <i style={{marginRight: '10px'}} class="fa fa-tachometer" aria-hidden="true"></i> Carts</Link>
+                                    </li>
                                     {/* <li><Link to='/amdin/withdraw'>
                                         <i style={{marginRight: '10px'}} class="fa fa-credit-card-alt"  aria-hidden="true"></i> Dekhengy kal ko</Link>
                                     </li> */}
@@ -74,7 +86,7 @@ class AdminLandingPage extends Component{
                 
                            <div className='col-lg-10 ' style={{flexGrow: '8'}} >
                             <Switch>
-                                <Route exact path='/admin/landingPage' component={VendorDashboard} />
+                                <Route exact path='/admin/landingPage' component={VendorDashboard}  counter={this.state.counter} />
                                 <Route  path='/admin/product' component={VendorProducts} />
                                 <Route  path='/admin/productAction' component={EditProduct} />
                                 <Route exact path='/admin/orders' component={VendoOrders} />
@@ -83,6 +95,9 @@ class AdminLandingPage extends Component{
                                 <Route exact path='/admin/setting' component={VendorSetting} />
                                 <Route exact path='/admin/addProduct' component={AddProduct} />
                                 <Route exact path='/admin/inventory' component={Inventory} />
+                                <Route exact path='/admin/orders' component={VendoOrders} />
+                                <Route exact path='/admin/inventory' component={Inventory} />
+                                <Route exact path='/admin/carts' component={Carts} />
                                 <Route exact path='/admin/edit/:id' component={Edit} />
                                 {/* <Route  path='/vendor/product' component={AddProduct} /> */}
                             </Switch>
@@ -113,5 +128,5 @@ class AdminLandingPage extends Component{
 // }
 export default connect(
     null,
-    null
+    {carts}
 )(AdminLandingPage)

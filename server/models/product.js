@@ -15,7 +15,7 @@ const Product = new Schema({
                 required:true
         },
         stock:{
-                type:Number,
+                type:String,
                 default:1
         },
         image: Array,

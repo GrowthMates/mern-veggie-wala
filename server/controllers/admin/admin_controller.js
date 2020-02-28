@@ -125,14 +125,19 @@ module.exports = {
         const { name, id, price,stock,category,cartStock,image } = req.body;
         // log(req.body)
         let updateProduct = {
-            name, price,stock,category,cartStock,image,stock
+            name, price,stock,category,cartStock,image
         }
         // console.log(req.body)
 
-        Product.findByIdAndUpdate(id,{stock: stock})
+        Product.findByIdAndUpdate(id,updateProduct)
         .then(data => {
-            console.log(res);
-            res.status(200).json(data)
+            console.log('result of update prodcut ka',data);
+            res.status(200).send(updateProduct)
+        })
+        .catch(err => {
+            console.log(err.message);
+            res.status(400).json(err)
+
         })
         // .exec((err,data) => {
             
@@ -168,13 +173,15 @@ module.exports = {
     deleteProduct(req, res){
 
         const { id } = req.body;
-
+console.log(id)
         Product.findByIdAndDelete(id)
         .then(data => {
+            console.log('response delete sy',data)
             res.status(200).json(data)
         })
         .catch(err => {
-            res.status(400).json(data)
+            console.log(err.message)
+            res.status(400).json(err)
         })
         // purana rehan ka kaam cloudnry k lye
         // const { id, imageId } = req.body;
@@ -287,7 +294,14 @@ module.exports = {
         
         CartOwner.find()
         .then(data => res.status(200).send(data.reverse()))
-        .catch(err => err.json)
+        .catch(err => res.status(400).send(err.message))
+    },
+
+    getOrders(req,res){
+
+        NewCart.find()
+        .then(data => {res.status(200).send(data)})
+        .catch(err => {res.status(200).send(err.message)})
     },
 
     delAfterApproved(req,res){

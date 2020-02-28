@@ -4,7 +4,7 @@ import './style/orders.css'
 import axios from 'axios';
 
 let log = console.log
-class VendoOrders extends Component {
+class Carts extends Component {
     constructor(props) {
         super(props);
         this.state = { orders:undefined,carts:undefined,selectedCart:'' }
@@ -54,8 +54,9 @@ class VendoOrders extends Component {
                     </ul>
                 </div>
 
-                <div className='row' >
-                <select value={this.state.selectedCart} onChange={this.onChange} style={{width: '100%'}} class="custom-select" id="exampleFormControlSelect1" name='selectedCart'  >
+                <div className='row' style={{marginTop: '10px'}}>
+                <div className='col' >
+                 <select value={this.state.selectedCart} onChange={this.onChange} style={{width: '100%'}} class="custom-select" id="exampleFormControlSelect1" name='selectedCart'  >
                       <option>Select Cart Wise Orders</option>
                       { !this.state.carts? (<p>Loading ..........</p>) :
                       (this.state.carts.map((item,index) => {
@@ -67,15 +68,50 @@ class VendoOrders extends Component {
                       }    
                     </select>
                 </div>
+                <div className='col dropdown' style={{paddingLeft: '0px'}}>
+                    <button style={{backgroundColor: '#FB005B',color: '#fff', fontSize: '20px'}} className='dropdown-toggle btn btn-block' type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">New Cart</button>
+                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{width: '100%',padding: '0px 15px'}}>
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">User name</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                                {/* <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> */}
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Password</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                                {/* <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> */}
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Cart Name</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                                {/* <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> */}
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Address</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Block</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1"/>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block">Submit</button>
+                        </form>
+                     </div>
+                </div>
+             </div>
+                <div className='row' >
+               
+                </div>
                 <div className='row' >
                     <table class="table">
                         <thead>
                             <tr>
-                            <th scope="col">Order</th>
-                            <th scope="col">Order Total</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Date</th>
+                            <th scope="col">#</th>
+                            <th scope="col">Cart Name</th>
+                            <th scope="col">Adress </th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Password</th>
                             <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -130,4 +166,4 @@ const mapStateToprops = state => {
         carts: state.cartReducer.getCarts
     }
 }
-export default connect(mapStateToprops,null)(VendoOrders);
+export default connect(mapStateToprops,null)(Carts);

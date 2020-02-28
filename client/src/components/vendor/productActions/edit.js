@@ -21,19 +21,22 @@ class Edit extends Component {
             imgToggle: false,
             // cartStock: '',
             cartViseStockArr: [],
-            stock: '',
+            stock: 0,
             carts: undefined,
             selectedCart: '',
             // images: undefined,
             file: '',
             imagePreviewUrl: [],
             category: '',
-            product:[],
+            product:undefined,
+            id: '',
+            successAlert:false,
+            error:false
             
          }
     }
 
-  onChange=e => { e.preventDefault(); this.setState({[e.target.name]: e.target.value}); log(e)}
+  onChange=e => { e.preventDefault(); this.setState({[e.target.name]: e.target.value}); }
 
     checked(){
         this.setState({
@@ -100,7 +103,7 @@ class Edit extends Component {
 
         if(cartViseStockArr.length==0 && stock!==''){
             cartsArr = cartViseStockArr;
-            cartsArr.push({stock,cart:selectedCart})
+            cartsArr.push({stock:parseInt(stock),cart:selectedCart})
             this.setState({
                 cartStock: cartsArr  
             })
@@ -108,7 +111,7 @@ class Edit extends Component {
         }
         else if(filtered.length===0 && stock!==''){
             cartsArr = cartViseStockArr;
-            cartsArr.push({stock,cart:selectedCart})
+            cartsArr.push({stock:parseInt(stock),cart:selectedCart})
             this.setState({
                 cartStock: cartsArr  
             })
@@ -131,7 +134,7 @@ class Edit extends Component {
                 let stockUpdate = cartViseStockArr.findIndex(e=> {return e.cart === this.state.selectedCart })
                 log(cartViseStockArr)
                 finalArr = cartViseStockArr
-                finalArr[stockUpdate].stock=this.state.stock
+                finalArr[stockUpdate].stock=parseInt(stock)
                 this.setState({
                     cartStock: finalArr  
                 })
@@ -148,10 +151,10 @@ class Edit extends Component {
         
         cartsArr=[]
         this.state.carts.forEach(element => {
-            cartsArr.push({stock,cart:element.cart})
+            cartsArr.push({stock:parseInt(stock),cart:element.cart})
         });
         // cartsArr= cartViseStockArr
-       if(cartsArr.length>=1){
+       if(cartsArr.length>=1 && (stock!=='') ){
         this.setState({
             cartStock: cartsArr
         })
@@ -180,42 +183,92 @@ log(index,filtered)
             })
         })
         .catch(err => log('cart ka error',err));
-
-        if(this.props.products){
-            let filtered = this.props.products.filter(e => {
-                return e._id === this.props.match.params.id
-            })
+        if(this.props.product){
+            let product = this.props.product
             this.setState({
-                product:filtered[0],
-                name: filtered[0].name,
-                price: filtered[0].price,
-                description: filtered[0].description,
-                stock: filtered[0].stock,
-                category: filtered[0].category,
-                imagePreviewUrl: filtered[0].image,
-                cartStock: filtered[0].cartStock
+                // product:filtered[0],
+                name: product.name,
+                price: product.price,
+                description: product.description,
+                stock: product.stock,
+                category: product.category,
+                imagePreviewUrl: product.image,
+                cartStock: product.cartStock,
+                id:product.id
             })
         }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.successAlert) {
+          // when the state is updated (turned red), 
+          // a timeout is triggered to switch it back off
+          this.turnOffRedTimeout = setTimeout(() => { 
+            this.setState(() => ({successAlert: false,errors:false}))
+          }, 3000);
+        }
+        console.log(prevProps,prevState)
+      }
+      componentWillUnmount() {
+        // we set the timeout to this.turnOffRedTimeout so that we can
+        // clean it up when the component is unmounted.
+        // otherwise you could get your app trying to modify the state on an
+        // unmounted component, which will throw an error
+        clearTimeout(this.turnOffRedTimeout);
+      }
+
+    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        log(nextProps)
+        if(nextProps.product){
+            let product = nextProps.product
+            this.setState({
+                // product:filtered[0],
+                name: product.name,
+                price: product.price,
+                description: product.description,
+                stock: product.stock,
+                category: product.category,
+                imagePreviewUrl: product.image,
+                cartStock: product.cartStock,
+                id: product.id
+            })
+        }
+
+        
     }
 
     onSubmit(e){
         e.preventDefault();
 
-        const {name,price,description,imagePreviewUrl,cartViseStockArr,stock,category} = this.state
+        const {name,price,description,imagePreviewUrl,cartStock,stock,category,id} = this.state
 
         let updateProduct = {
             name,
             price,
             description,
             image: imagePreviewUrl,
-            cartsStock: cartViseStockArr,
-            stock,
-            category
+            cartStock,
+            // stock,
+            category,
+            id,
         }
         this.props.updateProduct(updateProduct)
         log(updateProduct)
+        if(!this.props.status){
+            this.setState({
+                successAlert:true
+            })
+        }
+        else{
+            this.setState({
+                error:true
+            })
+        }
+    
     }
     render() { 
+        // let s
+      
         let products = [];
         if(this.props.products){
             products=this.props.products
@@ -223,7 +276,19 @@ log(index,filtered)
         log(this.props.match)
         const {product,name,price,description,imagePreviewUrl,cartStock,stock,selectedCart,category} = this.state
         return ( 
-            <div>
+            <div style={{}} >
+                { this.state.successAlert!==false? 
+                (<div  style={{position: 'fixed', top: '0px',zIndex: '10000',padding:'10px 20px'}}>
+                    <div class="alert alert-primary" role="alert"  >
+                     Succesfully your Product Updated ("_")
+                    </div>
+                </div>): void 0}
+                { this.state.error==true? 
+                (<div  style={{position: 'fixed', top: '0px',zIndex: '10000',padding:'10px 20px'}}>
+                    <div class="alert alert-primary" role="alert"  >
+                     Error ("_")
+                    </div>
+                </div>): void 0}
 
                 <div className='row' >
                     <div className='col' >
@@ -265,9 +330,9 @@ log(index,filtered)
                 <div className='row' style={{marginTop: '10px'}}>
                     <div className='col' >
                     <form>
-                                <input className='editName' defaultValue={product.name}  type='text' value={name} placeholder='Product Name' name='name' onChange={this.onChange} style={{display: 'block'}}    />
+                                <input className='editName' defaultValue={name}  type='text' value={name} placeholder='Product Name' name='name' onChange={this.onChange} style={{display: 'block'}}    />
                                 
-                                <input defaultValue={product.name} className='price' type='number' value={price} placeholder='Price' name='price' onChange={this.onChange}   style={{display: 'block'}}  />
+                                <input defaultValue={name} className='price' type='number' value={price} placeholder='Price' name='price' onChange={this.onChange}   style={{display: 'block'}}  />
                                <input   onClick={this.checked.bind(this)}  type='checkbox' style={{marginLeft: '30px',width: '20px', height: '20px', }} /> <span style={{fontSize: '16px',marginBottom: '0'}} >Discounted Price</span>
                                {this.state.checked!==true? void 0 :        
                                 (
@@ -288,12 +353,12 @@ log(index,filtered)
                                 )                       
                                }
                                 
-                                <textarea defaultValue={product.description} id="w3mission" rows="4" cols="50" style={{marginTop: '20px',display: 'block'}} value={description} name='description' onChange={this.onChange} placeholder='Description'>
+                                <textarea defaultValue={description} id="w3mission" rows="4" cols="50" style={{marginTop: '20px',display: 'block'}} value={description} name='description' onChange={this.onChange} placeholder='Description'>
                                     
                                 </textarea>
 
                                 <div class="input-group mb-3">
-                                    <select style={{height:'5vh',marginTop: '10px'}} class="custom-select" id="inputGroupSelect01" defaultValue={product.category} value={category} name='category' onChange={this.onChange} >
+                                    <select style={{height:'5vh',marginTop: '10px'}} class="custom-select" id="inputGroupSelect01" defaultValue={category} value={category} name='category' onChange={this.onChange} >
                                         <option selected>Category...</option>
                                         <option value="Fruit">Fruit</option>
                                         <option value="Spices">Spices</option>
@@ -303,7 +368,7 @@ log(index,filtered)
 
                                 <div className='row' >
                                   <div className='col' >
-                                    <input type='number' onChange={this.onChange} name='stock' defaultValue={product.stock}value={stock} placeholder='Stock' style={{marginTop: '10px'}} />
+                                    <input type='number' onChange={this.onChange} name='stock' defaultValue={stock}value={stock} placeholder='Stock' style={{marginTop: '10px'}} />
                                   </div>
                                   <div className='col' >
                                     <div class="input-group mb-3">
@@ -407,10 +472,10 @@ log(index,filtered)
 // redux
 
 const mapStateToprops = state => {
-    log('redux nechy sy invntry ki', state)
+    log('redux nechy sy Edit product ka', state)
     return {
-        products: state.products.products,
-        error: state.products.productErrors,
+        product: state.products.editProduct,
+        isProduct: state.products.isProduct,
         status: state.products.error
     }
 }

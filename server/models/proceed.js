@@ -61,6 +61,9 @@ const Proceed = new Schema({
     status: {
         type:String,
         
+    },
+    orderNo: {
+        
     }
 });
 module.exports = mongoose.model('Proceed', Proceed);

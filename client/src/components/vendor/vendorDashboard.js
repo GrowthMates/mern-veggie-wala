@@ -1,18 +1,95 @@
 import React from 'react';
 import {connect} from 'react-redux'
+import CountUp from 'react-countup';
+import {carts} from '../../actions/adminAction'
+import axios from 'axios'
 import './style/dashboard.css'
 
+let log = console.log
 class VendorDashboard extends React.Component{ 
-  render() {
+    state={
+        counter: 0
+    }
+    componentDidMount() {
+        this.props.carts()
+     
+        axios.get('http://localhost:5000/api/getCartOwners')
+        .then(res => {
+            log('carta ka data',res.data);
+        })
+        .catch(err => log('cart ka error',err))        
+    }
+     onComplete = () => {
+        console.log('Completed!');
+      };
+      
+       onStart = () => {
+        console.log('Started!');
+      };
+  render(props) {
+      let counter=0
+      counter++
+    //   for(let i=0; i<=100;i++){
+    //       counter=i
+    //       console.log(i)
+    //     }
+        console.log(counter)
+
   return (
     <div className="vendorDashboarTop">
       <div className='row' >
         <div className='col-lg-6' >
             <div className='dashboardReports' >
                 <ul >
-                    <li>Page Views <hr style={{border: '1px solid #999999'}} /> <span style={{fontSize: '1.6em'}} >230</span> </li>   
-                    <li>Orders <hr style={{border: '1px solid #999999'}}/> <span style={{fontSize: '1.6em'}}>175</span> </li>
-                    <li> Sales <hr style={{border: '1px solid #999999'}}/> <span style={{fontSize: '1.6em'}}>80</span></li>
+                    <li>Page Views <hr style={{border: '1px solid #999999'}} /> <span style={{fontSize: '1.6em'}} >
+                    <CountUp
+                    className="account-balance"
+                    start={0}
+                    end={2500}
+                    duration={3.75}
+                    useEasing={true}
+                    useGrouping={true}
+                    separator=""
+                    // decimals={4}
+                    decimal=","
+                    // prefix="EUR "
+                    // suffix=" left"
+                    onComplete={this.onComplete}
+                    onStart={this.onStart}
+                    />
+                        </span> </li>   
+                    <li>Orders <hr style={{border: '1px solid #999999'}}/> <span style={{fontSize: '1.6em'}}>  <CountUp
+                    className="account-balance"
+                    start={0}
+                    end={1800}
+                    duration={3.75}
+                    useEasing={true}
+                    useGrouping={true}
+                    separator=""
+                    // decimals={4}
+                    decimal=","
+                    // prefix="EUR "
+                    // suffix=" left"
+                    onComplete={this.onComplete}
+                    onStart={this.onStart}
+                    />  </span> </li>
+                    <li> Sales <hr style={{border: '1px solid #999999'}}/> <span style={{fontSize: '1.6em'}}>
+                    <CountUp
+                    className="account-balance"
+                    start={0}
+                    end={1200}
+                    duration={3.75}
+                    useEasing={true}
+                    useGrouping={true}
+                    separator=""
+                    // decimals={4}
+                    decimal=","
+                    // prefix="EUR "
+                    // suffix=" left"
+                    onComplete={this.onComplete}
+                    onStart={this.onStart}
+                    />
+                        </span></li>
                 </ul>
             </div>  
 
@@ -61,5 +138,5 @@ const mapStateToprops =state => {
 }
 export default connect(
     mapStateToprops,
-    null
+    {carts}
 )(VendorDashboard)

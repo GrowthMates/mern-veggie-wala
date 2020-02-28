@@ -8,7 +8,7 @@ import heart from '../centralized/images/del.png'
 import tick from '../centralized/images/tick.png'
 import x from '../centralized/images/x.png'
 import eco from '../centralized/images/eco.webp'
-import {updateProduct,addProduct,getProducts,sendToCartOwner,delAfterApproved} from'../../actions/productsAction'
+import {addProduct,getProducts,sendToCartOwner,delAfterApproved} from'../../actions/productsAction'
 import './adminDashboard.css'
 import './allProduct.css'
 
@@ -702,5 +702,5 @@ const mapStateToProps=(state)=>{
   
   export default connect(
       mapStateToProps,
-      { addProduct,updateProduct,getProducts,sendToCartOwner,delAfterApproved }
+      { addProduct,getProducts,sendToCartOwner,delAfterApproved }
     )(withRouter(AllProducts));

@@ -317,20 +317,20 @@ var getCartProdLocalStorage=[]
         })
     }
 
-  export const updateProduct = (updatePoduct) => dispatch => {
-    axios
-      .put('http://localhost:5000/api/updateProducts',updatePoduct)
-      .then(res => {
-        dispatch({
-          type: UPDATE_PRODUCT,
-          payload: res.data
-        })
-        console.log('Update product admin sy ka data ', res.data)
-      })
-      .catch(err => {
-        console.log('Update product error......., ', err.message)
-      })
-  }
+  // export const updateProduct = (updatePoduct) => dispatch => {
+  //   axios
+  //     .put('http://localhost:5000/api/updateProducts',updatePoduct)
+  //     .then(res => {
+  //       dispatch({
+  //         type: UPDATE_PRODUCT,
+  //         payload: res.data
+  //       })
+  //       console.log('Update product admin sy ka data ', res.data)
+  //     })
+  //     .catch(err => {
+  //       console.log('Update product error......., ', err.message)
+  //     })
+  // }
 
   export const sendToCartOwner = (orderData) => dispatch => {
     axios

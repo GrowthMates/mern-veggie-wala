@@ -85,16 +85,16 @@ class AddProduct extends Component {
     }
 
     singleCartSelect(){
-        cartsArr=[]
+        // cartsArr=[]
         const {cartViseStockArr,selectedCart,stock} = this.state;
        
 
         let filtered= cartViseStockArr.filter(e => {
-            return e.cart === selectedCart
+            return e.cart === selectedCart 
         })
         log('upper ka fltr', filtered)
 
-        if(cartViseStockArr.length==0){
+        if(cartViseStockArr.length==0 && stock!==''){
             cartsArr = cartViseStockArr;
             cartsArr.push({stock,cart:selectedCart})
             this.setState({
@@ -102,7 +102,7 @@ class AddProduct extends Component {
             })
             log('phli bar jb khli hy')
         }
-        else if(filtered.length===0){
+        else if(filtered.length===0 && stock!==''){
             cartsArr = cartViseStockArr;
             cartsArr.push({stock,cart:selectedCart})
             this.setState({
@@ -110,10 +110,31 @@ class AddProduct extends Component {
             })
            
         }
-        else if(filtered>=1){
-            log('dupl nklaa sala', filtered)
+        else{
+            let filteredStock= filtered.filter(e => {
+                return e.stock !== this.state.stock
+            })
+            // let final= cartViseStockArr.filter(e => {
+            //     return e.stock !== filteredStock[0].stock
+            // })
+            
+            if(filteredStock.length==0){
+
+                log('fully dupl nklaa sala', filteredStock)
+            }
+            else{
+                let finalArr =[]
+                let stockUpdate = cartViseStockArr.findIndex(e=> {return e.cart === this.state.selectedCart })
+                log(cartViseStockArr)
+                finalArr = cartViseStockArr
+                finalArr[stockUpdate].stock=this.state.stock
+                this.setState({
+                    cartViseStockArr: finalArr  
+                })
+                // this.state.cartViseStockArr.splice(stockUpdate,)
+            }
         }
-        log('dup sy bahir ka saaala ==>',filtered)
+        log('dup sy bahir or badd ka saaala ==>',filtered)
 
         
     }
@@ -121,7 +142,30 @@ class AddProduct extends Component {
     allCartSelect(){
         const {cartViseStockArr,selectedCart,stock} = this.state;
         
-        cartsArr=[]
+      
+        log(cartsArr)
+
+        // duplicate chacking
+        let filtered= cartViseStockArr.filter(e => {
+            return e.cart === selectedCart
+        })
+        log('upper ka fltr', filtered)
+
+        if( stock!==''){
+            cartsArr=[]
+            this.state.carts.forEach(element => {
+                cartsArr.push({stock,cart:element.cart})
+            });
+            // cartsArr= cartViseStockArr
+           if(cartsArr.length>=1){
+            this.setState({
+                cartViseStockArr: cartsArr
+            })
+           }
+            log('phli bar jb khli hy')
+        }
+        else if(filtered.length===0 && stock!==''){
+            cartsArr=[]
         this.state.carts.forEach(element => {
             cartsArr.push({stock,cart:element.cart})
         });
@@ -131,7 +175,11 @@ class AddProduct extends Component {
             cartViseStockArr: cartsArr
         })
        }
-        log(cartsArr)
+           
+        }
+        else if(filtered>=1){
+            log('dupl nklaa sala', filtered)
+        }
     }
 
     delStock(index){
@@ -141,7 +189,8 @@ class AddProduct extends Component {
         filtered.splice(index,1)
 log(index,filtered)
         this.setState({
-            cartViseStockArr: filtered
+            cartViseStockArr: filtered,
+            
         })
         
     }
@@ -174,7 +223,7 @@ log(index,filtered)
         log(newProduct)
     }
     render() { 
-        
+        let totalStock = [0]
 
         log(this.state)
         return ( 
@@ -183,8 +232,8 @@ log(index,filtered)
                 <div className='container' >
                     <div className='row' > 
                     <div className='col' >
-                        <div className='editProdImage'  onClick={this.imagePicker.bind(this)} >
-                           <div className='imgCenter' >
+                        <div className='addProdImage'  onClick={this.imagePicker.bind(this)} >
+                           <div className='addimgCenter' >
                                 <i class="fa fa-cloud" style={{color: '#c7c3c3', fontSize: '60px'}} ></i>
                                 <p>Upload Product Cover Image</p>
                                 <input type='file' style={{display: 'none'}} ref="fileUploader" onChange={this.imageOnChange} />
@@ -307,7 +356,9 @@ log(index,filtered)
                     </thead>
                     <tbody>
                         {this.state.cartViseStockArr!==[]?
-                          this.state.cartViseStockArr.map((item,index) => {
+                          this.state.cartViseStockArr.map((item,index) => {                              
+                              totalStock.push(parseInt(item.stock))
+                              
                               return (
                                 <tr key={index} >
                                 <th scope="row"> {index+1} </th>
@@ -321,7 +372,10 @@ log(index,filtered)
                           (<p>Please add stock in any cart</p>)
                         }
                        
-                     
+                     <tr >
+                         <td>Total Stock</td>
+                        <td> {totalStock.reduce((a,b) => {return a+b}) } </td>
+                     </tr>
                     </tbody>
                     </table>
                   </div>

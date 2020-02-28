@@ -52,7 +52,7 @@ app.use(
     })
   );
 app.use(bodyParser.json());
-mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true,useUnifiedTopology:true},(err)=>{
+mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true,useUnifiedTopology:true,useFindAndModify:false},(err)=>{
     if(err){
         console.log('Database Connection Err-------------:',err.message);
         
@@ -194,9 +194,9 @@ setTimeout(()=>{
 
     // app.get('/api/delProducts', adminController.delProducts);
     //When a admin update a current product. Need request parameter since updating a specific product based on  the id.
-    app.put('/api/updateProducts', adminController.updateProduct);
+    app.post('/api/updateProduct', adminController.updateProduct);
     //When a admin deletes a product, need an id to specify a product to delete.
-    app.post('/api/delProducts', adminController.deleteProduct);
+    app.post('/api/deleteProduct', adminController.deleteProduct);
 
     app.post('/api/createProduct', adminController.createProduct);
 

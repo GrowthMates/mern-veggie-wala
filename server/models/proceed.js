@@ -57,6 +57,10 @@ const Proceed = new Schema({
            productId:String,
            quantity:Number
         }
-    ]
+    ],
+    status: {
+        type:String,
+        
+    }
 });
 module.exports = mongoose.model('Proceed', Proceed);

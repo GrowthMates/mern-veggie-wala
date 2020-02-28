@@ -3,7 +3,8 @@ const Product = require('../models/product');
 module.exports = {
     
     readAllProducts(req, res){
-
+        // let product = new Product
+    // console.log(product)
         Product.find({}).exec((err, products)=>{
             if(err){
                 console.log('All products err--------',err);

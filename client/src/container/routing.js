@@ -117,7 +117,7 @@ this.props.getProducts('Routing')
                   {/* info==true ? null : */} 
                   
                   <BrowserRouter> 
-                    <Navbar/> 
+                    {/* <Navbar/>  */}
                 
             {/* <TestComp/> */}
                <Switch>

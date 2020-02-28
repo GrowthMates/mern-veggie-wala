@@ -119,36 +119,84 @@ module.exports = {
 
     },
 
-    updateProduct(req, res){
+    updateProduct(req, res,next){
 
         // const { id } = req.params;
-        const { name, id, price,stock } = req.body;
-        console.log(req.body)
-        Product.findById(id).exec((err, product)=>{
-            product.name=name;
-            product.stock=stock;
-            product.price=price;
-            product.save().then(()=>{
-                res.status(200).json({product})
-            })
+        const { name, id, price,stock,category,cartStock,image } = req.body;
+        // log(req.body)
+        let updateProduct = {
+            name, price,stock,category,cartStock,image
+        }
+        // console.log(req.body)
+
+        Product.findByIdAndUpdate(id,updateProduct)
+        .then(data => {
+            console.log('result of update prodcut ka',data);
+            res.status(200).send(updateProduct)
         })
+        .catch(err => {
+            console.log(err.message);
+            res.status(400).json(err)
+
+        })
+        // .exec((err,data) => {
+            
+        //     if(err){
+        //         console.log(err)
+        //         res.status(200).send(data)
+                
+        //     }
+        //     else if(data){
+        //         console.log(data)
+        //         res.status(200).json(data)
+        //     }
+        // })
+        // .then(data => {
+        //     res.status(200).json({data})
+        //     next()
+        //     log('update product ka succes',data)
+        // })
+        // .catch(err => {
+        //     res.status(400).send(err.message)
+        //     log('update product ka error',err.message)
+
+        // })
+        //     product.name=name;
+        //     product.stock=stock;
+        //     product.price=price;
+        //     product.save().then(()=>{
+        //         res.status(200).json({product})
+        //     })
+        // })
 
     },
     deleteProduct(req, res){
 
-        const { key, imageId } = req.body;
-        console.log(key)
-        Product.findByIdAndDelete(key)
-        .then(cart => {cart.remove().then(() => {
-            cloudinary.v2.uploader.destroy(imageId, function(error,result) {
-                if(error){
-                    console.log('Destroy image=======',error)
-                } 
-                console.log('Destroy image=======',result)
-                res.json({ success: true,cart })
-            });
-        })})
-        .catch(err => res.status(404).json({ success: false }));
+        const { id } = req.body;
+console.log(id)
+        Product.findByIdAndDelete(id)
+        .then(data => {
+            console.log('response delete sy',data)
+            res.status(200).json(data)
+        })
+        .catch(err => {
+            console.log(err.message)
+            res.status(400).json(err)
+        })
+        // purana rehan ka kaam cloudnry k lye
+        // const { id, imageId } = req.body;
+        // console.log(key)
+        // Product.findByIdAndDelete(key)
+        // .then(cart => {cart.remove().then(() => {
+        //     cloudinary.v2.uploader.destroy(imageId, function(error,result) {
+        //         if(error){
+        //             console.log('Destroy image=======',error)
+        //         } 
+        //         console.log('Destroy image=======',result)
+        //         res.json({ success: true,cart })
+        //     });
+        // })})
+        // .catch(err => res.status(404).json({ success: false }));
     },
 
     pendingProduct(req, res) {
@@ -246,7 +294,14 @@ module.exports = {
         
         CartOwner.find()
         .then(data => res.status(200).send(data.reverse()))
-        .catch(err => err.json)
+        .catch(err => res.status(400).send(err.message))
+    },
+
+    getOrders(req,res){
+
+        NewCart.find()
+        .then(data => {res.status(200).send(data)})
+        .catch(err => {res.status(200).send(err.message)})
     },
 
     delAfterApproved(req,res){

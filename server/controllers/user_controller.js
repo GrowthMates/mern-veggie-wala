@@ -222,6 +222,8 @@ module.exports = {
             area,
             block,
             timeStamp,
+            status: 'pending',
+            // orderN0,
             cartProducts: crtProduct
               
         });

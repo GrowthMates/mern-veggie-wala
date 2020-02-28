@@ -4,7 +4,8 @@ import {
     CART_PRODUCTS,
     GET_ERRORS,
     WISHLIST,
-    DEL_WISHLIST,PATH_CHECKER
+    DEL_WISHLIST,PATH_CHECKER,
+    SELECTED_PRODUCT,
   } from "../actions/types";
   import axios from 'axios'
 import { getProducts } from "../actions/productsAction";
@@ -19,12 +20,17 @@ import { getProducts } from "../actions/productsAction";
     error:false,
     wishList:undefined,
     delProduct: false,
-    pathChecker: false
+    pathChecker: false,
+    isProduct:false,
+    editProduct: undefined
+
   };
 
   
   export default  function(state = initialState, action) {
  
+  // let newproducts = [...products]
+  // newproducts.push
   console.log('get product ne bulaya h=======',action)
     switch (action.type) {
       case GET_PRODUCTS:
@@ -61,6 +67,13 @@ import { getProducts } from "../actions/productsAction";
           return {
             ...state,
             pathChecker: true ,
+            // wishList:action.payload
+          };
+        case SELECTED_PRODUCT:
+          return {
+            ...state,
+            isProduct: true ,
+            editProduct:action.payload
             // wishList:action.payload
           };
       default:

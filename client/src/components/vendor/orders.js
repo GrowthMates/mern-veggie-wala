@@ -71,10 +71,13 @@ class VendoOrders extends Component {
                     <table class="table">
                         <thead>
                             <tr>
+                            <th scope="col">#</th>
                             <th scope="col">Order</th>
                             <th scope="col">Order Total</th>
                             <th scope="col">Status</th>
                             <th scope="col">Customer</th>
+                            <th scope="col">Customer No </th>
+                            <th scope="col">Address</th>
                             <th scope="col">Date</th>
                             <th scope="col">Action</th>
                             </tr>
@@ -89,7 +92,9 @@ class VendoOrders extends Component {
                                 <td>PKR 2300</td>
                                 <td  > <span style={{textAlign: 'center', backgroundColor: '#28A745',padding: '10px', color: '#ffffff', fontWeight: '600'}}> {i.status} </span> </td>
                                 <td>{i.fname}</td>
-                                <td>15-feb-2020</td>
+                                <td>{i.number}</td>
+                                <td>{item.address}</td>
+                                <td>{i.timeStamp!==undefined?  i.timeStamp.split(' ')[1] :void 0}</td>
                                 <td  ><i style={{border: '1px solid black', padding: '10px',textAlign: 'center'}} class="fa fa-eye"></i></td>
                                 </tr>
                                     )
@@ -101,11 +106,15 @@ class VendoOrders extends Component {
                                 return item.orders.map((i,ind) => {
                                     return (
                                         <tr key={ind} >
+                                {/* <th> {index+1} </th> */}
+                                <th> {ind+1} </th>
                                 <th scope="row" style={{color: '#FF4747'}} > Order #1310  </th>
                                 <td>PKR 2300</td>
                                 <td  > <span style={{textAlign: 'center', backgroundColor: '#28A745',padding: '10px', color: '#ffffff', fontWeight: '600'}}> {i.status} </span> </td>
                                 <td>{i.fname}</td>
-                                <td>15-feb-2020</td>
+                                <td>{i.number}</td>
+                                <td>{item.address}</td>
+                                <td>{i.timeStamp!==undefined?  i.timeStamp.split(' ')[1] :void 0}</td>
                                 <td  ><i style={{border: '1px solid black', padding: '10px',textAlign: 'center'}} class="fa fa-eye"></i></td>
                                 </tr>
                                     )

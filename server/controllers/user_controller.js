@@ -209,6 +209,7 @@ module.exports = {
            else if(result){
             console.log('reaslt.orders====>',result.orders)
             avilableCarts=result
+            console.log(result)
            }
         })
 
@@ -261,13 +262,27 @@ module.exports = {
 
                 cartProducts.forEach( (item,i)=>{
                     console.log('Index dekho===',i,data)
-                   Product.findByIdAndUpdate(item.filterProduct._id,{ $inc: { stock: -item.quantity } }).then((product)=>{
+                   Product.findById(item.filterProduct._id).then((product)=>{
+                       product.cartStock[0].stock-= item.quantity
                        currentProduct=product
+
+
+                       product.markModified("cartStock")
+                       product.save()
+                       .then(data => {
+                           console.log('stock cart vise succes',data)
+                        //    res.status(200).send(data)
+                       })
+                       .catch(err => {
+                           console.log('stck cart vse sy',err.message)
+                        //    res.status(200).send(data)
+
+                       })
                         console.log('ProductUpdate success: ',product)
-                        if(cartProducts[i]===cartProducts[cartProducts.length-1]){ 
-                           console.log('Anday wala burger1',data,i)
-                        //    res.status(200).json({success:true, data})
-                        }
+                        // if(cartProducts[i]===cartProducts[cartProducts.length-1]){ 
+                        //    console.log('stock cart vise',data,i)
+                        // //    res.status(200).json({success:true, data})
+                        // }
                     })
                     .catch(err => {
                             console.log('Stock Change From Proceed Error-------',err.message)

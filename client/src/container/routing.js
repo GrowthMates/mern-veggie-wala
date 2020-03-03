@@ -33,6 +33,7 @@ import PrivateRoute from "../components/private-route/PrivateRoute";
 import Dashboard from "../components/dashboard/Dashboard"; 
 import Cart from '../components/users/userCart/cart'  
 import AdminLandingPage from '../components/vendor/vendorLandingPage'
+import CartLandingPage from '../components/cart/cartLandingPage'
 import NoMatch from './not-found.js'  
 // import AllImages from './AllImages'
 
@@ -132,6 +133,7 @@ this.props.getProducts('Routing')
                    <Route exact path="/collections" component={Collections} />
                    <Route exact path='/cart' component={Cart}/>
                    <Route exact path='/admin/landingPage' component={AdminLandingPage}/>
+                   <Route exact path='/cart/landingPage' component={CartLandingPage}/>
 
               
                    {/* <Route path='/image' component={TestComp}/> */}
@@ -145,7 +147,7 @@ this.props.getProducts('Routing')
                    {/* <Route path='/Allimages' component={AllImages}/> */}
 
                </Switch>
-               <Footer/>
+               {/* <Footer/> */}
                </BrowserRouter> 
                   
                {/* {this.props.pathChecker==true || info==true? null : <Footer/> } */}

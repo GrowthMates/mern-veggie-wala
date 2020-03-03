@@ -17,5 +17,6 @@ export const EMPTY_CART = "EMPTY_CART";
 export const PRODUCTS = "PRODUCTS";
 export const SELECTED_PRODUCT = "SELECTED_PRODUCT";
 export const GET_CARTS = "GET_CARTS";
+export const STATUS_UPDATE = "STATUS_UPDATE";
 
 

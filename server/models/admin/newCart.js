@@ -4,11 +4,11 @@ const NewCart = new Schema({
 
         cart:{
                 type:String,
-                required:true
+                // required:true
         },
        area: {
            type: String,
-           required: true
+        //    required: true
        },
        block: Array,
        

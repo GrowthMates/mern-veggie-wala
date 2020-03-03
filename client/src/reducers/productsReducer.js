@@ -6,6 +6,7 @@ import {
     WISHLIST,
     DEL_WISHLIST,PATH_CHECKER,
     SELECTED_PRODUCT,
+    STATUS_UPDATE,
   } from "../actions/types";
   import axios from 'axios'
 import { getProducts } from "../actions/productsAction";
@@ -22,7 +23,8 @@ import { getProducts } from "../actions/productsAction";
     delProduct: false,
     pathChecker: false,
     isProduct:false,
-    editProduct: undefined
+    editProduct: undefined,
+    status:undefined
 
   };
 
@@ -74,6 +76,13 @@ import { getProducts } from "../actions/productsAction";
             ...state,
             isProduct: true ,
             editProduct:action.payload
+            // wishList:action.payload
+          };
+        case STATUS_UPDATE:
+          return {
+            ...state,
+            status: action.payload,
+            // editProduct:action.payload
             // wishList:action.payload
           };
       default:

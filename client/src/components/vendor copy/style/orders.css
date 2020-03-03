@@ -1,0 +1,10 @@
+.ordersUl{
+    padding: 0px;
+    margin-bottom: 10px;
+}
+.ordersUl li {
+    display: inline-block;
+    color: #FF4747;
+    padding: 20px;
+    font-size: 16px;
+}

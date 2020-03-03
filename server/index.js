@@ -220,7 +220,7 @@ setTimeout(()=>{
 
     app.get('/api/getCartOwners', adminController.getCartOwners);
 
-    
+    app.post('/api/updateStatus', productsController.updateStatus);
 
     app.post('/api/wishList', userController.wishList)
 

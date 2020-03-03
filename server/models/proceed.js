@@ -63,7 +63,7 @@ const Proceed = new Schema({
         
     },
     orderNo: {
-        
+        type: String
     }
 });
 module.exports = mongoose.model('Proceed', Proceed);

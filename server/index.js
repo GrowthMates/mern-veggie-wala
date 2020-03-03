@@ -181,6 +181,9 @@ setTimeout(()=>{
     //Products Endpoints
     //Getting all the products
     app.get('/api/products', productsController.readAllProducts);
+
+    app.post('/api/updateProductStatus', productsController.updateProductStatus);
+
     //Getting a specified product
     //Use a request parameter, since retrieving a specified product..
     app.get('/api/products/:id', productsController.readProduct);
@@ -230,7 +233,7 @@ setTimeout(()=>{
 
 
     
-
+    
 
 
 

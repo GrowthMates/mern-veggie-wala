@@ -71,4 +71,32 @@ module.exports = {
         // console.log(req.body)
     },
 
+    updateProductStatus(req,res){
+
+        const {productStatus,index,id} =req.body;
+
+        Product.findById(id)
+        .then(data => {
+            console.log('pehla Response andar ka updte status sy',data)
+
+            data.status= productStatus
+
+            data.save()
+            .then(fdata => {
+                console.log('pehla Response Baahr ka updte status sy',fdata)
+                res.status(200).send(fdata)
+            } )
+            .catch(err => {
+                console.log('pehla error andr ka updte status sy',err.message)
+                res.status(200).send(fdata)
+
+            })
+        })
+        .catch(error => {
+            console.error('pehla error Baahaar ka updte status sy',error.message)
+            res.status(200).send(fdata)
+
+        })
+    },
+
 }

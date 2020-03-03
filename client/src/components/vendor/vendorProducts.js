@@ -130,7 +130,7 @@ class VendorProducts extends Component {
 
                     })
                 }
-                bilkulFinal.push({id:i._id, stock,image: i.image,price: i.price,name:i.name,description:i.description,category:i.category,cartStock:i.cartStock})    
+                bilkulFinal.push({id:i._id, stock,image: i.image,price: i.price,name:i.name,description:i.description,category:i.category,cartStock:i.cartStock,status:i.status,alarmingStock:i.alarmingStock})    
 
                 
                 // fl=bilkulFinal
@@ -140,8 +140,8 @@ class VendorProducts extends Component {
             //  products=bilkulFinal;
             log(bilkulFinal)
             // let addedStock = bilkulFinal
-             let filtered = bilkulFinal.filter(e =>  {return e.stock.reduce((a,b) => {return a+b}   ) <= 5 })
-             let greater = bilkulFinal.filter(e =>  {return e.stock.reduce((a,b) => {return a+b}   ) > 5 })
+             let filtered = bilkulFinal.filter(e =>  {return e.stock.reduce((a,b) => {return a+b}   ) <= e.alarmingStock })
+             let greater = bilkulFinal.filter(e =>  {return e.stock.reduce((a,b) => {return a+b}   ) > e.alarmingStock })
              // let greater = products.filter(e=>{return e.stock>5})
               let final = [...filtered,...greater];
             //   greater.forEach(element => {
@@ -209,7 +209,7 @@ class VendorProducts extends Component {
                             <tbody >
                                 { this.props.status===true ? (<p>{this.props.error}</p>) :  products.length==0? <p>Loading...</p> : (
                                     products.map((item,index) => {
-                                        return (
+                                    return  item.status==='recieve'? (
                                             <tr className='productRows'  style={{textAlign: 'left'}} >
                                             <td scope='row' > {index+1} </td>
                                             <td scope='row' > <img src={item.image} width='60' height='60' /> </td>
@@ -244,7 +244,7 @@ class VendorProducts extends Component {
                                             <td>14-feb-2020 <br/>Published</td>
                                            
                                         </tr>
-                                        )
+                                        ) : void 0
                                     })
                                 )  }
                              

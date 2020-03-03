@@ -6,6 +6,7 @@ import './style/dashboard.css'
 import CartDashboard from './cartDashboard';
 import CartProducts from './cartProducts';
 import CartOrders from './cartOrders'
+import RecieveProduct from './recieveProduct'
 import axios from 'axios';
 import CartSetting from './cartSetting';
 import admin from '../../components/centralized/images/admin1.png'
@@ -89,7 +90,10 @@ openNav(){
                                         <i style={{marginRight: '10px'}} class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</Link>
                                     </li>
                                     <li><Link to='/cart/product' >
-                                        <i style={{marginRight: '10px'}} class="fa fa-product-hunt" aria-hidden="true"></i> products</Link>
+                                        <i style={{marginRight: '10px'}} class="fa fa-product-hunt" aria-hidden="true"></i> Products</Link>
+                                    </li>
+                                    <li><Link to='/cart/recieve' >
+                                        <i style={{marginRight: '10px'}} class="fa fa-product-hunt" aria-hidden="true"></i> Recieve Products </Link>
                                     </li>
                                     <li><Link to='/cart/orders' >
                                         <i style={{marginRight: '10px'}} class="fa fa-first-order" aria-hidden="true"></i> Orders</Link>
@@ -112,6 +116,7 @@ openNav(){
                                 <Route  path='/cart/product' component={CartProducts} />                              
                                 <Route exact path='/cart/orders' component={CartOrders} />                                
                                 <Route exact path='/cart/setting' component={CartSetting} />
+                                <Route exact path='/cart/recieve' component={RecieveProduct} />
                                                          
                                 {/* <Route exact path='/cart/sales' component={Sales} /> */}
                                 {/* <Route  path='/vendor/product' component={AddProduct} /> */}

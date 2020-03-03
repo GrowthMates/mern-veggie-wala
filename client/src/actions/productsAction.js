@@ -461,6 +461,26 @@ export const updateStatus = (data) => dispatch => {
   })
 }
 
+export const updateProductStatus = (data) => dispatch => {
+  // console.log(data)
+  axios
+  .post('http://localhost:5000/api/updateProductStatus',data)
+  .then(res => {
+    console.log('status change succesfully',res.data)
+      dispatch({
+        type: STATUS_UPDATE,
+        payload: res.data
+      })
+    // console.log('Wish List Get ki Req sy', res.data)
+  })
+  .catch(err => {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err
+    })
+    console.log('Status update ka error ka error......., ', err.message)
+  })
+}
 
 
   

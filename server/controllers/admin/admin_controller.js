@@ -63,7 +63,7 @@ module.exports = {
 // add product........
     createProduct(req, res){
 
-        const { name, description,price,stock,image,cartsStock,category } = req.body;
+        const { name, description,price,stock,image,cartsStock,category,alarmingStock } = req.body;
 
         let createProduct = new Product({
             name,
@@ -72,7 +72,9 @@ module.exports = {
             image,
             stock,
             cartStock:cartsStock,
-            category
+            category,
+            status: 'dispatch',
+            alarmingStock
         })
 
         createProduct.save()

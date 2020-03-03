@@ -4,15 +4,15 @@ const Product = new Schema({
 
         name:{
                 type:String,
-                required:true
+                // required:true
         },
         description:{
                 type:String,
-                required:true
+                // required:true
         },
         price:{
                 type:Number,
-                required:true
+                // required:true
         },
         stock:{
                 type:String,
@@ -21,7 +21,14 @@ const Product = new Schema({
         image: Array,
         imageId: Array,
 
+        
         category: {
+                type: String
+        },
+        status: {
+                type: String,
+        },
+        alarmingStock: {
                 type: String
         },
         cartStock: Array,

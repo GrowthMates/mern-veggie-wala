@@ -26,7 +26,8 @@ class AddProduct extends Component {
             // images: undefined,
             file: '',
             imagePreviewUrl: [],
-            category: ''
+            category: '',
+            alarmingStock:''
          }
     }
 
@@ -208,7 +209,7 @@ log(index,filtered)
     onSubmit(e){
         e.preventDefault();
 
-        const {name,price,description,imagePreviewUrl,cartViseStockArr,stock,category} = this.state
+        const {name,price,description,imagePreviewUrl,cartViseStockArr,stock,category,alarmingStock} = this.state
 
         let newProduct = {
             name,
@@ -217,7 +218,8 @@ log(index,filtered)
             image: imagePreviewUrl,
             cartsStock: cartViseStockArr,
             stock,
-            category
+            category,
+            alarmingStock
         }
         this.props.addProduct(newProduct)
         log(newProduct)
@@ -282,6 +284,9 @@ log(index,filtered)
                                 </div>
 
                                 <div className='row' >
+                                <div className='col-12' >
+                                    <input type='number' onChange={this.onChange} name='alarmingStock' value={this.state.alarmingStock} placeholder='alarming Stock' style={{marginTop: '10px'}} />
+                                </div>
                                   <div className='col' >
                                     <input type='number' onChange={this.onChange} name='stock' value={this.state.stock} placeholder='Stock' style={{marginTop: '10px'}} />
                                   </div>
@@ -344,6 +349,7 @@ log(index,filtered)
                 </div>
 
                 <div className='row' >
+              
                  <div className='col' >
                   <table class="table">
                     <thead>

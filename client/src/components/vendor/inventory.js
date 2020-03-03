@@ -38,7 +38,7 @@ class Inventory extends Component {
                     e.cartStock.forEach(el => {
                         if(el.cart===this.state.selectedCart){
                            
-                            filteredCart.push({cart:el.cart,stock:el.stock,product:e.name,image:e.image[0]})
+                            filteredCart.push({cart:el.cart,stock:el.stock,product:e.name,image:e.image[0],status:e.status,alarmingStock:e.alarmingStock})
                         }
                       })
                 }
@@ -98,6 +98,8 @@ class Inventory extends Component {
                         <th scope="col">Product</th>
                         <th scope="col">Cart</th>
                         <th scope="col">Stock</th>
+                        <th scope="col">Alarming Stock</th>
+                        <th scope="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -109,6 +111,8 @@ class Inventory extends Component {
                                 <td>{item.product}</td>
                                 <td>{item.cart}</td>
                                 <td> {item.stock} </td>
+                                <td style={{color: 'red'}} > {item.alarmingStock} </td>
+                                <td  >  <span style={{backgroundColor: '#FFF3CD',color: 'brown',padding: '15px',fontWeight:600}} > {item.status} </span> </td>
                             </tr> 
                            )
                        })}                     

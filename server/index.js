@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 // const http = require("http");
 // const socketIO = require("socket.io");
+const path = require("path");
 const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -13,7 +14,7 @@ const Image = require('./models/socketTest')
 const userController = require('./controllers/user_controller');
 const adminController = require('./controllers/admin/admin_controller');
 const productsController = require('./controllers/products_controller');
-const cartOwnerController = require('./controllers/cartOwner_controller');
+const cartOwnerController = require('./controllers/cartOwner_controller')
 const PORT = process.env.PORT || 5000;
 const passport = require("passport");
 
@@ -52,7 +53,7 @@ app.use(
     })
   );
 app.use(bodyParser.json());
-mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true,useUnifiedTopology:true},(err)=>{
+mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true,useUnifiedTopology:true,useFindAndModify:false},(err)=>{
     if(err){
         console.log('Database Connection Err-------------:',err.message);
         
@@ -181,6 +182,9 @@ setTimeout(()=>{
     //Products Endpoints
     //Getting all the products
     app.get('/api/products', productsController.readAllProducts);
+
+    app.post('/api/updateProductStatus', productsController.updateProductStatus);
+
     //Getting a specified product
     //Use a request parameter, since retrieving a specified product..
     app.get('/api/products/:id', productsController.readProduct);
@@ -188,15 +192,18 @@ setTimeout(()=>{
     //Gets the admin users.
     app.get('/api/users', adminController.getAdminUsers);
     //When a admin creates a product. No need for request parameter in this case. Since we are inserting data to database.
-    app.post('/api/createProducts', upload.array("image") , adminController.createProduct);
+    // app.post('/api/createProducts', upload.array("image") , adminController.createProduct);
 
     app.get('/api/bookedProducts', adminController.bookedProduct);
 
     // app.get('/api/delProducts', adminController.delProducts);
     //When a admin update a current product. Need request parameter since updating a specific product based on  the id.
-    app.put('/api/updateProducts', adminController.updateProduct);
+    app.post('/api/updateProduct', adminController.updateProduct);
     //When a admin deletes a product, need an id to specify a product to delete.
-    app.post('/api/delProducts', adminController.deleteProduct);
+    app.post('/api/deleteProduct', adminController.deleteProduct);
+
+    app.post('/api/createProduct', adminController.createProduct);
+
 
     app.get('/api/products/pending', adminController.pendingProduct);
 
@@ -210,7 +217,14 @@ setTimeout(()=>{
 
     app.post('/api/cartOwner/confirmOrder', adminController.cartOwner);
 
+    app.get('/api/getOrders', adminController.getOrders);
+
     app.get('/api/cartOwner/reciept', adminController.cartOwnerReciept);
+
+
+    app.get('/api/getCartOwners', adminController.getCartOwners);
+
+    app.post('/api/updateStatus', productsController.updateStatus);
 
     app.post('/api/wishList', userController.wishList)
 
@@ -220,10 +234,20 @@ setTimeout(()=>{
 
 
     
-
-
-
-
+    
 },200);
+
+
+// Serve static assets if in production
+if (process.env.NODE_ENV === "production") {
+
+  // Set static folder
+  app.use(express.static("client/build"));
+
+  // index.html for all page routes
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+  });
+}
 
 app.listen(PORT,()=>{console.log('Server running on Localhost:',PORT)});

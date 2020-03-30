@@ -1,0 +1,10 @@
+.reportsUl{
+    padding-left: 10px;
+}
+.reportsUl li{
+    display: inline-block;
+    padding: 20px;
+    font-size: 18px;
+    color: #FF4747;
+    cursor: pointer;
+}

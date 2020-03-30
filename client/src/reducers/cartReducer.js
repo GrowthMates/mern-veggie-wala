@@ -2,12 +2,14 @@ import {
     CART_PRODUCTS,
     TOTAL_PRICE,
     EMPTY_CART,
+    GET_CARTS
   } from "../actions/types";
 import axios from "axios";
   const isEmpty = require("is-empty");
   const initialState = {
     loading: false,
     cart: undefined,
+    getCarts:undefined,
     totalPrice: '' || JSON.parse(localStorage.getItem('totalPrice'))
   };
   const newCart=  JSON.parse(localStorage.getItem('CartProduct'));
@@ -32,7 +34,13 @@ import axios from "axios";
             loading: false,
             cart: action.payload,
             totalPrice: 0
-          }
+          };
+        case GET_CARTS:
+          return{
+            loading: false,
+            getCarts: action.payload,
+            // totalPrice: 0
+          };
         case TOTAL_PRICE:
         // console.log('cartproduct type----------',...state)
         return {

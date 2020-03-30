@@ -4,22 +4,36 @@ const Product = new Schema({
 
         name:{
                 type:String,
-                required:true
+                // required:true
         },
         description:{
                 type:String,
-                required:true
+                // required:true
         },
         price:{
                 type:Number,
-                required:true
+                // required:true
         },
         stock:{
-                type:Number,
+                type:String,
                 default:1
         },
         image: Array,
         imageId: Array,
+
+        
+        category: {
+                type: String
+        },
+        status: {
+                type: String,
+        },
+        alarmingStock: {
+                type: String
+        },
+        cartStock: Array,
+
+        
         // img:{
         //        title:String,
         //        image:String,

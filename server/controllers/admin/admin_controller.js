@@ -4,7 +4,8 @@ const Proceed = require('../../models/proceed');
 const CartOwner = require('../../models/cartOwner');
 const Cart =  require('../../models/cartOwner');
 const PendingProduct = require('../../models/admin/pending')
-const ProductSpecs = require('../../models/categories')
+const ProductSpecs = require('../../models/categories');
+const NewCart = require('../../models/admin/newCart');
 //IMAGE UPLOAD CONFIGURATION
 // const multer = require("multer");
 // const storage = multer.diskStorage({
@@ -60,72 +61,144 @@ module.exports = {
     },
     
 // add product........
-   async createProduct(req, res){
+    createProduct(req, res){
 
-        // const { name, description,price,stock } = req.body;
-        req.body.image=[]
-        req.body.imageId=[]
-        console.log('rquest body',req.body)
-        console.log('/add called====', req.files)
-        for(let i=0;i<req.files.length;i++){
-        console.log('loop----',i,'--')
-           await cloudinary.v2.uploader.upload(req.files[i].path, function(err, result) {
-              if (err) {
-                res.json(err.message);
-              }
+        const { name, description,price,stock,image,cartsStock,category,alarmingStock } = req.body;
+
+        let createProduct = new Product({
+            name,
+            price,
+            description,
+            image,
+            stock,
+            cartStock:cartsStock,
+            category,
+            status: 'dispatch',
+            alarmingStock
+        })
+
+        createProduct.save()
+        .then(data => {
+            res.status(200).send(data)
+            console.log(data)
+        })
+        .catch(err => {
+            res.status(400).send(err.message)
+        })
+        // rehan ka kam yahan sy previous wala
+
+
+        // req.body.image=[]
+        // req.body.imageId=[]
+        // console.log('rquest body',req.body)
+        // console.log('/add called====', req.files)
+        // for(let i=0;i<req.files.length;i++){
+        // console.log('loop----',i,'--')
+        //    await cloudinary.v2.uploader.upload(req.files[i].path, function(err, result) {
+        //       if (err) {
+        //         res.json(err.message);
+        //       }
               
-              req.body.image.push(result.secure_url);
-              console.log('Secure URL=====-=-=-=-',result.secure_url,[i],req.body.image)
-              // add image's public_id to image object
-              req.body.imageId.push(result.public_id);
-            })
+        //       req.body.image.push(result.secure_url);
+        //       console.log('Secure URL=====-=-=-=-',result.secure_url,[i],req.body.image)
+        //       // add image's public_id to image object
+        //       req.body.imageId.push(result.public_id);
+        //     })
             
-        }
-        console.log('After for loop=-=-=-=-')
-            Product.create(req.body, function(err, result) {
-                if (err) {
-                  res.json(err.message);
-                  return res.redirect("/");
-                }
-                console.log('res send',result)
-                res.status(200).json({Product:result})
-                // res.json(image)
-              });
+        // }
+        // console.log('After for loop=-=-=-=-')
+        //     Product.create(req.body, function(err, result) {
+        //         if (err) {
+        //           res.json(err.message);
+        //           return res.redirect("/");
+        //         }
+        //         console.log('res send',result)
+        //         res.status(200).json({Product:result})
+        //         // res.json(image)
+        //       });
 
        
 
     },
 
-    updateProduct(req, res){
+    updateProduct(req, res,next){
 
         // const { id } = req.params;
-        const { name, id, price,stock } = req.body;
-        console.log(req.body)
-        Product.findById(id).exec((err, product)=>{
-            product.name=name;
-            product.stock=stock;
-            product.price=price;
-            product.save().then(()=>{
-                res.status(200).json({product})
-            })
+        const { name, id, price,stock,category,cartStock,image } = req.body;
+        // log(req.body)
+        let updateProduct = {
+            name, price,stock,category,cartStock,image
+        }
+        // console.log(req.body)
+
+        Product.findByIdAndUpdate(id,updateProduct)
+        .then(data => {
+            console.log('result of update prodcut ka',data);
+            res.status(200).send(updateProduct)
         })
+        .catch(err => {
+            console.log(err.message);
+            res.status(400).json(err)
+
+        })
+        // .exec((err,data) => {
+            
+        //     if(err){
+        //         console.log(err)
+        //         res.status(200).send(data)
+                
+        //     }
+        //     else if(data){
+        //         console.log(data)
+        //         res.status(200).json(data)
+        //     }
+        // })
+        // .then(data => {
+        //     res.status(200).json({data})
+        //     next()
+        //     log('update product ka succes',data)
+        // })
+        // .catch(err => {
+        //     res.status(400).send(err.message)
+        //     log('update product ka error',err.message)
+
+        // })
+        //     product.name=name;
+        //     product.stock=stock;
+        //     product.price=price;
+        //     product.save().then(()=>{
+        //         res.status(200).json({product})
+        //     })
+        // })
 
     },
     deleteProduct(req, res){
 
-        const { key, imageId } = req.body;
-        console.log(key)
-        Product.findByIdAndDelete(key)
-        .then(cart => {cart.remove().then(() => {
-            cloudinary.v2.uploader.destroy(imageId, function(error,result) {
-                if(error){
-                    console.log('Destroy image=======',error)
-                } 
-                console.log('Destroy image=======',result)
-                res.json({ success: true,cart })
-            });
-        })})
-        .catch(err => res.status(404).json({ success: false }));
+        const { id } = req.body;
+console.log(id)
+        Product.findByIdAndDelete(id)
+        .then(data => {
+            console.log('response delete sy',data)
+            res.status(200).json(data)
+        })
+        .catch(err => {
+            console.log(err.message)
+            res.status(400).json(err)
+        })
+        // purana rehan ka kaam cloudnry k lye
+        // const { id, imageId } = req.body;
+        // console.log(key)
+        // Product.findByIdAndDelete(key)
+        // .then(cart => {cart.remove().then(() => {
+        //     cloudinary.v2.uploader.destroy(imageId, function(error,result) {
+        //         if(error){
+        //             console.log('Destroy image=======',error)
+        //         } 
+        //         console.log('Destroy image=======',result)
+        //         res.json({ success: true,cart })
+        //     });
+        // })})
+        // .catch(err => res.status(404).json({ success: false }));
     },
 
     pendingProduct(req, res) {
@@ -223,7 +296,14 @@ module.exports = {
         
         CartOwner.find()
         .then(data => res.status(200).send(data.reverse()))
-        .catch(err => err.json)
+        .catch(err => res.status(400).send(err.message))
+    },
+
+    getOrders(req,res){
+
+        NewCart.find()
+        .then(data => {res.status(200).send(data)})
+        .catch(err => {res.status(200).send(err.message)})
     },
 
     delAfterApproved(req,res){
@@ -234,6 +314,18 @@ module.exports = {
         .then(cart => {cart.remove().then(() => res.json({ success: true,cart }))})
         .catch(err => res.status(404).json({ success: false }));
     },
+
+    getCartOwners(req,res){
+
+        NewCart.find()
+        .then(data => {
+            res.status(200).send(data)
+        })
+        .catch(err => {
+            res.status(400).send(err.message)
+        })
+
+    }
 
     
 }

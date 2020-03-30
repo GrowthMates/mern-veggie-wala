@@ -1,0 +1,42 @@
+.productsHeaderUl{
+    /* background-color: brown; */
+    padding: 0px;
+    
+}
+#aTag{
+    color: #fff !important;
+    font-size: 14px important;
+    text-decoration: none;
+    
+}
+.productsHeaderUl li {
+    display: inline-block;
+    padding: 20px;
+    color: #FF4747;
+    font-weight: 500;
+    font-size: 16px;
+}
+.productRows:hover .productActions{
+    opacity: 1;
+    padding: 0px;
+}
+.productRows:hover .productActions li{
+    display: inline-block;
+    opacity: 1;
+    color: brown;
+    /* padding: px; */
+}
+.productActions{
+    opacity: 0;
+    padding: 0px;
+}
+.productActions li{
+    display: inline-block;
+    padding: 5px;
+    cursor: pointer;
+}
+.productRows:hover .productActions li a:hover{
+   
+    color: rgb(37, 36, 36);
+    /* padding: px; */
+}

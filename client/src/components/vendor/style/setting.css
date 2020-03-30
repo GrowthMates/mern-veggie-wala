@@ -1,0 +1,105 @@
+.settingTop{
+    background-color: rgb(247, 244, 244);
+    padding: 20px;
+}
+.settingProdImage{
+    /* border: 1px solid rgb(189, 186, 186); */
+    border: 5px dashed rgb(189, 186, 186);
+    background-color: white;
+    width: 800px;
+    height: 300px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    transition: 0.7s ease-in-out;
+}
+.settingProdImage:hover{
+    background-color: rgb(252, 249, 249);
+}
+.settingProdImage:hover .settingimgCenter{
+    transform: scale(1.5);
+    position: absolute;
+    top: 39%;
+    color: rgb(0, 162, 255);
+}
+.settingimgCenter{
+    position: absolute;
+    top: 35%;
+    text-align: center;
+    left: 40%;
+    transition: 0.5s ease-in-out;
+    /* color: #c7c3c3; */
+}
+.editName{
+    border: 2px solid #cfcfcf;
+    width: 30vw;
+    /* height: 6vh; */
+    padding: 10px;
+    /* width: 100%; */
+}
+.editRight{
+    /* margin-left: 1px; */
+    /* position: relative; */
+    display: inline-block;
+    /* margin-left: 40px; */
+}
+.price{
+    margin-top: 20px;
+    border: 2px solid #cfcfcf;
+    width: 15vw;
+    /* height: 6vh; */
+    padding: 5px;
+}
+.disprice{
+    margin-top: 0px !important;
+    border: 2px solid #cfcfcf;
+    width: 15vw;
+    /* height: 6vh; */
+    padding: 5px;
+}
+.editKaUpdate{
+    backgroundColor: limegreen !important; color: #ffffff; padding: 4px 8px; margin: 0px; cursor: pointer;
+}
+.editStatus{
+    margin: 20px 2px ;
+}
+.imageGallery{
+    background-color: #e4e3e3;
+    padding: 6px;
+    font-size: 19px;
+    font-weight: 500;
+    border-radius: 5px;
+    color: rgb(36, 35, 35);
+}
+.imageGalleryBtn{
+    color: white;
+    /* background-color: rgb(86, 211, 86); */
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 10px;
+}
+.prodDecrip{
+    margin-top: 30px;
+}
+.settingTable{
+    margin-left: 30px;
+}
+.settingTable tr td{
+    padding: 20px;
+    font-size: 16px;
+    /* background-color: blue; */
+}
+.settingTable tr td input[type=text] {
+    width: 300px;
+    border: 1px solid white;
+
+}
+.settingTable tr td input[type=text]:focus {
+    padding-left: 20px;
+
+}
+.settingTable tr td select{
+    width: 300px;
+    cursor: pointer;
+    border: 1px solid white;
+}

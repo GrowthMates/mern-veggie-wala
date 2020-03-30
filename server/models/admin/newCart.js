@@ -4,30 +4,32 @@ const NewCart = new Schema({
 
         cart:{
                 type:String,
-                required:true
+                // required:true
         },
-       address: {
+       area: {
            type: String,
-           required: true
+        //    required: true
        },
-       products:[{
-        name:{
-            type:String,
-        },
-        description:{
-                type:String,
-        },
-        price:{
-                type:Number,
-        },
-        stock:{
-                type:Number,
-                default:1
-        },
-        image: Array,
-        imageId: Array,
-}],
+       block: Array,
+       
        orders:Array
+//        products:[{
+//         name:{
+//             type:String,
+//         },
+//         description:{
+//                 type:String,
+//         },
+//         price:{
+//                 type:Number,
+//         },
+//         stock:{
+//                 type:Number,
+//                 default:1
+//         },
+//         image: Array,
+//         imageId: Array,
+// }],
 
 
 });

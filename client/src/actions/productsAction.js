@@ -14,7 +14,9 @@ import {
   WISHLIST,
   EMPTY_CART,
   DEL_WISHLIST,
-  PATH_CHECKER
+  PATH_CHECKER,
+  PRODUCTS,
+  STATUS_UPDATE,
 } from "./types";
 import {socket} from '../components/centralized/navbar'
 
@@ -280,36 +282,56 @@ var getCartProdLocalStorage=[]
     })
   }
   
-  export const addProduct = (newPoduct) => dispatch => {
-    axios
-      .post('http://localhost:5000/api/createProducts',newPoduct)
-      .then(res => {
-        dispatch(getProducts('Add Products'));
-        console.log('create product admin sy ka data ', res.data)
-      })
-      .catch(err => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: err.message
-        })
-        console.log('added products sy ..........',err)
-      })
-  }
+  // export const addProduct = (newPoduct) => dispatch => {
+  //   axios
+  //     .post('http://localhost:5000/api/createProducts',newPoduct)
+  //     .then(res => {
+  //       dispatch(getProducts('Add Products'));
+  //       console.log('create product admin sy ka data ', res.data)
+  //     })
+  //     .catch(err => {
+  //       dispatch({
+  //         type: GET_ERRORS,
+  //         payload: err.message
+  //       })
+  //       console.log('added products sy ..........',err)
+  //     })
+  // }
 
-  export const updateProduct = (updatePoduct) => dispatch => {
-    axios
-      .put('http://localhost:5000/api/updateProducts',updatePoduct)
-      .then(res => {
-        dispatch({
-          type: UPDATE_PRODUCT,
-          payload: res.data
+  export const addProduct = (newPoduct) => dispatch => {
+      axios
+        .post('http://localhost:5000/api/createProduct',newPoduct)
+        .then(res => {
+          dispatch(getProducts('Add Products'));
+          // dispatch({
+          //   type: GET_PRODUCTS,
+          //   payload: res.data
+          // })
+          console.log('create product admin sy ka data ', res.data)
         })
-        console.log('Update product admin sy ka data ', res.data)
-      })
-      .catch(err => {
-        console.log('Update product error......., ', err.message)
-      })
-  }
+        .catch(err => {
+          dispatch({
+            type: GET_ERRORS,
+            payload: err.message
+          })
+          console.log('added products sy ..........',err)
+        })
+    }
+
+  // export const updateProduct = (updatePoduct) => dispatch => {
+  //   axios
+  //     .put('http://localhost:5000/api/updateProducts',updatePoduct)
+  //     .then(res => {
+  //       dispatch({
+  //         type: UPDATE_PRODUCT,
+  //         payload: res.data
+  //       })
+  //       console.log('Update product admin sy ka data ', res.data)
+  //     })
+  //     .catch(err => {
+  //       console.log('Update product error......., ', err.message)
+  //     })
+  // }
 
   export const sendToCartOwner = (orderData) => dispatch => {
     axios
@@ -418,6 +440,47 @@ export const infoPathCheck = (data) => dispatch => {
  
 }
 
+export const updateStatus = (data) => dispatch => {
+  // console.log(data)
+  axios
+  .post('http://localhost:5000/api/updateStatus',data)
+  .then(res => {
+    console.log('status change succesfully',res.data)
+      dispatch({
+        type: STATUS_UPDATE,
+        payload: res.data
+      })
+    // console.log('Wish List Get ki Req sy', res.data)
+  })
+  .catch(err => {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err
+    })
+    console.log('Status update ka error ka error......., ', err.message)
+  })
+}
+
+export const updateProductStatus = (data) => dispatch => {
+  // console.log(data)
+  axios
+  .post('http://localhost:5000/api/updateProductStatus',data)
+  .then(res => {
+    console.log('status change succesfully',res.data)
+      dispatch({
+        type: STATUS_UPDATE,
+        payload: res.data
+      })
+    // console.log('Wish List Get ki Req sy', res.data)
+  })
+  .catch(err => {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err
+    })
+    console.log('Status update ka error ka error......., ', err.message)
+  })
+}
 
 
   

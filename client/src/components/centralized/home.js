@@ -301,7 +301,7 @@ import queryString from "query-string";
                         (this.state.loading==true)?(<HomeLoader/>):(
                          this.state.products.map((item,index) => {  
                          return(
-                            <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p1' onClick={this.p1} >
+                            <div className='p1 col-lg-3 col-md-6 col-sm-12 col-xs-12 ' onClick={this.p1} >
                             {/* <div className='topInner'>
                                     <p>-57%</p>
                                 </div> */}

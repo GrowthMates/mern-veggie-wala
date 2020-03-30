@@ -259,7 +259,7 @@ module.exports = {
 
                 cartProducts.forEach( (item,i)=>{
                     console.log('Index dekho===',i,data)
-                   Product.findByIdAndUpdate(item.filterProduct._id,{ $inc: { stock: -item.quantity } }).then((product)=>{
+                   Product.findByIdAndUpdate(item.filterProduct._id,{'cartStock.cart':'cart 1'},{ $inc: { stock: -item.quantity } }).then((product)=>{
                        currentProduct=product
                         console.log('ProductUpdate success: ',product)
                         if(cartProducts[i]===cartProducts[cartProducts.length-1]){ 

@@ -93,7 +93,7 @@ class Login extends Component{
                         className='textfields' 
                         id="email"
                         type="email" 
-                        label="Ayyan"
+                        label="Email"
                         className={classnames("", {
                             invalid: errors.email || errors.emailnotfound
                           })} 

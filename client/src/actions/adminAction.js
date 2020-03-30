@@ -11,7 +11,7 @@ export const getProducts = (caller) => dispatch => {
     console.log(`GEtPRoducts admin ky update by ${caller}=====`)
  
       axios
-        .get("http://localhost:5000/api/products")
+        .get("/api/products")
         .then((res) => {
   
                         console.log("Products success", res)
@@ -42,7 +42,7 @@ export const selectedproduct = data => dispatch => {
 }
 
 export const updateProduct = data => dispatch => {
-    axios.post("http://localhost:5000/api/updateProduct",data)
+    axios.post("/api/updateProduct",data)
     .then(res => {
         dispatch(getProducts('Add Products'));
         
@@ -57,7 +57,7 @@ export const updateProduct = data => dispatch => {
 
 export const carts = data => dispatch => {
 
-  axios.get('http://localhost:5000/api/getCartOwners')
+  axios.get('/api/getCartOwners')
   .then(res => {
     dispatch({
       type:GET_CARTS,

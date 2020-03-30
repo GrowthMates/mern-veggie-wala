@@ -37,7 +37,7 @@ var getCartProdLocalStorage=[]
   //        )   
   // })
     axios
-      .get("http://localhost:5000/api/products")
+      .get("/api/products")
       .then((res) => {
 
                       console.log("Products success", res)
@@ -88,7 +88,7 @@ var getCartProdLocalStorage=[]
                         // console.log(filterObj[0]._id, 'No6:--find hua wa id');
                         
                         axios
-                        .post("http://localhost:5000/api/user-data/addToCart", productCart)
+                        .post("/api/user-data/addToCart", productCart)
                         .then((res) => {
                              
                                localStorage.setItem('addCart',JSON.stringify(res.data))
@@ -134,7 +134,7 @@ var getCartProdLocalStorage=[]
     //                       qnty: newArr
     //                     }
     //                     console.log('Api Call se pehle newArr----',result,newArr,arr)
-    //                     axios.put("http://localhost:5000/api/user-data/updateCart", update )
+    //                     axios.put("/api/user-data/updateCart", update )
     //                     .then(res => {
     //                         console.log('Update cart res----',res.data)
     //                         var matchItem = arr.findIndex(i => i._id == result.cartSchemaId );
@@ -157,7 +157,7 @@ var getCartProdLocalStorage=[]
               productCart.checker=true
                console.log('products cart else======',productCart)
               axios
-                  .post("http://localhost:5000/api/user-data/addToCart", productCart)
+                  .post("/api/user-data/addToCart", productCart)
                   .then((res) => {
                        
                          localStorage.setItem('addCart',JSON.stringify(res.data))
@@ -224,7 +224,7 @@ var getCartProdLocalStorage=[]
 
   export const userCart = (history) => dispatch => {
     axios
-      .get("http://localhost:5000/api/user-data/cart")
+      .get("/api/user-data/cart")
       .then((res) => {
                       localStorage.setItem('UserCart',JSON.stringify(res.data))
                       console.log('Cart in local-----:',localStorage.getItem('UserCart') )
@@ -251,7 +251,7 @@ var getCartProdLocalStorage=[]
 
   export const proceed = (newProceed, history) => dispatch => {
     axios
-      .post('http://localhost:5000/api/products/proceed',newProceed)
+      .post('/api/products/proceed',newProceed)
       .then(res => {
         localStorage.removeItem('CartProduct')
         
@@ -284,7 +284,7 @@ var getCartProdLocalStorage=[]
   
   // export const addProduct = (newPoduct) => dispatch => {
   //   axios
-  //     .post('http://localhost:5000/api/createProducts',newPoduct)
+  //     .post('/api/createProducts',newPoduct)
   //     .then(res => {
   //       dispatch(getProducts('Add Products'));
   //       console.log('create product admin sy ka data ', res.data)
@@ -300,7 +300,7 @@ var getCartProdLocalStorage=[]
 
   export const addProduct = (newPoduct) => dispatch => {
       axios
-        .post('http://localhost:5000/api/createProduct',newPoduct)
+        .post('/api/createProduct',newPoduct)
         .then(res => {
           dispatch(getProducts('Add Products'));
           // dispatch({
@@ -320,7 +320,7 @@ var getCartProdLocalStorage=[]
 
   // export const updateProduct = (updatePoduct) => dispatch => {
   //   axios
-  //     .put('http://localhost:5000/api/updateProducts',updatePoduct)
+  //     .put('/api/updateProducts',updatePoduct)
   //     .then(res => {
   //       dispatch({
   //         type: UPDATE_PRODUCT,
@@ -335,7 +335,7 @@ var getCartProdLocalStorage=[]
 
   export const sendToCartOwner = (orderData) => dispatch => {
     axios
-      .post('http://localhost:5000/api/cartOwner/confirmOrder',orderData)
+      .post('/api/cartOwner/confirmOrder',orderData)
       .then(res => {
         dispatch({
           type: CONFIRM_ORDER,
@@ -350,7 +350,7 @@ var getCartProdLocalStorage=[]
 
   export const delAfterApproved = (key) => dispatch => {
     axios
-      .post('http://localhost:5000/api/del/approved',key)
+      .post('/api/del/approved',key)
       .then(res => {
         dispatch({
           type: DEL_APPROVALS,
@@ -365,7 +365,7 @@ var getCartProdLocalStorage=[]
 
   export const delCartProducts = (prcd) => dispatch => {
     axios
-      .post('http://localhost:5000/api/del/cart',prcd)
+      .post('/api/del/cart',prcd)
       .then(res => {
            localStorage.removeItem('CartProduct');
         console.log('approval wali product del ho gai admin sy ', res.data)
@@ -384,7 +384,7 @@ var getCartProdLocalStorage=[]
 
   export const wishList = (data) => dispatch => {
         axios
-        .post('http://localhost:5000/api/wishList',data)
+        .post('/api/wishList',data)
         .then(res => {
             dispatch({
               type: WISHLIST,
@@ -400,7 +400,7 @@ var getCartProdLocalStorage=[]
   export const getWishList = (data) => dispatch => {
     // console.log(data)
     axios
-    .post('http://localhost:5000/api/getWishList',data)
+    .post('/api/getWishList',data)
     .then(res => {
       console.log(res.data)
         dispatch({
@@ -417,7 +417,7 @@ var getCartProdLocalStorage=[]
 export const delWishList = (data) => dispatch => {
   // console.log(data)
   axios
-  .post('http://localhost:5000/api/del/wishList',data)
+  .post('/api/del/wishList',data)
   .then(res => {
     console.log(res.data)
       dispatch({
@@ -443,7 +443,7 @@ export const infoPathCheck = (data) => dispatch => {
 export const updateStatus = (data) => dispatch => {
   // console.log(data)
   axios
-  .post('http://localhost:5000/api/updateStatus',data)
+  .post('/api/updateStatus',data)
   .then(res => {
     console.log('status change succesfully',res.data)
       dispatch({
@@ -464,7 +464,7 @@ export const updateStatus = (data) => dispatch => {
 export const updateProductStatus = (data) => dispatch => {
   // console.log(data)
   axios
-  .post('http://localhost:5000/api/updateProductStatus',data)
+  .post('/api/updateProductStatus',data)
   .then(res => {
     console.log('status change succesfully',res.data)
       dispatch({

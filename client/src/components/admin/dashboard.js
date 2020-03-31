@@ -71,7 +71,7 @@ console.log('WillMount Admin -------')
 
     componentDidMount(){
         axios
-        .get("http://localhost:5000/api/products")
+        .get("/api/products")
         .then((res) => {
                        
             this.setState({
@@ -85,7 +85,7 @@ console.log('WillMount Admin -------')
         );
 
         axios
-        .get('http://localhost:5000/api/bookedProducts')
+        .get('/api/bookedProducts')
         .then(res => {
             this.setState({
                 bookedOrderData: res.data.data
@@ -118,7 +118,7 @@ console.log('WillMount Admin -------')
             imageId:key.imageId,
             key:key._id,
         }
-        axios.post("http://localhost:5000/api/delProducts", id)
+        axios.post("/api/delProducts", id)
             .then(res => {
               this.props.getProducts('Admin Delete');
                 // cartProducts.splice(index,1);

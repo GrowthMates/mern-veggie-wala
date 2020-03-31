@@ -175,7 +175,7 @@ log(index,filtered)
     }
     componentDidMount() {
         log(this.props.match)
-        axios.get('http://localhost:5000/api/getCartOwners')
+        axios.get('/api/getCartOwners')
         .then(res => {
             log('carta ka data',res.data);
             this.setState({

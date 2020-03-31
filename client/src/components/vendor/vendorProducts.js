@@ -30,7 +30,7 @@ class VendorProducts extends Component {
         })
         // log(id)
         let _id = {id}
-        axios.post("http://localhost:5000/api/deleteProduct",_id)
+        axios.post("/api/deleteProduct",_id)
         
         .then(res => {
             log("delete ka res",res);

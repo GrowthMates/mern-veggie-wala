@@ -75,7 +75,7 @@ var lineTotalArr = []
        
         console.log('cart del Ponka. >>>>', delBody)
 
-        axios.post("http://localhost:5000/api/user-data/delCart", delBody)
+        axios.post("/api/user-data/delCart", delBody)
             .then(res => {
 
              

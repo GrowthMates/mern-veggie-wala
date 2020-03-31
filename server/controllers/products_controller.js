@@ -21,7 +21,7 @@ module.exports = {
                 console.log('All products err--------',err);
                 return res.status(400).json({ productsNotFound: "No products Available" });
             }
-            console.log('Products Find====',products.reverse())
+            // console.log('Products Find====',products)
             res.status(200).send(products.reverse());
         })
 

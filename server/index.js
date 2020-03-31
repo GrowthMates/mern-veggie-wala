@@ -181,7 +181,7 @@ setTimeout(()=>{
     app.post('/api/logout', userController.logout);
     //Products Endpoints
     //Getting all the products
-    app.get('/api/products', productsController.readAllProducts);
+    app.post('/api/products', productsController.readAllProducts);
 
     app.post('/api/updateProductStatus', productsController.updateProductStatus);
 

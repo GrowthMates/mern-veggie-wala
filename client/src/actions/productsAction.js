@@ -37,7 +37,7 @@ var getCartProdLocalStorage=[]
   //        )   
   // })
     axios
-      .get("/api/products")
+      .post("/api/products",{data:''})
       .then((res) => {
 
                       console.log("Products success", res)

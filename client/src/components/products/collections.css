@@ -16,6 +16,7 @@
 } */
 .team{
     padding-left: -20px;
+    margin-bottom: 10px;
 }
 .cart-btn{
     background-color: #5BA616;
@@ -142,12 +143,14 @@ h5.cursor-pointer:hover{
   .team img{
 
       border-radius: 20px;
+      margin:0px
   }
   .prodImg{
       float: left;
-      padding-left: 0px;
+      padding: 0px;
       text-align: left;
-      height: 45vh;
+      height: 100%;
+      width: 100%;
       border-radius: 25px !important;
       
     }
@@ -156,10 +159,17 @@ h5.cursor-pointer:hover{
 
 }
 .data p{
+    /* color: rgba(148, 144, 137, 0.637);
+    font-size: larger;
+    font-weight: 400;
+    text-align: left; */
     color: rgba(148, 144, 137, 0.637);
     font-size: larger;
     font-weight: 400;
     text-align: left;
+    max-height: 7vh;
+    overflow: hidden;
+    text-overflow: ellipsis;    
 }
 .mainRight{
     padding: 0px !important;

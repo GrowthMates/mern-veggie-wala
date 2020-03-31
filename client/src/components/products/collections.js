@@ -124,7 +124,7 @@ class Collections extends Component{
             <div className="container div-items">
                 {/* {this.props.loading} */}
                 <div className="row custom-row">
-                    <div className="col-md-2 col-lg-2 col-sm-2 side-bar">
+                    <div className="col-md-3 col-lg-3 col-sm-3 side-bar">
                        <div className="side-bar-section"> 
                             <h4>Categories</h4>
                                 <ul className="side-list">
@@ -154,7 +154,7 @@ class Collections extends Component{
                    </div>
 
 
-                    <div className="col-md-9 col-lg-9 col-sm-9 mainRight">
+                    <div className="col-md-8 col-lg-8 col-sm-8 mainRight">
                                    
                         <div className="container">
                         

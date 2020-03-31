@@ -252,6 +252,7 @@ log(index,filtered)
             category,
             id,
         }
+       
         this.props.updateProduct(updateProduct)
         log(updateProduct)
         if(!this.props.status){

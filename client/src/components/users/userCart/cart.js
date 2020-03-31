@@ -41,7 +41,7 @@ var lineTotalArr = []
      }
      
      componentDidMount(){
-         console.log('local styorge',this.props.cartProducts) 
+         console.log('local styorgecrt',this.props.cartProducts) 
          this.setState({
              cartProducts:this.props.cartProducts
          })        
@@ -119,10 +119,13 @@ var lineTotalArr = []
          var qnty  = arr.map((item,i) => {
             
             if(item.cartSchemaId === id){
+                // item.quantity = parseInt(e.target.value)
                 item.quantity = parseInt(e.target.value)
+                
                 return arr
             }
         })
+        console.log(this.state.cartProducts)
         // console.log('qty',qnty[index][index].quantity)
         var lineTotal = (qnty[index][index].quantity*price)
         // console.log('line total', lineTotal)
@@ -157,7 +160,7 @@ var lineTotalArr = []
         console.log('price ki state',this.state.totalPrice)
         this.props.totalPrice(this.state.totalPrice)
     //  console.log()
-        axios.put("http://localhost:5000/api/user-data/updateCart", update )
+        axios.put("/api/user-data/updateCart", update )
         .then(res => {
             console.log('Update cart res----',res.data)
             this.state.cartProducts.forEach((item,index)=>{

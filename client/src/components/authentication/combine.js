@@ -19,7 +19,8 @@ class Combined extends Component{
 
         // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
-          this.props.history.push("/dashboard");
+          console.log(this.props.history)
+          this.props.history.goBack(  )     //push("/dashboard");
         }
       }
     componentWillReceiveProps(nextProps) {

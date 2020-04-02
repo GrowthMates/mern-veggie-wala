@@ -47,7 +47,7 @@ class Login extends Component{
 
       googleAuth(e){
 
-        window.location.replace("http://localhost:5000/auth/google");
+        window.location.replace("/auth/google");
       }
 
 

@@ -154,9 +154,11 @@ class VendorProducts extends Component {
             //   log(bilkulFinal.map(i => {return i.stock.reduce((a,b)=> {return a+b} )}))
             //   final.forEach(e => {
             //   })
-            // log(products)
+            log(products)
         }
+        else log(this.props.product)
       }
+      else log(this.props.product)
       console.log(this.state)
       
         return ( 
@@ -209,6 +211,7 @@ class VendorProducts extends Component {
                             <tbody >
                                 { this.props.status===true ? (<p>{this.props.error}</p>) :  products.length==0? <p>Loading...</p> : (
                                     products.map((item,index) => {
+                                        log(products)
                                     return  item.status==='recieve'? (
                                             <tr className='productRows'  style={{textAlign: 'left'}} >
                                             <td scope='row' > {index+1} </td>

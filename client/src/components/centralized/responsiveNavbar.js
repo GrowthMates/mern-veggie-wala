@@ -90,22 +90,22 @@ export default class ResponsiveNavbar extends Component{
                 </nav>
 
                 {/* Navbar hamburger after open */}
-             <div class="row">
-                <div class="col">
-                    <div class="collapse multi-collapse" id="multiCollapseExample2">
-                     <div class="card card-body">
+             <div className="row">
+                <div className="col">
+                    <div className="collapse multi-collapse" id="multiCollapseExample2">
+                     <div className="card card-body">
                          {/* divider for top */}
                             <div className='hamburgerDivider'>
                                 <div className={this.state.active ? 'linkActive  inner-item1' : 'notActive inner-item1'}  
                                  onClick={this.menu.bind(this)}>
-                                        <div classname='leftHamburger'>Menu</div>
+                                        <div className='leftHamburger'>Menu</div>
 
 
                                 </div>
                                     
                                 <div  className={this.state.active1 ? 'linkActive  inner-item2' : 'notActive inner-item2'}
                                  className='inner-item2' onClick={this.login.bind(this)}>
-                                        <div classname='rightHamburger'>Login</div>
+                                        <div className='rightHamburger'>Login</div>
                                 </div>
                          </div>
 
@@ -144,7 +144,7 @@ export default class ResponsiveNavbar extends Component{
              {/* input search */}
 
              <input type='text' placeholder='Type to search' className='respSearch' />
-             <i class="fa fa-search respI" aria-hidden="true"></i>
+             <i className="fa fa-search respI" aria-hidden="true"></i>
             </div>
         )
     }

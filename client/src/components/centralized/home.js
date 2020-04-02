@@ -181,30 +181,30 @@ import queryString from "query-string";
             <div>
              
              <section onClick={this.changer.bind(this)}  className='col-lg-12 homeImg'> 
-             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+             <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+                    <ol className="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                         <img class="d-block w-100" src={h1} alt="First slide"/>
+                    <div className="carousel-inner">
+                        <div className="carousel-item active">
+                         <img className="d-block w-100" src={h1} alt="First slide"/>
                         </div>
-                        <div class="carousel-item">
-                         <img class="d-block w-100" src={h2} alt="Second slide"/>
+                        <div className="carousel-item">
+                         <img className="d-block w-100" src={h2} alt="Second slide"/>
                         </div>
-                        <div class="carousel-item">
-                         <img class="d-block w-100" src={h1} alt="Third slide"/>
+                        <div className="carousel-item">
+                         <img className="d-block w-100" src={h1} alt="Third slide"/>
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
+                    <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span className="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
+                    <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span className="sr-only">Next</span>
                     </a>
                     </div>    
                     </section>    
@@ -301,7 +301,7 @@ import queryString from "query-string";
                         (this.state.loading==true)?(<HomeLoader/>):(
                          this.state.products.map((item,index) => {  
                          return(
-                            <div className='p1 col-lg-3 col-md-6 col-sm-12 col-xs-12 ' onClick={this.p1} >
+                            <div key={index} className='p1 col-lg-3 col-md-6 col-sm-12 col-xs-12 ' onClick={this.p1} >
                             {/* <div className='topInner'>
                                     <p>-57%</p>
                                 </div> */}
@@ -460,10 +460,10 @@ import queryString from "query-string";
 
               <div className='container newsFeed' >
                    <div className='row'>
-                       <div classname='col-lg-6'>    
+                       <div className='col-lg-6'>    
                           <h1 style={{color: '#616161', fontWeight: '300'}}>Subscribe <span style={{color: '#616161', fontWeight: '600'}}  > Newsletter  </span> </h1>
                        </div>
-                       <div classname='col-lg-6'>    
+                       <div className='col-lg-6'>    
                             <form>
                                <input placeholder='Type to search' className='navInput' />
                                {/* <button className='navBtn'>Search</button> */}

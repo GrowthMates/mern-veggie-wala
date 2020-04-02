@@ -9,8 +9,14 @@ let log = console.log
 class CartOrders extends Component {
     constructor(props) {
         super(props);
-        this.state = { orders:undefined,carts:undefined,status:'',index:'',loading:false}
-    
+        this.state = { 
+            orders:undefined,
+            carts:undefined,
+            status:'',
+            index:'',
+            loading:false,
+            selectedStatus:'all'
+        }
         console.log(props)
     }
 
@@ -63,12 +69,27 @@ componentWillReceiveProps(nextProps) {
     }
 }
 
+statusViseView(status,e){
+    e.preventDefault();
+    log('selected==>>',status)
+    this.setState({selectedStatus:status})
+}
+
     render(props) { 
         let time = undefined;
         log(this.props)
         let filtered = [];
+        let filteredOrders=[];
+        let {selectedStatus}=this.state
         if(this.state.carts!==undefined){
-            filtered= this.state.carts.filter(e => {return e.cart==='cart 1'})
+           
+            filtered = this.state.carts.filter(e => {return e.cart==='cart 1'})
+            filtered.forEach(element=>{
+                let orders = element.orders.filter(e=>{return e.status==selectedStatus})
+                console.log('orders filtered=>>',orders)
+                if(selectedStatus != 'all'){filteredOrders=orders}
+                else filteredOrders=element.orders
+            })
         }
         log( 'cart vise => ' ,filtered)
 
@@ -78,15 +99,17 @@ componentWillReceiveProps(nextProps) {
             <div style={{padding: '10px 30px'}} >
                 {/* <Timer/> */}
                 <div className='row' >
+                    {filtered.length<1?void 0:
                     <ul className='ordersUl' >
-                        <li>ALl (3) </li>
-                        <li>Completed (2) </li>
-                        <li>Processing (7) </li>
-                        <li>On-hold (0) </li>
-                        <li>Pending (8) </li>
-                        <li> Canceled (0) </li>
-                        <li> Refund (0) </li>
+                        <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'all')}>All ({filtered[0].orders.length}) </li>
+                        <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'pending')}>Pending ({filtered[0].orders.filter(e=>{return e.status=='pending'}).length}) </li>
+                        <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'dispatch')}>Dispatch ({filtered[0].orders.filter(e=>{return e.status=='dispatch'}).length}) </li>
+                        <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'complete')}>Completed ({filtered[0].orders.filter(e=>{return e.status=='complete'}).length}) </li>
+                        {/* <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'canceled')}> Canceled ({element.orders.filter(e=>{return e.status=='canceled'}).length}) </li> */}
+                        {/* <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'onHold')}>On-hold (0) </li> */}
+                        {/* <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'refund')}> Refund (0) </li> */}
                     </ul>
+                    }
                 </div>
 
                 <div className='row' >
@@ -118,7 +141,7 @@ componentWillReceiveProps(nextProps) {
                             { filtered.length>=1 ?                           
                                 !this.state.carts ? <p>Loading......</p> : 
                            (filtered.map((item,index) => {
-                                return item.orders.map((i,ind) => {
+                                return filteredOrders.map((i,ind) => {
                                     return (
                                         <tr key={ind} >
                                 {/* <th> {index+1} </th> */}

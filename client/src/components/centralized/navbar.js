@@ -212,14 +212,14 @@ class Navbar extends Component{
                                          <span> | </span>
 
                                         
-                                         <Link class="dropdown">
+                                         <Link className="dropdown">
                                          <img className='cursor-pointer dropbtn' src={shoppingcart} width='20' height='20.52'/> <sup>{this.state.qty || this.props.cartProducts }</sup>
-                                            <div class="dropdown-content">
+                                            <div className="dropdown-content">
                                                 <div style={{overflowY: 'scroll', height: '30em'}} > 
                                                 {!this.state.cartData?<p>loading</p> : (
                                                 this.state.cartData.map((item,index) => {
                                                     return (
-                                                        <div className='row hvr'>
+                                                        <div key={index} className='row hvr'>
                                                             <div className='col-lg-3'>
                                                                 
                                                                 <img src={item.filterProduct.image[0]} height='40' width='40' />
@@ -250,7 +250,7 @@ class Navbar extends Component{
                                         <p>Shopping cart
                                             <span className='cartPrice' >Rs.
                                             {
-                                            this.state.loading===true? <div class="loader">Loading</div> :
+                                            this.state.loading===true? <span className="loader">Loading</span> :
                                             this.props.loading===true ? this.props.totalPrice:
                                              this.state.totalPrice 
                                             } </span>

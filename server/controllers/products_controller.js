@@ -14,7 +14,7 @@ module.exports = {
     
     readAllProducts(req, res){
         console.log('ReadAllProducts called===',req.headers.host)
-        Product.find({}).limit(2).exec((err, products)=>{
+        Product.find({}).limit(10).exec((err, products)=>{
             if(err){
                 console.log('All products err--------',err);
                 return res.status(400).json({ productsNotFound: "No products Available" });

@@ -49,7 +49,7 @@ class Collections extends Component{
            if(this.props.products){ 
                 this.setState({
                     products:this.props.products,
-                    loading:this.props.loading,
+                    loading:false,
                     user:this.props.auth
                 })
             }

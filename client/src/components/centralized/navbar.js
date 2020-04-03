@@ -28,7 +28,8 @@ class Navbar extends Component{
         searchActive: false,
         totalPrice: JSON.parse(localStorage.getItem('totalPrice')),
         loading:true,
-        cartData:undefined
+        cartData:undefined,
+        user:undefined,
 
     }
 }
@@ -41,7 +42,8 @@ class Navbar extends Component{
             this.setState({
                 totalPrice: this.props.totalPrice,
                 loading:false,
-                cartData: this.props.cartData
+                cartData: this.props.cartData,
+                user:this.props.user
             })
         
         if(this.props.products){
@@ -91,7 +93,8 @@ class Navbar extends Component{
             qty: nextProps.cartProducts,
             filter: nextProps.products,
             totalPrice: nextProps.totalPrice,
-            cartData:nextProps.cartData
+            cartData:nextProps.cartData,
+            user:nextProps.user
         })
 
         }
@@ -280,9 +283,9 @@ class Navbar extends Component{
                         <li><Link to='/'>Home</Link></li>
                         <li><Link to='/contact'>Contact Us</Link></li>
                         <li><Link to='/about'>About Us</Link></li>
+                       <li><Link to='/collections' >Products</Link></li>
                         <li><Link to='combined'>Sign In</Link></li>
-                       <li><Link to='/wishList' >Wish List</Link></li>
-                       <li><Link to='/cart'>Cart</Link></li>
+                       {/* <li><Link to='/cart'>Cart</Link></li> */}
                     </ul>
                 </div>
             </div>
@@ -302,7 +305,8 @@ const mapStateToProps = state => {
             products: state.products.products,
             totalPrice: state.cartReducer.totalPrice,
             loading: state.cartReducer.loading,
-            cartData:state.cartReducer.cart
+            cartData:state.cartReducer.cart,
+            user:state.auth.user
 
         }}
         else{
@@ -311,8 +315,8 @@ const mapStateToProps = state => {
                 products: state.products.products,
                 totalPrice: state.cartReducer.totalPrice,
                 loading: state.cartReducer.loading,
-                cartData:state.cartReducer.cart
-    
+                cartData:state.cartReducer.cart,
+                user:state.auth.user
             }
         }
   };

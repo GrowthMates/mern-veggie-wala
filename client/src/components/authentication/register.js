@@ -6,6 +6,14 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+
+
+function Alert(props){
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 class Register extends Component{
 
@@ -18,7 +26,9 @@ class Register extends Component{
           password2: "",
           address: "",      
           number: "",      
-          errors: {}
+          errors: {},
+          success:false,
+          open:false,
         };
       }
 
@@ -31,8 +41,16 @@ class Register extends Component{
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
           this.setState({
-            errors: nextProps.errors
+            errors: nextProps.errors,
           });
+        }
+        if(nextProps){
+          if(nextProps.auth.registered){
+            this.setState({
+              success:true,
+              open:true,
+            })
+          }
         }
       }
     onChange = e => {
@@ -50,7 +68,23 @@ class Register extends Component{
           number: this.state.number
         };
     this.props.registerUser(newUser, this.props.history); 
+    this.setState({
+      name: '',
+      email: '',
+      password: '',
+      password2: '',
+      address: '',
+      number: ''
+    })
       };
+
+      handleClose = (event, reason) => {
+        this.setState({
+          open:false
+        })
+        // if (reason === 'clickaway') {
+        //   return;
+        }
       
     render(){
         
@@ -175,6 +209,11 @@ class Register extends Component{
               
               </div>
           </form>
+          <Snackbar open={this.state.success} autoHideDuration={6000} onClose={this.handleClose.bind(this)}>
+              <Alert onClose={this.handleClose.bind(this)} severity="success">
+                        Registered Successfully!
+              </Alert>
+            </Snackbar>
               
           </div>
              

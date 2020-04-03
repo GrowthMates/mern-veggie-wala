@@ -133,10 +133,10 @@ class Login extends Component{
                             <span style={{margin:'20px', fontWeight:'600'}}>OR</span>
                         {/* <input style={{width:'250px',height:'50px', marginTop:'25px'}} type='button' value='Sign In with Gmail' onClick={this.googleAuth}/>
                         <i style={{position:'sticky',marginTop:'25px'}}><img src={GIcon}/></i> */}
-                        <button className='gmail-btn' onClick={this.googleAuth}>
+                        {/* <button className='gmail-btn' onClick={this.googleAuth}>
                           <span>Sign In with Gmail</span>
                           <i style={{marginTop:'25px'}}><img src={GIcon} style={{backgroundColor:'white'}}  /></i>
-                          </button>
+                          </button> */}
 
                         </div>
                 </form>

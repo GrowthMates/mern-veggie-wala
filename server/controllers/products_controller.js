@@ -2,21 +2,19 @@ const Product = require('../models/product');
 const mongoose = require('mongoose')
 const NewCart = require('../models/admin/newCart')
 
+// var MySchema = mongoose.model('Product')
+// Product.update({"name": "erer", "cartStock.cart" : "cart 1" } ,
+// {$inc : {"cartStock.$.stock" : 12} },
+// function(data) {console.log('hello world',data)});
+// Product.findOneAndUpdate({_id: "5e4e8832c68ebc040467d640", 'cartStock.cart': "cart 3"},{$inc:{'cartStock.stock':2}})
+// .then((blogPost) => console.log(blogPost.cartStock))
+// let product = new Product
+// console.log(product)
 module.exports = {
     
     readAllProducts(req, res){
-        // var MySchema = mongoose.model('Product')
-        console.log('ReadAllProducts called===')
-        // Product.update({"name": "erer", "cartStock.cart" : "cart 1" } ,
-        // {$inc : {"cartStock.$.stock" : 12} },
-        // function(data) {console.log('hello world',data)});
-        // Product.findOneAndUpdate({_id: "5e4e8832c68ebc040467d640", 'cartStock.cart': "cart 3"},{$inc:{'cartStock.stock':2}})
-        // .then((blogPost) => console.log(blogPost.cartStock))
-
-
-        // let product = new Product
-    // console.log(product)
-        Product.find({}).exec((err, products)=>{
+        console.log('ReadAllProducts called===',req.headers.host)
+        Product.find({}).limit(2).exec((err, products)=>{
             if(err){
                 console.log('All products err--------',err);
                 return res.status(400).json({ productsNotFound: "No products Available" });

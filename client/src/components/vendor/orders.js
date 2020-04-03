@@ -7,7 +7,7 @@ let log = console.log
 class VendoOrders extends Component {
     constructor(props) {
         super(props);
-        this.state = { orders:undefined,carts:undefined,selectedCart:'' }
+        this.state = { orders:undefined,carts:undefined,selectedCart:'',selectedStatus:'all' }
     }
 
     onChange = e => this.setState({ [e.target.name]: e.target.value })
@@ -32,26 +32,42 @@ class VendoOrders extends Component {
         //     })
         // })
     }
+    statusViseView(status,e){
+        e.preventDefault();
+        log('selected==>>',status)
+        this.setState({selectedStatus:status})
+    }
+
     render() { 
         log(this.state.carts)
         let filtered = [];
+        let filteredOrders=[];
+        let {selectedStatus}=this.state
         if(this.state.carts!==undefined){
             filtered= this.state.carts.filter(e => {return e.cart===this.state.selectedCart})
+            filtered.forEach(element=>{
+                let orders = element.orders.filter(e=>{return e.status==selectedStatus})
+                console.log('orders filtered=>>',orders)
+                if(selectedStatus != 'all'){filteredOrders=orders}
+                else filteredOrders=element.orders
+            })
         }
         log( 'cart vise => ' ,filtered)
 
         return ( 
             <div style={{padding: '10px 30px'}} >
                 <div className='row' >
+                {filtered.length<1?void 0:
                     <ul className='ordersUl' >
-                        <li>ALl (3) </li>
-                        <li>Completed (2) </li>
-                        <li>Processing (7) </li>
-                        <li>On-hold (0) </li>
-                        <li>Pending (8) </li>
-                        <li> Canceled (0) </li>
-                        <li> Refund (0) </li>
+                        <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'all')}>All ({filtered[0].orders.length}) </li>
+                        <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'pending')}>Pending ({filtered[0].orders.filter(e=>{return e.status=='pending'}).length}) </li>
+                        <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'dispatch')}>Dispatch ({filtered[0].orders.filter(e=>{return e.status=='dispatch'}).length}) </li>
+                        <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'complete')}>Completed ({filtered[0].orders.filter(e=>{return e.status=='complete'}).length}) </li>
+                        {/* <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'canceled')}> Canceled ({element.orders.filter(e=>{return e.status=='canceled'}).length}) </li> */}
+                        {/* <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'onHold')}>On-hold (0) </li> */}
+                        {/* <li className='cursor-pointer' onClick={this.statusViseView.bind(this,'refund')}> Refund (0) </li> */}
                     </ul>
+                    }
                 </div>
 
                 <div className='row' >
@@ -85,7 +101,7 @@ class VendoOrders extends Component {
                         <tbody>
                             { filtered.length>=1 ? 
                             (filtered.map((item,index) => {
-                                return item.orders.map((i,ind) => {
+                                return filteredOrders.orders.map((i,ind) => {
                                     return (
                                         <tr key={ind} >
                                 <th scope="row" style={{color: '#FF4747'}} > Order #1310  </th>

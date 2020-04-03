@@ -1,5 +1,6 @@
 import {
     SET_CURRENT_USER,
+    GET_REGISTER,
     USER_LOADING
   } from "../actions/types";
   const isEmpty = require("is-empty");
@@ -21,6 +22,11 @@ import {
           ...state,
           loading: true
         };
+      case GET_REGISTER:
+        return {
+          ...state,
+          registered:action.payload
+        }  
       default:
         return state;
     }

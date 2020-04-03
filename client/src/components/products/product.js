@@ -22,7 +22,9 @@ class Product extends Component{
             price:undefined,
             description:'',
             quantity:undefined,
-            product:undefined
+            product:undefined,
+            errors:undefined,
+            loading:false,
         }
     }
     
@@ -48,8 +50,13 @@ componentWillReceiveProps(nextProps){
         console.log("Prev. props......",this.props.product)
         console.log("Cart Array......",nextProps)
         this.setState({
-            loader:false
+            loader:false,
+            loading:false
         })
+        if(nextProps.error){
+            console.log(nextProps.error)
+            this.setState({errors:nextProps.error})
+        }
     }
     console.log('jsvjd',nextProps)
     if(nextProps.products){
@@ -70,13 +77,7 @@ onChangeQty(e){
 
  onSubmit=(item,e)=>{
     e.preventDefault();
-    // console.log('onsubmit',id)
-    // return false;
-    // this.setState({
-    //     name ,
-    //     price ,
-    //     description
-    // })
+    this.setState({loading:true})
     let productId;
     if(this.state.quantity==undefined){
         productId = {
@@ -172,9 +173,16 @@ onChangeQty(e){
 
                                                 </div>          
                                         </div>
-                                        {currProduct.stock>0
+                                        {this.state.loading?
+                                        <button class="buttonload" onClick={void 0}>
+                                        <i class="fa fa-spinner fa-spin"></i>Loading
+                                        </button>
+                                        :currProduct.stock>0
                                                 ?<button onClick={this.onSubmit.bind(this,currProduct)}  type="button" class="btn btn-success btn-lg cart-btn" style={{marginTop:''}}>Add to cart</button>
                                                 :<p style={{fontSize:'30px'}}><u style={{color:'red'}}>Out of Stock</u></p>}
+                                               
+                                               {/* <p style={{color:'red'}}>{this.state.errors?this.state.errors:void 0}</p> */}
+                                              
                                         </div>
                                      </div>   
                                    </form>
@@ -242,7 +250,8 @@ const mapStateToProps = (state) => {
     console.log('Collections ki product',state)
   return{
       products: state.products.products,
-      cart:state.cart
+      cart:state.cartReducer.cart,
+      error:state.errors
   }
 }
 

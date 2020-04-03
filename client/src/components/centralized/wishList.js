@@ -18,7 +18,8 @@ class WishList extends Component {
       wishlist:{},
       products: [],
       userId:'',
-      delId:''
+      delId:'',
+      loading:true,
     }
   }
   
@@ -31,7 +32,7 @@ class WishList extends Component {
     }
      this.props.getWishList(key)
 
-     if(this.props.wishList!==undefined && this.props.products ){
+     if(this.props.wishList && this.props.products ){
          const allProducts = this.props.products
         console.log('saari products----->',this.props.products)
         const products= this.props.wishList.data.products;
@@ -41,11 +42,14 @@ class WishList extends Component {
            var finalProducts = allProducts.filter(i => {
                 return i._id === item
             })
-            forEachProducts.push(finalProducts[0])
-
-            this.setState({
-                products:forEachProducts
-            })
+            console.log(finalProducts)
+           if(finalProducts.length>0){
+               forEachProducts.push(finalProducts[0])
+               this.setState({
+                   products:forEachProducts
+               })
+               console.log('Did mount final product------------>', forEachProducts)
+           }
         })  
         
         //  console.log('wishlist ki array',finalProducts)
@@ -60,25 +64,32 @@ class WishList extends Component {
     if(nextProps.wishList!==undefined && nextProps.products ){
         const allProducts = nextProps.products
         this.setState({
-            userId:nextProps.wishList.data._id
+            userId:nextProps.wishList.data._id,
+            loading:false
         })
        console.log('saari products----->',nextProps.wishList.data._id)
        const products= nextProps.wishList.data.products;
        let forEachProducts=[]
-
+       console.log(allProducts)
        products.forEach((item,index) => {
           var finalProducts = allProducts.filter(i => {
                return i._id === item
            })
-           forEachProducts.push(finalProducts[0])
+           console.log(finalProducts)
+           if(finalProducts.length>0){
+               forEachProducts.push(finalProducts[0])
+               this.setState({
+                   products:forEachProducts
+               })
+               console.log('final product------------>', forEachProducts)
+           }
 
-           this.setState({
-               products:forEachProducts
-           })
-           console.log('final product------------>', forEachProducts)
        })  
         
        //  console.log('wishlist ki array',finalProducts)
+    }
+    else if(!nextProps.wishList){
+        this.setState({loading:false})
     }
 
     if(nextProps.delProduct===true){
@@ -133,41 +144,57 @@ delete(id){
       const { user } = this.props.auth;
       const wishList = this.props.wishList
      
-      
+      console.log(this.state.products)
   return (
         <div >
         
         <table class="table">
-            <thead style={{backgroundColor: '#5ba616'}}>
+            <thead className='cart-head'>
                 <tr>
                 <th scope="col">#</th>
-                <th scope="col">Item</th>
+                <th scope="col">Product</th>
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody>
+            
+            <tbody className='cart-body' >
                 {
-                   this.state.products===[]?
+                   this.state.products.length<1?
                    <tr >
                     <th scope="row"> </th>
                     <td>  </td>
-                    <td><div className='loaders'></div></td>
-                    <td>  </td>
-                    <td></td>
+                    <td colSpan='5 ' style={{display:'flex',justifyContent:'center',alignItems:'center', height:'18rem'}}>
+                        {this.state.loading?
+                        <div class="spinner-border text-success " style={{width: '3rem', height: '3rem'}} role="status">
+                        <span class="sr-only">Loading...</span>
+                        </div>
+                        :<div style={{fontWeight:'bold', fontSize:'larger'}}>No Items are added in WishList yet! <br/><Link to='/collections' style={{color:'#5ba616'}}>Add Now -></Link></div>
+                        }
+                        </td>
+                    {/* <td>  </td>
+                    <td></td> */}
                    </tr>
                    :this.state.products.map((item,index) => {
                        return (
                         <tr key={index}>
-                        <th scope="row">{index+1} </th>
-                        <td><img src={item.image} width='100' height='80' /></td>
-                        <td> {item.name}  </td>
-                        <td>{item.price}</td>
-                        <td className='cart-body ' style={{color:"#5BA616"}}><img 
-                         className='cursor-pointer' src={DeleteBtnIcon}
-                         onClick={this.delete.bind(this,item._id)}
-                          width='16px' height='16px' alt='delete-button'/></td>
+                        <th className='cart-body' style={{color:'#5ba616'}}>{index}</th>    
+                        <th scope="row">
+                            <Link to={`/product/${item._id}`}>
+                            <img 
+                            className="cursor-pointer img-for-cart" 
+                            style={{marginRight:'25px'}} 
+                            src={item.image}/>
+                            </Link>
+                        </th>
+                        <td className='cart-body'>{item.name}</td>
+                        <td className='cart-body'  style={{color:'#5ba616'}}>Rs.{item.price}</td>
+                        <td className='cart-body ' style={{color:"#5BA616"}}><img onClick={this.delete.bind(this,item._id)}
+
+                        className='cursor-pointer' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/></td>
+
+
                         </tr>
                        )
                    }) 

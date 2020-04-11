@@ -23,7 +23,7 @@ class AddProduct extends Component {
             stock: '',
             carts: undefined,
             selectedCart: '',
-            // images: undefined,
+            finalImages: [],
             file: '',
             imagePreviewUrl: [],
             category: '',
@@ -56,20 +56,23 @@ class AddProduct extends Component {
     }
 
     imageOnChange=(e)=>{
-        let {imagePreviewUrl} = this.state;
-
+        let {imagePreviewUrl, finalImages} = this.state;
+        let  sendImage = finalImages
         // this.setState({image: e.target.value});
         e.preventDefault();
-
+        
         let reader = new FileReader();
         let file = e.target.files[0];
         // images.push(reader.result)
         reader.onloadend = () => {
             images.push(reader.result)
+            sendImage.push(file)
+
             log(images)
           this.setState({
             file: file,
-            imagePreviewUrl: images
+            imagePreviewUrl: images,
+            finalImages:sendImage
           });
         }
     
@@ -209,20 +212,49 @@ log(index,filtered)
     onSubmit(e){
         e.preventDefault();
 
-        const {name,price,description,imagePreviewUrl,cartViseStockArr,stock,category,alarmingStock} = this.state
+        const {name,price,description,imagePreviewUrl,cartViseStockArr,stock,category,alarmingStock, finalImages} = this.state
+        log(this.state)
+        let totalStock=0
+        cartViseStockArr.forEach(e=>{totalStock+=parseInt(e.stock)})
+        //For Image send as file Reader
+        // let newProduct = {
+        //     name,
+        //     price,
+        //     description,
+        //     image: imagePreviewUrl,
+        //     cartsStock: cartViseStockArr,
+        //     stock,
+        //     category,
+        //     alarmingStock
+        // }
 
-        let newProduct = {
-            name,
-            price,
-            description,
-            image: imagePreviewUrl,
-            cartsStock: cartViseStockArr,
-            stock,
-            category,
-            alarmingStock
-        }
-        this.props.addProduct(newProduct)
-        log(newProduct)
+        let files = finalImages;
+        let formData = new FormData();
+    
+                formData.append("name", name);
+                formData.append("description", description);
+                formData.append("price", price);
+                formData.append("stock", totalStock);
+                formData.append("category", category);
+                // formData.set("cartsStock", cartViseStockArr);
+                formData.append("alarmingStock", alarmingStock);
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    console.log(file)
+                    console.log(files.length)
+                    formData.append('image', file);
+                }
+                for (var i = 0; i < cartViseStockArr.length; i++) {
+                    var cartStock = cartViseStockArr[i];
+                    console.log(cartStock)
+                    console.log(cartViseStockArr.length)
+                    formData.append('cartStock', JSON.stringify(cartStock));
+                }
+               
+                console.log('New product-------',formData)
+        this.props.addProduct(formData)
+        // this.props.addProduct(newProduct)
+        // log(newProduct)
     }
     render() { 
         let totalStock = [0]

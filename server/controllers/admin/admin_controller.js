@@ -61,61 +61,73 @@ module.exports = {
     },
     
 // add product........
-    createProduct(req, res){
+   async createProduct(req, res){
 
-        const { name, description,price,stock,image,cartsStock,category,alarmingStock } = req.body;
+        const { name, description,price,stock,image,cartStock,category,alarmingStock } = req.body;
+        // cartStock.forEach(e=>{
+            // console.log(e.stock)
+            
+            // })
+            for(let i=0;i<cartStock.length;i++){
+                cartStock[i] = JSON.parse(cartStock[i])
+            }
+        console.log(cartStock[0].stock)
+        //Arslan Ka Kaam images without cloudinary (FileReader)
 
-        let createProduct = new Product({
-            name,
-            price,
-            description,
-            image,
-            stock,
-            cartStock:cartsStock,
-            category,
-            status: 'dispatch',
-            alarmingStock
-        })
+        // let createProduct = new Product({
+        //     name,
+        //     price,
+        //     description,
+        //     image,
+        //     stock,
+        //     cartStock:cartsStock,
+        //     category,
+        //     status: 'dispatch',
+        //     alarmingStock
+        // })
 
-        createProduct.save()
-        .then(data => {
-            res.status(200).send(data)
-            console.log(data)
-        })
-        .catch(err => {
-            res.status(400).send(err.message)
-        })
+        // createProduct.save()
+        // .then(data => {
+        //     res.status(200).send(data)
+        //     console.log(data)
+        // })
+        // .catch(err => {
+        //     res.status(400).send(err.message)
+        // })
+
         // rehan ka kam yahan sy previous wala
 
-
-        // req.body.image=[]
-        // req.body.imageId=[]
-        // console.log('rquest body',req.body)
-        // console.log('/add called====', req.files)
-        // for(let i=0;i<req.files.length;i++){
-        // console.log('loop----',i,'--')
-        //    await cloudinary.v2.uploader.upload(req.files[i].path, function(err, result) {
-        //       if (err) {
-        //         res.json(err.message);
-        //       }
+        req.body.image=[]
+        req.body.imageId=[]
+        req.body.status='dispatch'
+        // res.body.cartStock=cartsStock
+        console.log('rquest body',req.body)
+        console.log('/add called====', req.files)
+        for(let i=0;i<req.files.length;i++){
+        console.log('loop----',i,'--')
+           await cloudinary.v2.uploader.upload(req.files[i].path, function(err, result) {
+              if (err) {
+                res.json(err.message);
+              }
               
-        //       req.body.image.push(result.secure_url);
-        //       console.log('Secure URL=====-=-=-=-',result.secure_url,[i],req.body.image)
-        //       // add image's public_id to image object
-        //       req.body.imageId.push(result.public_id);
-        //     })
+              req.body.image.push(result.secure_url);
+              console.log('Secure URL=====-=-=-=-',result.secure_url,[i],req.body.image)
+              // add image's public_id to image object
+              req.body.imageId.push(result.public_id);
+            })
             
-        // }
-        // console.log('After for loop=-=-=-=-')
-        //     Product.create(req.body, function(err, result) {
-        //         if (err) {
-        //           res.json(err.message);
-        //           return res.redirect("/");
-        //         }
-        //         console.log('res send',result)
-        //         res.status(200).json({Product:result})
-        //         // res.json(image)
-        //       });
+        }
+        console.log('After for loop=-=-=-=-')
+            Product.create(req.body, function(err, result) {
+                if (err) {
+                    console.log(err.message)
+                    return res.json(err.message);
+                //   return res.redirect("/");
+                }
+                console.log('res send',result)
+                res.status(200).json(result)
+                // res.json(image)
+              });
 
        
 

@@ -6,7 +6,8 @@ import { connect } from "react-redux";
 import heart from './images/heart.png'
 import shoppingcart from './images/shopping-cart.png'
 import ResponsiveNavbar from './responsiveNavbar'
-import axios from 'axios'
+// import axios from 'axios'
+// import VeggieLogo  from "../centralized/images/VeggiewalaLogo.png";
 // import socketIOClient from "socket.io-client";
 
 // export const socket = socketIOClient("http://localhost:5000");
@@ -285,7 +286,7 @@ class Navbar extends Component{
                         <li><Link to='/about'>About Us</Link></li>
                        <li><Link to='/collections' >Products</Link></li>
                         <li><Link to='combined'>Sign In</Link></li>
-                       {/* <li><Link to='/cart'>Cart</Link></li> */}
+                       <li><Link to='/cart'>Cart</Link></li>
                     </ul>
                 </div>
             </div>

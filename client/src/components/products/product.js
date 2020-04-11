@@ -1,11 +1,12 @@
 import React,{Component} from 'react';
 import './product.css'
+import { Redirect } from 'react-router-dom';
 import ImageAppla from '../centralized/images/apple.jpg' 
 import FacebookIcon from '../centralized/images/facebook-icon.png'
 import TwitterIcon from '../centralized/images/twitter-icon.png'
 import PinterestIcon from '../centralized/images/pinterest-icon.png'
 import {connect} from 'react-redux';
-import {userCart} from '../../actions/productsAction'
+import {userCart, getSingleProduct} from '../../actions/productsAction'
 import {addToCart} from '../../actions/productsAction'
 import axios from 'axios'
 
@@ -25,25 +26,38 @@ class Product extends Component{
             product:undefined,
             errors:undefined,
             loading:false,
+            user:undefined,
+            redirect:false,
         }
     }
     
-componentWillMount(){
-    // var prod = JSON.parse(localStorage.getItem('Products'));
-    console.log('abi ka error',this.props.products)
-      if(this.props.products){
-        var filterObj = this.props.products.filter((e) => {
-            return e._id === this.props.match.params.id
-          });
-          console.log('Product Comp Filter',filterObj[0])
-          this.setState({
-              product:filterObj[0]
-          })
-      }
-}
+// componentWillMount(){
+//     // var prod = JSON.parse(localStorage.getItem('Products'));
+//     console.log('abi ka error',this.props.products)
+//       if(this.props.products){
+//         var filterObj = this.props.products.filter((e) => {
+//             return e._id === this.props.match.params.id
+//           });
+//           console.log('Product Comp Filter',filterObj[0])
+//           this.setState({
+//               product:filterObj[0]
+//           })
+//       }
+// }
 
 componentDidMount(){
     console.log(this.props)
+    let id=this.props.match.params.id
+    let {singleProduct} = this.props
+    if(singleProduct){
+      if(singleProduct._id==id){
+          this.setState({product:singleProduct})
+      }
+    }
+    // else{
+        this.props.getSingleProduct(id)
+    // }
+    this.setState({user:this.props.auth.user})
 }
 componentWillReceiveProps(nextProps){
     if(nextProps){
@@ -51,7 +65,8 @@ componentWillReceiveProps(nextProps){
         console.log("Cart Array......",nextProps)
         this.setState({
             loader:false,
-            loading:false
+            loading:false,
+            user:nextProps.auth,
         })
         if(nextProps.error){
             console.log(nextProps.error)
@@ -59,15 +74,20 @@ componentWillReceiveProps(nextProps){
         }
     }
     console.log('jsvjd',nextProps)
-    if(nextProps.products){
-        var filterObj = nextProps.products.filter((e) => {
-            return e._id === this.props.match.params.id
-          });
-          console.log('Product Comp Filter',filterObj[0])
-          this.setState({
-              product:filterObj[0]
-          })
-      }
+    // if(nextProps.products){
+    //     var filterObj = nextProps.products.filter((e) => {
+    //         return e._id === this.props.match.params.id
+    //       });
+    //       console.log('Product Comp Filter',filterObj[0])
+    //       this.setState({
+    //           product:filterObj[0]
+    //       })
+    //   }
+    if(nextProps.singleProduct){
+       this.setState({
+           product:nextProps.singleProduct
+       })
+    }
 }
 
 onChangeQty(e){
@@ -84,6 +104,7 @@ onChangeQty(e){
             item,
             quantity:1,
            checker: false,
+           userId:this.props.auth.user.id,
 
         }
         this.setState({
@@ -96,6 +117,7 @@ onChangeQty(e){
         item,
         quantity:this.state.quantity,
         checker: false,
+        userId:this.props.auth.user.id,
     }
 }
 
@@ -112,6 +134,10 @@ onChangeQty(e){
     render(){
         console.log('Product Compnents',this.state.product,this.state.quantity,this.props)
         var currProduct=this.state.product
+        if(this.state.redirect){
+            return <Redirect to='/combined'/>
+        }
+
         return(
             <div>
                  <section className='contact-upper col-lg-12' >
@@ -177,8 +203,9 @@ onChangeQty(e){
                                         <button class="buttonload" onClick={void 0}>
                                         <i class="fa fa-spinner fa-spin"></i>Loading
                                         </button>
-                                        :currProduct.stock>0
-                                                ?<button onClick={this.onSubmit.bind(this,currProduct)}  type="button" class="btn btn-success btn-lg cart-btn" style={{marginTop:''}}>Add to cart</button>
+                                        :currProduct.stock>0?
+                                        !this.props.auth.user?<button  onClick={e=>{this.setState({redirect:true})}} type="button" className="btn btn-success btn-lg cart-btn">Add to cart</button>
+                                                :<button onClick={this.onSubmit.bind(this,currProduct)}  type="button" class="btn btn-success btn-lg cart-btn" style={{marginTop:''}}>Add to cart</button>
                                                 :<p style={{fontSize:'30px'}}><u style={{color:'red'}}>Out of Stock</u></p>}
                                                
                                                {/* <p style={{color:'red'}}>{this.state.errors?this.state.errors:void 0}</p> */}
@@ -251,7 +278,9 @@ const mapStateToProps = (state) => {
   return{
       products: state.products.products,
       cart:state.cartReducer.cart,
-      error:state.errors
+      error:state.errors,
+      auth:state.auth,
+      singleProduct:state.products.singleProduct,
   }
 }
 
@@ -266,5 +295,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    { userCart, addToCart }
+    { userCart, addToCart, getSingleProduct }
   )(Product);

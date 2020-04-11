@@ -24,9 +24,9 @@ const passport = require("passport");
 //IMAGE UPLOAD CONFIGURATION
 const multer = require("multer");
 const storage = multer.diskStorage({
-  destination : function(req, file, cb){
-    cb(null, 'server/uploads/');
-},
+//   destination : function(req, file, cb){
+//     cb(null, 'server/uploads/');
+// },
 filename: function(req, file, callback) {
   console.log("storage====",file)
 callback(null, Date.now() + file.originalname);
@@ -100,36 +100,36 @@ require("./config/passport");
 // })
 
 setTimeout(()=>{
-    app.get("/viewImages", (req, res) => {
-        Image.find(function(err, images) {
-          if (err) {
-            res.json(err.message);
-          } else {
-            res.json(images);
-          }
-        });
-      });
+    // app.get("/viewImages", (req, res) => {
+    //     Image.find(function(err, images) {
+    //       if (err) {
+    //         res.json(err.message);
+    //       } else {
+    //         res.json(images);
+    //       }
+    //     });
+    //   });
       
-      app.post("/add", upload.single("image"), (req, res) => {
-          console.log('/add called====',req.body)
-        cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
-          if (err) {
-            req.json(err.message);
-          }
-          req.body.image = result.secure_url;
-          // add image's public_id to image object
-          req.body.imageId = result.public_id;
+    //   app.post("/add", upload.single("image"), (req, res) => {
+    //       console.log('/add called====',req.body)
+    //     cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
+    //       if (err) {
+    //         req.json(err.message);
+    //       }
+    //       req.body.image = result.secure_url;
+    //       // add image's public_id to image object
+    //       req.body.imageId = result.public_id;
       
-          Image.create(req.body, function(err, image) {
-            if (err) {
-              res.json(err.message);
-              return res.redirect("/viewImages");
-            }
-            console.log('res send',image)
-            res.json(image)
-          });
-        });
-      });
+    //       Image.create(req.body, function(err, image) {
+    //         if (err) {
+    //           res.json(err.message);
+    //           return res.redirect("/viewImages");
+    //         }
+    //         console.log('res send',image)
+    //         res.json(image)
+    //       });
+    //     });
+    //   });
     // io.on("connection", socket => {
     //     console.log("New client connected" + socket.id);
     //     // Returning the initial data of food menu from FoodItems collection
@@ -195,7 +195,7 @@ setTimeout(()=>{
     //Gets the admin users.
     app.get('/api/users', adminController.getAdminUsers);
     //When a admin creates a product. No need for request parameter in this case. Since we are inserting data to database.
-    // app.post('/api/createProducts', upload.array("image") , adminController.createProduct);
+    app.post('/api/createProduct', upload.array("image") , adminController.createProduct); //For Cloudinary base database
 
     app.get('/api/bookedProducts', adminController.bookedProduct);
 
@@ -205,7 +205,7 @@ setTimeout(()=>{
     //When a admin deletes a product, need an id to specify a product to delete.
     app.post('/api/deleteProduct', adminController.deleteProduct);
 
-    app.post('/api/createProduct', adminController.createProduct);
+    // app.post('/api/createProduct', adminController.createProduct);  //To save data without Cloudinary...
 
 
     app.get('/api/products/pending', adminController.pendingProduct);
@@ -235,6 +235,9 @@ setTimeout(()=>{
 
     app.post('/api/del/wishList', userController.delWishList)
 
+    // app.get("/review/:id", productsController.review) 
+    // app.get("/getReview/:id", productsController.viewReview) 
+    // app.get("/item/", productsController.createItem) 
 
     
     

@@ -221,7 +221,7 @@ var lineTotalArr = []
     }
 
         render(){
-           
+           console.log('render test')
             var arr=[0]
 
             
@@ -248,7 +248,7 @@ var lineTotalArr = []
                                     {this.state.cartProducts.map((item,index) => {
                                         arr.push(item.quantity*(item.filterProduct.price))
                                     return(
-                                        <tr>
+                                        <tr key = {index}>
                                         <th scope="row"><img 
                                         
                                             className="cursor-pointer img-for-cart" 
@@ -312,7 +312,7 @@ var lineTotalArr = []
 
     const mapStateToProps = (state) =>{
         // var array= Array.from(state.products.cartProducts)
-        console.log("Reducer check cart prod.............", state.cartReducer.totalPrice)
+        console.log("Reducer check cart prod.............", state.cartReducer)
         return{ 
             cartProducts: state.cartReducer.cart,
             products: state.products,

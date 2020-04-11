@@ -30,7 +30,7 @@ class VendorProducts extends Component {
         })
         // log(id)
         let _id = {id}
-        axios.post("http://localhost:5000/api/deleteProduct",_id)
+        axios.post("/api/deleteProduct",_id)
         
         .then(res => {
             log("delete ka res",res);
@@ -212,7 +212,7 @@ class VendorProducts extends Component {
                                         return (
                                             <tr className='productRows'  style={{textAlign: 'left'}} >
                                             <td scope='row' > {index+1} </td>
-                                            <td scope='row' > <img src={item.image} width='60' height='60' /> </td>
+                                            <td scope='row' > <img src={item.image[0]} width='60' height='60' /> </td>
                 
                                           <td style={{color: '#FF4747'}} > {item.name}
                                                 <br/>

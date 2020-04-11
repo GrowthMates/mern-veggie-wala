@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect}  from 'react-redux'
-import {selectedproduct} from '../../actions/adminAction'
+import {selectedproduct,getProducts} from '../../actions/adminAction'
 import axios from 'axios'
 import './style/vendorProducts.css'
 // import prod1 from '../centralized/images/prod1.png'
@@ -34,6 +34,7 @@ class VendorProducts extends Component {
         
         .then(res => {
             log("delete ka res",res);
+            this.props.getProducts()
             if(res.data._id){
                 let filtered = this.props.products;
                 filtered.splice(index,1)
@@ -71,7 +72,7 @@ class VendorProducts extends Component {
         if(nextProps.products){
             let product = nextProps.products
             this.setState({
-                // product:filtered[0],
+                product:nextProps.products,
                 name: product.name,
                 price: product.price,
                 description: product.description,
@@ -108,7 +109,7 @@ class VendorProducts extends Component {
         let bilkulFinal = []
         if(this.props.products){
         if(this.props.products.length>=1){
-            products = this.props.products
+            products = this.props.products||this.state.products
             // let dummy = [85,45,5,8,2,6,7,10,52,35,3,4,20,]
         
             //  log(final)
@@ -215,7 +216,7 @@ class VendorProducts extends Component {
                                     return  item.status==='recieve'? (
                                             <tr className='productRows'  style={{textAlign: 'left'}} >
                                             <td scope='row' > {index+1} </td>
-                                            <td scope='row' > <img src={item.image} width='60' height='60' /> </td>
+                                            <td scope='row' > <img src={item.image[0]} width='60' height='60' /> </td>
                                           { this.state.delAction!==false && (this.state.id===item.id) ? 
                                              ( <td  className="alert alert-danger row" role="alert" style={{margin:"10px",position:"relative"}} >                                                   
 
@@ -269,4 +270,4 @@ const mapStateToprops = state => {
     }
 }
  
-export default connect(mapStateToprops,{selectedproduct})(VendorProducts);
+export default connect(mapStateToprops,{selectedproduct,getProducts})(VendorProducts);

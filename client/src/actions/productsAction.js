@@ -15,6 +15,7 @@ import {
   EMPTY_CART,
   DEL_WISHLIST,
   PATH_CHECKER,
+  GET_SINGLE_PRODUCT,
   PRODUCTS,
   STATUS_UPDATE,
 } from "./types";
@@ -58,11 +59,29 @@ var getCartProdLocalStorage=[]
       );
   };
 
+ export const getSingleProduct = (id) => dispatch => {
+   console.log('getSingle Product called',id)
+   axios.get(`/api/products/${id}`).then(res=>{
+   console.log('getSingle Product res===',res.data)
+      dispatch({
+        type:GET_SINGLE_PRODUCT,
+        payload:res.data
+      })
+   })
+   .catch(err=>{
+    dispatch({
+      type:GET_ERRORS,
+      payload:err.response.data
+    })
+   })
+ } 
+
  export const addToCart = (product) => dispatch => {
    
           const productCart={
             productId:product.item._id,
-            quantity:product.quantity
+            quantity:product.quantity,
+            userId:product.userId,
           }
             console.log('No.8:--OurArray-----',arr)
             console.log('LocalStorageCheck----',JSON.parse(localStorage.getItem('CartProduct')))

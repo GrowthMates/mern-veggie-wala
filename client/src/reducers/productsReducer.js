@@ -1,6 +1,7 @@
 import {
     GET_PRODUCTS,
     USER_LOADING,
+    GET_SINGLE_PRODUCT,
     CART_PRODUCTS,
     GET_ERRORS,
     WISHLIST,
@@ -18,6 +19,7 @@ import { getProducts } from "../actions/productsAction";
     loading: true,
     apiProducts:undefined,
     productErrors:undefined,
+    singleProduct:undefined,
     error:false,
     wishList:undefined,
     delProduct: false,
@@ -53,6 +55,12 @@ import { getProducts } from "../actions/productsAction";
               ...state,
               loading: true
             };
+        case GET_SINGLE_PRODUCT:
+            return{
+              ...state,
+              singleProduct:action.payload,
+            } 
+            
         case WISHLIST:
           return {
             ...state,

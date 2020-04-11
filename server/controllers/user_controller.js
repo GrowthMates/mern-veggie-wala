@@ -24,12 +24,13 @@ module.exports = {
     },
     //Need to be fixed........
     addToCart(req, res){
-        const { productId, quantity } = req.body;
+        const { productId, quantity, userId } = req.body;
         // const { id } = req.params;
         console.log('addtocart-----------:', req.body.productId )
-
+    // /*
         let productInCart = new UserCart({
             
+            // _id:userId,
             productId,
             quantity
             
@@ -47,6 +48,34 @@ module.exports = {
                     res.json(err);
             
             });
+        //  */   
+
+            /*
+            UserCart.findById(userId).exec((err, result)=>{
+
+            if(!result){
+                let productInCart = new UserCart({
+                    
+                    _id:userId,
+                    productId,
+                    quantity
+                    
+                });
+                        
+                    productInCart.save().then(data=>{   
+                    res.status(200).json({success:true, data})
+                })
+                        .catch(err => {
+                            console.log('AddToCart Save Err--------',err.message)
+                            res.json(err);
+                    
+                    });
+            }
+            else if(result){
+                
+            }
+        })
+            */
 
     },
     viewCart(req, res){

@@ -85,7 +85,8 @@ class Collections extends Component{
             let productId = {
                 item,
                 quantity:1,
-               checker: false,
+                checker: false,
+                userId:this.props.auth.user.id
     
             }
             // this.props.history.push('/cart')

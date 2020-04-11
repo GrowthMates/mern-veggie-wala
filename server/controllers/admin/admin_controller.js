@@ -72,7 +72,7 @@ module.exports = {
                 cartStock[i] = JSON.parse(cartStock[i])
             }
         console.log(cartStock[0].stock)
-        //Arslan Ka Kaam images without cloudinary (FileReader)
+        //Arslan Ka Kaam image without cloudinary (FileReader)
 
         // let createProduct = new Product({
         //     name,

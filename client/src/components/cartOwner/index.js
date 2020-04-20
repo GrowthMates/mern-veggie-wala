@@ -15,7 +15,7 @@ import axios from 'axios'
 
     componentDidMount(){
         axios
-        .get("http://localhost:5000/api/cartOwner/reciept")
+        .get("/api/cartOwner/reciept")
         .then((res) => {
                        
             this.setState({

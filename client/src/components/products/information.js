@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Link,withRouter} from 'react-router-dom'
+import {Link,withRouter,Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import './stylesheet/information.css'
 import bana3 from '.././centralized/images/bana3.webp'
@@ -26,11 +26,31 @@ class Information extends Component{
         area:'',
         block:'',
         errors:{},
-        cartProducts:undefined
+        cartProducts:undefined,
+        redirect:false,
+        subTotal:0,
+        shipping:120,
+        total:0
 
       }
     }
+   
+componentDidMount(){
+  if(this.props.cartProducts){
+    let prod = this.props.cartProducts;
+    let subTotal=0
+    // let finalObj = {
+    //   subTotal:0,shipping:120,total=
+    // }
+    for(let i=0;i<prod.length;i++){
+      subTotal+=prod[i].quantity*prod[i].filterProduct.price
+    }
+    let total = subTotal+this.state.shipping
+    console.log(subTotal,prod)
 
+    this.setState({subTotal,total})
+  }
+}
     componentWillReceiveProps(nextProps) {
       if(nextProps.cart==='empty'){
         this.setState({
@@ -122,8 +142,11 @@ class Information extends Component{
    }
 
     render(){
+      if(!this.props.cartProducts){
+       return <Redirect to ='cart'/>
+      }
       console.log('Select value handler===',this.state.area,this.state.block)
-      const {number,address,fname,lname,appartment,city, errors} = this.state
+      const {number,address,fname,lname,appartment,city, errors, subTotal, shipping, total} = this.state
         return(
             <div>
             <div className='container'>
@@ -302,7 +325,7 @@ class Information extends Component{
                               </td>
                               <td className='infoItem'><p>{item.filterProduct.name}</p></td>
                              
-                              <td className='priceCol'>{item.filterProduct.price}</td>
+                              <td className='priceCol'>{item.filterProduct.price*item.quantity}</td>
                             </tr>
                           )})}
                           
@@ -321,17 +344,17 @@ class Information extends Component{
                         <div className='row'>
                             <tr>
                               <td width='122.22'>Subtotal </td>                                                          
-                              <td className='subTotal'>$60.0</td>
+                              <td className='subTotal'>Rs. {subTotal}</td>
                             </tr>
 
                             <tr>
                               <td width='122.22'>Shipping </td>                                                          
-                              <td className='subTotal'>$6.0</td>
+                              <td className='subTotal'>Rs. {shipping}</td>
                             </tr>  <br/> <br/>
 
                             <tr>
                               <td width='122.22'>Total </td>                                                          
-                              <td className='total'>$600.0</td>
+                           <td className='total'>Rs. {total}</td>
                             </tr>
                        
                         </div>

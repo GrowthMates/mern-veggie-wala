@@ -7,7 +7,10 @@ import Tick from '../../centralized/images/tick.png'
 import DeleteBtnIcon from '../../centralized/images/delete-button.png'
 import {userCart} from '../../../actions/productsAction'
 import axios from 'axios'
-import {addToCart,totalPrice,infoPathCheck} from '../../../actions/productsAction'
+import {addToCart,totalPrice,infoPathCheck, emptyCart} from '../../../actions/productsAction'
+import store from '../../../store'
+import 'animate.css'
+import Information from "../../products/information";
 
 
 // var totalPrice = []
@@ -31,6 +34,7 @@ var lineTotalArr = []
             totalPrices:undefined,
             edit:false,
             totalPrice:'' || this.props.totalPrice,
+            loading:false,
         }
 
         setTimeout(()=>{
@@ -41,11 +45,13 @@ var lineTotalArr = []
      }
      
      componentDidMount(){
+        window.scrollTo(0, 0)
          console.log('local styorgecrt',this.props.cartProducts) 
+         this.props.userCart(this.props.auth.user.id)
          this.setState({
              cartProducts:this.props.cartProducts
          })        
-         this.props.totalPrice(this.state.totalPrice)
+        //  this.props.totalPrice(this.state.totalPrice)
 
      }
 
@@ -56,12 +62,14 @@ var lineTotalArr = []
 
     //  }
 
-     delCart(key,productId,quantity){
+     delCart(key,product,quantity,index){
         let {cartProducts} = this.state
+        this.setState({loading:true})
 
         let delBody = {
             key: key,
-            productId: productId,
+            productId: product._id,
+            price:product.price,
             quantity: quantity
 
         }
@@ -69,7 +77,7 @@ var lineTotalArr = []
             console.log('andar total prce ky',this.state.totalPrice)
         }
         this.props.totalPrice(this.state.totalPrice)
-        localStorage.setItem('totalPrice',JSON.stringify(this.state.totalPrice))
+        // localStorage.setItem('totalPrice',JSON.stringify(this.state.totalPrice))
 
         // cartProducts.splice(0,1);
        
@@ -77,30 +85,39 @@ var lineTotalArr = []
 
         axios.post("/api/user-data/delCart", delBody)
             .then(res => {
-
+                this.setState({loading:false})
+                this.props.userCart(this.props.auth.user.id)
+                // this.props.cartProducts.splice(index,1)
+                // store.dispatch(function(){
+                //     return{
+                //         type:'CART_PRODUCTS',
+                //         payload:this.props.cartProducts,
+                //     }
+                // })
              
-                if(this.state.totalPrice){
-                    console.log('andar total prce ky',this.state.totalPrice)
-                }
-                localStorage.setItem('totalPrice',JSON.stringify(this.state.totalPrice))
-                this.props.totalPrice(this.state.totalPrice)
+            //     if(this.state.totalPrice){
+            //         console.log('andar total prce ky',this.state.totalPrice)
+            //     }
+            //     localStorage.setItem('totalPrice',JSON.stringify(this.state.totalPrice))
+            //     this.props.totalPrice(this.state.totalPrice)
 
-                var delFromLocalStorage=cartProducts.findIndex(cart=>cart.cartSchemaId===key);
-                if(delFromLocalStorage!==-1){
-                    cartProducts.splice(delFromLocalStorage,1);
-                  localStorage.setItem('CartProduct', JSON.stringify(cartProducts));
-                  this.setState({
-                                evein: false
-                            })
-                            window.location.reload()
-                  console.log('del k ho gai lcl strge sy... ', delFromLocalStorage)
-                }
-                else{
-                    console.log('del nh hui lcl strge sy... ', delFromLocalStorage)
+            //     var delFromLocalStorage=cartProducts.findIndex(cart=>cart.cartSchemaId===key);
+            //     if(delFromLocalStorage!==-1){
+            //         cartProducts.splice(delFromLocalStorage,1);
+            //       localStorage.setItem('CartProduct', JSON.stringify(cartProducts));
+            //       this.setState({
+            //                     evein: false
+            //                 })
+            //                 window.location.reload()
+            //       console.log('del k ho gai lcl strge sy... ', delFromLocalStorage)
+            //     }
+            //     else{
+            //         console.log('del nh hui lcl strge sy... ', delFromLocalStorage)
 
-                }
-                // localStorage.removeItem('CartProduct');
-            }) .catch(err => {
+            //     }
+            //     // localStorage.removeItem('CartProduct');
+
+            }).catch(err => {
                 console.log('cart del ka error.. >',err.message)
             })
 
@@ -109,42 +126,51 @@ var lineTotalArr = []
 
     
 
-     onChange(id,index,price,e){
+     onChange(id,index,price,item,e){
         // var totatPrice = []
-
-         e.preventDefault();
+        e.preventDefault();
+        let currentProdPrice = item.filterProduct.price*parseInt(e.target.value)
+        console.log(currentProdPrice)
+        this.state.cartProducts[index].quantity=parseInt(e.target.value)
+        let total =0
+        let cart = this.state.cartProducts
+        for(let i=0 ; i<this.state.cartProducts.length ; i++){
+            total+=cart[i].quantity*cart[i].filterProduct.price
+        }
+        this.props.totalPrice(total)
+        this.setState({cartProducts:this.state.cartProducts,totalPrices:total})
         console.log('price', this.state.totalPrice)
-         const arr = this.state.cartProducts
+        //  const arr = this.state.cartProducts
        
-         var qnty  = arr.map((item,i) => {
+        //  var qnty  = arr.map((item,i) => {
             
-            if(item.cartSchemaId === id){
-                // item.quantity = parseInt(e.target.value)
-                item.quantity = parseInt(e.target.value)
+        //     if(item.cartSchemaId === id){
+        //         // item.quantity = parseInt(e.target.value)
+        //         item.quantity = parseInt(e.target.value)
                 
-                return arr
-            }
-        })
-        console.log(this.state.cartProducts)
-        // console.log('qty',qnty[index][index].quantity)
-        var lineTotal = (qnty[index][index].quantity*price)
-        // console.log('line total', lineTotal)
-        // totatPrice=[qnty[index][index].quantity*price]
-        // totalPrice.push(lineTotal)
-        // console.log()
-        var finalIndex = totalPrice[totalPrice.length-1]
-        var secondLast = totalPrice[totalPrice.length-2]
-        // console.log('akhri ky sum',finalIndex+secondLast)
-        lineTotalArr.push(qnty[index][index].quantity*price)
-        // console.log('line total arr', lineTotalArr)
-        var newPrice = lineTotalArr.reduce((a, b) => {return a+b })
-        // console.log('array total price ki', newPrice )
-        this.setState({cartArray:qnty[index],tick:'none',})
+        //         return arr
+        //     }
+        // })
+        // console.log(this.state.cartProducts)
+        // // console.log('qty',qnty[index][index].quantity)
+        // var lineTotal = (qnty[index][index].quantity*price)
+        // // console.log('line total', lineTotal)
+        // // totatPrice=[qnty[index][index].quantity*price]
+        // // totalPrice.push(lineTotal)
+        // // console.log()
+        // var finalIndex = totalPrice[totalPrice.length-1]
+        // var secondLast = totalPrice[totalPrice.length-2]
+        // // console.log('akhri ky sum',finalIndex+secondLast)
+        // lineTotalArr.push(qnty[index][index].quantity*price)
+        // // console.log('line total arr', lineTotalArr)
+        // var newPrice = lineTotalArr.reduce((a, b) => {return a+b })
+        // // console.log('array total price ki', newPrice )
+        // this.setState({cartArray:qnty[index],tick:'none',})
 
         // this.setState({
         //     totalPrices: this.state.totalPrice
         // })
-        this.props.totalPrice(this.state.totalPrice)
+        // this.props.totalPrice(this.state.totalPrice)
 
             // localStorage.setItem('CartProduct',JSON.stringify(qnty))        
 
@@ -185,6 +211,7 @@ var lineTotalArr = []
      }
 
      proceed(){
+        //  this.props.emptyCart()
          let checker = {
              flag: true
          }
@@ -198,6 +225,7 @@ var lineTotalArr = []
         this.setState({
             totalPrice:total
         })
+        
         
      }
 
@@ -216,14 +244,11 @@ var lineTotalArr = []
          }
      }
 
-     componentWillMount(){
-        // console.log('props cart will mnt sy', this.props)
-    }
+     
 
         render(){
-           console.log('render test')
+           console.log('render test',this.state.cartProducts)
             var arr=[0]
-
             
             return(
                 <div>
@@ -257,13 +282,20 @@ var lineTotalArr = []
                                         <td className='cart-body'>{item.filterProduct.name}</td>
                                         <td className='cart-body'>Rs.{item.filterProduct.price}</td>
                                         <td className='cart-body cart-qty-td' ><input className="crt-qty-fnl" type='number' name={item._id} defaultValue={item.quantity}
-                                        onChange={this.onChange.bind(this,item.cartSchemaId,index,arr.reduce((a, b) => {return a + b}))} value={this.state.quantity} id={index} min='1' max={item.filterProduct.stock} /></td>
+                                        onChange={this.onChange.bind(this,item.cartSchemaId,index,arr.reduce((a, b) => {return a + b}),item)} value={this.state.quantity} id={index} min='1' max={item.filterProduct.stock} /></td>
                                     <td className='cart-body' style={{color:"#5BA616"}}>Rs. {
                                     (this.state.cartArray)? this.state.cartArray[index].quantity*(item.filterProduct.price) :
                                     (item.filterProduct.price)*item.quantity}  </td>
-                                        <td className='cart-body ' style={{color:"#5BA616"}}><img onClick={this.delCart.bind(this,item.cartSchemaId,item.filterProduct._id,item.quantity,index)}
+                                        <td className='cart-body crt-dlt-btn' style={{color:"#5BA616"}}>
+                                        {this.state.loading?
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        :
+                                            <img onClick={this.delCart.bind(this,item.cartSchemaId,item.filterProduct,item.quantity,index)}
 
-                                        className='cursor-pointer' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/></td>
+                                        className='cursor-pointer ' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/>
+                                        }</td>
 
         
                                         </tr>
@@ -273,15 +305,15 @@ var lineTotalArr = []
                                 </tbody>
                                 </table>
             
-                                {(this.state.cartArray)?
+                                {/* {(this.state.cartArray)?
                                     <div style={{marginBottom:"100px"}}>
                                 <button onClick={this.updateCart.bind(this)} type='submit' className='update-btn'>Update Cart</button>
                                 <span><img   
                                              style={{display:this.state.tick,marginTop:'10px',marginLeft:'15px',float:'left',textAlign:'left'}} 
                                             src={Tick}/></span>
                                 </div>  
-                                :''}
-                                <div className="proceed-btn">
+                                :''} */}
+                                <div className=" proceed-btn">
                                     <h4>CART TOTAL</h4>
                                     {console.log('array total price',arr)}
                                     <div>
@@ -293,7 +325,7 @@ var lineTotalArr = []
                                    
                                     </div>
                                     <div >
-                                        <button onClick={this.proceed.bind(this)} type="submit" class="btn btn-success btn-lg cart-btn">PROCEED TO CKECKOUT</button>
+                                        <button onClick={this.proceed.bind(this)} type="submit" class="btn btn-success btn-lg animated pulse cart-btn">PROCEED TO CKECKOUT</button>
                                     </div>
                                 </div>
                     </div>
@@ -302,7 +334,7 @@ var lineTotalArr = []
 
                     {/* testing */}
 
-                   <p>{this.state.totalPrice}</p>
+                   {/* <p>{this.state.totalPrice}</p> */}
                 </div>        
             )
         }
@@ -316,11 +348,12 @@ var lineTotalArr = []
         return{ 
             cartProducts: state.cartReducer.cart,
             products: state.products,
-            totalPriceReducer: state.cartReducer.totalPrice
+            totalPriceReducer: state.cartReducer.totalPrice,
+            auth:state.auth
         }
     } 
 
     export default connect(
         mapStateToProps,
-        { userCart, addToCart,totalPrice,infoPathCheck }
+        { userCart, addToCart,totalPrice,infoPathCheck, emptyCart }
       )(Cart);

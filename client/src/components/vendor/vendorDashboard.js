@@ -8,17 +8,51 @@ import './style/dashboard.css'
 let log = console.log
 class VendorDashboard extends React.Component{ 
     state={
-        counter: 0
+        counter: 0,
+        orders:undefined,
     }
     componentDidMount() {
         this.props.carts()
+        if(this.props.getcarts){
+            console.log(this.props)
+            let {getcarts} = this.props
+            let allOrders = []
+            console.log(getcarts)
+             for(let i = 0 ; i<getcarts.length ; i++){
+                for(let value in getcarts[i].orders){
+                    allOrders.push(getcarts[i].orders[value]) 
+                }
+                }
+            
+            console.log(allOrders)
+            this.setState({orders:allOrders})
+        }
      
-        axios.get('/api/getCartOwners')
-        .then(res => {
-            log('carta ka data',res.data);
-        })
-        .catch(err => log('cart ka error',err))        
+        // axios.get('/api/getCartOwners')
+        // .then(res => {
+        //     log('carta ka data',res.data);
+        // })
+        // .catch(err => log('cart ka error',err))        
     }
+    
+    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        console.log(nextProps)
+        if(nextProps.getcarts){
+            let {getcarts} = nextProps
+            let allOrders = []
+            // console.log(getcarts)
+             for(let i = 0 ; i<getcarts.length ; i++){
+                 for(let value in getcarts[i].orders){
+                     allOrders.push(getcarts[i].orders[value]) 
+                 }
+                }
+           
+            console.log(allOrders)
+            this.setState({orders:allOrders})
+        }
+    }
+
      onComplete = () => {
         console.log('Completed!');
       };
@@ -28,15 +62,23 @@ class VendorDashboard extends React.Component{
       };
   render(props) {
       let counter=0
-      counter++
-    //   for(let i=0; i<=100;i++){
-    //       counter=i
-    //       console.log(i)
-    //     }
+      counter++;
+      let {orders} = this.state
+          let completedOrders = []
+          let dispatchedOrders = []
+          let pendingOrders = []
+      if(orders){
+          completedOrders = orders.filter(e=>{return e.status=='complete'})
+          dispatchedOrders = orders.filter(e=>{return e.status=='dispatch'})
+          pendingOrders = orders.filter(e=>{return e.status=='pending'})
+      }
+    
         console.log(counter)
 
   return (
     <div className="vendorDashboarTop">
+        {!orders?<h2>Loading...</h2>:
+        
       <div className='row' >
         <div className='col-lg-6' >
             <div className='dashboardReports' >
@@ -61,7 +103,7 @@ class VendorDashboard extends React.Component{
                     <li>Orders <hr style={{border: '1px solid #999999'}}/> <span style={{fontSize: '1.6em'}}>  <CountUp
                     className="account-balance"
                     start={0}
-                    end={1800}
+                    end={orders.length}
                     duration={3.75}
                     useEasing={true}
                     useGrouping={true}
@@ -77,7 +119,7 @@ class VendorDashboard extends React.Component{
                     <CountUp
                     className="account-balance"
                     start={0}
-                    end={1200}
+                    end={completedOrders.length}
                     duration={3.75}
                     useEasing={true}
                     useGrouping={true}
@@ -100,12 +142,12 @@ class VendorDashboard extends React.Component{
                 <div className='row' >
                     <div className='col-lg-6' >
                         <ul style={{textAlign: 'left'}}>
-                            <li style={{color: '#FF4747'}} > <span  style={{color: '#FF4747', textAlign: 'left'}}> Total</span>  <span style={{float: 'right',color: 'black', float: 'right'}} >23</span> </li>
-                            <li style={{color: 'purple'}}><span  style={{color: 'green', textAlign: 'left'}}> Completed</span>   <span style={{color: 'black', float: 'right'}} >12</span> </li>
-                            <li style={{color: 'green'}}><span  style={{color: 'blue', textAlign: 'left'}}>Pending </span>   <span style={{color: 'black', float: 'right'}} >8</span> </li>
-                            <li style={{color: 'red'}}><span  style={{color: 'red', textAlign: 'left'}}> Processing</span>   <span style={{color: 'black', float: 'right'}} >34</span> </li>
-                            <li style={{color: 'brown'}}><span  style={{color: 'black', textAlign: 'left'}}>Cancelled </span>  <span style={{color: 'black', float: 'right'}} >7</span> </li>
-                            <li style={{color: 'blue'}}><span  style={{color: 'blue', textAlign: 'left'}}> On hold</span>   <span style={{color: 'black', float: 'right'}} >13</span> </li>
+                            <li style={{color: '#FF4747'}} > <span  style={{color: '#FF4747', textAlign: 'left'}}> Total</span>  <span style={{float: 'right',color: 'black', float: 'right'}} >{orders.length}</span> </li>
+                            <li style={{color: 'purple'}}><span  style={{color: 'green', textAlign: 'left'}}> Completed</span>   <span style={{color: 'black', float: 'right'}} >{completedOrders.length}</span> </li>
+                            <li style={{color: 'green'}}><span  style={{color: 'blue', textAlign: 'left'}}>Pending </span>   <span style={{color: 'black', float: 'right'}} >{pendingOrders.length}</span> </li>
+                            <li style={{color: 'red'}}><span  style={{color: 'red', textAlign: 'left'}}> Dispatched</span>   <span style={{color: 'black', float: 'right'}} >{dispatchedOrders.length}</span> </li>
+                            <li style={{color: 'brown'}}><span  style={{color: 'black', textAlign: 'left'}}>Cancelled </span>  <span style={{color: 'black', float: 'right'}} >NaN</span> </li>
+                            <li style={{color: 'blue'}}><span  style={{color: 'blue', textAlign: 'left'}}> On hold</span>   <span style={{color: 'black', float: 'right'}} >NaN</span> </li>
                         </ul>
                     </div>
                     <div className='col-lg-6' >
@@ -124,19 +166,20 @@ class VendorDashboard extends React.Component{
             </div>
         </div>
       </div>
+      }
     </div>
   );
 }
 }
 
-const mapStateToprops =state => {
+const mapStateToProps = state => {
     console.log(state);
-    
     return {
-        IsApproved: state.auth.user
+        IsApproved: state.auth.user,
+        getcarts:state.cartReducer.getCarts
     }
 }
 export default connect(
-    mapStateToprops,
+    mapStateToProps,
     {carts}
 )(VendorDashboard)

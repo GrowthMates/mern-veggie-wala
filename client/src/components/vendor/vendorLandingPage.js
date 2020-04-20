@@ -21,6 +21,7 @@ import admin from '../../components/centralized/images/admin1.png'
 import notification from '../../components/centralized/images/notification.png'
 import message from '../../components/centralized/images/message.png'
 import flag from '../../components/centralized/images/flag.png'
+import cart from '../users/userCart/cart';
 
 let log = console.log
 class AdminLandingPage extends Component{
@@ -38,23 +39,50 @@ class AdminLandingPage extends Component{
     
     componentDidMount() {
         this.props.carts()
-     
-        axios.get('/api/getCartOwners')
-        .then(res => {
-            log('carta ka data',res.data);
-        })
-        .catch(err => log('cart ka error',err))        
+        if(this.props.carts){
+            let {carts} = this.props
+            let allOrders = []
+            console.log(carts)
+             for(let i = 0 ; i<carts.length ; i++){
+                   allOrders.push(carts[i].orders) 
+                }
+            // cart.forEach(element=>{
+            //     allOrders.push(element.orders)
+
+               
+            // })
+            console.log(allOrders)
+        }
+        // axios.get('/api/getCartOwners')
+        // .then(res => {
+        //     log('carta ka data',res.data);
+        // })
+        // .catch(err => log('cart ka error',err))        
     }
 
-    componentWillReceiveProps(nextProps){
-        
+    UNSAFE_componentWillReceiveProps(nextProps){
+        console.log(nextProps)
+        if(nextProps.carts){
+            let {carts} = nextProps
+            let allOrders = []
+            console.log(carts)
+             for(let i = 0 ; i<carts.length ; i++){
+                   allOrders.push(carts[i].orders) 
+                }
+            // cart.forEach(element=>{
+            //     allOrders.push(element.orders)
+
+               
+            // })
+            console.log(allOrders)
+        }
     }
 
 closeNav(){
     this.setState({
         close:true
     })
-    console.log('close ka')
+    console.log('close ka console')
 }
 openNav(){
     this.setState({
@@ -163,11 +191,10 @@ openNav(){
 
 // redux
 
-// const mapStateToprops =state => {
-//     console.log(state);
-    
-//     return {
-//         IsApproved: state.auth.user
+// const mapStateToprops = state => {
+//     console.log(state,state.cartReducer.getCarts);
+//     return{
+//        carts:state.cartReducer.getCarts
 //     }
 // }
 export default connect(

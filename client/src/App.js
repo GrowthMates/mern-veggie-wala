@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Suspense, lazy} from 'react';
 import './App.css';
 import Routes from './container/routing'
 
-
+// const Routes = lazy(() => import('./container/routing'))
 
 class App extends React.Component {
   
@@ -12,9 +12,12 @@ class App extends React.Component {
     
     
     <div className="App">
-      <Routes/>
+      {/* <Suspense fallback={<div className='App-header'><h2>VeggieWala Loading...</h2></div>}> */}
+        <Routes/>
+      {/* </Suspense> */}
     </div>
   );}
+ 
 }
 
 

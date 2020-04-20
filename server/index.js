@@ -170,12 +170,14 @@ setTimeout(()=>{
     //update cart item
     app.put('/api/user-data/updateCart', userController.updateCart);
     //view cart items
-    app.get('/api/user-data/cart', userController.viewCart);
+    // app.get('/api/user-data/cart', userController.viewCart);
     //view cart items
-    app.get('/api/user-data/cart', userController.viewCart);
+    app.get('/api/user-data/cart/:id', userController.viewCart);
     //Remove a item from the cart.
     // Use request parameter to remove item from cart since you are looking a specific item in cart.
     app.post("/api/user-data/delCart", userController.removeFromCart);
+    //remove full cart
+    app.post("/api/user-data/cart/delete", userController.removeCart);
     //User Register to place order
     app.post('/api/register', userController.register)
     //When user login

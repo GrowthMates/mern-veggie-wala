@@ -1,6 +1,11 @@
 .cart-head{
     background-color: #5BA616;
 }
+.crt-dlt-btn:hover img{
+    -webkit-filter: opacity(.5) drop-shadow(0 0 0 #5BA616);
+  filter: opacity(.6) drop-shadow(0 0 0 #5BA616);
+    /* background-color: #5BA616; */
+}
 .cart-head th{
     font-size: 20px;
     color: #FFFFFF;

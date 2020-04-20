@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {updateProduct} from '../../../actions/adminAction'
 import axios from 'axios'
 import './style/edit.css'
+import VendorProducts from '../vendorProducts';
 
 let cartsArr = [];
 let images = []
@@ -31,7 +32,8 @@ class Edit extends Component {
             product:undefined,
             id: '',
             successAlert:false,
-            error:false
+            error:false,
+            back:false,
             
          }
     }
@@ -236,6 +238,9 @@ log(index,filtered)
 
         
     }
+    redirectFunction(){
+        this.setState({back:true})
+    }
 
     onSubmit(e){
         e.preventDefault();
@@ -269,7 +274,7 @@ log(index,filtered)
     }
     render() { 
         // let s
-      
+        if(this.state.back) {return <VendorProducts/>}
         let products = [];
         if(this.props.products){
             products=this.props.products
@@ -278,6 +283,7 @@ log(index,filtered)
         const {product,name,price,description,imagePreviewUrl,cartStock,stock,selectedCart,category} = this.state
         return ( 
             <div style={{}} >
+                <div style={{background:'red'}}><button onClick={this.redirectFunction.bind(this)}>Back</button></div>
                 { this.state.successAlert!==false? 
                 (<div  style={{position: 'fixed', top: '0px',zIndex: '10000',padding:'10px 20px'}}>
                     <div class="alert alert-primary" role="alert"  >

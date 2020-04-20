@@ -1,4 +1,4 @@
-import React, {Component,Lazy,Suspense} from 'react';
+import React, {Component,lazy,Suspense} from 'react';
 import 
  {getProducts}
   from "../actions/productsAction";
@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import store from "../store";
 import TestComp from './TestComp'
 import Home from '../components/centralized/home';
+
 import WishList from '../components/centralized/wishList';
 import Contact from '../components/centralized/contact';
 import About from '../components/centralized/about';
@@ -60,6 +61,7 @@ if (localStorage.jwtToken) {
   // 404 page not found
 
 //  
+// const Home = lazy(() => import('../components/centralized/home'))
 
  class Routes extends Component{
 
@@ -117,10 +119,12 @@ this.props.getProducts('Routing')
                   {/* : */}
                   {/* info==true ? null : */} 
                   
-                  <BrowserRouter> 
+                  <BrowserRouter>
+
                     <Navbar/> 
                 
             {/* <TestComp/> */}
+            {/* <Suspense fallback={<div><h2>Loading...</h2></div>}> */}
                <Switch>
                   {/* <Route path='/approvalProducts' component={ApprovalProducts}/> */}
                   {/* <Route path='/admin/allProducts' component={AllProducts}/> */}
@@ -147,6 +151,7 @@ this.props.getProducts('Routing')
                    {/* <Route path='/Allimages' component={AllImages}/> */}
 
                </Switch>
+               {/* </Suspense> */}
                <Footer/>
                </BrowserRouter> 
                   

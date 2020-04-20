@@ -4,6 +4,7 @@ import {updateProduct} from '../../../actions/adminAction'
 import axios from 'axios'
 import './style/edit.css'
 
+
 let cartsArr = [];
 let images = []
 let log = console.log
@@ -175,7 +176,7 @@ log(index,filtered)
     }
     componentDidMount() {
         log(this.props.match)
-        axios.get('http://localhost:5000/api/getCartOwners')
+        axios.get('/api/getCartOwners')
         .then(res => {
             log('carta ka data',res.data);
             this.setState({
@@ -277,6 +278,7 @@ log(index,filtered)
         const {product,name,price,description,imagePreviewUrl,cartStock,stock,selectedCart,category} = this.state
         return ( 
             <div style={{}} >
+                
                 { this.state.successAlert!==false? 
                 (<div  style={{position: 'fixed', top: '0px',zIndex: '10000',padding:'10px 20px'}}>
                     <div class="alert alert-primary" role="alert"  >

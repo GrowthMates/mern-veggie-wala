@@ -10,24 +10,23 @@ import axios from "axios";
     loading: false,
     cart: undefined,
     getCarts:undefined,
-    totalPrice: '' || JSON.parse(localStorage.getItem('totalPrice'))
+    totalPrice: 0                     //'' || JSON.parse(localStorage.getItem('totalPrice'))
   };
-  const newCart=  JSON.parse(localStorage.getItem('CartProduct'));
-  console.log('newCart==========',newCart)
+  // const newCart=  JSON.parse(localStorage.getItem('CartProduct'));
+  // console.log('newCart==========',newCart)
   export default function(state = initialState, action) {
-    if(state.cart==undefined){
-      state.cart=newCart
-    }
+    // if(state.cart==undefined){
+    //   state.cart=newCart
+    // }
+    
     
     switch (action.type) {
       case CART_PRODUCTS:
-        // console.log('cartproduct type----------',...state)
+        
         return {
           ...state,
           loading: true,
-        //   isAuthenticated: !isEmpty(action.payload),
          cart: action.payload,
-                // cartProducts: 
         };
         case EMPTY_CART:
           return{
@@ -36,19 +35,17 @@ import axios from "axios";
             totalPrice: 0
           };
         case GET_CARTS:
-          return{
+          return {
+            ...state,
             loading: false,
             getCarts: action.payload,
             // totalPrice: 0
           };
         case TOTAL_PRICE:
-        // console.log('cartproduct type----------',...state)
         return {
           ...state,
           loading: true,
-        //   isAuthenticated: !isEmpty(action.payload),
          totalPrice: action.payload,
-                // cartProducts: 
         };
       default:
         return state;

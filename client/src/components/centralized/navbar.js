@@ -314,9 +314,9 @@ const mapStateToProps = state => {
             return {
                 cartProducts:0,
                 products: state.products.products,
-                totalPrice: state.cartReducer.totalPrice,
+                totalPrice: 0,
                 loading: state.cartReducer.loading,
-                cartData:state.cartReducer.cart,
+                cartData:null,
                 user:state.auth.user
             }
         }

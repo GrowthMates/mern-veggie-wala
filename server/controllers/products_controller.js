@@ -18,12 +18,16 @@ module.exports = {
         Product.find({}).exec((err, products)=>{    //.limit(10)
             if(err){
                 console.log('All products err--------',err);
-                return res.status(400).json({ productsNotFound: "No products Available" });
+                return res.status(400).json(err.message);
+            }
+            if(!products){
+                console.log('no data found')
+                return res.status(400).json("No products Available");
             }
             // console.log('Products Find====',products)
             res.status(200).send(products.reverse());
         })
-
+        
 
     },
 

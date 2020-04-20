@@ -14,7 +14,7 @@ class Inventory extends Component {
     }
     onChange= e => this.setState({[e.target.name]: e.target.value})
     componentDidMount() {
-        axios.get('http://localhost:5000/api/getCartOwners')
+        axios.get('/api/getCartOwners')
         .then(res => {
             log('carta ka data',res.data);
             this.setState({

@@ -1,0 +1,51 @@
+
+.order-no{
+    padding: 10px 15px;
+    background-color: dodgerblue;
+}
+
+.order-data{
+    width: 522.84px;
+    border: 1px solid dodgerblue;
+    margin: 10px;
+    border-radius: 3px;
+}
+.order-items{
+    padding: 15px;
+    width: 520.84px;
+    
+}
+
+.order-items th {
+    padding: 8px;
+    height: 36px;
+}
+.order-items td {
+    padding: 8px;
+    height: 36px;
+}
+
+.refund-req-btn{
+    background-color:#FFFFFF;
+    border:1px solid #ADADAD;
+    border-radius:3px;
+    height:34px;
+}
+.order-button:hover{
+    box-shadow: 6px 6px 15px  #ADADAD;
+}
+
+.general-details{
+    background-color: white;
+    border: 1px solid dodgerblue;
+    margin: 10px;
+    border-radius: 3px;
+}
+
+.general-head{
+    padding: 10px 15px;
+    background-color: dodgerblue;
+}
+.general-data{
+    padding: 15px;
+}

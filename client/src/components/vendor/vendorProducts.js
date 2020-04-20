@@ -231,7 +231,7 @@ class VendorProducts extends Component {
                                           (<td style={{color: '#FF4747'}} > {item.name}
                                                 <br/>
                                                 <ul className='productActions' >
-                                                    <li onClick={this.product.bind(this,item)} style={{paddingleft: '0px'}}> <Link style={{color: 'brown'}} className='text-decoration-none' to = {`/admin/edit/${item._id}`} > Edit</Link></li>
+                                                    <li onClick={this.product.bind(this,item)} style={{paddingleft: '0px'}}> <Link style={{color: 'brown'}} className='text-decoration-none' to = {`/admin/edit/${item.id}`} > Edit</Link></li>
                                                     <li >|</li>
                                                      {this.state.loading===true? (<li> Loading...... </li>) : !this.state.error ? (<li onClick={this.delAction.bind(this,item.id,index)}>  Delete Permanantly</li>) : (<li> {this.state.error} </li>) } 
                                                     <li >|</li>

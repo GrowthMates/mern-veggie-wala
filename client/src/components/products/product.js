@@ -46,6 +46,7 @@ class Product extends Component{
 // }
 
 componentDidMount(){
+    window.scrollTo(0, 0)
     console.log(this.props)
     let id=this.props.match.params.id
     let {singleProduct} = this.props
@@ -125,6 +126,7 @@ onChangeQty(e){
 
     // this.props.userCart(this.props.history);
     this.props.addToCart(productId)
+    setTimeout(()=>{this.setState({loading:false})},5000)
     console.log('new prod')
     // this.props.history.push('/cart')
 }

@@ -59,10 +59,12 @@ export const carts = data => dispatch => {
 
   axios.get('/api/getCartOwners')
   .then(res => {
-    dispatch({
-      type:GET_CARTS,
-      payload: res.data
-  })
+    console.log(res.data)
+      dispatch({
+        type:GET_CARTS,
+        payload: res.data
+    })
+  
       
   })
   .catch(err => {

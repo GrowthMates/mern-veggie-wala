@@ -24,47 +24,31 @@ module.exports = {
     },
     //Need to be fixed........
     addToCart(req, res){
-        const { productId, quantity, userId } = req.body;
+        const { productId, quantity, userId, priceTotal } = req.body;
         // const { id } = req.params;
         console.log('addtocart-----------:', req.body.productId )
-    // /*
-        let productInCart = new UserCart({
-            
-            // _id:userId,
-            productId,
-            quantity
-            
-        });
-                
-            productInCart.save().then(data=>{
-            // Product.findByIdAndUpdate(productId,{ $inc: { stock: -1 } }).then((product)=>{
-            //     currentProduct=product
-            //     console.log('ProductUpdate success: ',product)
-            // })     
-            res.status(200).json({success:true, data})
-        })
-                .catch(err => {
-                    console.log('AddToCart Save Err--------',err.message)
-                    res.json(err);
-            
-            });
-        //  */   
-
-            /*
+   
             UserCart.findById(userId).exec((err, result)=>{
-
-            if(!result){
+                let currproduct=[]
+                if(!result){
+                console.log('Naya usercart===')
+                currproduct.unshift({product:productId,quantity})
                 let productInCart = new UserCart({
                     
                     _id:userId,
-                    productId,
-                    quantity
+                    productsList:currproduct,
+                    cartTotalPrice:priceTotal
+                    // quantity
                     
                 });
                         
-                    productInCart.save().then(data=>{   
-                    res.status(200).json({success:true, data})
+                    productInCart.save().then(products=>{   
+                console.log('Naya usercart succes===',products)
+                UserCart.findById(userId).populate('productsList.product').exec((err, result)=>{
+                    console.log('populated---',result)
+                    res.status(200).json({success:true, products})
                 })
+            })
                         .catch(err => {
                             console.log('AddToCart Save Err--------',err.message)
                             res.json(err);
@@ -72,19 +56,42 @@ module.exports = {
                     });
             }
             else if(result){
-                
+                currproduct=result.productsList;
+                console.log('Puarana usercart===')
+                // currproduct.unshift(productId);
+                let price=result.cartTotalPrice+priceTotal
+                let filtered = currproduct.filter(e=>{return e.product._id==productId})
+                if(filtered.length!=0){
+                    console.log('Same agya===',filtered)
+                    try {
+                        res.status(200).json({success:true, products:''})
+                    } catch (error) {
+                        res.status(400).json(error)
+                    }
+                }
+                result.updateOne({$push:{productsList:{product:productId,quantity}},cartTotalPrice:price},{ new: true }).exec((err,products)=>{
+                    console.log('Update products===',products)
+                    res.status(200).json({success:true, products:''})
+                })
+                // .catch(err=>{
+                //     console.log('Update error===',err.message)
+                // })
+
             }
         })
-            */
+            // */
 
     },
     viewCart(req, res){
-        UserCart.find().exec((err, products)=>{
+        const {id} = req.params
+        console.log(id)
+        UserCart.findById(id).populate('productsList.product').exec((err, products)=>{
             if(err){
-                console.log('View cart err------:', err.message)
+                console.log('View cart err------:', err)
             }
-            else{
+            else {
                 // const  =products.productId
+                console.log('User cart products====>',products)
                 res.status(200).json({success:true, products})
             }
         })
@@ -147,61 +154,59 @@ module.exports = {
         
 
     },
+    removeCart(req,res){
+        const {id} = req.body
+        console.log('cart deleted id---',id)
+        UserCart.findByIdAndDelete(id)
+        .then(cart => {
+            
+               console.log('delete-cart success')
+               res.json({ success: true,cart })
+             
+                                    
+                    })
+        .catch(err => {res.status(404).json(err)
+    console.log(err.message)
+    });
+    },
 
     //Need to be fixed........
     removeFromCart(req, res){
-        // const { id } = req.params;
-        const { key,productId,quantity } = req.body;
+        
+        const { key,productId,quantity,price } = req.body;
         console.log('remove cart=====',req.body);
-
-        UserCart.findOneAndDelete(key)
-        .then(cart => {cart.remove()
-                      .then(() =>{
-                        // Product.findById(productId).then((res)=>{
-                        //     res.stock=res.stock+quantity
-                        //     res.save().then(success=>console.log('deletecart added stock===',success))
-                        // })
-                        res.json({ success: true,cart })
-                        })
+      
+        UserCart.findOne({_id:key})
+        .then(cart => {
+            if(cart.productsList.length<=1){
+                cart.remove().then(succ=>{
+                    console.log('delete success===',succ )
+                     res.json({ success: true,cart })
+                })
+            }
+            else{
+                let found=cart.productsList.find(e=>{return e.product._id==productId})
+                if(found){
+                    found.remove();
+                    cart.cartTotalPrice-=price
+                    cart.save().then(succ=>{
+        
+                        console.log('delete success===',succ )
+                         res.json({ success: true,cart })
+    
+                    })
+                }
+                else{
+                    res.json({ success: true,cart })
+                }
+            }
+                                    
                     })
         .catch(err => {res.status(404).json({ success: false, err })
     console.log(err.message)
     });
     
-        // UserCart.findByIdAndDelete(key).exec((err, data)=>{
-        //     if(err) console.log("removeFromCart err-----------:",err.message)
-        //     else
-        //     res.status(200).json({success:true,data})
-        // });
-
-        // UserCart.update(
-        //     {$pull: {product: id}},
-        //     {safe: true, upsert: true},
-        //     function(err, doc) {
-        //         if(err){
-        //         console.log(err);
-        //         }else{
-        //         //do stuff
-        //         }
-        //     });
-
-        // find by document id and update and pop or remove item in array
-        // users.findByIdAndUpdate(userId,
-        //     {$pull: {product: id}},
-        //     {safe: true, upsert: true},
-        //     function(err, doc) {
-        //         if(err){
-        //         console.log(err);
-        //         }else{
-        //         //do stuff
-        //         }
-        //     });
-
-
-        //   UserCart.save().then((data)=> {res.status(200).json({
-        //       success:true,
-        //       data
-        //     })}).catch(err=>console.log(err))
+  
 
     },
 
@@ -230,9 +235,12 @@ module.exports = {
         })
 
        await NewCart.find().exec((err, result)=>{
+           if(err){
+               return res.status(400).json(err);
+           }
             if(!result){
                 console.log('No cart available====')
-                return 0;
+                return res.status(400).json('Sorry your Order cannot be preceed. Kindly inform us the problem');
                 
             }
            else if(result){
@@ -292,7 +300,11 @@ module.exports = {
                 cartProducts.forEach( (item,i)=>{
                     console.log('Index dekho===',i,data)
                    Product.findById(item.filterProduct._id).then((product)=>{
+                       if(product.cartStock[0].stock<item.quantity){
+                           return  res.status(400).json('Sorry this product is out of Stock!')
+                       }
                        product.cartStock[0].stock-= item.quantity
+                       product.stock-=item.quantity
                        currentProduct=product
 
 
@@ -300,6 +312,14 @@ module.exports = {
                        product.save()
                        .then(data => {
                            console.log('stock cart vise succes',data)
+                        //    NewCart.findByIdAndUpdate(cartId,{$push:{orders:data}}).exec((err, result)=>{
+                        //     if(err){
+                        //         console.log('err adminCart update se===',err.message)
+                        //         return res.status(400).json(err.message)
+                        //      }
+                        //     res.status(200).json({success:true,result})
+        
+                        // })
                         //    res.status(200).send(data)
                        })
                        .catch(err => {
@@ -318,6 +338,7 @@ module.exports = {
                             res.status(400).json(err.message)
                         }); 
                })
+            
         })
         // .catch(err => {
         //     console.log('ksadkjhsakj-------',err.message)
@@ -485,6 +506,7 @@ module.exports = {
         WishList.findById(key) .exec((err, users) => {
             if(err){
                 console.log('getAdminUsers err-----------:',err);
+                res.status(400).json(err)
             }
             res.status(200).send(users);
         });

@@ -7,7 +7,7 @@ import heart from './images/heart.png'
 import shoppingcart from './images/shopping-cart.png'
 import ResponsiveNavbar from './responsiveNavbar'
 // import axios from 'axios'
-// import VeggieLogo  from "../centralized/images/VeggiewalaLogo.png";
+import VeggieLogo  from "../centralized/images/VeggiewalaLogo.png";
 // import socketIOClient from "socket.io-client";
 
 // export const socket = socketIOClient("http://localhost:5000");
@@ -168,7 +168,7 @@ class Navbar extends Component{
         return(
             <div className=""> 
 
-            <ResponsiveNavbar />
+            {/* <ResponsiveNavbar /> */}
             
              <div className={this.state.scrolled ? ' nav scrolled desktop' : 'nav desktop'}> 
               
@@ -177,13 +177,14 @@ class Navbar extends Component{
                     <div className='row'>                
                          <div className='col-lg-3 col-sm-12 col-xs-5'>
                            <div className="logo-header navLogo" > 
-                            <Link to="/"><img style={{width: "95px"}} src="//cdn.shopify.com/s/files/1/0027/9642/1229/files/gf.png?v=1559959830" className="img-fluid"/></Link>
+                            <Link to="/"><img  src={VeggieLogo} className="img-fluid"/></Link>
+                            {/* //cdn.shopify.com/s/files/1/0027/9642/1229/files/gf.png?v=1559959830 */}
                            </div>
                          </div>
                          <div className='col-lg-5'>
                            <form>
-                               <input value={this.state.search} onChange={this.updateSearch.bind(this)} placeholder='Type to search' className='navInput' />
-                               <button className='navBtn'>Search</button>
+                               <input value={this.state.search} onChange={this.updateSearch.bind(this)} placeholder='Type to search' className='navInputt' />
+                               <button className='navBtnn'>Search</button>
                            </form>
                            <div className='searchFilterOut'>
                            

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import shoppingcart from './images/shopping-cart.png'
 import './style/navbar.css';
 import {Link} from 'react-router-dom'
+import VeggieLogo  from "../centralized/images/VeggiewalaLogo.png";
 
 function myFunction(x) {
     x.classList.toggle("change");
@@ -79,7 +80,7 @@ export default class ResponsiveNavbar extends Component{
                         </div>
                         <div  className='grid-item2'>
                         <Link to="/">
-                            <img style={{width: "82px", height: '43px'}} src="//cdn.shopify.com/s/files/1/0027/9642/1229/files/gf.png?v=1559959830" className="img-fluid"/>
+                            <img  src={VeggieLogo} className="img-fluid"/>
                         </Link>
                         </div>
                         <div  className='grid-item3'>
@@ -93,7 +94,7 @@ export default class ResponsiveNavbar extends Component{
              <div className="row">
                 <div className="col">
                     <div className="collapse multi-collapse" id="multiCollapseExample2">
-                     <div className="card card-body">
+                     <div className="card card-body responsiveNavMenuMain">
                          {/* divider for top */}
                             <div className='hamburgerDivider'>
                                 <div className={this.state.active ? 'linkActive  inner-item1' : 'notActive inner-item1'}  
@@ -104,7 +105,7 @@ export default class ResponsiveNavbar extends Component{
                                 </div>
                                     
                                 <div  className={this.state.active1 ? 'linkActive  inner-item2' : 'notActive inner-item2'}
-                                 className='inner-item2' onClick={this.login.bind(this)}>
+                                  onClick={this.login.bind(this)}>
                                         <div className='rightHamburger'>Login</div>
                                 </div>
                          </div>
@@ -114,21 +115,21 @@ export default class ResponsiveNavbar extends Component{
                         {this.state.hamburgerInner===true?
                         (
 
-                         <div>
-                            <Link>sajakhdks</Link><br/>
-                            <Link>sajakhdks</Link><br/>
-                            <Link>sajakhdks</Link>
-                            <Link>sajakhdks</Link>
-                            <Link>sajakhdks</Link>
-                            <Link>sajakhdks</Link>
-                            <Link>sajakhdks</Link>
-                            <Link>sajakhdks</Link>
+                         <div className="responsiveNavMenu" >
+                            <li><Link to='/'>Home</Link></li>
+                            <li><Link to='/contact'>Contact Us</Link></li>
+                            <li><Link to='/about'>About Us</Link></li>
+                            <li><Link to='/collections' >Products</Link></li>
+                            <li><Link to='combined'>Sign In</Link></li>
+                            <li><Link to='/cart'>Cart</Link></li>
+                            
                          </div>
                         )
                         :
                         (
-                            <div>
-                              login
+                            <div className="responsiveNavMenu">
+                             <li><Link to='combined'>Sign In</Link></li>
+                             <li><Link to='combined'>Sign Up</Link></li>
                           </div>
                         )
                         }

@@ -15,7 +15,7 @@ module.exports = {
     
     readAllProducts(req, res){
         console.log('ReadAllProducts called===',req.headers.referer)
-        Product.find({}).exec((err, products)=>{    //.limit(10)
+        Product.find().exec((err, products)=>{    //.limit(10)
             if(err){
                 console.log('All products err--------',err);
                 return res.status(400).json(err.message);

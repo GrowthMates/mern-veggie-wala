@@ -9,7 +9,7 @@ import {userCart} from '../../../actions/productsAction'
 import axios from 'axios'
 import {addToCart,totalPrice,infoPathCheck, emptyCart} from '../../../actions/productsAction'
 import store from '../../../store'
-import 'animate.css'
+// import 'animate.css'
 import Information from "../../products/information";
 
 
@@ -325,7 +325,7 @@ var lineTotalArr = []
                                    
                                     </div>
                                     <div >
-                                        <button onClick={this.proceed.bind(this)} type="submit" class="btn btn-success btn-lg animated pulse cart-btn">PROCEED TO CKECKOUT</button>
+                                        <button onClick={this.proceed.bind(this)} type="submit" class="btn btn-success btn-lg cart-btn">PROCEED TO CKECKOUT</button>
                                     </div>
                                 </div>
                     </div>

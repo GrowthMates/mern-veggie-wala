@@ -53,7 +53,7 @@ var getCartProdLocalStorage=[]
       .catch(err => { 
         dispatch({
           type: GET_ERRORS,
-          payload: err.response.data
+          payload: err.response?err.response.data:err.message
         })
         console.log("Products success", err)}
       );

@@ -13,6 +13,13 @@ body {
     /* background-color: chartreuse; */
 }
 
+.img-fluid{
+  max-width: 17%;
+  max-height: 15%;
+  position: fixed;
+  top: -1%;
+  left: 4%;
+}
 .bottomNav{
   text-decoration: none;
   display: inline-block;
@@ -42,7 +49,7 @@ body {
   font-weight: 600;
 }
 
-.navInput{
+.navInputt{
      width: 100%;
     /* border-radius: 25px; */
     /* border: 3px solid #212529; */
@@ -59,7 +66,7 @@ body {
     /* margin-left: 39px; */
     /* margin-top: 3px; */
     border: 2px solid #cecdcd;
-    border-radius: 48px;
+    /* border-radius: 0; */
     /* padding: 2px; */
     /* width: 80%; */
     
@@ -82,16 +89,15 @@ body {
     cursor: pointer;
   }
 
-.navBtn{
-    background-color: #5ba616;
+.navBtnn{
+    background-color: #7CA646;
     color: #fff;
     float: right;
     position: absolute;
-    /* margin-left: -70px; */
-    /* margin-bottom: -50px; */
-    top: 8%;
-    right: 4%;
-    border-radius: 25px;
+    top: 3px;
+    height: 40px;
+    right: 18px;
+    /* border-radius: 0; */
     width: 20%;
     line-height: 33px;
     border: 1px solid #5ba616;
@@ -121,11 +127,30 @@ body {
     color: #5ba616;
     
 }
+.responsiveNavMenuMain {
+ background-color: #7CA646;
+ padding: 0%;
+ /* position: absolute; */
+}
+.responsiveNavMenu li{
+ text-decoration: none;
+ background-color: #FFF;
+ list-style-type: none;
+ text-align: left;
+ line-height: 25px;
+ margin-bottom: 3px;
+ width: 100% !important;
+ padding: 0%;
+ 
+}
+.responsiveNavMenu a{
+  color: #7CA646;
+}
 sup{
     position: absolute;
     top: -6;
     right: 0px;
-    background: red;
+    background: #7CA646;
     height: 16px;
     width: 17px;
     color: #fff;
@@ -294,162 +319,7 @@ a:hover{
   height: 150px;
 }
 
-  @media only screen and (min-width: 768px) {
-    .responsive{
-        /* background-color: rgb(184, 176, 176); */
-        display: none;
-    }
-    
-  }
-
-
-  /* Responsive section */
-
-  @media only screen and (max-width: 1000px) {
-    .forHidden {
-      /* background-color: lightblue; */
-      display: none;
-    }
-    .bottomNav{
-      display: none;
-    }
-    .desktop{
-        display: none;
-    }
-    .responsive{
-      margin-bottom: 20px ;
-    }
-    .grid-container {
-         
-        display: grid;
-        grid-template-columns: auto auto auto;
-        background-color: rgb(241, 238, 238);
-        /* padding: 10px; */
-      }
-    .grid-item1 {
-    
-    padding: 20px;
-    font-size: 30px;
-    text-align: left;
-    }
-    .grid-item2 {
-    
-    padding: 20px;
-    font-size: 30px;
-    text-align: center;
-    }
-    .grid-item3 {
-
-        padding: 20px;
-        font-size: 30px;
-        text-align: right;
-        padding-top: 10px;
-        }
-
-    /* Hamburger */
-    
-   
-    .bar1, .bar2, .bar3 {
-        width: 35px;
-        height: 5px;
-        background-color: #5ba616;
-        margin: 6px 0;
-        transition: 0.4s;
-      }
-      
-      .change .bar1 {
-        -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-        transform: rotate(-45deg) translate(-9px, 6px);
-      }
-      
-      .change .bar2 {opacity: 0;}
-      
-      .change .bar3 {
-        -webkit-transform: rotate(45deg) translate(-8px, -8px);
-        transform: rotate(45deg) translate(-8px, -8px);
-      }
-
-      .hamburgerDivider{
-        display: grid;
-        grid-template-columns: auto auto auto;
-      }
-
-      .inner-item1{
-        /* padding: 20px; */
-        font-size: 30px;
-        /* text-align: left; */
-      }
-      .inner-item1:focus{
-          background-color: black;
-      }
-
-      .inner-item2{
-        /* padding: 20px; */
-        font-size: 30px;
-        text-align: right;
-      }
-      .inner-item2:focus{
-        background-color: black;
-    }
-
-    .respSearch{
-
-      line-height: 40px;
-
-      text-decoration: none;
-
-      outline: none;
-      padding-left: 20px;
-      overflow: hidden; 
-      border: 2px solid #cecdcd;
-      border-radius: 3px;
-         width: 300px;
-        height: 40px;
-        margin: 10px -30px 10px 2px;
-        padding: auto 20px;
-        /* border-radius: ; */
  
-    }
-
-    ::placeholder {
-      /* color: #9a9d9e; */
-      font-weight: 300;
-      opacity: 1; /* Firefox */
-    }
-
-    .respI{
-        position: relative;
-        right: 20px;
-        color: rgb(144, 144, 145);
-
-    }
-
-    sup{
-      position: relative;
-      top: -5;
-      right: -10px;
-      background: red;
-      height: 1006px;
-      width: 1700px;
-      color: #fff;
-      text-align: center;
-      border-radius: 50%;
-      font-size: 10px;
-      line-height: 18px;
-      font-family: Montserrat;
-  }
-
-  .linkActive{
-    background-color: black;
-    color: white;
-    font-size: 1.2em;
-    padding-top: 5px ;
-  }
-
-  .notActive{
-    background-color: transparent;
-  }
-  }
 
 
   /* Tablet k lye */

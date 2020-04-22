@@ -250,7 +250,7 @@ import queryString from "query-string";
                             <p>There are many a variations passages Ipsum available, a majority have</p>
                         </div>
                         <div className='col-lg-6 col-md-12 col-sm-12 col-xs-12' >
-                            <img src={Center} height='380' alt=''/>
+                            <img src={Center} height='380' width="100%" alt=''/>
                         </div>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 middleRight' >
                             <h4>Tasty</h4>

@@ -3,8 +3,8 @@
   background-color: #7CA646;
   padding: 20px 40px 20px 40px;
   margin-top: 14%;
-  /* min-height: 30vh; */
-  height: 16vh;
+  max-height: 30vh;
+  min-height: 17vh;
 }
 
 .upperLink a{

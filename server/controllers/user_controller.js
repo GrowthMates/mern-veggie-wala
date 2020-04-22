@@ -45,8 +45,18 @@ module.exports = {
                     productInCart.save().then(products=>{   
                 console.log('Naya usercart succes===',products)
                 UserCart.findById(userId).populate('productsList.product').exec((err, result)=>{
-                    console.log('populated---',result)
-                    res.status(200).json({success:true, products})
+                    if(err){
+                        console.log('Add cart error==',err)
+                        return res.status(400).json(err)
+                    }
+                    try{
+                        console.log('populated---',result)
+                        return res.status(200).json({success:true, products})
+                    }
+                    catch(error){
+                        console.log('Add cart error==',error)
+                        return res.status(400).json(error)
+                    }
                 })
             })
                         .catch(err => {
@@ -70,8 +80,18 @@ module.exports = {
                     }
                 }
                 result.updateOne({$push:{productsList:{product:productId,quantity}},cartTotalPrice:price},{ new: true }).exec((err,products)=>{
-                    console.log('Update products===',products)
-                    res.status(200).json({success:true, products:''})
+                    if(err){
+                        console.log('Update cart error==',err)
+                        return res.status(400).json(err)
+                    }
+                    try{
+                        console.log('Update products===',products)
+                        res.status(200).json({success:true, products:''})
+                    }
+                    catch(error){
+                        console.log('Update cart error==',error)
+                        return res.status(400).json(error)
+                    }
                 })
                 // .catch(err=>{
                 //     console.log('Update error===',err.message)

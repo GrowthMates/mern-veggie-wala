@@ -1,4 +1,6 @@
-
+#home-container{
+    margin-bottom: 10%;
+}
 
 .bgImgage{
     background-image: url('../images/frt1.jpeg');

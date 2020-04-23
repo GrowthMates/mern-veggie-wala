@@ -20,6 +20,7 @@
 }
 .cart-btn{
     background-color: #5BA616;
+    float: left;
 }
 /* .icons1{
     font-size: 100px;
@@ -159,14 +160,12 @@ h5.cursor-pointer:hover{
 
 }
 .data p{
-    /* color: rgba(148, 144, 137, 0.637);
-    font-size: larger;
-    font-weight: 400;
-    text-align: left; */
+    font-size: 1em;
     color: rgba(148, 144, 137, 0.637);
     font-size: larger;
     font-weight: 400;
     text-align: left;
+    min-height: 7vh;
     max-height: 7vh;
     overflow: hidden;
     text-overflow: ellipsis;    
@@ -174,6 +173,7 @@ h5.cursor-pointer:hover{
 .mainRight{
     padding: 0px !important;
     margin-left: 30px;
+    margin-bottom: 10%;
 }
 .link-name:hover{
     text-decoration: none;

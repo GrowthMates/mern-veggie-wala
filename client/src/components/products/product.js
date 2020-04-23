@@ -154,7 +154,7 @@ onChangeQty(e){
                 <div className="row">
                     <div className="col-md-6 col-lg-6 col-sm-6">
                     <div className='product-img'>
-                       <img className="cursor-pointer" src={this.state.product.image[0]} width='540' height='540' />
+                       <img className="cursor-pointer" src={this.state.product.image[0]} width='100%' height='540' />
                      </div> 
 
                    </div>

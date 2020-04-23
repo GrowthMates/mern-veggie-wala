@@ -178,7 +178,7 @@ import queryString from "query-string";
         // console.log('user', user.id)
         return(
 
-            <div>
+            <div id="home-container">
              
              <section onClick={this.changer.bind(this)}  className='col-lg-12 homeImg'> 
              <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">

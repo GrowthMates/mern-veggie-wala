@@ -42,11 +42,12 @@ import l3 from './images/l3.webp'
 import l4 from './images/l4.webp'
 import l5 from './images/l5.webp'
 import l6 from './images/l6.webp'
-import h1 from './images/h1.webp'
-import h2 from './images/h2.webp'
+import Slide1 from './images/Slider1.jpg'
+import Slide2 from './images/Slider2.jpg'
+import Slide3 from './images/Slider3.jpg'
 import './style/home.css'
-import {wishList} from '../../actions/productsAction'
-
+import {wishList,userCart} from '../../actions/productsAction'
+import Homeimages from "./home-assets/images"
 import {gmailLogin} from '../../actions/authActions'
 import queryString from "query-string";
 
@@ -126,6 +127,10 @@ import queryString from "query-string";
     }}
     componentDidMount(){
 
+        //Calling UserCart API...
+        if(this.props.auth.user){
+            this.props.userCart(this.props.auth.user.id)
+        }
         console.log('this.componentDidMount')
         var query = queryString.parse(this.props.location.search);
         console.log('query=====',query)
@@ -180,22 +185,37 @@ import queryString from "query-string";
 
             <div id="home-container">
              
-             <section onClick={this.changer.bind(this)}  className='col-lg-12 homeImg'> 
+             <section className='col-lg-12 homeImg'> 
              <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
                     <ol className="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
-                    <div className="carousel-inner">
+                    <div className="carousel-inner" style={{border:'0px'}}>
                         <div className="carousel-item active">
-                         <img className="d-block w-100" src={h1} alt="First slide"/>
+                         <img className="d-block w-100" src={Slide1} alt="First slide" />
+                         <div className="shop-now-btn-1 carousel-caption d-none d-md-block">
+                        <button className="shop-button">
+                            Shop Now
+                        </button>
+                        </div> 
                         </div>
                         <div className="carousel-item">
-                         <img className="d-block w-100" src={h2} alt="Second slide"/>
+                         <img className="d-block w-100" src={Slide2} alt="Second slide"/>
+                         <div className="shop-now-btn-2 carousel-caption d-none d-md-block">
+                        <button className="shop-button">
+                            Shop Now
+                        </button>
+                        </div> 
                         </div>
                         <div className="carousel-item">
-                         <img className="d-block w-100" src={h1} alt="Third slide"/>
+                         <img className="d-block w-100" src={Slide3} alt="Third slide"/>
+                         <div className="shop-now-btn-3 carousel-caption d-none d-md-block">
+                        <button className="shop-button">
+                            Shop Now
+                        </button>
+                        </div> 
                         </div>
                     </div>
                     <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -206,64 +226,60 @@ import queryString from "query-string";
                         <span className="carousel-control-next-icon" aria-hidden="true"></span>
                         <span className="sr-only">Next</span>
                     </a>
-                    </div>    
+                    </div>
+                       
                     </section>    
 
-                     {/* Home @nd Section */}
-               <div className='container'>
-                    <div className='row topProd' >
-                        <div className='col-lg-3' >
-                            <img  src={plums} width='270' height='289' alt='' />
-                        </div>
-                        <div className='col-lg-3' >
-                          <img  src={pchs} width='270' height='289' alt=''/>
-                        </div>
-                        <div className='col-lg-3' >
-                          <img  src={cmbr} width='270' height='289' alt=''/>
-                        </div>
-                        <div className='col-lg-3' >
-                          <img  src={mrtls} width='270' height='289' alt=''/>
-                        </div>
-
-                    </div>
-               </div>
+               <div id="mid-section-home">
 
                <div className='homeMiddle'>
-                  <img src={leaf} width='190' height='40' alt=''/>
-                   <h2 style={{color: '#5ba616'}}>We GrowBest Food</h2>
-                   <h6  style={{color: '#949494',fontSize: '0.8em', opacity: '0.8'}} > <i>It is a long established fact that a reader will be distracted by the readable</i></h6>
+                  <div className="grow-best-food">
+                   <h2>We Grow Best Food</h2>
+                   <h6  style={{color: '#949494',fontSize: '0.8em', opacity: '0.8', width:'30%', margin:'auto'}} >
+                        <i>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</i></h6>
+                  </div>
                </div>
                 {/* our qualities  */}
+                
                <div className='container threeMiddlw'>
-                    <div className='row' >
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 middleLeft' >
-                            <img src={fresh} alt=''/>
-                            <h4>Fresh</h4>
-                            <p>There are many a variations passages Ipsum available, a majority have</p>
+                   {/* <div className="green-bg"> */}
+                        <img src={Homeimages.upperLeafs} alt='Leafs' id="upper-leafs-img"/>
+                    <div className='row' style={{width:'100%', alignItems: 'center'}} >
+                        <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 middleLeft' >
+                            
+                            <h4><img src={fresh} alt=''/> Fresh</h4>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
 
-                            <img src={hearts} alt=''/>
-                            <h4>Healthy</h4>
-                            <p>There are many a variations passages Ipsum available, a majority have</p>
+                            
+                            <h4><img src={hearts} alt=''/> Healthy</h4>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
 
-                            <img src={eco} alt=''/>
-                            <h4>Eco</h4>
-                            <p>There are many a variations passages Ipsum available, a majority have</p>
+                           
+                            <h4><img src={Homeimages.ecoIcon} alt=''/> Eco</h4>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
                         </div>
-                        <div className='col-lg-6 col-md-12 col-sm-12 col-xs-12' >
-                            <img src={Center} height='380' width="100%" alt=''/>
+
+                        {/* center image... */}
+                        {/* <div className='col-lg-1 col-md-1 col-sm-12 col-xs-12'></div> */}
+                        <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12'  >
+                            <img src={Homeimages.greenMango} height='auto' width="100%" alt=''/>
                         </div>
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 middleRight' >
-                            <h4>Tasty</h4>
-                            <img src={tasty} alt=''/>
-                            <p>There are many a variations passages Ipsum available, a majority have</p>
-                            <h4>Yammu</h4>
-                            <img src={yammy} alt=''/>
-                            <p>There are many a variations passages Ipsum available, a majority have</p>
-                            <h4>Pemium</h4>
-                            <img src={yammy} alt=''/>
-                            <p>There are many a variations passages Ipsum available, a majority have</p>
+                         {/* <div className='col-lg-1 col-md-1 col-sm-12 col-xs-12' ></div> */}
+
+                        <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 middleRight' >
+                            <h4>Tasty <img src={Homeimages.tasteTongue} alt=''/></h4>
+                            
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
+                            <h4>Nutritious <img src={Homeimages.nutritiousIcon} alt=''/></h4>
+                            
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
+                            <h4>Pemium <img src={Homeimages.premiumIcon} alt=''/></h4>
+                            
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
                         </div>
                     </div>
+                   {/* </div> */}
+               </div>
                </div>
                 {/* our services */}
                 <div className='container'>
@@ -496,6 +512,6 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    {   wishList,gmailLogin }
+    {   wishList,gmailLogin,userCart }
 
   )(Home);

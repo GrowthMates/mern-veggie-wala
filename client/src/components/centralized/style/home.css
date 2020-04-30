@@ -51,7 +51,6 @@ body{
     color: #7CA646;
     font-size: 1.5em;
     padding: 5px 0px;
-    border-radius: 15px;
     transition: all 0.3s ease-in;
 }
 .shop-button:hover{
@@ -63,6 +62,25 @@ body{
     transform: translateY(-5%);
 }
 
+#our-suppliers{
+    margin-top: 5rem;
+}
+
+#our-suppliers .sec-1 h2{
+    /* color: rgb(91, 166, 22); */
+    color: black;
+    font-weight: bolder;
+    letter-spacing: .1em;
+}
+.sec-1{
+    text-align: center;
+    width: 100%;
+    /* display: flex;
+    justify-content: center; */
+}
+.sec-1 h6{
+    text-align: center;
+}
 .homeMiddle{
     /* position: relative; */
     text-align: center;
@@ -112,10 +130,7 @@ body{
     margin-bottom: 60px !important;
 }
 
-.threeMiddlw .green-bg{
-    /* position: absolute;
-    background: ; */
-}
+
 
 .middleLeft{
     text-align: left;
@@ -171,18 +186,91 @@ body{
     color: #ffffff;
     padding-left: 1rem;
 }
+
+#avocado-side-img{
+    width: 20%;
+    position: absolute;
+    z-index: 100;
+    top: -60%;
+    left: -6%;
+    object-fit: contain;
+
+}
+.round-p{
+    width: 5rem;
+    height: 65%;
+    background: #efefef;
+    border-radius: 100%;
+    margin: auto;
+    vertical-align: middle;
+}
+.round-p img{
+    position: relative;
+    top: 1rem;
+    left: 1.5rem
+}
     
 .midLow h4{
+    width: max-content;
+    margin: auto;
    color: #5ba616;
    text-align: center;
-   margin-top: 30px !important;
  
 }
+#featuredProducts{
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+#featuredProducts .select-option-icon{
+    padding: 1rem;
+    width: 6rem;
+}
+#featuredProducts span{
+    padding: 1rem;
+    padding-left: 0;
+    /* width: 6rem; */
+}
+#featuredProducts #lowerLeaf{
+    position: absolute;
+    width: 13rem;
+    z-index: 100;
+    top: -4rem;
+    right: -4.8rem;
+}
+#featuredProducts h2{
+    font-weight: bold;
+}
+
+.top-items-list{
+    padding: 0 2rem;
+    margin: 0;
+}
+
+.home-item-imageBx{
+    overflow: hidden;
+    border-radius: 1em;
+    width: 100%;
+    height: 14%;
+    margin-bottom: 10px;
+}
+img{
+    transform-style: preserve-3d;
+}
+
+.home-item-imageBx img:hover{
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
 .p1{
     margin: 0px;
     margin-bottom: 3%;
-    padding: 0%;
-    padding-right: 0px;
+    /* border: 1px solid #7CA746; */
+    box-shadow: 1px 1px 18px 4px #efefef;
+    padding: 1em;
+    border-radius: 1rem;
+    /* padding-right: 0px; */
 }
 .lowerProd{
     margin: 0px !important;
@@ -211,7 +299,7 @@ body{
 }
 
 .p1:hover,.p2:hover,.p3:hover,.p4:hover{
-    box-shadow: 1px 1px 14px 2px  #888;
+    /* box-shadow: 1px 1px 14px 2px  #888; */
     /* border: 1px solid #212529; */
     /* padding-left: 20px; */
 }
@@ -365,9 +453,45 @@ cursor: pointer;
 }
 
 .newsFeed{
-    background-color: #5ba616;
+    position: relative;
+    background-color: #f7f6f2;
+    margin-bottom: 5rem;
+    min-height: 17rem;
+    padding: 5em;
+    margin: 0 -5rem;
+    margin-right: -4.8rem;
+}
+.newsFeed img{
+    width: 25vw;
+    position: absolute;
+    top: -22%;
+    left: 0;
 }
 
+.newsFeed input[type=text]{
+    width: 40%;
+    max-height: 5vh;
+    border: 0;
+    padding: 0.6em 0;
+    border-bottom: 2px solid black;
+    background: none;
+    transition: all 0.5s ease-out;
+}
+.newsFeed input[type=text]:focus{
+    outline: none;
+    border: 2px solid black;
+    padding: 0.5em 1em;
+}
+.newsFeed button{
+    width: auto;
+    height: auto;
+    font-size: .8em;
+    padding: 1em 3em;
+    letter-spacing: 0.06em;
+    background: black;
+    color: #efefef;
+    border: none;
+}
 .loaders {
     margin-left:40%   !important;
     border: 8px solid #f3f3f3;
@@ -390,8 +514,24 @@ cursor: pointer;
     100% { transform: rotate(360deg); }
   }
 
-  @media (min-width: 320px) {
-      /* .middleRight p{
-          text-align: center;
-      } */
-  }
+  @media (min-width: 1030px) {
+    /* .middleRight p{
+        text-align: center;
+    } */
+    /* .top-items-list{
+      padding: 0 5rem;
+      margin: 0;  
+  } */
+}
+@media (max-width: 775px) {
+    /* html{
+        width: 50rem !important;
+    }
+    ::-webkit-scrollbar{
+        display: none;
+    }
+    body{
+        display: none;
+        width: 50rem !important;
+    } */
+}

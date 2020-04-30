@@ -44,6 +44,7 @@ class Collections extends Component{
     }
 
     componentDidMount(){
+        window.scrollTo(0, 0)
         console.log(this.props)
             console.log('Home DidMount====',this.props.products)
            if(this.props.products){ 

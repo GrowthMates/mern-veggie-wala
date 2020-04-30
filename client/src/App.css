@@ -1,3 +1,6 @@
+body{
+  min-width: 68rem;
+}
 .App {
   text-align: center;
   position: relative;

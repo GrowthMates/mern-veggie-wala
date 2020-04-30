@@ -7,6 +7,12 @@ import tasteTongue from "./images/layer-2.png"
 import nutritiousIcon from "./images/unnamed-1.png"
 import premiumIcon from "./images/unnamed-2.png"
 import ecoIcon from "./images/layer-5.png"
+import truckIcon from "./images/truckIcon.png"
+import approvedIcon from "./images/approvedIcon.png"
+import listIcon from "./images/listIcon.png"
+import peopleLove from "./images/peopleLove.png"
+import optionVeg from "./images/optionVeg.png"
+import optionFruits from "./images/optionFruits.png"
 
 
 
@@ -21,6 +27,13 @@ import ecoIcon from "./images/layer-5.png"
     nutritiousIcon,
     premiumIcon,
     ecoIcon,
+    truckIcon,
+    approvedIcon,
+    listIcon,
+    peopleLove,
+    optionVeg,
+    optionFruits,
+    
 
  }
 

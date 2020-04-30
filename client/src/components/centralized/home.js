@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import HomeLoader from './home-loader'
 import {Link} from 'react-router-dom'
-
+import GreenButton from "./buttons/greenButton"
 // import axios from 'axios'
 // import frt1 from './images/frt1.jpeg'
 // import frt2 from './images/frt2.jpeg'
@@ -106,7 +106,7 @@ import queryString from "query-string";
             if(nextProps.products){
                if(nextProps.products.length>=8){ 
                     var newProducts=[];
-                    for(let i=0;i<=7;i++){
+                    for(let i=0;i<=11;i++){
                         console.log('ForLoopNextProps====',nextProps.products[i])
                         newProducts.push(nextProps.products[i])
                     }
@@ -143,7 +143,7 @@ import queryString from "query-string";
        if(this.props.products!==undefined){  
         if(this.props.products.length>=8){ 
             var newProducts=[];
-            for(let i=0;i<=7;i++){
+            for(let i=0;i<=11;i++){
                 console.log('ForLoopNextProps====',this.props.products[i])
                 newProducts.push(this.props.products[i])
             }
@@ -230,6 +230,9 @@ import queryString from "query-string";
                        
                     </section>    
 
+                <div>
+                    
+                </div>
                <div id="mid-section-home">
 
                <div className='homeMiddle'>
@@ -281,29 +284,32 @@ import queryString from "query-string";
                    {/* </div> */}
                </div>
                </div>
+
                 {/* our services */}
                 <div className='container'>
-                    <div className='row'>
+                    <div className='row' style={{position:'relative', padding:'5%'}}>
+                        <img src={Homeimages.avocado} alt='Avocado' id="avocado-side-img"/>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow ' >
-                            <img src={dlv} width='56' height='42' alt=''/>
+
+                            <p className="round-p"><img  src={Homeimages.truckIcon} style={{width:"6rem"}} alt=''/></p>
                             <h4>Fast Delivery</h4>
                             <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}}>Delivery wIthin 12 hour</p>
                         </div>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow' >
-                            <img  src={ser} width='49' height='42' alt=''/>
+                        <p className="round-p"><img  src={Homeimages.approvedIcon} style={{width:"3rem"}} alt=''/></p>
                             <h4>Best Services</h4>
                             <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}} >Support online 24/7</p>
                         </div>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow' >
-                            <img src={all} width='49' height='42' alt=''/>
+                        <p className="round-p"><img src={Homeimages.listIcon} style={{width:"3rem"}} alt=''/></p>
                             <h4>All-in-one</h4>
-                            <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}} >Fruits&Vegetable</p>
+                            <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}} >Fruits & Vegetable</p>
                         </div>
 
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow' >                          
                  
 
-                            <img src={love} width='49' height='42' alt=''/>
+                        <p className="round-p"><img src={Homeimages.peopleLove} style={{width:"4rem"}} alt=''/></p>
                             <h4>Made with Love</h4>
                             <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}} >Best Services</p>
                         
@@ -312,142 +318,57 @@ import queryString from "query-string";
                 {/* topsale */}
 
                 <div className='' style={{marginTop: '25px'}} >
-                    <div className='row '>
+                    <div id="featuredProducts">
+                        <h2>Featured Products</h2>
+                        <div style={{    width: '20rem',margin: 'auto'}}>
+                            <img className="select-option-icon cursor-pointer" src={Homeimages.optionVeg}/>
+
+                            {/* Fix this color issue immidiately... */}
+                            <img className="select-option-icon cursor-pointer" src={Homeimages.optionFruits} />
+                            <span>Vegetables</span><span>Fruits</span>  
+                        </div>
+                        <img src={Homeimages.lowerLeafs} alt='side-Leafs' id="lowerLeaf"/>
+                    </div>
+                    <div className='row top-items-list'>
                         {
                         (this.state.loading==true)?(<HomeLoader/>):(
                          this.state.products.map((item,index) => {  
                          return(
-                            <div key={index} className='p1 col-lg-3 col-md-6 col-sm-12 col-xs-12 ' onClick={this.p1} >
-                            {/* <div className='topInner'>
-                                    <p>-57%</p>
-                                </div> */}
+                            <div key={item._id} className='col-lg-3 col-md-6 col-sm-12 col-xs-12 ' onClick={this.p1} >
+                                <div className='p1'>
 
-                               <Link to = {`/product/${item._id}`} > <img src={item.image[0]} width='270' height='270' alt=''/></Link>
-                                <div className='lowerProd' >
-                            
-                                    <img src={shoppingcart1} width='25' height='25' alt=''/>
-                                    {user.id?
-                                        
-                                            <img onClick={this.wishList.bind(this,user.id,item._id)}  src={heart1} width='23' height='23' alt=''/>
-                                     
-                                     :
-                                      <Link to='/combined'> <img src={heart1} width='23' height='23' alt=''/>  </Link> }
-                                    {/* <img src={heart1} width='23' height='23' alt=''/> */}
-                                    <img src={search1} width='23' height='23' alt=''/>  
-                                                               
-                                </div>
+                               <Link to = {`/product/${item._id}`} >
+                                   <div className="home-item-imageBx">
+                                    <img src={item.image[0]}  style={{width:'13rem',height:'14rem'}} alt=''/>
+                                   </div>
+                                   </Link>
                                 <Link style={{textDecoration:'none', color:'black'}} to = {`/product/${item._id}`} > <h5  >{item.name}</h5></Link>
                             <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.{item.price}</h5>
-                            </div>)})
-                        )}
-                        {/* <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p2' >
-                            <img src={jack} width='270' height='270' alt=''/> 
-                            <div className='lowerProd' >
-                                <img src={shoppingcart1} width='23' height='23' alt=''/>
-                                <img src={heart1} width='23' height='23' alt=''/>
-                                <img src={search1} width='23' height='23' alt=''/>                                
-                            </div>
-                            <h5 >JackFruits</h5>
-                            <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$40</h5>
-
+                                </div>
+                            </div>)}
+                             )
+                          
+                        )
+                        }
+                        {this.state.loading!==true?
+                        <div style={{width:'100%',display:'flex',justifyContent:'center', margin:'2rem'}}>
+                           <GreenButton buttonText='View More' redirectPath='/collections'/>
                         </div>
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p3' > */}
-                            {/* <div className='topInner'>
-                                <p>-27%</p>
-                            </div> */}
-                            {/* <img src={kiwi3} width='270' height='270' alt=''/>
-                            <div className='lowerProd' >
-                                <img src={shoppingcart1} width='23' height='23' alt=''/>
-                                <img src={heart1} width='23' height='23' alt=''/>
-                                <img src={search1} width='23' height='23' alt=''/>                                
-                            </div>
-
-                            <h5 >Kiwi</h5>
-                            <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$80</h5>
-                        </div>
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p4' >
-                            <img src={papa4} width='270' height='270' alt=''/>
-                            <div className='lowerProd' >
-                                <img src={shoppingcart1} width='23' height='23' alt='' />
-                                <img src={heart1} width='23' height='23' alt=''/>
-                                <img src={search1} width='23' height='23' alt=''/>                                
-                            </div>
-                            <h5 >Papaya </h5>
-                            <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$220</h5>
-                        </div> */}
+                        :void 0    
+                    }
+                        
+                       
                     </div>
                 </div>
 
-                {/* product lower 2nd */}
-                {/* <div className='container' style={{marginTop: '30px'}} >
-                    <div className='row '>
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p1' >
-                            <img src={apple} width='270' height='270' alt=''/>
-                            <div className='lowerProd' >
-                                <img src={shoppingcart1} width='25' height='25' alt=''/>
-                                <img src={heart1} width='23' height='23' alt=''/>
-                                <img src={search1} width='23' height='23' alt=''/>                                
-                            </div>
-                            <h5  >Banana</h5>
-                            <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$20</h5>
-                        </div>
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p2' >
-                            <img src={low2} width='270' height='270' alt=''/> 
-                            <div className='lowerProd' >
-                                <img src={shoppingcart1} width='23' height='23' alt=''/>
-                                <img src={heart1} width='23' height='23' alt=''/>
-                                <img src={search1} width='23' height='23' alt=''/>                                
-                            </div>
-                            <h5 >JackFruits</h5>
-                            <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$40</h5>
+               
 
-                        </div>
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p3' >
-                            <img src={low3} width='270' height='270' alt=''/>
-                            <div className='lowerProd' >
-                                <img src={shoppingcart1} width='23' height='23' alt=''/>
-                                <img src={heart1} width='23' height='23' alt=''/>
-                                <img src={search1} width='23' height='23' alt=''/>                                
-                            </div>
-
-                            <h5 >Kiwi</h5>
-                            <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$80</h5>
-                        </div>
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 p4' >
-                            <img src={low4} width='270' height='270' alt=''/>
-                            <div className='lowerProd' >
-                                <img src={shoppingcart1} width='23' height='23' alt=''/>
-                                <img src={heart1} width='23' height='23' alt=''/>
-                                <img src={search1} width='23' height='23' alt=''/>                                
-                            </div>
-                            <h5 >Papaya </h5>
-                            <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >$220</h5>
-                        </div>
-                    </div>
-                </div> */}
-                    {/* 4th section */}
-                {/* <div className='container scndLower' >
-                <div className='row' >
-                    <div className='col-lg-4'>
-                        <p style={{marginBottom: '0px'}}>NATURE DEAL OF THE DAY</p>
-                        <h2 style={{fontWeight: '300'}}>Organic Goods <span style={{fontWeight: '600'}}> 50%  </span> Off</h2>
-                    </div>
-                    <div className='col-lg-4'>
-                       <img src={spice} />
-                       <hr style={{border: '1px solid #5ba616',width: '180'}} />
-                       <br/>
-                       <p>Expired</p>
-                    </div>
-                    <div className='col-lg-4'>
-                       <p>Who are Ipsum is simply dummy text of the printing and indus try. Lorem Ipsum has been the stry's standard dummy text ever since the</p>
-                    </div>
-                </div>
-                </div> */}
-
-                <div className='homeMiddle'>
-                  <img src={leaf} width='190' height='40' alt=''/>
-                   <h2 style={{color: '#5ba616'}}>Our Supplier</h2>
-                   <h6  style={{color: '#949494',fontSize: '0.8em', opacity: '0.8'}} > <i>We present our achievement and and awards</i></h6>
+           {/* Our Suppliers */}
+            <div id='our-suppliers'> 
+                <div className='sec-1'>
+                  {/* <img src={leaf} width='190' height='40' alt=''/> */}
+                   <h2>Our Suppliers</h2>
+                   <h6  style={{color: '#949494',fontSize: '0.8em', opacity: '0.8'}} >We present our achievement and and awards</h6>
                </div>
 
                <div className='container' style={{marginTop: '40px', marginBottom: '130px'}}  >
@@ -472,20 +393,22 @@ import queryString from "query-string";
                     </div>
                 </div>
                </div>
+            </div>
                     {/* News Feed */}
 
-              <div className='container newsFeed' >
-                   <div className='row'>
-                       <div className='col-lg-6'>    
-                          <h1 style={{color: '#616161', fontWeight: '300'}}>Subscribe <span style={{color: '#616161', fontWeight: '600'}}  > Newsletter  </span> </h1>
-                       </div>
-                       <div className='col-lg-6'>    
+              <div className=' newsFeed' >
+                   
+                           <img src={Homeimages.lemons} alt='side-lemons'/>
+                          <h1 style={{color: '#616161', fontWeight: 'bolder'}}>Join Our Newsletter</h1>
+                          <p>Lorem Ipsum is simply dummy text of the printing.</p>
+                      
+                          
                             <form>
-                               <input placeholder='Type to search' className='navInput' />
-                               {/* <button className='navBtn'>Search</button> */}
+                               <input type='text' name='newsfeed' placeholder='Enter your Email to Subscribe' />
+                               <button>Subscribe</button>
                            </form>
-                       </div>
-                   </div>
+                       
+                
                </div>
 
             </div>

@@ -92,7 +92,6 @@ class Collections extends Component{
             }
             // this.props.history.push('/cart')
     
-            // this.props.userCart(this.props.history);
     
             this.props.addToCart(productId)
             console.log('new prod====',productId)

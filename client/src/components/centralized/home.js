@@ -196,25 +196,31 @@ import queryString from "query-string";
                         <div className="carousel-item active">
                          <img className="d-block w-100" src={Slide1} alt="First slide" />
                          <div className="shop-now-btn-1 carousel-caption d-none d-md-block">
+                        <Link to='/collections'>
                         <button className="shop-button">
                             Shop Now
                         </button>
+                        </Link>
                         </div> 
                         </div>
                         <div className="carousel-item">
                          <img className="d-block w-100" src={Slide2} alt="Second slide"/>
                          <div className="shop-now-btn-2 carousel-caption d-none d-md-block">
+                         <Link to='/collections'>
                         <button className="shop-button">
                             Shop Now
                         </button>
+                        </Link>
                         </div> 
                         </div>
                         <div className="carousel-item">
                          <img className="d-block w-100" src={Slide3} alt="Third slide"/>
                          <div className="shop-now-btn-3 carousel-caption d-none d-md-block">
+                         <Link to='/collections'>
                         <button className="shop-button">
                             Shop Now
                         </button>
+                        </Link>
                         </div> 
                         </div>
                     </div>

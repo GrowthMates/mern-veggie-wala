@@ -1,11 +1,13 @@
 /* @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap'); */
 
 .product-upper{
-    background-image: url('../centralized/images/images.jpg');
-    /* height: 150px; */
+    background-image: url('../centralized/images/products-banner.jpg');
+    height: 40vh;
     width: 100%;
     background-repeat: no-repeat;
-    padding-left: 20px;
+    /* overflow: hidden; */
+
+    /* padding-left: 20px; */
     background-size: 100% 100%;
     /* opacity: 0.9; */
     top: 0px;

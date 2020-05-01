@@ -18,6 +18,8 @@ import {
   GET_SINGLE_PRODUCT,
   PRODUCTS,
   STATUS_UPDATE,
+  PROGRESS_START,
+  PROGRESS_END,
 } from "./types";
 import {socket} from '../components/centralized/navbar'
 
@@ -37,6 +39,7 @@ var getCartProdLocalStorage=[]
       
   //        )   
   // })
+  
     axios
       .get("/api/products")
       .then((res) => {
@@ -77,6 +80,13 @@ var getCartProdLocalStorage=[]
  } 
 
  export const addToCart = (product) => (dispatch, getState) => {
+
+  dispatch({
+    type: PROGRESS_START,
+  })
+
+
+
    let cartCurrentState = getState().cartReducer
    console.log(getState())
           const productCart={
@@ -86,7 +96,6 @@ var getCartProdLocalStorage=[]
             priceTotal:product.item.price*product.quantity
           }
             console.log('No.8:--OurArray-----',arr)
-            console.log('LocalStorageCheck----',JSON.parse(localStorage.getItem('CartProduct')))
         // Checking data (available || not) in Storage //JSON.parse(localStorage.getItem('CartProduct'))!=null && JSON.parse(localStorage.getItem('CartProduct')).length!=0
 
             if(cartCurrentState.cart){
@@ -108,33 +117,17 @@ var getCartProdLocalStorage=[]
                   //Result will be undefiend when current data isn't available in prev data array
                     if(result===undefined){ 
                         // console.log(filterObj[0]._id, 'No6:--find hua wa id');
-                        
+                        const config = {
+                          onUploadProgress: progressEvent => console.log(progressEvent.loaded)
+                      }
                         axios
-                        .post("/api/user-data/addToCart", productCart)
+                        .post("/api/user-data/addToCart", productCart,config)
                         .then((res) => {
                              
-                              //  localStorage.setItem('addCart',JSON.stringify(res.data))
-                              //   console.log('ProductId quantity', res.data)
-                              // var currId = JSON.parse(localStorage.getItem('addCart')).data
-                              // console.log(currId, 'abhi ki id') 
-                  
-                              // var prod = JSON.parse(localStorage.getItem('Products'));
-                              //   console.log('No1:--GetCartProdLocalStorage------',getCartProdLocalStorage)
-                              // var filterObj = prod.filter((e) => {
-                              //   return e._id === productCart.productId
-                              // });
-                              // console.log('No.8:--IfOurArray-----',arr)
-
-
-                        // var newProd = {
-                        //   filterProduct: product.item,
-                        //   cartSchemaId:   currId._id,
-                        //   quantity:      currId.quantity,
-                        // }
-                        // arr.push(newProd)
-                        //   localStorage.setItem('CartProduct', JSON.stringify(arr))
-                          // if(cartCurrentState.cart!==undefined){
                             dispatch(userCart(productCart.userId))
+                            dispatch({
+                              type: PROGRESS_END,
+                            })
                           // }
                         // dispatch({
                         //   type: CART_PRODUCTS,
@@ -148,34 +141,16 @@ var getCartProdLocalStorage=[]
                         dispatch({
                           type: GET_ERRORS,
                           payload: err.message
+                        }),
+                        dispatch({
+                          type: PROGRESS_END,
                         })
                         )}
                       );
                 
                       }
                       else void 0;
-    //                   else{
-    //                     var newArr=[{filterProduct:result.filterProduct,cartSchemaId:result.cartSchemaId,quantity:result.quantity+1}]
-    //                     const update = {
-    //                       qnty: newArr
-    //                     }
-    //                     console.log('Api Call se pehle newArr----',result,newArr,arr)
-    //                     axios.put("/api/user-data/updateCart", update )
-    //                     .then(res => {
-    //                         console.log('Update cart res----',res.data)
-    //                         var matchItem = arr.findIndex(i => i._id == result.cartSchemaId );
-    //                          arr.splice(matchItem,1,newArr[0])
-    //                          console.log('Api Call k bd newArr----',newArr,arr)
-    //  //need to be update .... // localStorage.setItem('CartProduct',JSON.stringify(arr))
-    //                         // console.log(this.state.cartProducts)
-    //                         // this.setState({tick:'inline',loader:'none'})
-                       
-    //                     })
-                
-    //                     .catch(err => {
-    //                         console.log('cart update ka error.. >',err.message)
-    //                     })
-    //                   }
+   
 
 
     //Starting...
@@ -184,40 +159,22 @@ var getCartProdLocalStorage=[]
             {
               productCart.checker=true
                console.log('products cart else======',productCart)
+
+               const config = {
+                onUploadProgress: progressEvent => console.log(progressEvent.loaded)
+            }
               axios
-                  .post("/api/user-data/addToCart", productCart)
+                  .post("/api/user-data/addToCart", productCart,config)
                   .then((res) => {
                        
-                        //  localStorage.setItem('addCart',JSON.stringify(res.data))
+              
                           console.log('ProductId API', productCart.productId)
-                        // var currId = JSON.parse(localStorage.getItem('addCart')).data
-                        // console.log(currId, 'abhi ki id') 
-                        // console.log('No.8:--Else1-OurArray-----',arr)
-                    // console.log('NEW DATA-----' ,currId)
-                    // console.log('filterObject[0]-----',filterObj[0])
-                    // if(res.data.products.productsList){
-
-                    //   let initialCart = []
-                    //   for(let i=0;i<res.data.products.productsList.length;i++){
-                    //     initialCart.push({
-                    //       filterProduct:res.data.products.productsList[i].product,
-                    //       cartSchemaId:res.data.products._id,
-                    //       quantity:res.data.products.productsList[i].quantity
-                    //     })
-                    //   }
-                    //   // arr=[]
-                    //   //  arr.length=0;
-                    //   // console.log('No.8:--Else2-OurArray-----',arr)
-                    //   // arr.push(newProd)
-                    //   // localStorage.setItem('CartProduct', JSON.stringify(arr))
-                    //   dispatch({
-                    //     type: CART_PRODUCTS,
-                    //     payload: initialCart
-                    //   })
-                    // }
-                    // else{
+                   
                       dispatch(userCart(productCart.userId))
-                    // }
+                      dispatch({
+                        type: PROGRESS_END,
+                      })
+                 
 
                   }) 
                   .catch(err =>
@@ -227,7 +184,11 @@ var getCartProdLocalStorage=[]
                     dispatch({
                       type: GET_ERRORS,
                       payload: err.message
-                    }))}
+                    }),
+                    dispatch({
+                      type: PROGRESS_END,
+                    })
+                    )}
                   );
               };
           
@@ -237,18 +198,7 @@ var getCartProdLocalStorage=[]
             
     
          
-            
-  //                       }) 
-  //     .catch(err =>
-  //       {
-  //       console.log('Cart reducer err---- ', err.message);
-  //               return(
-  //       dispatch({
-  //         type: GET_ERRORS,
-  //         payload: err.message
-  //       }))}
-  //     );
-  // };
+   
 
   export const userCart = (id) => dispatch => {
     console.log('USer cart called====',id)

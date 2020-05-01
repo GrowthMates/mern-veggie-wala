@@ -116,10 +116,9 @@ class Collections extends Component{
         }
         return(
             <div>
-                 <section className='contact-upper col-lg-12' >
+                 <section className='product-upper col-lg-12' >
                     <div className='contact-img-text'>
-                        <h1>Our Products </h1>
-                        {/* <p>A Real Estate Organization You Can Trust</p> */}
+                        
                     </div>
                </section>
 
@@ -162,7 +161,9 @@ class Collections extends Component{
                         
                             <div className="row row-col-2">
                                 <div className="col-lg-12 col-md-12 item-view-sort">
-                                    <div className="col-lg-5 col-md-5 item-view">
+                                    <div className='row'>
+
+                                    <div className="col-lg-9 col-md-9 item-view">
                                     {/* <i class="fas fa-list icon1"></i> */}
                                     
                                     <img 
@@ -181,7 +182,7 @@ class Collections extends Component{
                                     />
                                     <span className="">Showing 1 - 12 of 16 results</span>
                                     </div>
-                                    <div className="col-lg-6 col-md-6 item-sort">
+                                    <div className="col-lg-3 col-md-3 item-sort">
                                         <div className="dropdown">
                                             <button  className="btn  dropdown-toggle drop-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Alphabetically, A-Z
@@ -191,6 +192,7 @@ class Collections extends Component{
                                                 <a className="dropdown-item" href="#">Another action</a>
                                                 <a className="dropdown-item" href="#">Something else here</a>
                                             </div>
+                                    </div>
                                     </div>
                                     </div>
                                 </div>
@@ -267,7 +269,18 @@ class Collections extends Component{
                                 { this.props.products.map((item,index) => {  
                         return(
                                    <div className="col-md-4 col-lg-4 col-sm-4"> 
-                                    <div className="card grid-view grid-card-styling" style={{width: '18rem'}}>
+                                   <div className='p1'>
+
+                                    <Link to = {`/product/${item._id}`} >
+                                        <div className="home-item-imageBx">
+                                        <img src={item.image[0]}  style={{width:'13rem',height:'14rem'}} alt=''/>
+                                        </div>
+                                        </Link>
+                                    <Link style={{textDecoration:'none', color:'black'}} to = {`/product/${item._id}`} > <h5  >{item.name}</h5></Link>
+                                    <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.{item.price}</h5>
+                                    </div>
+                                   
+                                    {/* <div className="card grid-view grid-card-styling" style={{width: '18rem'}}>
                                     <Link to = {`/product/${item._id}`}><img style={{borderRadius: '12px'}} className="card-img-top cursor-pointer img-grid prodImg" src={item.image[0]} alt="..."/></Link>
                                             <div className="card-body" style={{paddingTop:'0px',textAlign:'left'}}>
                                             <Link to = {`/product/${item._id}`} className='link-name'> <h5 class="card-title cursor-pointer" style={{fontSize:'30px'}}>{item.name}</h5></Link>
@@ -276,7 +289,7 @@ class Collections extends Component{
                                                 ?<button  onClick={this.onSubmit.bind(this,item)} className="btn btn-success" >Add to cart</button>
                                                 :<p><u style={{color:'red'}}>Out of Stock</u></p>}
                                             </div>
-                                    </div>
+                                    </div> */}
                                    </div> 
                         )})}
 

@@ -1,6 +1,7 @@
 import React, {Suspense, lazy} from 'react';
 import './App.css';
 import Routes from './container/routing'
+import ProgressBar from './components/centralized/progressBar'
 
 // const Routes = lazy(() => import('./container/routing'))
 
@@ -12,6 +13,7 @@ class App extends React.Component {
     
     
     <div className="App">
+      
       {/* <Suspense fallback={<div className='App-header'><h2>VeggieWala Loading...</h2></div>}> */}
         <Routes/>
       {/* </Suspense> */}

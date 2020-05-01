@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import heart from './images/heart.png'
 import shoppingcart from './images/shopping-cart.png'
 import ResponsiveNavbar from './responsiveNavbar'
+import ProgressBar from './progressBar'
 // import axios from 'axios'
 import VeggieLogo  from "../centralized/images/VeggiewalaLogo.png";
 // import socketIOClient from "socket.io-client";
@@ -147,7 +148,7 @@ class Navbar extends Component{
     }
 
     render(){
-        // console.log(this.state.filter, '=====>navbar will recve props')
+        console.log('nav progeress...',this.props.progressLoading)
 
         if(!this.state.filter){ console.log('nh i') }
         else{ 
@@ -167,10 +168,12 @@ class Navbar extends Component{
       
         return(
             <div className=""> 
-
             {/* <ResponsiveNavbar /> */}
             
-             <div className={this.state.scrolled ? ' nav scrolled desktop' : 'nav desktop'}> 
+             {/* <div className={this.state.scrolled ? ' nav  desktop' : 'nav desktop'}>  */}
+             <div className='nav'>
+                {/* Progress Bar */}
+                {this.props.progressLoading?<ProgressBar/>:void 0}
               
               
                 <div className='container navUpper' >
@@ -280,7 +283,7 @@ class Navbar extends Component{
 
                 </div>
 
-                <div className='container'>
+                <div className='container' style={{textAlign: 'center'}}>
                     <ul className='bottomNav'>
                         <li><Link to='/'>Home</Link></li>
                         <li><Link to='/contact'>Contact Us</Link></li>
@@ -308,7 +311,8 @@ const mapStateToProps = state => {
             totalPrice: state.cartReducer.totalPrice,
             loading: state.cartReducer.loading,
             cartData:state.cartReducer.cart,
-            user:state.auth.user
+            user:state.auth.user,
+            progressLoading: state.progressBar.loading
 
         }}
         else{
@@ -318,7 +322,8 @@ const mapStateToProps = state => {
                 totalPrice: 0,
                 loading: state.cartReducer.loading,
                 cartData:null,
-                user:state.auth.user
+                user:state.auth.user,
+                progressLoading: state.progressBar.loading
             }
         }
   };

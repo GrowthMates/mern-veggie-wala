@@ -20,6 +20,8 @@ export const GET_CARTS = "GET_CARTS";
 export const STATUS_UPDATE = "STATUS_UPDATE";  
 export const GET_REGISTER = "GET_REGISTER";  
 export const GET_SINGLE_PRODUCT = "GET_SINGLE_PRODUCT";  
+export const PROGRESS_START = "PROGRESS_START";  
+export const PROGRESS_END = "PROGRESS_END";  
 
 
 

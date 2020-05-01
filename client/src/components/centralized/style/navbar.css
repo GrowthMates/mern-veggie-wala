@@ -4,6 +4,19 @@
 body {
     margin: auto 0px;
 }
+.nav{
+  display: flex;
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  z-index: 1000;
+  background: #fff;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding-left: 0;
+  /* margin-bottom: 50rem; */
+  list-style: none;
+}
 .navUpper{
     margin-top: 25px !important;
     position: relative;
@@ -11,6 +24,13 @@ body {
     z-index: 9999999999;
     /* padding-top: 25px; */
     /* background-color: chartreuse; */
+}
+
+.searchFilterOut{
+  position: fixed;
+  top: 5rem;
+  width: 35vw;
+  background: #fff;
 }
 
 .img-fluid{

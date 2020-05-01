@@ -35,6 +35,7 @@ import Dashboard from "../components/dashboard/Dashboard";
 import Cart from '../components/users/userCart/cart'  
 import AdminLandingPage from '../components/vendor/vendorLandingPage'
 import CartLandingPage from '../components/cart/cartLandingPage'
+import ProgressBar from '../components/centralized/progressBar'
 import NoMatch from './not-found.js'  
 // import AllImages from './AllImages'
 
@@ -99,7 +100,8 @@ this.props.getProducts('Routing')
   return (
     
         <div>
-           
+          {/* {this.props.progressLoading?:void 0} */}
+        
             {/* <Suspense fallback={<div>Loading...</div>}>  */}
                 <div>
                                           
@@ -125,6 +127,8 @@ this.props.getProducts('Routing')
                 
             {/* <TestComp/> */}
             {/* <Suspense fallback={<div><h2>Loading...</h2></div>}> */}
+            <div style={{marginTop:'10rem'}}>
+
                <Switch>
                   {/* <Route path='/approvalProducts' component={ApprovalProducts}/> */}
                   {/* <Route path='/admin/allProducts' component={AllProducts}/> */}
@@ -151,6 +155,7 @@ this.props.getProducts('Routing')
                    {/* <Route path='/Allimages' component={AllImages}/> */}
 
                </Switch>
+            </div>
                {/* </Suspense> */}
                <Footer/>
                </BrowserRouter> 
@@ -174,7 +179,7 @@ const mapStateToProps = (state) =>{
   console.log("Reducer check cart prod.............", state.cartReducer.totalPrice)
   return{ 
       pathChecker: state.products.pathChecker,
-     
+      progressLoading: state.progressBar.loading
   }
 }
 

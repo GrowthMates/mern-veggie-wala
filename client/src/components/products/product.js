@@ -98,37 +98,44 @@ onChangeQty(e){
 
  onSubmit=(item,e)=>{
     e.preventDefault();
-    this.setState({loading:true})
-    let productId;
-    if(this.state.quantity==undefined){
-        productId = {
-            item,
-            quantity:1,
-           checker: false,
-           userId:this.props.auth.user.id,
-
+    console.log(this.props.auth.user)
+    if(this.props.auth.user.id){
+    
+        this.setState({loading:true})
+        let productId;
+        if(this.state.quantity==undefined){
+            productId = {
+                item,
+                quantity:1,
+               checker: false,
+               userId:this.props.auth.user.id,
+    
+            }
+            this.setState({
+                quantity:1
+            })
         }
-        this.setState({
-            quantity:1
-        })
+        // console.log('product quantity====',this.state.quantity)
+        else{
+         productId = {
+            item,
+            quantity:this.state.quantity,
+            checker: false,
+            userId:this.props.auth.user.id,
+        }
     }
-    // console.log('product quantity====',this.state.quantity)
+    
+        // this.props.history.push('/cart')
+    
+        // this.props.userCart(this.props.history);
+        this.props.addToCart(productId)
+        setTimeout(()=>{this.setState({loading:false})},5000)
+        console.log('new prod')
+        // this.props.history.push('/cart')
+    }
     else{
-     productId = {
-        item,
-        quantity:this.state.quantity,
-        checker: false,
-        userId:this.props.auth.user.id,
+        this.setState({redirect:true})
     }
-}
-
-    // this.props.history.push('/cart')
-
-    // this.props.userCart(this.props.history);
-    this.props.addToCart(productId)
-    setTimeout(()=>{this.setState({loading:false})},5000)
-    console.log('new prod')
-    // this.props.history.push('/cart')
 }
 
 

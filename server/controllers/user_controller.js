@@ -27,6 +27,9 @@ module.exports = {
         const { productId, quantity, userId, priceTotal } = req.body;
         // const { id } = req.params;
         console.log('addtocart-----------:', req.body.productId )
+        if(!userId){
+            return res.status(400).send('Not Signed In')
+        }
    
             UserCart.findById(userId).exec((err, result)=>{
                 let currproduct=[]
@@ -74,9 +77,10 @@ module.exports = {
                 if(filtered.length!=0){
                     console.log('Same agya===',filtered)
                     try {
-                        res.status(200).json({success:true, products:''})
-                    } catch (error) {
-                        res.status(400).json(error)
+                       return res.status(200).json({success:true, products:''})
+                    } 
+                    catch (error) {
+                       return res.status(400).json(error)
                     }
                 }
                 result.updateOne({$push:{productsList:{product:productId,quantity}},cartTotalPrice:price},{ new: true }).exec((err,products)=>{

@@ -9,6 +9,7 @@ import ImageIconGrid from '../centralized/images/grid-icon.png'
 import {userCart} from '../../actions/productsAction'
 import {addToCart} from '../../actions/productsAction'
 import cart from '../users/userCart/cart';
+import ProductCards from "../centralized/cards"
 
 
 
@@ -268,16 +269,8 @@ class Collections extends Component{
                                 { this.props.products.map((item,index) => {  
                         return(
                                    <div className="col-md-4 col-lg-4 col-sm-4"> 
-                                   <div className='p1'>
-
-                                    <Link to = {`/product/${item._id}`} >
-                                        <div className="home-item-imageBx">
-                                        <img src={item.image[0]}  style={{width:'13rem',height:'14rem'}} alt=''/>
-                                        </div>
-                                        </Link>
-                                    <Link style={{textDecoration:'none', color:'black'}} to = {`/product/${item._id}`} > <h5  >{item.name}</h5></Link>
-                                    <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.{item.price}</h5>
-                                    </div>
+                                   <ProductCards item={item}/>
+                                   
                                    
                                     {/* <div className="card grid-view grid-card-styling" style={{width: '18rem'}}>
                                     <Link to = {`/product/${item._id}`}><img style={{borderRadius: '12px'}} className="card-img-top cursor-pointer img-grid prodImg" src={item.image[0]} alt="..."/></Link>

@@ -149,9 +149,9 @@ onChangeQty(e){
 
         return(
             <div>
-                 <section className='contact-upper col-lg-12' >
-                    <div className='contact-img-text'>
-                        <h1>Product </h1>
+                 <section className='product-detail-upper col-lg-12' >
+                    <div className='product-detail-img-text'>
+                        {/* <h1>Product </h1> */}
                         {/* <p>A Real Estate Organization You Can Trust</p> */}
                     </div>
                </section>

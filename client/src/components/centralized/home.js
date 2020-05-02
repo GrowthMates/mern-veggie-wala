@@ -50,6 +50,8 @@ import {wishList,userCart} from '../../actions/productsAction'
 import Homeimages from "./home-assets/images"
 import {gmailLogin} from '../../actions/authActions'
 import queryString from "query-string";
+import ProductCards from "./cards"
+
 
 // import socketIOClient from "socket.io-client";
 // var socket=socketIOClient("http://localhost:5000/")
@@ -341,16 +343,7 @@ import queryString from "query-string";
                          this.state.products.map((item,index) => {  
                          return(
                             <div key={item._id} className='col-lg-3 col-md-6 col-sm-12 col-xs-12 ' onClick={this.p1} >
-                                <div className='p1'>
-
-                               <Link to = {`/product/${item._id}`} >
-                                   <div className="home-item-imageBx">
-                                    <img src={item.image[0]}  style={{width:'13rem',height:'14rem'}} alt=''/>
-                                   </div>
-                                   </Link>
-                                <Link style={{textDecoration:'none', color:'black'}} to = {`/product/${item._id}`} > <h5  >{item.name}</h5></Link>
-                            <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.{item.price}</h5>
-                                </div>
+                                <ProductCards item={item} />
                             </div>)}
                              )
                           

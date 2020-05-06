@@ -13,6 +13,17 @@
     top: 0px;
 
 }
+
+#fruit-collapse{
+    max-height: 0;
+    list-style-type: symbols();
+    transition: all 0.5s ease-out;
+    
+}
+/* .l11:focus #fruit-collapse{
+    max-height: '8rem';
+} */
+
 /* .item-cards{
     displa
 } */

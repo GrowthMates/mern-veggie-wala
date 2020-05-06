@@ -8,7 +8,7 @@ import shoppingcart from './images/shopping-cart.png'
 import ResponsiveNavbar from './responsiveNavbar'
 import ProgressBar from './progressBar'
 // import axios from 'axios'
-import VeggieLogo  from "../centralized/images/VeggiewalaLogo.png";
+import VeggieLogo  from "../centralized/images/veggie-wala-logo.png";
 // import socketIOClient from "socket.io-client";
 
 // export const socket = socketIOClient("http://localhost:5000");

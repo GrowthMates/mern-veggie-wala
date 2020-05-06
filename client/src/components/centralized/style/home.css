@@ -272,6 +272,11 @@ img{
     border-radius: 1rem;
     /* padding-right: 0px; */
 }
+
+.card-item-name h5{
+    font-size: 1rem;
+}
+
 .lowerProd{
     margin: 0px !important;
 }

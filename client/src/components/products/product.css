@@ -2,6 +2,30 @@
     margin-top: 50px;
     
 }
+
+hr.product-desc{
+    border: 1px solid #c7c7c7;
+}
+
+.product-details-bottom button{
+    text-align: left;
+    border: none;
+    font-weight: bold;
+    color: #c0c0c0;
+    padding: .2em;
+    background: none;
+    outline: none;
+    display: block;
+}
+.greaterThan{
+    display: inline-block;
+    font-weight: bold;
+    padding-left: 1em;
+    font-size: 0.9em;
+    transition: transform 0.1s ease-in-out;
+    
+}
+
 .product-detail-img-text{
     width: 100%;
     padding: 0;

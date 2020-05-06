@@ -27,8 +27,11 @@ class Collections extends Component{
             products: undefined ,
             addToCart: false,
             user:undefined,
-            redirect:false
+            redirect:false,
+            fruitsList:false,
+            vegetablesList:false,
         }
+        this.ulRef = React.createRef()
     }
     changer1=()=>{
         console.log('working')
@@ -129,9 +132,14 @@ class Collections extends Component{
                        <div className="side-bar-section"> 
                             <h4>Categories</h4>
                                 <ul className="side-list">
-                                    <li className="side-list-items cursor-pointer">Fruits</li><hr/>
-                                    <li className="side-list-items cursor-pointer">Vegetables</li><hr/>
-                                    <li className="side-list-items cursor-pointer">Fresh Items</li><hr/>
+                                    <li className="side-list-items cursor-pointer">All</li>
+                                    <li className="side-list-items cursor-pointer">Vegetables</li>
+                                    <li className="side-list-items cursor-pointer l11" onClick={()=>{this.setState((state)=>({fruitsList:!state.fruitsList}));}}>Fruits</li>
+                                    <ul id='fruit-collapse' style={this.state.fruitsList?{display:'block',maxHeight:'5rem'}:{display:'none'}} ref={this.ulRef}>
+                                        <li>Reds</li>
+                                        <li>Greens</li>
+                                        <li>Yellows</li>
+                                    </ul>
                                 </ul>
                         </div>
                        

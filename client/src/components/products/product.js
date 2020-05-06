@@ -28,6 +28,10 @@ class Product extends Component{
             loading:false,
             user:undefined,
             redirect:false,
+            displayImage:'',
+            rotate1:false,
+            rotate2:false,
+            rotate3:false,
         }
     }
     
@@ -52,7 +56,7 @@ componentDidMount(){
     let {singleProduct} = this.props
     if(singleProduct){
       if(singleProduct._id==id){
-          this.setState({product:singleProduct})
+          this.setState({product:singleProduct,displayImage:singleProduct.image[0]})
       }
     }
     // else{
@@ -86,7 +90,8 @@ componentWillReceiveProps(nextProps){
     //   }
     if(nextProps.singleProduct){
        this.setState({
-           product:nextProps.singleProduct
+           product:nextProps.singleProduct,
+           displayImage:nextProps.singleProduct.image[0]
        })
     }
 }
@@ -161,8 +166,13 @@ onChangeQty(e){
                 <div className="row">
                     <div className="col-md-6 col-lg-6 col-sm-6">
                     <div className='product-img'>
-                       <img className="cursor-pointer" src={this.state.product.image[0]} width='100%' height='540' />
-                     </div> 
+                       <img className="cursor-pointer" src={this.state.displayImage} width='100%' height='540' />
+                     </div>
+                     <div className='row' style={{overflowX:'auto', marginTop:'10px',padding:'0 1rem'}}> 
+                         {this.state.product.image.map((image=>{
+                             return <div className='col-lg-4 col-md-4 '><img className='cursor-pointer' src={image} width='100%' height='80%' onClick={()=>{this.setState({displayImage:image})}}/></div>
+                         }))}
+                      </div> 
 
                    </div>
 
@@ -271,8 +281,93 @@ onChangeQty(e){
                    
                                       
                     </div>
+                </div>
+                <hr className='product-desc'/>
+                <div className='product-details-bottom'>
+                        <button data-toggle="collapse" data-target="#prod-detail-desc"  aria-controls="prod-detail-desc" onClick={()=>{this.setState(({rotate1})=>({rotate1:!rotate1}))}}>Description <span className='greaterThan' style={this.state.rotate1?{transform:' translateY(-8px) rotate(90deg)'}:void 0}>&gt;</span></button>
+                        <div class="collapse" id="prod-detail-desc">
+                        <div class="card card-body" style={{textAlign:'left'}}>
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                        </div>
+                        </div>
+
+                        <button data-toggle="collapse" data-target="#prod-detail-info"  aria-controls="prod-detail-info" onClick={()=>{this.setState(({rotate2})=>({rotate2:!rotate2}))}}>Additional Information  <span className='greaterThan' style={this.state.rotate2?{transform:' translateY(-8px) rotate(90deg)'}:void 0}>&gt;</span></button>
+                        <div class="collapse" id="prod-detail-info">
+                        <div class="card card-body" style={{textAlign:'left'}}>
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                        </div>
+                        </div>
+
+                        <button data-toggle="collapse" data-target="#prod-detail-reviews"  aria-controls="prod-detail-reviews" onClick={()=>{this.setState(({rotate3})=>({rotate3:!rotate3}))}}>Reviews  <span className='greaterThan' style={this.state.rotate3?{transform:' translateY(-8px) rotate(90deg)'}:void 0}>&gt;</span></button>
+                        <div class="collapse" id="prod-detail-reviews">
+                        <div class="card card-body" style={{textAlign:'left'}}>
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                        </div>
+                        </div>
+
+                       
+                </div>
+
+                {/* More Products */}
+                <div className='container'>
+                    <div style={{margin:'50px'}}>
+                        <h2 style={{fontWeight:'bold'}}>You May Also Need</h2>
+                    </div>
+
+                    <div className='row' style={{margin:'auto'}}>
+                        <div className='col-lg-4 col-md-4'>
+                        <div className='p1'>
+                                <div className="home-item-imageBx">
+                                <img src={this.state.product.image[0]}  style={{width:'100%'}} alt=''/>
+                                </div>
+                            <div className='row card-item-name'>
+                                <div className="col-6">
+                                     <h5 >Dummy Product</h5>
+                                <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.190</h5>
+                                </div>
+                                <div className="col-6">
+                                <h5 style={{textAlign:'right'}} className="col-6">1(Kg)</h5>
+                                <i>*****</i>
+                                </div>
+                            </div>   
+                        </div>
+                        </div><div className='col-lg-4 col-md-4'>
+                        <div className='p1'>
+                                <div className="home-item-imageBx">
+                                <img src={this.state.product.image[1]}  style={{width:'100%'}} alt=''/>
+                                </div>
+                            <div className='row card-item-name'>
+                                <div className="col-6">
+                                     <h5 >Dummy Product1</h5>
+                                <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.190</h5>
+                                </div>
+                                <div className="col-6">
+                                <h5 style={{textAlign:'right'}} className="col-6">1(Kg)</h5>
+                                <i>*****</i>
+                                </div>
+                            </div>   
+                        </div>
+                        </div><div className='col-lg-4 col-md-4'>
+                        <div className='p1'>
+                                <div className="home-item-imageBx">
+                                <img src={this.state.product.image[2]}  style={{width:'100%'}} alt=''/>
+                                </div>
+                            <div className='row card-item-name'>
+                                <div className="col-6">
+                                     <h5 >Dummy Product2</h5>
+                                <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.190</h5>
+                                </div>
+                                <div className="col-6">
+                                <h5 style={{textAlign:'right'}} className="col-6">1(Kg)</h5>
+                                <i>*****</i>
+                                </div>
+                            </div>   
+                        </div>
+                        </div>
+                    </div>
 
                 </div>
+
             </div>
                             ):('Loading...')}
 

@@ -93,9 +93,8 @@ class Register extends Component{
         return(
           <div className='mainDiv'>
               <h4 className='name'>
-                  Create A New Account
+                  Sign Up
               </h4>
-              <hr className='hrr' />
 
 
               {/* <h5 class>
@@ -113,7 +112,7 @@ class Register extends Component{
               error={errors.name}
               className='textfields' 
               id="name" 
-              label="UserName"
+              placeholder="UserName"
               required 
               className={classnames("", {
                 invalid: errors.name
@@ -130,7 +129,7 @@ class Register extends Component{
               error={errors.email}
               className='textfields' 
               id="email" 
-              label="Email Address" 
+              placeholder="Email Address" 
               required
               className={classnames("", {
                 invalid: errors.email
@@ -148,7 +147,7 @@ class Register extends Component{
               autoComplete='address'
               className='textfields' 
               id="address" 
-              label="Address" 
+              placeholder="Address" 
               required
               />
               <br/><br/>
@@ -163,7 +162,7 @@ class Register extends Component{
               className='textfields' 
               id="password"
               type='password' 
-              label='Password'
+              placeholder='Password'
               required
               className={classnames("", {
                 invalid: errors.password
@@ -182,7 +181,7 @@ class Register extends Component{
               className='textfields' 
               id="password2"
               type='password' 
-              label='ConfirmPassword'
+              placeholder='Confirm Password'
               required
               className={classnames("", {
                 invalid: errors.password2
@@ -200,12 +199,12 @@ class Register extends Component{
               autoComplete='Phone-Number'
               className='textfields' 
               id="number" 
-              label='Number'
+              placeholder='Eg: +92 348673812'
               required
               />
               <br/><br/>
           
-              <button type="submit" class="btn btn-secondary btn-lg btn-block">SignUp</button>
+              <button type="submit" class="btn btn-secondary btn-lg user-signup-btn ">SignUp</button>
               
               </div>
           </form>

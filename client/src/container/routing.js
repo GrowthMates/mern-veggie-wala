@@ -136,7 +136,8 @@ this.props.getProducts('Routing')
                   {/* <Route exact path='/admin' component={Admin}/> */}
                    <Route exact path='/about' component={About} />                 
                    <Route exact path='/contact' component={Contact} />
-                   <Route exact path='/combined' component={Combined} />
+                   <Route exact path='/user/sign-up' component={Combined} />
+                   <Route exact path='/user/login' component={Combined} />
                    <Route exact path='/product/:id' component={Product} />
                    <Route exact path="/collections" component={Collections} />
                    <Route exact path='/cart' component={Cart}/>

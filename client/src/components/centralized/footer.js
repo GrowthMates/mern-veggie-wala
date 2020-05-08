@@ -13,11 +13,7 @@ export default class Footer extends Component{
         this.state = {}
     }
 
-    profile = (e) => {
-        // this.props.history.push('/about')
-        window.location.href= 'https://github.com/AyyanNiazi/Real-Estate/'
-        console.log(window.location)
-    }
+   
     render(){
         return(
             <div className="fullFooter">

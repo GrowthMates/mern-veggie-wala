@@ -329,7 +329,9 @@ var lineTotalArr = []
                                     </div>
                                 </div>
                     </div>
-                                ): <h5 style={{margin:'100px'}}>Your cart is currently empty.<br/>Continue browsing <Link to='/collections'>here.</Link></h5>}   
+                                ): <h5 style={{margin:'100px', paddingTop: '20%',fontSize: '2em'}}>
+                                    Your cart is currently empty.<br/>Continue browsing <Link to='/collections'>here.</Link>
+                                    </h5>}   
                 </div>
 
                     {/* testing */}

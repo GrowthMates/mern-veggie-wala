@@ -14,12 +14,14 @@ body {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding-left: 0;
+  box-shadow: 0px -3px 3px 4px #ccc;
   /* margin-bottom: 50rem; */
   list-style: none;
 }
 .navUpper{
     margin-top: 25px !important;
     position: relative;
+    height: 3rem;
     top: 0px;
     z-index: 9999999999;
     /* padding-top: 25px; */
@@ -71,25 +73,21 @@ body {
 
 .navInputt{
      width: 100%;
-    /* border-radius: 25px; */
-    /* border: 3px solid #212529; */
-    /* box-shadow: 1px 1px 1px 1px  #888888; */
     line-height: 40px;
     float: left;
-    /* border-color: transparent; */
     text-decoration: none;
-    /* color: #212529; */
-    outline: none;
-    padding-left: 20px;
+    padding-left: 0px;
     overflow: hidden; 
-
-    /* margin-left: 39px; */
-    /* margin-top: 3px; */
-    border: 2px solid #cecdcd;
-    /* border-radius: 0; */
-    /* padding: 2px; */
-    /* width: 80%; */
-    
+    border: none;
+    border-bottom: 2px solid #cecdcd;
+    transition: all 0.25s ease-in;
+}
+.navInputt:focus{
+  outline: none;
+  padding-left: 10px;
+  border-bottom: none;
+  border: 1px solid #7CA646;
+  
 }
 
 ::placeholder {
@@ -114,9 +112,9 @@ body {
     color: #fff;
     float: right;
     position: absolute;
-    top: 3px;
-    height: 40px;
-    right: 18px;
+    top: 0;
+    height: 2.7rem;
+    right: 4rem;
     /* border-radius: 0; */
     width: 20%;
     line-height: 33px;
@@ -134,17 +132,21 @@ body {
     text-align: right;
     /* background-color: red; */
     padding-right: 0px !important;
-    margin-right: 14px;
+    margin-right: 9%;
     display: inline;
 }
 .heart span{
     display: inline;
-    margin-right: 14px;
+    margin-right: 9%;
 
 }
 .cartPrice{
     display: block;
     color: #5ba616;
+    text-align: left;
+    margin-top: 15px;
+    font-weight: bold;
+    padding-left: 10px;
     
 }
 .responsiveNavMenuMain {
@@ -331,7 +333,7 @@ a:hover{
       width:250px;
     }
   
-  .dropdown:hover .dropdown-content {display: block;width:300px;}
+  .dropdown:focus .dropdown-content {display: block;width:300px;}
   
   /* .dropdown:hover .dropbtn {background-color: #3e8e41;} */
 

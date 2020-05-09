@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import './product.css'
 import { Redirect } from 'react-router-dom';
-import ImageAppla from '../centralized/images/apple.jpg' 
 import FacebookIcon from '../centralized/images/facebook-icon.png'
 import TwitterIcon from '../centralized/images/twitter-icon.png'
 import PinterestIcon from '../centralized/images/pinterest-icon.png'
@@ -149,7 +148,7 @@ onChangeQty(e){
         console.log('Product Compnents',this.state.product,this.state.quantity,this.props)
         var currProduct=this.state.product
         if(this.state.redirect){
-            return <Redirect to='/combined'/>
+            return <Redirect to='/user/login'/>
         }
 
         return(

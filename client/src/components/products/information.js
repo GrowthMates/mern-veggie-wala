@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import {Link,withRouter,Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import './stylesheet/information.css'
-import bana3 from '.././centralized/images/bana3.webp'
 import {proceed,delCartProducts} from '../../actions/productsAction'
 import classnames from "classnames";
 import PropTypes from "prop-types";

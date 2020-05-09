@@ -9,6 +9,7 @@ import ResponsiveNavbar from './responsiveNavbar'
 import ProgressBar from './progressBar'
 // import axios from 'axios'
 import VeggieLogo  from "../centralized/images/veggie-wala-logo.png";
+import UserIcon  from "../centralized/images/icons8-user-32.png"; 
 // import socketIOClient from "socket.io-client";
 
 // export const socket = socketIOClient("http://localhost:5000");
@@ -177,14 +178,13 @@ class Navbar extends Component{
               
               
                 <div className='container navUpper' >
-                    <div className='row'>                
+                    <div className='row' style={{justifyContent:'center'}}>                
                          <div className='col-lg-3 col-sm-12 col-xs-5'>
                            <div className="logo-header navLogo" > 
                             <Link to="/"><img  src={VeggieLogo} className="img-fluid"/></Link>
-                            {/* //cdn.shopify.com/s/files/1/0027/9642/1229/files/gf.png?v=1559959830 */}
                            </div>
                          </div>
-                         <div className='col-lg-5'>
+                         <div className='col-lg-6 col-md-6 col-sm-6'  style={{padding:'0 4rem'}}>
                            <form>
                                <input value={this.state.search} onChange={this.updateSearch.bind(this)} placeholder='Type to search' className='navInputt' />
                                <button className='navBtnn'>Search</button>
@@ -212,15 +212,16 @@ class Navbar extends Component{
                                 
                            </div>
                          </div>
-                         <div className='col-lg-4 forHidden'>                        
+                         <div className='col-lg-3 forHidden'>                        
                              <div className='container'>
                                  <div className='row'>
                                      <div  className='col-lg-6 heart' >
                                       <Link to='/wishList'>   <img className='cursor-pointer' src={heart}  width='20' height='20.52' /></Link>
+                                      <Link to='/user/login'>   <img className='cursor-pointer' src={UserIcon}  width='20' height='20.52' /></Link>
                                          <span> | </span>
 
                                         
-                                         <Link className="dropdown">
+                                         {/* <Link className="dropdown">
                                          <img className='cursor-pointer dropbtn' src={shoppingcart} width='20' height='20.52'/> <sup>{this.state.qty || this.props.cartProducts }</sup>
                                             <div className="dropdown-content">
                                                 <div style={{overflowY: 'scroll', height: '30em'}} > 
@@ -248,15 +249,47 @@ class Navbar extends Component{
                                             
                                             </div>
                                             </div>
-                                         </Link>
+                                         </Link> */}
                                           {/* <Link to='/cart'>
                                              <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/> <sup>{this.state.qty || this.props.cartProducts }</sup>
                                          </Link> */}
                                      </div>
                                     
                                       <div  className='col-lg-6 cart' >
-                                        <p>Shopping cart
-                                            <span className='cartPrice' >Rs.
+
+                  {/*-----------------------Working Continue------------------------------  */}
+
+                                      {/* <Link className="dropdown">
+                                         <img className='cursor-pointer dropbtn' src={shoppingcart} width='20' height='20.52'/> <sup>{this.state.qty || this.props.cartProducts }</sup>
+                                            <div className="dropdown-content">
+                                                <div style={{overflowY: 'scroll', height: '30em'}} > 
+                                                {!this.state.cartData?<p>loading</p> : (
+                                                this.state.cartData.map((item,index) => {
+                                                    return (
+                                                        <div key={index} className='row hvr'>
+                                                            <div className='col-lg-3'>
+                                                                
+                                                                <img src={item.filterProduct.image[0]} height='40' width='40' />
+                                                            </div>
+                                                            <div className='col-lg-8'>
+                                                                <p>{item.filterProduct.name}</p>
+                                                                <p>{item.filterProduct.price}</p>
+                                                                <p>{item.quantity}</p>
+                                                                    
+                                                            
+                                                                </div>
+                                                        </div>
+                                                    )
+                                                })
+                                               
+                                                )
+                                            }
+                                            
+                                            </div>
+                                            </div>
+                                         </Link> */}
+                                        <p>
+                                            <span className='cartPrice' >Rs. 
                                             {
                                             this.state.loading===true? <span className="loader">Loading</span> :
                                             this.props.loading===true ? this.props.totalPrice:
@@ -289,7 +322,7 @@ class Navbar extends Component{
                         <li><Link to='/contact'>Contact Us</Link></li>
                         <li><Link to='/about'>About Us</Link></li>
                        <li><Link to='/collections' >Products</Link></li>
-                        <li><Link to='combined'>Sign In</Link></li>
+                        <li><Link to='/user/login'>Sign In</Link></li>
                        <li><Link to='/cart'>Cart</Link></li>
                     </ul>
                 </div>

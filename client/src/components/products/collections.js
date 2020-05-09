@@ -115,7 +115,7 @@ class Collections extends Component{
     render(props){
         console.log("Collection of Products render sr: ", this.props)
         if(this.state.redirect){
-            return <Redirect to='/combined'/>
+            return <Redirect to='/user/login'/>
         }
         return(
             <div>

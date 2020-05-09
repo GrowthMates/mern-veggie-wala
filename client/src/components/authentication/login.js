@@ -72,7 +72,7 @@ class Login extends Component{
         const { errors } = this.state;
         if(this.state.auth==true){
           return(
-          <Redirect to='/dashboard'/> 
+          <Redirect to='/cart'/> 
           )}
         return(
             <div>
@@ -80,11 +80,14 @@ class Login extends Component{
                 <h4 className='name'>
                     Sign In
                 </h4>
-                <hr className='hrr' />
+                {/* <button className='gmail-btn' onClick={this.googleAuth}>
+                          <span>Sign In with Gmail</span>
+                          <i style={{marginTop:'25px'}}><img src={GIcon} style={{backgroundColor:'white'}}  /></i>
+                      </button> */}
                 <form noValidate onSubmit={this.onSubmit}>
                         <div className='fields'> 
                         <h5 class>
-                            UserName <span style={{color: 'red'}}> *</span>
+                            User Name <span style={{color: 'red'}}> *</span>
                         </h5>
                         <TextField 
                         onChange={this.onChange}
@@ -93,8 +96,8 @@ class Login extends Component{
                         className='textfields' 
                         id="email"
                         type="email" 
-                        label="Email"
-                        className={classnames("", {
+                        placeholder="Your Email Address"
+                        className={classnames("textfields", {
                             invalid: errors.email || errors.emailnotfound
                           })} 
                         />
@@ -115,8 +118,8 @@ class Login extends Component{
                         className='textfields' 
                         id="password" 
                         type="password"
-                        label='********'
-                        className={classnames("", {
+                        placeholder='Password'
+                        className={classnames("textfields", {
                             invalid: errors.password || errors.passwordincorrect
                           })}
                           />
@@ -128,17 +131,21 @@ class Login extends Component{
                         
                         <br/>
 
-                        
-                        <button type="submit" className='loginBtn'>Login</button>
-                            <span style={{margin:'20px', fontWeight:'600'}}>OR</span>
-                        {/* <input style={{width:'250px',height:'50px', marginTop:'25px'}} type='button' value='Sign In with Gmail' onClick={this.googleAuth}/>
-                        <i style={{position:'sticky',marginTop:'25px'}}><img src={GIcon}/></i> */}
-                        {/* <button className='gmail-btn' onClick={this.googleAuth}>
-                          <span>Sign In with Gmail</span>
-                          <i style={{marginTop:'25px'}}><img src={GIcon} style={{backgroundColor:'white'}}  /></i>
-                          </button> */}
+                        <div className='row'>
+                          <div>
+                            <button type="submit" className='loginBtn' style={{fontWeight:'600'}}>Login</button>
+                            <span style={{margin:'15px', fontWeight:'600'}}>OR</span>
+                          </div>
 
+                          <div>
+                            <button className='gmail-btn' onClick={this.googleAuth}>
+                              <span>Sign In with Gmail</span>
+                              <i style={{marginTop:'25px'}}><img src={GIcon} style={{backgroundColor:'white'}}  /></i>
+                            </button>
+                          </div>
                         </div>
+
+                      </div>
                 </form>
           
                </div>

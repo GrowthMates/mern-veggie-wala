@@ -4,38 +4,11 @@ import {connect} from 'react-redux';
 import HomeLoader from './home-loader'
 import {Link} from 'react-router-dom'
 import GreenButton from "./buttons/greenButton"
-// import axios from 'axios'
-// import frt1 from './images/frt1.jpeg'
-// import frt2 from './images/frt2.jpeg'
-// import veg1 from './images/veg1.jpeg'
-// import veg2  from './images/veg2.jpeg'
 import fresh from './images/fresh.webp'
-import Center from './images/Center.webp'
-import eco from './images/eco.webp'
 import hearts from './images/hearts.webp'
-import yammy from './images/yammy.webp'
-import tasty from './images/tasty.webp'
-import dlv from './images/dlv.webp'
-import ser from './images/ser.webp'
-import all from './images/all.webp'
-import bana3 from './images/bana3.webp'
-import kiwi3 from './images/kiwi3.webp'
-import jack from './images/jack.webp'
-import papa4 from './images/papa4.webp'
-import love from './images/love.png'
-import leaf from './images/leaf.png'
-import heart1 from './images/heart.png'
-import shoppingcart1 from './images/shopping-cart.png'
-import search1 from './images/search.png'
-import apple from './images/apple.jpg'
-import low3 from './images/low3.webp'
-import low2 from './images/low2.webp'
-import low4 from './images/low4.jpg'
-import plums from './images/plums.webp'
-import pchs from './images/pchs.webp'
-import cmbr from './images/cmbr.webp'
-import mrtls from './images/mrtls.webp'
-// import spice from './images/spice.png'
+// import heart1 from './images/heart.png'
+// import shoppingcart1 from './images/shopping-cart.png'
+// import search1 from './images/search.png'
 import l1 from './images/l1.webp'
 import l2 from './images/l2.webp'
 import l3 from './images/l3.webp'
@@ -131,7 +104,8 @@ import ProductCards from "./cards"
 
         //Calling UserCart API...
         if(this.props.auth.user){
-            this.props.userCart(this.props.auth.user.id)
+            this.props.auth.user.id?
+            this.props.userCart(this.props.auth.user.id): void 0
         }
         console.log('this.componentDidMount')
         var query = queryString.parse(this.props.location.search);

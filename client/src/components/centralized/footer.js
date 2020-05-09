@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {Link,BrowserRouter} from 'react-router-dom'
 import './footer.css'
 import images from './images/images.jpg'
-import VeggieLogo from "./images/VeggiewalaLogo.png"
+import VeggieLogo from "./images/veggie-wala-logo-white.png"
 
 
 
@@ -25,12 +25,7 @@ export default class Footer extends Component{
                  <div className="col-lg-3 col-sm-12 col-xs-12">
                      <img src={VeggieLogo} className='footerImg' /> 
                         
-                     {/* <h6 >It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</h6>
-                  <div  className='location' >
-                    <p><span> <i className="fa fa-map-marker"></i> </span>100 Highland Ave, California, US</p>
-                    <p><span> <i className="fa fa-envelope"></i> </span>support@gmail.com</p>
-                    <p><span> <i className="fa fa-phone "></i> </span>(+84)123 456 789</p>
-                 </div>    */}
+                     
                  </div>
                  <div className="col-lg-3 col-sm-12 col-xs-12">
                      <h4 className="footerHeadings">Information</h4>

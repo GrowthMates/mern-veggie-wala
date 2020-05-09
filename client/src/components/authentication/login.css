@@ -16,7 +16,6 @@
     width:250px;
     height:52px; 
     font-weight:500;
-    margin-top:25px;
     background-color:#2485FA;
     border:1px solid #2485FA;
     padding-right:0px;
@@ -26,7 +25,44 @@
 
 }
 .gmail-btn span{
-    padding-right:20px;
-    padding-left:41.5px;
-    color:white
+    padding-right: 9%;
+    padding-left: 10%;
+    color: white;
+}
+
+.signup-bg-img{
+    background-image: url('./images/signup.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 13%;
+    padding-top: 15%;
+}
+.signup-bg-inner-data{
+    /* margin-top: 200px; */
+    width: 100%;
+    height: 100%;
+}
+.signup-bg-inner-data h2{
+    letter-spacing: 0.89px;
+}
+.signup-bg-inner-data button{
+    width: 170px;
+    height: 50px;
+    margin-top: 40px;
+    text-align: center;
+    background: none;
+    border: 2px solid;
+    font-weight: bold;
+    outline: none;
+    border-radius: 25px;
+    transition: background 0.2s ease-in;
+    -moz-transition: background 0.2s ease-in;
+    -webkit-transition: background 0.2s ease-in;
+}
+.signup-bg-inner-data button:hover{
+    /* box-shadow: 0px 2px 4px #0D3; */
+    background: rgb(255,255,255);
+    background: linear-gradient(142deg, rgba(255,255,255,1) 0%, rgba(224,52,52,1) 66%);
+    box-shadow: 1px 2px 6px #000000;
+    border: none;
 }

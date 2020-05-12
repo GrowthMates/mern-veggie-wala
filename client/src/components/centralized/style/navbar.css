@@ -151,7 +151,8 @@ body {
     display: block;
     color: #5ba616;
     text-align: left;
-    margin-top: 15px;
+    margin-top: 5px;
+    font-size: 0.9em;
     font-weight: bold;
     padding-left: 10px;
     
@@ -175,10 +176,14 @@ body {
 .responsiveNavMenu a{
   color: #7CA646;
 }
-sup{
+#cart-box-icon{
+  margin-left: 10px;
+  margin-right: 20px;
+}
+#cart-sup{
     position: absolute;
     top: -6;
-    right: 0px;
+    /* right: 0px; */
     background: #7CA646;
     height: 16px;
     width: 17px;
@@ -192,6 +197,7 @@ sup{
 .cart{
     text-align: left;
     margin-left: 0px;
+    margin-top: 10px;
     padding-left: 0px ;
 }
 .navLogo{

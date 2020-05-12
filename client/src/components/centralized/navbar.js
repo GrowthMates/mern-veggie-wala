@@ -215,7 +215,7 @@ class Navbar extends Component{
                          <div className='col-lg-3 forHidden'>                        
                              <div className='container'>
                                  <div className='row'>
-                                     <div  className='col-lg-6 heart' >
+                                     <div  className='col-lg-5 heart' >
                                       <Link to='/wishList'>   <img className='cursor-pointer' src={heart}  width='20' height='20.52' /></Link>
                                       <Link to='/user/login'>   <img className='cursor-pointer' src={UserIcon}  width='20' height='20.52' /></Link>
                                          <span> | </span>
@@ -250,13 +250,17 @@ class Navbar extends Component{
                                             </div>
                                             </div>
                                          </Link> */}
-                                          {/* <Link to='/cart'>
-                                             <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/> <sup>{this.state.qty || this.props.cartProducts }</sup>
-                                         </Link> */}
                                      </div>
                                     
-                                      <div  className='col-lg-6 cart' >
+                                      <div  className='col-lg-7 cart' >
+                                          <div className='row'>
 
+                                      <div  id='cart-box-icon'>
+
+                                          <Link to='/cart'>
+                                             <img className='cursor-pointer' src={shoppingcart} width='20' height='20.52'/> <sup id='cart-sup'>{this.state.qty || this.props.cartProducts }</sup>
+                                         </Link>
+                                         </div>
                   {/*-----------------------Working Continue   ------------------------------  */}
 
                                       {/* <Link className="dropdown">
@@ -288,6 +292,8 @@ class Navbar extends Component{
                                             </div>
                                             </div>
                                          </Link> */}
+                                         <div >
+
                                         <p>
                                             <span className='cartPrice' >Rs. 
                                             {
@@ -297,6 +303,8 @@ class Navbar extends Component{
                                             } </span>
                                             
                                         </p>
+                                         </div>
+                                          </div>
                                      </div>
                                  </div>
                              </div>

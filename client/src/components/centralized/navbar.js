@@ -257,7 +257,7 @@ class Navbar extends Component{
                                     
                                       <div  className='col-lg-6 cart' >
 
-                  {/*-----------------------Working Continue------------------------------  */}
+                  {/*-----------------------Working Continue   ------------------------------  */}
 
                                       {/* <Link className="dropdown">
                                          <img className='cursor-pointer dropbtn' src={shoppingcart} width='20' height='20.52'/> <sup>{this.state.qty || this.props.cartProducts }</sup>

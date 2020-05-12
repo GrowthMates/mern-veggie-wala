@@ -38,6 +38,7 @@ hr.product-desc{
     background-image: url('../centralized/images/product-detail-banner.jpg');
     height: 40vh;
     width: 100%;
+    padding: 0;
     background-repeat: no-repeat;
     /* overflow: hidden; */
 

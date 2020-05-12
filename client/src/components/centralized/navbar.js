@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import './style/navbar.css';
 // import { Link, BrowserRouter } from "react-router-dom";
-import {BrowserRouter as Router,Link,Redirect,withRouter} from 'react-router-dom';
+import {BrowserRouter as Router,Link,Redirect,withRouter,NavLink} from 'react-router-dom';
 import { connect } from "react-redux";
 import heart from './images/heart.png'
 import shoppingcart from './images/shopping-cart.png'
@@ -318,12 +318,12 @@ class Navbar extends Component{
 
                 <div className='container' style={{textAlign: 'center'}}>
                     <ul className='bottomNav'>
-                        <li><Link to='/'>Home</Link></li>
-                        <li><Link to='/contact'>Contact Us</Link></li>
-                        <li><Link to='/about'>About Us</Link></li>
-                       <li><Link to='/collections' >Products</Link></li>
-                        <li><Link to='/user/login'>Sign In</Link></li>
-                       <li><Link to='/cart'>Cart</Link></li>
+                        <li><NavLink exact to='/' activeClassName='nav-active-link'>Home</NavLink></li>
+                        <li><NavLink exact to='/contact' activeClassName='nav-active-link'>Contact Us</NavLink></li>
+                        <li><NavLink exact to='/about' activeClassName='nav-active-link'>About Us</NavLink></li>
+                        <li><NavLink exact to='/collections' activeClassName='nav-active-link'>Products</NavLink></li>
+                        <li><NavLink exact to='/user/login' activeClassName='nav-active-link'>Sign In</NavLink></li>
+                        <li><NavLink exact to='/cart' activeClassName='nav-active-link'>Cart</NavLink></li>
                     </ul>
                 </div>
             </div>

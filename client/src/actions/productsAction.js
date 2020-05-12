@@ -64,17 +64,26 @@ var getCartProdLocalStorage=[]
 
  export const getSingleProduct = (id) => dispatch => {
    console.log('getSingle Product called',id)
+   dispatch({
+    type: PROGRESS_START,
+  })
    axios.get(`/api/products/${id}`).then(res=>{
    console.log('getSingle Product res===',res.data)
       dispatch({
         type:GET_SINGLE_PRODUCT,
         payload:res.data
       })
+      dispatch({
+        type: PROGRESS_END,
+      })
    })
    .catch(err=>{
     dispatch({
       type:GET_ERRORS,
       payload:err.response.data
+    })
+    dispatch({
+      type: PROGRESS_END,
     })
    })
  } 

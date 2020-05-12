@@ -10,7 +10,7 @@ const ProductCards = ({item}) =>{
         <div className='p1'>
             <Link to = {`/product/${item._id}`} >
                 <div className="home-item-imageBx">
-                <img src={item.image[0]}  style={{width:'13rem',height:'14rem'}} alt=''/>
+                <img src={item.image[0]}  style={{width:'100%',height:'14rem'}} alt=''/>
                 </div>
                 </Link>
              <div className='row card-item-name'>

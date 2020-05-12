@@ -2,10 +2,10 @@
 
 .product-upper{
     background-image: url('../centralized/images/products-banner.jpg');
-    height: 40vh;
+    /* height: 40vh; */
     width: 100%;
     background-repeat: no-repeat;
-    /* overflow: hidden; */
+    overflow: hidden;
 
     /* padding-left: 20px; */
     background-size: 100% 100%;

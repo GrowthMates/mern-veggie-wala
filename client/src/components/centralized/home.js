@@ -19,7 +19,7 @@ import Slide1 from './images/Slider1.jpg'
 import Slide2 from './images/Slider2.jpg'
 import Slide3 from './images/Slider3.jpg'
 import './style/home.css'
-import {wishList,userCart} from '../../actions/productsAction'
+import {wishList,userCart,getSingleProduct} from '../../actions/productsAction'
 import Homeimages from "./home-assets/images"
 import {gmailLogin} from '../../actions/authActions'
 import queryString from "query-string";
@@ -143,6 +143,8 @@ import ProductCards from "./cards"
         // console.log('p1',)
         // this.props.history.push('/collections')  
     }
+
+    
 
     wishList(userId,productId){
         
@@ -399,7 +401,6 @@ const mapStateToProps = (state) => {
       products: state.products.products,
       loading: state.products.loading,
       cart:state.cart,
-
       auth: state.auth,
       errors: state.errors
       
@@ -408,6 +409,6 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    {   wishList,gmailLogin,userCart }
+    {   wishList,gmailLogin,userCart}
 
   )(Home);

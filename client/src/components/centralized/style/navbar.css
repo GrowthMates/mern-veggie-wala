@@ -8,6 +8,7 @@ body {
   display: flex;
   position: fixed;
   overflow: hidden;
+  width: 100%;
   top: 0;
   z-index: 1000;
   background: #fff;
@@ -15,7 +16,6 @@ body {
   flex-wrap: wrap;
   padding-left: 0;
   box-shadow: 0px -3px 3px 4px #ccc;
-  /* margin-bottom: 50rem; */
   list-style: none;
 }
 .navUpper{
@@ -24,8 +24,15 @@ body {
     height: 3rem;
     top: 0px;
     z-index: 9999999999;
-    /* padding-top: 25px; */
-    /* background-color: chartreuse; */
+}
+
+.nav-active-link{
+
+  color: #5ba616 !important;
+  transition-duration: 0.25s;
+  padding-bottom: 5px;
+  transform: translateY(-5%) !important;
+
 }
 
 .searchFilterOut{
@@ -52,8 +59,8 @@ body {
  
   text-decoration: none;
   display: inline-block;
-  padding-left:  20px !important;
-  padding-right:  20px !important;
+  padding-left:  25px !important;
+  padding-right:  25px !important;
   text-align: center;
   transition: 0.5s ease-in;
   cursor: pointer;
@@ -67,7 +74,7 @@ body {
 .bottomNav li a{
   text-decoration: none;
   color: #575555;
-  font-size: 1.1em;
+  font-size: .9em;
   font-weight: 600;
 }
 
@@ -185,10 +192,7 @@ sup{
 .cart{
     text-align: left;
     margin-left: 0px;
-    /* margin-left: 14px; */
-    /* display: inline; */
     padding-left: 0px ;
-    /* background-color: tomato; */
 }
 .navLogo{
     text-align: left;
@@ -199,30 +203,16 @@ sup{
 }
 .form1{
     text-align: center;
-    /* margin-right: -20px; */
-    /* float: right;
-    padding: 0%;
-    margin: 0%; */
     width: 100%
 
-}
-.nav1{
-    /* margin-left: 20px; */
 }
 .div{
     background-color: none !important;
 }
-.navlinks{
-    /* text-align: center; */
-}
+
 .navs {
-    /* text-align: center; */
     padding-left: 25%;
     padding-right: 25%;
-    /* position: relative; */
-    /* text-align: center; */
-    /* right: 50; */
-    /* background-color: #5ba616; */
     
 }
 .scrolled{
@@ -231,7 +221,6 @@ sup{
 	width:  100%;
 	z-index: 100000;
   background-color: #fff;
-  /* height: 120px; */
 } 
 
 .nav-link{
@@ -241,9 +230,7 @@ sup{
 .nav-item {
     padding: 0px 0px !important;
 }
-.innerNav{
 
-}
 
 .innerNav li a{     
     font-weight: 700;
@@ -279,9 +266,7 @@ sup{
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
-.hra:hover{
-    /* transition: 0.7s; */
-}
+
 
 .hra:hover{
     color: #5ba616;
@@ -298,21 +283,9 @@ a:hover{
     background-color: transparent !important;
 }
 
-.dropbtn {
-    /* background-color: #4CAF50; */
-    /* color: white; */
-    /* padding: 16px; */
-    /* font-size: 16px; */
-    /* border: none; */
-  }
-  
-  .dropdown {
-    /* position: relative; */
-    /* display: inline-block; */
-  }
+
   
   .dropdown-content {
-    /* box-shadow: 1px 1px 18px 4px  #888; */
     display: none;
     position: absolute;
     background-color: #fff;
@@ -335,14 +308,10 @@ a:hover{
   
   .dropdown:focus .dropdown-content {display: block;width:300px;}
   
-  /* .dropdown:hover .dropbtn {background-color: #3e8e41;} */
 
 .desktop{
   height: 150px;
 }
 
  
-
-
-  /* Tablet k lye */
   

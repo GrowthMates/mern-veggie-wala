@@ -169,7 +169,7 @@ onChangeQty(e){
                      </div>
                      <div className='row' style={{overflowX:'auto', marginTop:'10px',padding:'0 1rem'}}> 
                          {this.state.product.image.map((image=>{
-                             return <div className='col-lg-4 col-md-4 '><img className='cursor-pointer' src={image} width='100%' height='80%' onClick={()=>{this.setState({displayImage:image})}}/></div>
+                             return <div className='col-lg-4 col-md-4 '><img className='cursor-pointer' src={image} width='80%' height='70%' onClick={()=>{this.setState({displayImage:image})}}/></div>
                          }))}
                       </div> 
 
@@ -241,7 +241,7 @@ onChangeQty(e){
                                                    </tr>
                                                    <tr>
                                                        <th> CATEGORIES:</th>
-                                                       <td>  Fruits2 Top Sale  </td>
+                                                       <td> {this.state.product.category}  </td>
                                                    </tr>
                                                    <tr>
                                                        <th>     TAGS:  </th>
@@ -313,8 +313,10 @@ onChangeQty(e){
                         <h2 style={{fontWeight:'bold'}}>You May Also Need</h2>
                     </div>
 
-                    <div className='row' style={{margin:'auto'}}>
+                    <div className='row' style={{margin:'auto',paddingBottom:'90px'}}>
                         <div className='col-lg-4 col-md-4'>
+                        <div style={{width:'68%'}}>
+
                         <div className='p1'>
                                 <div className="home-item-imageBx">
                                 <img src={this.state.product.image[0]}  style={{width:'100%'}} alt=''/>
@@ -330,7 +332,50 @@ onChangeQty(e){
                                 </div>
                             </div>   
                         </div>
+                        </div>
+                        </div>
+                        <div className='col-lg-4 col-md-4'>
+                        <div style={{width:'68%'}}>
+
+                        <div className='p1'>
+                                <div className="home-item-imageBx">
+                                <img src={this.state.product.image[1]}  style={{width:'100%'}} alt=''/>
+                                </div>
+                            <div className='row card-item-name'>
+                                <div className="col-6">
+                                     <h5 >Dummy Product</h5>
+                                <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.190</h5>
+                                </div>
+                                <div className="col-6">
+                                <h5 style={{textAlign:'right'}} className="col-6">1(Kg)</h5>
+                                <i>*****</i>
+                                </div>
+                            </div>   
+                        </div>
+                        </div>
                         </div><div className='col-lg-4 col-md-4'>
+                        <div style={{width:'68%'}}>
+
+                        <div className='p1'>
+                                <div className="home-item-imageBx">
+                                <img src={this.state.product.image[2]}  style={{width:'100%'}} alt=''/>
+                                </div>
+                            <div className='row card-item-name'>
+                                <div className="col-6">
+                                     <h5 >Dummy Product</h5>
+                                <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.190</h5>
+                                </div>
+                                <div className="col-6">
+                                <h5 style={{textAlign:'right'}} className="col-6">1(Kg)</h5>
+                                <i>*****</i>
+                                </div>
+                            </div>   
+                        </div>
+                        </div>
+                        </div>
+
+                       
+                        {/* <div className='col-lg-4 col-md-4'>
                         <div className='p1'>
                                 <div className="home-item-imageBx">
                                 <img src={this.state.product.image[1]}  style={{width:'100%'}} alt=''/>
@@ -362,7 +407,7 @@ onChangeQty(e){
                                 </div>
                             </div>   
                         </div>
-                        </div>
+                        </div> */}
                     </div>
 
                 </div>

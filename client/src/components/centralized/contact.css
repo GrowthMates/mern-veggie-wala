@@ -1,5 +1,4 @@
 .contact-body{
-    background-color: whitesmoke;
     padding-bottom: 150px;
 }
 
@@ -50,8 +49,8 @@
   }
   
   .contact-upper{
-    background-image: url('./images/images.jpg');
-    /* height: 150px; */
+    background-image: url('./contact-us-assets/images/contact-us-banner.png');
+    height: 350px;
     width: 100%;
     background-repeat: no-repeat;
     padding-left: 20px;
@@ -60,6 +59,68 @@
     top: 0px;
 
 }
+
+.For-Further-Inquiries{
+    
+  font-family: Montserrat;
+  font-size: 2.5em;
+  font-weight: 900;
+  text-shadow: 0px 1px, 1px 0px, 1px 1px;
+  /* text-shadow: 2px 0; */
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2;
+  letter-spacing: 1.1px;
+  text-align: center;
+  color: #000000;
+}
+
+
+.contact-mid-top{
+  margin: 40px;
+  font-size: 0.9em;
+}
+
+.contact-us-form label{
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  padding: 10px 0;
+}
+
+.contact-us-form input, .contact-us-form textarea{
+  border: none;
+  border-radius: 0;
+  background-color: #efefef;
+}
+/* Chrome, Safari, Edge, Opera */
+.contact-us-form input::-webkit-outer-spin-button,
+.contact-us-form input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.contact-us-form input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+.contact-us-send-btn{
+  display: block;
+  float: right;
+  background: #7CA647;
+  color: #ffffff;
+  font-size: 0.9em;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  line-height: 1.35;
+  letter-spacing: 0.4px;
+  margin-top: 20px;
+  padding: 1em 8em;
+}
+
 
 @media (min-width: 320px)  {
   .contact-img-text h1{

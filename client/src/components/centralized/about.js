@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom'
 import './about.css'
-
+import AboutImages from "./about-us-assets/images";
 import male1 from './images/male1.jpeg'
 import male2 from './images/male2.jpeg'
 import female1 from './images/female1.jpeg'
@@ -16,94 +16,173 @@ export default class About extends Component{
             <div>
                  <section className='about-upper col-lg-12' >
                 <div className='about-img-text'>
-                    <h1>ABOUT Veggie Walas </h1>
-                    <p>A fruits and vegetables Organization You Can Trust</p>
+                    {/* <h1>ABOUT Veggie Walas </h1>
+                    <p>A fruits and vegetables Organization You Can Trust</p> */}
                 </div>
                </section>
 
                {/* 2nd section */}
-            <main className='container' > 
+            <main className='container' style={{    paddingBottom: '100px'}}> 
+              
                <section className=' sec-2' >
-                   <div className='row' >
-                     <div className='col-lg-6 col-xs-12 col-md-6 col-sm-12' >
-                        <p><b>Houzez is a premium WordPress theme for fruits and vegetables agents where modern aesthetics are combined with tasteful simplicity and where the ease of use is achieved without compromise in your ability to customize the design.</  b></p><br/>
-                        <p>Whether you are a fruits and vegetables agent looking to build a website for your company or a web developer seeking a perfect WordPress theme for your next project, you are certain to appreciate the numerous features and benefits that our theme provides.</p>
-                     </div>
-                     <div className='col-lg-6 col-xs-12 col-md-6 col-sm-12' >
-                        <p>Houzez is a premium WordPress theme for fruits and vegetables agents where modern aesthetics are combined with tasteful simplicity and where the ease of use is achieved without compromise in your ability to customize the design.</p><br/><br/>
-                        <p>Unlike many other fruits and vegetables themes which confine you to a handful of predefined layouts, Houzez offers a limitless array of possibilities to structure and style your content. </p>
-                     </div>
+
+                   <div id='abt-top-section'>
+                    <div id='water-melon-left'><img src={AboutImages.waterMelon}  style={{width:'60%'}}/></div>
+                    <div className='row'  style={{margin:'0 120px'}}>
+                        
+                        <div className='col-lg-12 col-xs-12 col-md-12 col-sm-12' >
+                            <h2 className='who-we-are'>Who We Are ?</h2>
+                            <p>Houzez is a premium WordPress theme for fruits and vegetables agents where modern 
+                                aesthetics are combined with tasteful simplicity
+                                and where the ease of use is achieved without compromise in your ability to customize the design.</p><br/>
+                            <p>Unlike many other fruits and vegetables themes which confine you to a handful of 
+                                predefined layouts, Houzez offers a limitless array of possibilities to structure and style your content. </p>
+                        </div>
+                    </div>
                    </div>
 
-                   <div className='meet' ><h3> Meet Our team  </h3></div>
+
+
+                   <div id='abt-mid-section'>
+
+                   <div className='meet' ><h3 className='who-we-are'> Meet Our team  </h3></div>
 
                    {/* 3rd */}
                     <div className='team-top row' > 
-                   <div className='col-lg-3 col-xs-12 col-md-6 col-sm-4 team' >
-                        <img src={male2} width='150' height='150' />
-                        <h6 style={{color: '#1ebbd7', paddingTop: '30px'}}>M, Azeem khan</h6>
-                        <h6>Founder & CEO , Veggie Walas fruits and vegetables</h6><br/>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. luctus ligula ac faucibu</p><br/>
-                        <Link style={{color: '#1ebbd7'  }} > View  Profile </Link>
+                   <div className='col-lg-3 col-xs-12 col-md-3 col-sm-4 ' >
+
+                   <div class="card" style={{width:'auto'}}>
+                    <img class="card-img-top" src={male2} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
+                    <div class="card-body">
+                    <h4 class="card-title">John Doe</h4>
+                    <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                    {/* <a href="#" class="btn btn-primary">See Profile</a> */}
+                    <Link style={{color: '#1ebbd7'  }} > <button className='btn-view-profile'>View  Profile</button> </Link>
+                    </div>
+                    </div>
+
+                      
                         
                    </div>
-                   <div className='col-lg-3 col-xs-12 col-md-6 col-sm-4 team' >
-                        <img src={male1} width='150' height='150' />
-                        <h6 style={{color: '#1ebbd7', paddingTop: '30px'}}>M, Salman khan</h6>
-                        <h6>Founder & CEO , Veggie Walas fruits and vegetables</h6><br/>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. luctus ligula ac faucibu</p><br/>
-                        <Link style={{color: '#1ebbd7'  }} > View  Profile </Link>
+                   <div className='col-lg-3 col-xs-12 col-md-3 col-sm-4' >
+
+                   <div class="card" style={{width:'auto'}}>
+                    <img class="card-img-top" src={male1} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
+                    <div class="card-body">
+                    <h4 class="card-title">John Doe</h4>
+                    <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                    <Link style={{color: '#1ebbd7'  }} > <button className='btn-view-profile'>View  Profile</button> </Link>
+                    </div>
+                    </div>
+                       
                         
                    </div>
-                   <div className='col-lg-3 col-xs-12 col-md-6 col-sm-4 team' >
-                        <img src={female1} width='150' height='150' />
-                        <h6 style={{color: '#1ebbd7', paddingTop: '30px'}}>M, Saira khan</h6>
-                        <h6>Founder & CEO , Veggie Walas fruits and vegetables</h6><br/>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. luctus ligula ac faucibu</p><br/>
-                        <Link style={{color: '#1ebbd7'  }} > View  Profile </Link>
+                   <div className='col-lg-3 col-xs-12 col-md-6 col-sm-4' >
+
+                   <div class="card" style={{width:'auto'}}>
+                    <img class="card-img-top" src={female1} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
+                    <div class="card-body">
+                    <h4 class="card-title">John Doe</h4>
+                    <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                    <Link style={{color: '#1ebbd7'  }} > <button className='btn-view-profile'>View  Profile</button> </Link>
+                    </div>
+                    </div>
+
+                        
                         
                    </div>
-                   <div className='col-lg-3 col-xs-12 col-md-4 col-sm-4 team' >
-                        <img src={female2} width='150' height='150' />
-                        <h6 style={{color: '#1ebbd7', paddingTop: '30px'}}>M, Shumaila khan</h6>
-                        <h6>Founder & CEO , Veggie Walas fruits and vegetables</h6><br/>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. luctus ligula ac faucibu</p><br/>
-                        <Link style={{color: '#1ebbd7'  }} > View  Profile </Link>
+                   <div className='col-lg-3 col-xs-12 col-md-4 col-sm-4' >
+
+                    <div class="card" style={{width:'auto'}}>
+                        <img class="card-img-top" src={female2} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
+                        <div class="card-body">
+                            <h4 class="card-title">John Doe</h4>
+                            <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                            <Link style={{color: '#1ebbd7'  }} > <button className='btn-view-profile'>View  Profile</button> </Link>
+                        </div>
+                    </div>
+
                         
+                        
+                   </div>
                    </div>
                    </div>
                </section>
+
+
                
                <section className='sec-3 ' >
+
                     <div className='succes'>
-                    <h3> Veggie Walas Was Built With Your Success In Mind </h3><br/>
-                    <p>Get more calls schedules more viewing and earn more commission</p>
+                        <h3 className='who-we-are' > Veggie Wala Was Built With Your Success In Mind </h3><br/>
+                        <p>Get more calls schedules more viewing and earn more commission</p>
                     </div>
 
                     {/* 2nd */}
-                    <div class='row' > 
-                    <div className='col-lg-6 col-xs-12 col-md-6 col-sm-12' >
-                        <h5>Easy to Get Started</h5><br/>
-                        <p>Do you like the demo? Import the provided sample content in a few clicks and start editing it right away</p><br/>
-                        <h5>Built-in Monetisation System</h5><br/>
-                        <p>No need to install additional plugins to handle money. Send and receive payments straight out of the box</p><br/>
-                        <h5>Visual Composer</h5><br/>
-                        <p>Not experienced in building websites? Get instant visual feedback by dragging and dropping elements to build pages</p><br/>
-                        <h5>Membership System</h5><br/>
-                        <p>Offer your agents custom subscription levels by varying the number of featured and regular listings</p>
+                    <div className='row abt-lower-desc' style={{justifyContent:'center'}} > 
+                        <div className='col-lg-4 col-xs-12 col-md-4 col-sm-12' >
+                          <div className='abt-lower-desc-body'>
+                            <h5>Easy to Get Started</h5><br/>
+                            <p>Do you like the demo? Import the provided sample 
+                                content in a few clicks and start editing it right away</p><br/>
+                          </div>
+                        </div>
+                        <div className='col-lg-4 col-xs-12 col-md-4 col-sm-12' >
+                        <div className='abt-lower-desc-body'>
+                            <h5>Easy to Get Started</h5><br/>
+                            <p>Do you like the demo? Import the provided sample 
+                                content in a few clicks and start editing it right away</p><br/>
+                          </div>
+                        </div>
+                        <div className='col-lg-4 col-xs-12 col-md-4 col-sm-12' >
+                        <div className='abt-lower-desc-body'>
+                            <h5>Easy to Get Started</h5><br/>
+                            <p>Do you like the demo? Import the provided sample 
+                                content in a few clicks and start editing it right away</p><br/>
+                          </div>
+                        </div>
+                        <div className='col-lg-4 col-xs-12 col-md-4 col-sm-12' >
+                        <div className='abt-lower-desc-body'>
+                            <h5>Easy to Get Started</h5><br/>
+                            <p>Do you like the demo? Import the provided sample 
+                                content in a few clicks and start editing it right away</p><br/>
+                          </div>
+                        </div>
+                        <div className='col-lg-4 col-xs-12 col-md-4 col-sm-12' >
+                        <div className='abt-lower-desc-body'>
+                            <h5>Easy to Get Started</h5><br/>
+                            <p>Do you like the demo? Import the provided sample 
+                                content in a few clicks and start editing it right away</p><br/>
+                          </div>
+                        </div>
+                        <div className='col-lg-4 col-xs-12 col-md-4 col-sm-12' >
+                        <div className='abt-lower-desc-body'>
+                            <h5>Easy to Get Started</h5><br/>
+                            <p>Do you like the demo? Import the provided sample 
+                                content in a few clicks and start editing it right away</p><br/>
+                          </div>
+                        </div>
+                        <div className='col-lg-4 col-xs-12 col-md-4 col-sm-12' >
+                        <div className='abt-lower-desc-body'>
+                            <h5>Easy to Get Started</h5><br/>
+                            <p>Do you like the demo? Import the provided sample 
+                                content in a few clicks and start editing it right away</p><br/>
+                          </div>
+                        </div>
+                        <div className='col-lg-4 col-xs-12 col-md-4 col-sm-12' >
+                        <div className='abt-lower-desc-body'>
+                            <h5>Easy to Get Started</h5><br/>
+                            <p>Do you like the demo? Import the provided sample 
+                                content in a few clicks and start editing it right away</p><br/>
+                          </div>
+                        </div>
+
+                        <div id='abt-pine-apple'>
+                            <img src={AboutImages.pineApple} style={{width:'100%'}}/>
+                        </div>
                     </div>
 
-                    <div className='col-lg-6 col-xs-12 col-md-6 col-sm-12' >
-                        <h5>Easy to Get Started</h5><br/>
-                        <p>Do you like the demo? Import the provided sample content in a few clicks and start editing it right away</p><br/>
-                        <h5>Built-in Monetisation System</h5><br/>
-                        <p>No need to install additional plugins to handle money. Send and receive payments straight out of the box</p><br/>
-                        <h5>Visual Composer</h5><br/>
-                        <p>Not experienced in building websites? Get instant visual feedback by dragging and dropping elements to build pages</p><br/>
-                        <h5>Membership System</h5><br/>
-                        <p>Offer your agents custom subscription levels by varying the number of featured and regular listings</p>
-                    </div>
-                    </div>
+
                </section>
                </main>
             </div>

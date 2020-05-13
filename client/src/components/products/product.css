@@ -28,15 +28,15 @@ hr.product-desc{
 
 .product-detail-img-text{
     width: 100%;
-    padding: 0;
-    height: 100%;
+    padding: 150px;
+    /* height: 150px; */
     background: #000;
     background-size: 100% 100%;
     opacity: 0.5;
 }
 .product-detail-upper{
     background-image: url('../centralized/images/product-detail-banner.jpg');
-    height: 40vh;
+    /* height: 40vh; */
     width: 100%;
     padding: 0;
     background-repeat: no-repeat;

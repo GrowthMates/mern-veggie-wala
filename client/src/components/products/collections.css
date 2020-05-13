@@ -178,7 +178,7 @@ h5.cursor-pointer:hover{
     font-size: larger;
     font-weight: 400;
     text-align: left;
-    min-height: 7vh;
+    /* min-height: 7vh; */
     max-height: 7vh;
     overflow: hidden;
     text-overflow: ellipsis;    

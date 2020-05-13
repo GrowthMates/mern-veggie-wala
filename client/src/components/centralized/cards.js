@@ -19,8 +19,8 @@ const ProductCards = ({item}) =>{
                 <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.{item.price}</h5>
                  </div>
                  <div className="col-6">
-                <h5 style={{textAlign:'right'}} className="col-6">1(Kg)</h5>
-                <i>*****</i>
+                <h5 style={{textAlign:'right', width:'100%'}} className="col-6">1(Kg)</h5>
+                <div><i>*****</i></div>
                  </div>
                  </div>   
         </div>

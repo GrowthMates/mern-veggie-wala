@@ -221,14 +221,14 @@ class Collections extends Component{
                            return(
                            <div key={index}>
                              <form >
-                                 <div className='container team' >
+                                 <div className='container team'  style={{paddingBottom:'0'}} >
                                             <div className='col-lg-4 '>
                                                <Link to = {`/product/${item._id}`} ><img className="cursor-pointer prodImg" src={item.image[0]} width='250' height='250' /></Link>
                                             </div>
                                             <div className="col-md-8 col-lg-8 data">
                                             <Link to = {`/product/${item._id}`} className='link-name'> <h6 className="item-name cursor-pointer">{item.name}</h6></Link>
                                                 <h6 className="stretch">From Rs.{item.price}</h6><br/>
-                                                <p>{item.description}</p><br/>
+                                                <p>{item.description.substring(0,78)+"..."}</p><br/>
                                                 {item.stock>0
                                                 ? !this.state.user.isAuthenticated?<button  onClick={e=>{this.setState({redirect:true})}} type="button" className="btn btn-success btn-lg cart-btn">Add to cart</button>
                                                 :this.state.addToCart=== false ? 

@@ -52,9 +52,9 @@ export default class About extends Component{
                    <div className='col-lg-3 col-xs-12 col-md-3 col-sm-4 ' >
 
                    <div class="card" style={{width:'auto'}}>
-                    <img class="card-img-top" src={male2} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
+                    <img class="card-img-top" src={AboutImages.person1} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
                     <div class="card-body">
-                    <h4 class="card-title">John Doe</h4>
+                    <h4 class="card-title">Saira Khan</h4>
                     <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
                     {/* <a href="#" class="btn btn-primary">See Profile</a> */}
                     <Link style={{color: '#1ebbd7'  }} > <button className='btn-view-profile'>View  Profile</button> </Link>
@@ -67,9 +67,9 @@ export default class About extends Component{
                    <div className='col-lg-3 col-xs-12 col-md-3 col-sm-4' >
 
                    <div class="card" style={{width:'auto'}}>
-                    <img class="card-img-top" src={male1} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
-                    <div class="card-body">
-                    <h4 class="card-title">John Doe</h4>
+                    <img class="card-img-top" src={AboutImages.person2} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
+                    <div class="card-body" style={{textAlign:'center'}}>
+                    <h4 class="card-title">M. Azeem Khan</h4>
                     <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
                     <Link style={{color: '#1ebbd7'  }} > <button className='btn-view-profile'>View  Profile</button> </Link>
                     </div>
@@ -80,9 +80,9 @@ export default class About extends Component{
                    <div className='col-lg-3 col-xs-12 col-md-6 col-sm-4' >
 
                    <div class="card" style={{width:'auto'}}>
-                    <img class="card-img-top" src={female1} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
+                    <img class="card-img-top" src={AboutImages.person3} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
                     <div class="card-body">
-                    <h4 class="card-title">John Doe</h4>
+                    <h4 class="card-title">M. Salman Khan</h4>
                     <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
                     <Link style={{color: '#1ebbd7'  }} > <button className='btn-view-profile'>View  Profile</button> </Link>
                     </div>
@@ -94,9 +94,9 @@ export default class About extends Component{
                    <div className='col-lg-3 col-xs-12 col-md-4 col-sm-4' >
 
                     <div class="card" style={{width:'auto'}}>
-                        <img class="card-img-top" src={female2} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
+                        <img class="card-img-top" src={AboutImages.person4} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
                         <div class="card-body">
-                            <h4 class="card-title">John Doe</h4>
+                            <h4 class="card-title">Shumaila Khan</h4>
                             <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
                             <Link style={{color: '#1ebbd7'  }} > <button className='btn-view-profile'>View  Profile</button> </Link>
                         </div>

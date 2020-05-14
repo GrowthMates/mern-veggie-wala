@@ -177,14 +177,14 @@ class Navbar extends Component{
                 {this.props.progressLoading?<ProgressBar/>:void 0}
               
               
-                <div className='container navUpper' >
+                <div className='container-fluid navUpper' >
                     <div className='row' style={{justifyContent:'center'}}>                
                          <div className='col-lg-3 col-sm-12 col-xs-5'>
                            <div className="logo-header navLogo" > 
                             <Link to="/"><img  src={VeggieLogo} className="img-fluid"/></Link>
                            </div>
                          </div>
-                         <div className='col-lg-6 col-md-6 col-sm-6'  style={{padding:'0 4rem'}}>
+                         <div className='col-lg-5 col-md-5 col-sm-5'  style={{padding:'0 4rem'}}>
                            <form>
                                <input value={this.state.search} onChange={this.updateSearch.bind(this)} placeholder='Type to search' className='navInputt' />
                                <button className='navBtnn'>Search</button>
@@ -215,7 +215,7 @@ class Navbar extends Component{
                          <div className='col-lg-3 forHidden'>                        
                              <div className='container'>
                                  <div className='row'>
-                                     <div  className='col-lg-5 heart' >
+                                     <div  className='col-lg-6 heart' >
                                       <Link to='/wishList'>   <img className='cursor-pointer' src={heart}  width='20' height='20.52' /></Link>
                                       <Link to='/user/login'>   <img className='cursor-pointer' src={UserIcon}  width='20' height='20.52' /></Link>
                                          <span> | </span>
@@ -252,7 +252,7 @@ class Navbar extends Component{
                                          </Link> */}
                                      </div>
                                     
-                                      <div  className='col-lg-7 cart' >
+                                      <div  className='col-lg-5 cart' >
                                           <div className='row'>
 
                                       <div  id='cart-box-icon'>
@@ -318,9 +318,9 @@ class Navbar extends Component{
                     
               </div>
 
-              <div className='container '>
+              <div className='container-fluid '>
                     
-                    <hr style={{color: ' #cecdcd',}} />
+                    <hr style={{color: ' #cecdcd',marginBottom:'0.6rem'}} />
 
                 </div>
 

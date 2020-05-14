@@ -159,6 +159,7 @@ import ProductCards from "./cards"
     render(){
         const {user} = this.props.auth
         // console.log('user', user.id)
+        
         return(
 
             <div id="home-container">
@@ -228,9 +229,11 @@ import ProductCards from "./cards"
                </div>
                 {/* our qualities  */}
                 
-               <div className='container threeMiddlw'>
+               <div className='container-fluid threeMiddlw'>
                    {/* <div className="green-bg"> */}
                         <img src={Homeimages.upperLeafs} alt='Leafs' id="upper-leafs-img"/>
+                   <div className='container'>
+                       
                     <div className='row' style={{width:'100%', alignItems: 'center'}} >
                         <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 middleLeft' >
                             
@@ -265,14 +268,19 @@ import ProductCards from "./cards"
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
                         </div>
                     </div>
+                    </div>     
                    {/* </div> */}
                </div>
                </div>
 
                 {/* our services */}
-                <div className='container'>
-                    <div className='row' style={{position:'relative', padding:'5%'}}>
+                <div className='container-fluid' style={{paddingLeft:'0',paddingRight:'0'}}>
+                    <div style={{position:'relative'}}>
+
                         <img src={Homeimages.avocado} alt='Avocado' id="avocado-side-img"/>
+                    <div className='container'>
+
+                    <div className='row' style={{position:'relative', padding:'5%'}}>
                         <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow ' >
 
                             <p className="round-p"><img  src={Homeimages.truckIcon} style={{width:"6rem"}} alt=''/></p>
@@ -299,6 +307,9 @@ import ProductCards from "./cards"
                         
                     </div>
                 </div>
+                    </div>
+                    </div>
+
                 {/* topsale */}
 
                 <div className='' style={{marginTop: '25px'}} >
@@ -313,6 +324,8 @@ import ProductCards from "./cards"
                         </div>
                         <img src={Homeimages.lowerLeafs} alt='side-Leafs' id="lowerLeaf"/>
                     </div>
+                    <div className='container'>
+
                     <div className='row top-items-list'>
                         {
                         (this.state.loading==true)?(<HomeLoader/>):(
@@ -333,6 +346,7 @@ import ProductCards from "./cards"
                     }
                         
                        
+                    </div>
                     </div>
                 </div>
 
@@ -377,11 +391,12 @@ import ProductCards from "./cards"
                           <h1 style={{color: '#616161', fontWeight: 'bolder'}}>Join Our Newsletter</h1>
                           <p>Lorem Ipsum is simply dummy text of the printing.</p>
                       
-                          
+                          <div style={{position:'relative'}}>  
                             <form>
                                <input type='text' name='newsfeed' placeholder='Enter your Email to Subscribe' />
                                <button>Subscribe</button>
                            </form>
+                          </div>
                        
                 
                </div>

@@ -19,11 +19,18 @@ body {
   list-style: none;
 }
 .navUpper{
-    margin-top: 25px !important;
+    margin-top: 20px !important;
     position: relative;
-    height: 3rem;
+    height: 2.5rem;
     top: 0px;
     z-index: 9999999999;
+}
+
+@media  (min-width:990px){
+  .nav .img-fluid{
+    /* margin-top: -5px; */
+    max-width: 10rem;
+  }
 }
 
 .nav-active-link{

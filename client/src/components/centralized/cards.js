@@ -29,7 +29,7 @@ const ProductCards = ({item}) =>{
 
         <div key={item._id} className="card p1" style={{width: '14rem',marginBottom:'10%'}} >
             <div style={{maxHeight:'13rem',overflow:'hidden'}}>
-            <img className="card-img-top" src={item.image[0]} alt="Card image cap" />
+            <Link to = {`/product/${item._id}`}><img className="card-img-top" src={item.image[0]} alt="Card image cap" /></Link>
             </div>
             <div className="card-body">
             <div className='row card-item-name'>

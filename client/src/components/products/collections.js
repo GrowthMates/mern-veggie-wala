@@ -225,7 +225,7 @@ class Collections extends Component{
                                <div className="card mb-3 p1 " >
                                 <div className="row no-gutters">
                                     <div className="col-md-4" style={{ overflow: 'hidden'}}>
-                                    <img src={item.image[0]} className="card-img cursor-pointer" alt="..." style={{maxHeight: '259px'}}/>
+                                    <Link to = {`/product/${item._id}`}> <img src={item.image[0]} className="card-img cursor-pointer" alt="..." style={{maxHeight: '259px'}}/></Link>
                                     </div>
                                     <div className="col-md-8">
                                     <div className="card-body horizontal-cards" >

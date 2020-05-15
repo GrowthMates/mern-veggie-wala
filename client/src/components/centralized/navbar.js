@@ -10,6 +10,7 @@ import ProgressBar from './progressBar'
 // import axios from 'axios'
 import VeggieLogo  from "../centralized/images/veggie-wala-logo.png";
 import UserIcon  from "../centralized/images/icons8-user-32.png"; 
+import PopOverComp from "./popover/popover";
 // import socketIOClient from "socket.io-client";
 
 // export const socket = socketIOClient("http://localhost:5000");
@@ -176,7 +177,6 @@ class Navbar extends Component{
                 {/* Progress Bar */}
                 {this.props.progressLoading?<ProgressBar/>:void 0}
               
-              
                 <div className='container-fluid navUpper' >
                     <div className='row' style={{justifyContent:'center'}}>                
                          <div className='col-lg-3 col-sm-12 col-xs-5'>
@@ -217,7 +217,11 @@ class Navbar extends Component{
                                  <div className='row'>
                                      <div  className='col-lg-6 heart' >
                                       <Link to='/wishList'>   <img className='cursor-pointer' src={heart}  width='20' height='20.52' /></Link>
-                                      <Link to='/user/login'>   <img className='cursor-pointer' src={UserIcon}  width='20' height='20.52' /></Link>
+                                      {/* <Link to='/user/login'>    */}
+                                      <img className='cursor-pointer' src={UserIcon}  width='20' height='20.52' id='Popover1'/>
+                                         <PopOverComp user={this.props.user}/>
+
+                                      {/* </Link> */}
                                          <span> | </span>
 
                                         

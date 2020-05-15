@@ -7,14 +7,12 @@ import CartDashboard from './cartDashboard';
 import CartProducts from './cartProducts';
 import CartOrders from './cartOrders'
 import RecieveProduct from './recieveProduct'
-import axios from 'axios';
 import CartSetting from './cartSetting';
 import admin from '../../components/centralized/images/admin1.png'
 import notification from '../../components/centralized/images/notification.png'
 import message from '../../components/centralized/images/message.png'
 import flag from '../../components/centralized/images/flag.png'
 
-let log = console.log
 class CartLandingPage extends Component{
     constructor(){
         super();
@@ -73,10 +71,10 @@ openNav(){
                 </div>
                 <div className='navRight' >
                     <ul  id='adminNavRight'>
-                        <li  style={{color:'#fff'}} > <img src={message}  width='16' height='16' /> <span id='topNavInnerf' > 5 </span> </li>
-                        <li> <img src={flag}  width='16' height='16'/> <span id='topNavInners' > 5 </span> </li>
-                        <li> <img src={notification}  width='16' height='16' /> <span id='topNavInnert' > 5 </span> </li>
-                        <li  > <img src={admin}  width='25' height='25' /> <span style={{fontSize: '16px',color:'#fff',marginBottom:'10px'}}> Cart 1 </span>  </li>
+                        <li  style={{color:'#fff'}} > <img src={message}  width='16' height='16' alt='message'/> <span id='topNavInnerf' > 5 </span> </li>
+                        <li> <img src={flag}  width='16' height='16' alt='flag'/> <span id='topNavInners' > 5 </span> </li>
+                        <li> <img src={notification}  width='16' height='16' alt='notification' /> <span id='topNavInnert' > 5 </span> </li>
+                        <li  > <img src={admin}  width='25' height='25' alt='Admin' /> <span style={{fontSize: '16px',color:'#fff',marginBottom:'10px'}}> Cart 1 </span>  </li>
                     </ul>
                 </div>
 

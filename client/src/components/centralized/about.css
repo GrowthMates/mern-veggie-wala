@@ -40,8 +40,9 @@
 
 #water-melon-left{
     position: absolute;
+    text-align: left;
     z-index: 100;
-    left: -9rem;
+    left: -1.1%;
     bottom: -2rem;
 }
 
@@ -116,7 +117,7 @@
 
 #abt-pine-apple{
     position: absolute;
-    right: -3.85rem;
+    right: -1.1%;
     bottom: -70px;
     z-index: -1;
     width: 30%;

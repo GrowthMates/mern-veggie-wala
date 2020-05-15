@@ -100,7 +100,7 @@ class VendorDashboard extends React.Component{
                 <div className='row' >
                     <div className='col-lg-6' >
                         <ul style={{textAlign: 'left'}}>
-                            <li style={{color: '#FF4747'}} > <span  style={{color: '#FF4747', textAlign: 'left'}}> Total</span>  <span style={{float: 'right',color: 'black', float: 'right'}} >23</span> </li>
+                            <li style={{color: '#FF4747'}} > <span  style={{color: '#FF4747', textAlign: 'left'}}> Total</span>  <span style={{color: 'black', float: 'right'}} >23</span> </li>
                             <li style={{color: 'purple'}}><span  style={{color: 'green', textAlign: 'left'}}> Completed</span>   <span style={{color: 'black', float: 'right'}} >12</span> </li>
                             <li style={{color: 'green'}}><span  style={{color: 'blue', textAlign: 'left'}}>Pending </span>   <span style={{color: 'black', float: 'right'}} >8</span> </li>
                             <li style={{color: 'red'}}><span  style={{color: 'red', textAlign: 'left'}}> Processing</span>   <span style={{color: 'black', float: 'right'}} >34</span> </li>

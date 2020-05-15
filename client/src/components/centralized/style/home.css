@@ -308,7 +308,7 @@ img{
     cursor: pointer;
 }
 
-.p1:hover h5 , .p2:hover h5,.p3:hover h5,.p4:hover h5{
+.p1:hover h5 , .p1:hover h2,.p3:hover h5,.p4:hover h5{
     transition: 0.7s;
     color: #5ba616;
 }

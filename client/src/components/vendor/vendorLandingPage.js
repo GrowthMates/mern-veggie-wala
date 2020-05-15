@@ -11,7 +11,6 @@ import VendoOrders from './orders';
 import Coupons from './Coupons';
 import Reports from './reports';
 import VendorSetting from './setting';
-import axios from 'axios';
 import Inventory from './inventory';
 import Carts from './carts.js';
 import Edit from './productActions/edit';
@@ -21,9 +20,8 @@ import admin from '../../components/centralized/images/admin1.png'
 import notification from '../../components/centralized/images/notification.png'
 import message from '../../components/centralized/images/message.png'
 import flag from '../../components/centralized/images/flag.png'
-import cart from '../users/userCart/cart';
+// import cart from '../users/userCart/cart';
 
-let log = console.log
 class AdminLandingPage extends Component{
     constructor(){
         super();
@@ -109,10 +107,10 @@ openNav(){
                 </div>
                 <div className='navRight' >
                     <ul  id='adminNavRight'>
-                        <li  style={{color:'#fff'}} > <img src={message}  width='16' height='16' /> <span id='topNavInnerf' > 5 </span> </li>
-                        <li> <img src={flag}  width='16' height='16'/> <span id='topNavInners' > 5 </span> </li>
-                        <li> <img src={notification}  width='16' height='16' /> <span id='topNavInnert' > 5 </span> </li>
-                        <li  > <img src={admin}  width='25' height='25' /> <span style={{fontSize: '16px',color:'#fff'}}> Admin </span>  </li>
+                        <li  style={{color:'#fff'}} > <img src={message}  width='16' height='16' alt='Message' /> <span id='topNavInnerf' > 5 </span> </li>
+                        <li> <img src={flag}  width='16' height='16' alt='Flag'/> <span id='topNavInners' > 5 </span> </li>
+                        <li> <img src={notification}  width='16' height='16' alt='Notification' /> <span id='topNavInnert' > 5 </span> </li>
+                        <li  > <img src={admin}  width='25' height='25' alt='Admin' /> <span style={{fontSize: '16px',color:'#fff'}}> Admin </span>  </li>
                     </ul>
                 </div>
 

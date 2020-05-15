@@ -157,8 +157,6 @@ import ProductCards from "./cards"
     }
 
     render(){
-        const {user} = this.props.auth
-        // console.log('user', user.id)
         
         return(
 
@@ -316,19 +314,19 @@ import ProductCards from "./cards"
                     <div id="featuredProducts">
                         <h2>Featured Products</h2>
                         <div style={{    width: '20rem',margin: 'auto'}}>
-                            <img className="select-option-icon cursor-pointer" src={Homeimages.optionVeg}/>
+                            <img className="select-option-icon cursor-pointer" src={Homeimages.optionVeg} alt='option-vegetables'/>
 
                             {/* Fix this color issue immidiately... */}
-                            <img className="select-option-icon cursor-pointer" src={Homeimages.optionFruits} />
+                            <img className="select-option-icon cursor-pointer" src={Homeimages.optionFruits} alt='option-fruits' />
                             <span>Vegetables</span><span>Fruits</span>  
                         </div>
                         <img src={Homeimages.lowerLeafs} alt='side-Leafs' id="lowerLeaf"/>
                     </div>
                     <div className='container'>
 
-                    <div className='row top-items-list'>
+                    <div className='row top-items-list' style={{justifyContent:'center'}}>
                         {
-                        (this.state.loading==true)?(<HomeLoader/>):(
+                        (this.state.loading===true)?(<HomeLoader/>):(
                          this.state.products.map((item,index) => {  
                          return(
                             <div key={item._id} className='col-lg-3 col-md-6 col-sm-12 col-xs-12 ' onClick={this.p1} >

@@ -10,6 +10,8 @@ import {userCart} from '../../actions/productsAction'
 import {addToCart} from '../../actions/productsAction'
 import cart from '../users/userCart/cart';
 import ProductCards from "../centralized/cards"
+import GreenButton from "../centralized/buttons/greenButton"
+
 
 
 
@@ -219,8 +221,57 @@ class Collections extends Component{
                           (this.state.veiwOption === false)?(
                              this.state.products.map((item,index) => {  
                            return(
-                           <div key={index}>
-                             <form >
+                           <div key={index} >
+                               <div className="card mb-3 p1 " >
+                                <div className="row no-gutters">
+                                    <div className="col-md-4" style={{ overflow: 'hidden'}}>
+                                    <img src={item.image[0]} className="card-img cursor-pointer" alt="..." style={{maxHeight: '259px'}}/>
+                                    </div>
+                                    <div className="col-md-8">
+                                    <div className="card-body horizontal-cards" >
+                                        <h2 className="card-title">{item.name}</h2>
+                                        <p className="card-text">******</p>
+                                        <p className="card-text">Rs. {item.price}</p>
+                                        <p className="card-text" style={{margin:'10px 0',fontWeight:'300'}}>{item.description.substring(0,78)+"..."}</p>
+                                        {item.stock>0
+                                                ? !this.state.user.isAuthenticated?<button  onClick={e=>{this.setState({redirect:true})}} type="button" className="btn btn-success btn-lg cart-btn">Add to cart</button>
+                                                :this.state.addToCart=== false ? 
+                                                <div>
+                                                <button onClick={this.onSubmit.bind(this,item)}  style={{fontWeight:'300'}} data-toggle="modal" data-target={`#addToCart${index}`} type="button" className="btn btn-success btn-lg cart-btn">Add to cart</button>
+
+                                                <div class="modal fade" id={`addToCart${index}`} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle"> {item.name} </h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"  style={{fontWeight:'300'}}>
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <img src={item.image} width='120' height='120' style={{marginTop: '0px', marginBottom: '0px'}} />
+                                                            Added To Cart Succesfully
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" onClick={this.contniueShoping.bind(this)} class="btn btn-secondary" data-dismiss="modal"  style={{fontWeight:'300'}}>Continue Shipping</button>
+                                                            <button type="button" data-dismiss="modal" onClick={this.goCart.bind(this)} class="btn btn-primary"  style={{fontWeight:'300'}}>Go to Cart</button>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                 </div>
+
+
+                                                :      <button  onClick={this.onSubmit.bind(this,item)} type="button" className="btn btn-success btn-lg cart-btn"  style={{fontWeight:'300'}}>Add to cart</button>
+                                                :<p><u style={{color:'red'}}>Out of Stock</u></p>}
+                                         {/* <GreenButton buttonText='Add To Cart' redirectPath='/collections'/> */}
+
+                                        {/* <p className="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> */}
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                             {/* <form >
                                  <div className='container team'  style={{paddingBottom:'0'}} >
                                             <div className='col-lg-4 '>
                                                <Link to = {`/product/${item._id}`} ><img className="cursor-pointer prodImg" src={item.image[0]} width='250' height='250' /></Link>
@@ -263,7 +314,7 @@ class Collections extends Component{
                                             </div>
                     
                                     </div>
-                             </form>
+                             </form> */}
 
                          
                             </div>)      })  

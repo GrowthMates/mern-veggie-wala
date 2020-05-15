@@ -1,5 +1,4 @@
 import React,{ Component } from "react";
-import { connect } from "react-redux";
 import './ordersAction.css';
 import prod1 from '../centralized/images/truck-icon.png'
 import truck from '../centralized/images/truck-icon.png'
@@ -39,7 +38,7 @@ class OrdersAction extends Component{
        if (!order) {
            return console.log('---No ORDERS---')
        }
-        const {address,name,cartProducts,number,timeStamp}=order
+        const {cartProducts,number,timeStamp}=order
         const products=cartProducts
         return(
             <div className=''>
@@ -70,7 +69,7 @@ class OrdersAction extends Component{
 
                                     <tr style={{borderBottom:'2px solid #F5F5F5'}}>
                                         <td style={{width:'108px'}}>
-                                            <img src={prod1} style={{width:'46px',height:'46px', padding:'2px'}} />
+                                            <img src={prod1} alt='prod' style={{width:'46px',height:'46px', padding:'2px'}} />
                                         </td>
                                         <td style={{width:'184px'}}>
                                         <span style={{color:'#F58C6F'}}>{product.name}</span>
@@ -92,7 +91,7 @@ class OrdersAction extends Component{
 
                                     <tr>
                                         <td style={{width:'108px'}}>
-                                            <img src={truck} width='40' height='40'/>
+                                            <img src={truck} alt='truck' width='40' height='40'/>
                                         </td>
                                         <td style={{width:'184px'}}>
                                             <span>Free Shipping</span>

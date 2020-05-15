@@ -10,7 +10,7 @@ import classnames from "classnames";
 import './register.css'
 
 import GIcon from '../centralized/images/googleIcon.png'
-import queryString from "query-string";
+// import queryString from "query-string";
 import "./login.css"
 
 
@@ -70,7 +70,7 @@ class Login extends Component{
     render(){
 
         const { errors } = this.state;
-        if(this.state.auth==true){
+        if(this.state.auth===true){
           return(
           <Redirect to='/cart'/> 
           )}
@@ -93,7 +93,6 @@ class Login extends Component{
                         onChange={this.onChange}
                         value={this.state.email}
                         error={errors.email}
-                        className='textfields' 
                         id="email"
                         type="email" 
                         placeholder="Your Email Address"
@@ -115,7 +114,6 @@ class Login extends Component{
                         onChange={this.onChange}
                         value={this.state.password}
                         error={errors.password}
-                        className='textfields' 
                         id="password" 
                         type="password"
                         placeholder='Password'
@@ -140,7 +138,7 @@ class Login extends Component{
                           <div>
                             <button className='gmail-btn' onClick={this.googleAuth}>
                               <span>Sign In with Gmail</span>
-                              <i style={{marginTop:'25px'}}><img src={GIcon} style={{backgroundColor:'white'}}  /></i>
+                              <i style={{marginTop:'25px'}}><img src={GIcon} style={{backgroundColor:'white'}} alt='Google Icon'  /></i>
                             </button>
                           </div>
                         </div>

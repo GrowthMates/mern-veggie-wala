@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import { connect } from "react-redux";
 import {  withRouter } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
@@ -238,7 +238,6 @@ console.log('WillMount Admin -------')
 
     onSubmit = e => {
         e.preventDefault();
-        const {addName,addPrice,addStock,addDescription,title,image} = this.state
   console.log('oNsubmit State-------',this.state)
     // const newProduct = {
     //       name: addName,          
@@ -337,7 +336,7 @@ console.log('WillMount Admin -------')
                    <TextField  className='inputAllProd'
                     value={this.state.search} onChange={this.updateSearch.bind(this)} 
                      label="Type to Search" /> <br/>
-                   <i class="btn btn-primary" data-toggle="modal" data-target='#exampleModalCenter' class="fa fa-plus-circle" aria-hidden="true"></i>
+                   <i class="btn btn-primary fa fa-plus-circle" data-toggle="modal" data-target='#exampleModalCenter' aria-hidden="true"></i>
                    
                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -400,7 +399,7 @@ console.log('WillMount Admin -------')
                                      </thead>
                                      <tbody className='cart-body'>
                                    { this.state.loading=== true ? <p>loading</p> :
-                                  this.state.edit === false ? this.state.searchActive==true ? 
+                                  this.state.edit === false ? this.state.searchActive===true ? 
                                   this.state.search===''? void 0 :
                                   this.state.searchActive===false ? void 0 :
                                   filterProduct ? filterProduct.map((item,index) => {
@@ -436,8 +435,8 @@ console.log('WillMount Admin -------')
                                                 <td className='cart-body'> 
                                                 { this.state.edit === false ?
                                                      <div>
-                                                        <img onClick={this.edit.bind(this,i._id,index)} width='22' height='22' src={tree}  />
-                                                         <img  width='22' height='22'   src={heart} data-toggle="modal" data-target={`#exampleModalCenter${index}`} />
+                                                        <img onClick={this.edit.bind(this,i._id,index)} width='22' height='22' src={tree} alt='Tree'  />
+                                                         <img  width='22' height='22'   src={heart} data-toggle="modal" data-target={`#exampleModalCenter${index}`}  alt='Heart'/>
                                                          {/* modal */}
                    
                                                             <div class="modal fade" id={`exampleModalCenter${index}`} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -486,8 +485,8 @@ console.log('WillMount Admin -------')
                                                 <td className='cart-body'>
                                                     {this.state.edit === true ?
                                                       <div>
-                                                      <img  onClick={this.updateProduct.bind(this,this.state.updateProductId)} width='22' height='22' src={tick}  /> 
-                                                      <img  onClick={this.cancel.bind(this)} width='29' height='18' src={x}  /> 
+                                                      <img  onClick={this.updateProduct.bind(this,this.state.updateProductId)} width='22' height='22' src={tick} alt='Tick'  /> 
+                                                      <img  onClick={this.cancel.bind(this)} width='29' height='18' src={x} alt='X'  /> 
                                                       </div> : void(0)}
                                                 </td>
                                         </tr>

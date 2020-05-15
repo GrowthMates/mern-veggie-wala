@@ -1,7 +1,6 @@
-import React, {Suspense, lazy} from 'react';
+import React from 'react';
 import './App.css';
 import Routes from './container/routing'
-import ProgressBar from './components/centralized/progressBar'
 
 // const Routes = lazy(() => import('./container/routing'))
 

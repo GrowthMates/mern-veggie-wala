@@ -9,7 +9,6 @@ import React,{Component} from 'react';
 // } from '@material-ui/pickers';
 import {connect} from 'react-redux'
 import './style/sales.css'
-import axios from 'axios';
 
 let log = console.log
 class sales extends Component {
@@ -70,7 +69,7 @@ class sales extends Component {
                 let joined = arr.join('-')
                 log(joined)
                 // newarr.push(e);
-                let pre = newarr.join('-')
+                // let pre = newarr.join('-')
                 newarr.push(joined.charAt(0)==='0' ? joined.charAt(1) : joined.substr(0,2),joined.charAt(3)==='0' ? joined.charAt(4): joined.substr(3,2),joined.substr(6,4))
                 log(newarr)
                 // yahan par wo date aygi jis men shuru men 0 nahi hoga  ("_")
@@ -104,10 +103,10 @@ class sales extends Component {
          
         });
     }
-        let concat = arr.join('-')
+        // let concat = arr.join('-')
         // log(newarr)
 
-        let filtered = [];
+        // let filtered = [];
         if(this.state.date!==undefined){
                 //  this.state.date.forEach(i => {
                 //      if(i.orders){

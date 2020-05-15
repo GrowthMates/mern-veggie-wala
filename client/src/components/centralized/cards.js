@@ -39,7 +39,7 @@ const ProductCards = ({item}) =>{
                  </div>
                  <div className="col-5">
                 <h5 style={{textAlign:'right', width:'100%'}}>1(Kg)</h5>
-                <div><i>*****</i></div>
+                <div style={{marginTop:'5px'}}><i>*****</i></div>
                  </div>
                  </div> 
                 {/* <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}

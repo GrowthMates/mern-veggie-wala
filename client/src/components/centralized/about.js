@@ -22,12 +22,14 @@ export default class About extends Component{
                </section>
 
                {/* 2nd section */}
-            <main className='container' style={{    paddingBottom: '100px'}}> 
+            <main className='container-fluid' style={{    paddingBottom: '100px'}}> 
               
                <section className=' sec-2' >
 
                    <div id='abt-top-section'>
                     <div id='water-melon-left'><img src={AboutImages.waterMelon}  style={{width:'60%'}}/></div>
+                    <div className='container'>
+
                     <div className='row'  style={{margin:'0 120px'}}>
                         
                         <div className='col-lg-12 col-xs-12 col-md-12 col-sm-12' >
@@ -39,11 +41,12 @@ export default class About extends Component{
                                 predefined layouts, Houzez offers a limitless array of possibilities to structure and style your content. </p>
                         </div>
                     </div>
+                    </div>
                    </div>
 
 
 
-                   <div id='abt-mid-section'>
+                   <div id='abt-mid-section' className='container'>
 
                    <div className='meet' ><h3 className='who-we-are'> Meet Our team  </h3></div>
 
@@ -111,15 +114,21 @@ export default class About extends Component{
 
 
                
-               <section className='sec-3 ' >
-
+               <section className='sec-3 ' style={{position:'relative'}}>
+                    <div className='container'>
                     <div className='succes'>
                         <h3 className='who-we-are' > Veggie Wala Was Built With Your Success In Mind </h3><br/>
                         <p>Get more calls schedules more viewing and earn more commission</p>
                     </div>
 
+                    </div>
+
                     {/* 2nd */}
+                      <div className='container'>
                     <div className='row abt-lower-desc' style={{justifyContent:'center'}} > 
+
+                    {/* Lower Text Portion */}
+
                         <div className='col-lg-4 col-xs-12 col-md-4 col-sm-12' >
                           <div className='abt-lower-desc-body'>
                             <h5>Easy to Get Started</h5><br/>
@@ -177,6 +186,7 @@ export default class About extends Component{
                           </div>
                         </div>
 
+                      </div>
                         <div id='abt-pine-apple'>
                             <img src={AboutImages.pineApple} style={{width:'100%'}}/>
                         </div>

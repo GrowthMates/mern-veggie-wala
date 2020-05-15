@@ -172,6 +172,28 @@ h5.cursor-pointer:hover{
     float: right;
 
 }
+
+.horizontal-cards{
+    cursor: auto;
+}
+
+.horizontal-cards button{
+    font-weight: 300;
+    font-size: 1em;
+}
+
+.horizontal-cards > *{
+    text-align: left;
+    font-weight: bold;
+    
+}
+
+.horizontal-cards h2{
+}
+.horizontal-cards p{
+    margin: 0;
+}
+
 .data p{
     font-size: 1em;
     color: rgba(148, 144, 137, 0.637);

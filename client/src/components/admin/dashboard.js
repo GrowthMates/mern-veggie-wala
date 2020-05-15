@@ -175,7 +175,6 @@ console.log('WillMount Admin -------')
 
     onSubmit = e => {
         e.preventDefault();
-        const {addName,addPrice,addStock,addDescription,title,image} = this.state
   console.log('oNsubmit State-------',this.state)
     // const newProduct = {
     //       name: addName,          

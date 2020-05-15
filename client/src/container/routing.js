@@ -1,4 +1,4 @@
-import React, {Component,lazy,Suspense} from 'react';
+import React, {Component} from 'react';
 import 
  {getProducts}
   from "../actions/productsAction";
@@ -8,35 +8,32 @@ import {connect} from 'react-redux'
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "../actions/authActions";
-import { Provider } from "react-redux";
 import store from "../store";
-import TestComp from './TestComp'
 import Home from '../components/centralized/home';
 
 import WishList from '../components/centralized/wishList';
 import Contact from '../components/centralized/contact';
 import About from '../components/centralized/about';
 import Navbar from '../components/centralized/navbar';
-import BookedOrder from '../components/admin/bookedOrder';
-import Admin from '../components/admin/dashboard';
-import AllProducts from '../components/admin/allProducts';
-import ApprovalProducts from '../components/admin/approvalProduct';
-import AdminNavbar from '../components/admin/adminNavbar';
-import CartOwner from '../components/cartOwner/index.js';
-import AddProducts from '../components/admin/addProducts';
-import DelProducts from '../components/admin/delProducts';
+// import BookedOrder from '../components/admin/bookedOrder';
+// import Admin from '../components/admin/dashboard';
+// import AllProducts from '../components/admin/allProducts';
+// import ApprovalProducts from '../components/admin/approvalProduct';
+// import AdminNavbar from '../components/admin/adminNavbar';
+// import CartOwner from '../components/cartOwner/index.js';
+// import AddProducts from '../components/admin/addProducts';
+// import DelProducts from '../components/admin/delProducts';
 import Footer from '../components/centralized/footer'
 import Product from '../components/products/product'
 import Combined from '../components/authentication/combine'    
 import Collections from '../components/products/collections';
 import Information from '../components/products/information' ;
 import PrivateRoute from "../components/private-route/PrivateRoute";
-import Dashboard from "../components/dashboard/Dashboard"; 
 import Cart from '../components/users/userCart/cart'  
 import AdminLandingPage from '../components/vendor/vendorLandingPage'
 import CartLandingPage from '../components/cart/cartLandingPage'
-import ProgressBar from '../components/centralized/progressBar'
-import NoMatch from './not-found.js'  
+// import ProgressBar from '../components/centralized/progressBar'
+// import NoMatch from './not-found.js'  
 // import AllImages from './AllImages'
 
 // Check for token to keep user logged in
@@ -89,13 +86,13 @@ render(){
 this.props.getProducts('Routing')
   // const information = window.location.pathname='/information'
   console.log(window.location)
-  if(window.location.pathname=='/information'){
-    var info = true
+  if(window.location.pathname==='/information'){
+    // var info = true  
     // console.log(info, 'info')
   }
   else if(window.location.pathname=='/admin' ){
     console.log('admin aya hy ry baba')
-    var adminAndCartOwner = true
+    // var adminAndCartOwner = true
   }
   return (
     

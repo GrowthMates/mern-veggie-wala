@@ -7,7 +7,7 @@ import PinterestIcon from '../centralized/images/pinterest-icon.png'
 import {connect} from 'react-redux';
 import {userCart, getSingleProduct} from '../../actions/productsAction'
 import {addToCart} from '../../actions/productsAction'
-import axios from 'axios'
+import ProductCard from '../centralized/cards'
 
 
 
@@ -54,7 +54,7 @@ componentDidMount(){
     let id=this.props.match.params.id
     let {singleProduct} = this.props
     if(singleProduct){
-      if(singleProduct._id==id){
+      if(singleProduct._id===id){
           this.setState({product:singleProduct,displayImage:singleProduct.image[0]})
       }
     }
@@ -107,7 +107,7 @@ onChangeQty(e){
     
         this.setState({loading:true})
         let productId;
-        if(this.state.quantity==undefined){
+        if(this.state.quantity===undefined){
             productId = {
                 item,
                 quantity:1,
@@ -165,11 +165,11 @@ onChangeQty(e){
                 <div className="row">
                     <div className="col-md-6 col-lg-6 col-sm-6">
                     <div className='product-img'>
-                       <img className="cursor-pointer" src={this.state.displayImage} width='100%' height='540' />
+                       <img className="cursor-pointer" src={this.state.displayImage} alt={this.state.product.name}  width='100%' height='540' />
                      </div>
                      <div className='row' style={{overflowX:'auto', marginTop:'10px',padding:'0 1rem'}}> 
                          {this.state.product.image.map((image=>{
-                             return <div className='col-lg-4 col-md-4 '><img className='cursor-pointer' src={image} width='80%' height='70%' onClick={()=>{this.setState({displayImage:image})}}/></div>
+                             return <div className='col-lg-4 col-md-4 '><img className='cursor-pointer' src={image} alt={this.state.product.name} width='80%' height='70%' onClick={()=>{this.setState({displayImage:image})}}/></div>
                          }))}
                       </div> 
 
@@ -250,9 +250,9 @@ onChangeQty(e){
                                                    <tr>
                                                        <th className='share-icons'> SHARE: </th>
                                                        <td>
-                                                            <img className="cursor-pointer icon-img" src={FacebookIcon} width='' height='' />
-                                                            <img className="cursor-pointer icon-img" src={TwitterIcon} width='' height='' />
-                                                            <img className="cursor-pointer icon-img" src={PinterestIcon} width='' height='' />
+                                                            <img className="cursor-pointer icon-img" src={FacebookIcon} alt='facebook' />
+                                                            <img className="cursor-pointer icon-img" src={TwitterIcon} alt='Twitter' />
+                                                            <img className="cursor-pointer icon-img" src={PinterestIcon} alt='Pinterest' />
                                                        </td>
                                                    </tr>
 
@@ -314,12 +314,39 @@ onChangeQty(e){
                     </div>
 
                     <div className='row' style={{margin:'auto',paddingBottom:'90px'}}>
-                        <div className='col-lg-4 col-md-4'>
+                        
+                            {[0].map(()=>{
+                                return(
+                                <div className='col-lg-6 col-md-4'>
+                                <div style={{width:'68%'}}>
+                                     <ProductCard item={this.state.product}/>
+                                </div>
+                                </div>
+                                )
+                            })}
+{/* 
+                        <div className='p1'>
+                                <div className="home-item-imageBx">
+                                <img src={this.state.product.image[0]}  alt='Also like' style={{width:'100%'}} />
+                                </div>
+                            <div className='row card-item-name'>
+                                <div className="col-6">
+                                     <h5 >Dummy Product</h5>
+                                <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.190</h5>
+                                </div>
+                                <div className="col-6">
+                                <h5 style={{textAlign:'right'}} className="col-6">1(Kg)</h5>
+                                <i>*****</i>
+                                </div>
+                            </div>   
+                        </div> */}
+                        
+                        {/* <div className='col-lg-4 col-md-4'>
                         <div style={{width:'68%'}}>
 
                         <div className='p1'>
                                 <div className="home-item-imageBx">
-                                <img src={this.state.product.image[0]}  style={{width:'100%'}} alt=''/>
+                                <img src={this.state.product.image[1]} alt='Also like' style={{width:'100%'}} />
                                 </div>
                             <div className='row card-item-name'>
                                 <div className="col-6">
@@ -333,13 +360,14 @@ onChangeQty(e){
                             </div>   
                         </div>
                         </div>
-                        </div>
-                        <div className='col-lg-4 col-md-4'>
+                        </div> */}
+                        
+                        {/* <div className='col-lg-4 col-md-4'>
                         <div style={{width:'68%'}}>
 
                         <div className='p1'>
                                 <div className="home-item-imageBx">
-                                <img src={this.state.product.image[1]}  style={{width:'100%'}} alt=''/>
+                                <img src={this.state.product.image[2]}   style={{width:'100%'}} alt={this.state.product.name}/>
                                 </div>
                             <div className='row card-item-name'>
                                 <div className="col-6">
@@ -353,26 +381,7 @@ onChangeQty(e){
                             </div>   
                         </div>
                         </div>
-                        </div><div className='col-lg-4 col-md-4'>
-                        <div style={{width:'68%'}}>
-
-                        <div className='p1'>
-                                <div className="home-item-imageBx">
-                                <img src={this.state.product.image[2]}  style={{width:'100%'}} alt=''/>
-                                </div>
-                            <div className='row card-item-name'>
-                                <div className="col-6">
-                                     <h5 >Dummy Product</h5>
-                                <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.190</h5>
-                                </div>
-                                <div className="col-6">
-                                <h5 style={{textAlign:'right'}} className="col-6">1(Kg)</h5>
-                                <i>*****</i>
-                                </div>
-                            </div>   
-                        </div>
-                        </div>
-                        </div>
+                        </div> */}
 
                        
                         {/* <div className='col-lg-4 col-md-4'>
@@ -413,7 +422,7 @@ onChangeQty(e){
                 </div>
 
             </div>
-                            ):('Loading...')}
+                            ):this.state.errors?<div><h3>{this.state.errors}</h3></div>:('Loading...')}
 
             </div>  
         )

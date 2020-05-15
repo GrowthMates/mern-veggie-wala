@@ -104,8 +104,8 @@ class VendorProducts extends Component {
         render() { 
         
         let products = []
-        let fl = []
-        let final = []
+        // let fl = []
+        // let final = []
         let bilkulFinal = []
         if(this.props.products){
         if(this.props.products.length>=1){
@@ -210,13 +210,13 @@ class VendorProducts extends Component {
                                 </tr>
                             </thead>
                             <tbody >
-                                { this.props.status===true ? (<p>{this.props.error}</p>) :  products.length==0? <p>Loading...</p> : (
+                                { this.props.status===true ? (<p>{this.props.error}</p>) :  products.length===0? <p>Loading...</p> : (
                                     products.map((item,index) => {
                                         log(products)
                                     return  item.status==='recieve'? (
                                             <tr className='productRows'  style={{textAlign: 'left'}} >
                                             <td scope='row' > {index+1} </td>
-                                            <td scope='row' > <img src={item.image[0]} width='60' height='60' /> </td>
+                                            <td scope='row' > <img src={item.image[0]} alt={`${item.name} image`} width='60' height='60' /> </td>
                                           { this.state.delAction!==false && (this.state.id===item.id) ? 
                                              ( <td  className="alert alert-danger row" role="alert" style={{margin:"10px",position:"relative"}} >                                                   
 

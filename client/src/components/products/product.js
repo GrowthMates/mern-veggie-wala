@@ -315,7 +315,7 @@ onChangeQty(e){
 
                     <div className='row' style={{margin:'auto',paddingBottom:'90px'}}>
                         
-                            {[0].map(()=>{
+                            {[0,1,2].map(()=>{
                                 return(
                                 <div className='col-lg-6 col-md-4'>
                                 <div style={{width:'68%'}}>

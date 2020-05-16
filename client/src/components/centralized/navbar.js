@@ -181,7 +181,7 @@ class Navbar extends Component{
                     <div className='row' style={{justifyContent:'center'}}>                
                          <div className='col-lg-3 col-sm-12 col-xs-5'>
                            <div className="logo-header navLogo" > 
-                            <Link to="/"><img  src={VeggieLogo} className="img-fluid"/></Link>
+                            <Link to="/"><img  src={VeggieLogo} className="img-fluid" style={{position:'absolute'}}/></Link>
                            </div>
                          </div>
                          <div className='col-lg-5 col-md-5 col-sm-5'  style={{padding:'0 4rem'}}>
@@ -214,7 +214,7 @@ class Navbar extends Component{
                          </div>
                          <div className='col-lg-3 forHidden'>                        
                              <div className='container'>
-                                 <div className='row'>
+                                 <div className='row' style={{justifyContent:'flex-end'}}>
                                      <div  className='col-lg-6 heart' >
                                       <Link to='/wishList'>   <img className='cursor-pointer' src={heart}  width='20' height='20.52' /></Link>
                                       {/* <Link to='/user/login'>    */}

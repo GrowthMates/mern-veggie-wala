@@ -251,10 +251,10 @@ var lineTotalArr = []
             var arr=[0]
             
             return(
-                <div>
-                    <div className='container'>
+                <div >
+                    <div className='container-fluid'>
                        {this.state.cartProducts?(
-                        <div>
+                        <div style={{marginTop:'9rem'}}>
                             <table class="table ">
                                 <thead className='cart-head'>
                                     <tr>
@@ -282,19 +282,20 @@ var lineTotalArr = []
                                         <td className='cart-body'>{item.filterProduct.name}</td>
                                         <td className='cart-body'>Rs.{item.filterProduct.price}</td>
                                         <td className='cart-body cart-qty-td' ><input className="crt-qty-fnl" type='number' name={item._id} defaultValue={item.quantity}
-                                        onChange={this.onChange.bind(this,item.cartSchemaId,index,arr.reduce((a, b) => {return a + b}),item)} value={this.state.quantity} id={index} min='1' max={item.filterProduct.stock} /></td>
-                                    <td className='cart-body' style={{color:"#5BA616"}}>Rs. {
-                                    (this.state.cartArray)? this.state.cartArray[index].quantity*(item.filterProduct.price) :
-                                    (item.filterProduct.price)*item.quantity}  </td>
+                                             onChange={this.onChange.bind(this,item.cartSchemaId,index,arr.reduce((a, b) => {return a + b}),item)} value={this.state.quantity} id={index} min='1' max={item.filterProduct.stock} /></td>
+                                        <td className='cart-body' style={{color:"#5BA616"}}>Rs. {
+                                            (this.state.cartArray)? this.state.cartArray[index].quantity*(item.filterProduct.price) :
+                                            (item.filterProduct.price)*item.quantity}  
+                                        </td>
                                         <td className='cart-body crt-dlt-btn' style={{color:"#5BA616"}}>
-                                        {this.state.loading?
-                                        <div class="spinner-border text-primary" role="status">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
-                                        :
+                                            {this.state.loading?
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                              :
                                             <img onClick={this.delCart.bind(this,item.cartSchemaId,item.filterProduct,item.quantity,index)}
 
-                                        className='cursor-pointer ' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/>
+                                             className='cursor-pointer ' src={DeleteBtnIcon} width='16px' height='16px' alt='delete-button'/>
                                         }</td>
 
         

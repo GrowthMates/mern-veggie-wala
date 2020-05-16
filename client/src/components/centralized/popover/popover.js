@@ -10,6 +10,7 @@ const Example = (props) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
 
   const toggle = () => setPopoverOpen(!popoverOpen);
+  // window.onclick(setPopoverOpen(false))
 
   return (
     <div style={{position:'absolute'}}>
@@ -18,18 +19,19 @@ const Example = (props) => {
       </Button> */}
       <Popover placement="right" isOpen={popoverOpen} target="Popover1" toggle={toggle} style={{maxWidth:'185px'}}>
         <PopoverHeader>User</PopoverHeader>
-        <PopoverBody>
+        <PopoverBody style={{padding:'.5rem 0'}}>
         
         {props.user?
-        <ListGroup>
-           {/* <ListGroupItem ><link to='/user/logout'>Logout</link> </ListGroupItem>
-          <ListGroupItem > <link to='/user/account'>Account</link> </ListGroupItem> */}
-        </ListGroup>
+          <ul id='popover-list'>
+            <li>Account</li>
+            <li>Logout</li>
+          </ul>
         : (
-        <ListGroup>
-           {/* <ListGroupItem ><link to='/user/login'>Login</link> </ListGroupItem>
-           <ListGroupItem ><link to='/user/sign-up'>Sign Up</link> </ListGroupItem> */}
-        </ListGroup>)
+          <ul>
+            <li>Login</li>
+            <li>Sign Up</li>
+          </ul>
+        )
         }
         
       {/* </ListGroup> */}

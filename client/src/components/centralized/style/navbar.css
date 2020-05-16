@@ -51,7 +51,7 @@ body {
 
 .img-fluid{
   max-width: 60%;
-  max-height: 15%;
+  /* max-height: 15%; */
   /* position: fixed;
   top: -1%;
   left: 4%; */
@@ -154,6 +154,24 @@ body {
     margin-right: 9%;
 
 }
+
+#popover-list{
+  list-style-type: none;
+  padding: 0;
+}
+#popover-list li{
+  padding: 5px 20px;
+  background: #efefef;
+  margin-bottom: 2px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+#popover-list li:hover{
+  background: #7CA646;
+  color: #fff;
+}
+
+
 .cartPrice{
     display: block;
     color: #5ba616;

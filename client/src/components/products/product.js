@@ -317,7 +317,7 @@ onChangeQty(e){
                         
                             {[0,1,2].map(()=>{
                                 return(
-                                <div className='col-lg-6 col-md-4'>
+                                <div className='col-lg-4 col-md-4 col-sm-6'>
                                 <div style={{width:'68%'}}>
                                      <ProductCard item={this.state.product}/>
                                 </div>

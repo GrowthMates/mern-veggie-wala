@@ -166,6 +166,10 @@ body {
   transition: 0.25s;
   cursor: pointer;
 }
+#popover-list a{
+ text-decoration: none;
+ color: inherit;
+}
 #popover-list li:hover{
   background: #7CA646;
   color: #fff;

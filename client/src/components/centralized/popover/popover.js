@@ -21,15 +21,15 @@ const Example = (props) => {
         <PopoverHeader>User</PopoverHeader>
         <PopoverBody style={{padding:'.5rem 0'}}>
         
-        {props.user?
+        {props.user.id?
           <ul id='popover-list'>
-            <li>Account</li>
-            <li>Logout</li>
+            <li onClick={()=>{setPopoverOpen(false)}}>Account</li>
+            <li onClick={()=>{setPopoverOpen(false)}}>Logout</li>
           </ul>
         : (
-          <ul>
-            <li>Login</li>
-            <li>Sign Up</li>
+          <ul id='popover-list'>
+            <Link to='/user/login' style={{textDecoration:'none'}}><li onClick={()=>{setPopoverOpen(false)}}>Login</li></Link>
+            <Link to='/user/sign-up'><li onClick={()=>{setPopoverOpen(false)}}>Sign Up</li></Link>
           </ul>
         )
         }

@@ -199,6 +199,9 @@ setTimeout(()=>{
     //When a admin creates a product. No need for request parameter in this case. Since we are inserting data to database.
     app.post('/api/createProduct', upload.array("image") , adminController.createProduct); //For Cloudinary base database
 
+    // Delete Images from Cloudinary...
+    app.post('/api/deleteImage',adminController.deleteImages)
+
     app.get('/api/bookedProducts', adminController.bookedProduct);
 
     // app.get('/api/delProducts', adminController.delProducts);

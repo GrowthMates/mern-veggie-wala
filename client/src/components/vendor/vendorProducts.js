@@ -79,6 +79,7 @@ class VendorProducts extends Component {
                 stock: product.stock,
                 category: product.category,
                 imagePreviewUrl: product.image,
+                imageId: product.imageId,
                 cartStock: product.cartStock,
                 id: product.id
             })
@@ -213,7 +214,12 @@ class VendorProducts extends Component {
                                 { this.props.status===true ? (<p>{this.props.error}</p>) :  products.length===0? <p>Loading...</p> : (
                                     products.map((item,index) => {
                                         log(products)
-                                    return  item.status==='recieve'? (
+                                        
+                                        // =================================//
+                                        //  Write item.status == 'receive'  // 
+                                        //  to display just received items //
+                                        //================================//
+                                    return  item.status? (
                                             <tr className='productRows'  style={{textAlign: 'left'}} >
                                             <td scope='row' > {index+1} </td>
                                             <td scope='row' > <img src={item.image[0]} alt={`${item.name} image`} width='60' height='60' /> </td>
@@ -235,7 +241,7 @@ class VendorProducts extends Component {
                                                     <li >|</li>
                                                      {this.state.loading===true? (<li> Loading...... </li>) : !this.state.error ? (<li onClick={this.delAction.bind(this,item.id,index)}>  Delete Permanantly</li>) : (<li> {this.state.error} </li>) } 
                                                     <li >|</li>
-                                                    <li >View</li>
+                                                    <a href = {`/product/${item.id}`} target='_blank'> <li >View</li></a>
                                                 </ul>
                                             </td>)}
                                             {item.stock.reduce((a,b)=> {return a+b} )<=5? (<td style={{color: 'red',fontWeight: '700'}}>  {item.stock.reduce((a,b)=> {return a+b} )} </td>): 

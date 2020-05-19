@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component,lazy,Suspense} from 'react';
 import 
  {getProducts}
   from "../actions/productsAction";
@@ -9,7 +9,7 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "../utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "../actions/authActions";
 import store from "../store";
-import Home from '../components/centralized/home';
+// import Home from '../components/centralized/home';
 
 import WishList from '../components/centralized/wishList';
 import Contact from '../components/centralized/contact';
@@ -59,7 +59,7 @@ if (localStorage.jwtToken) {
   // 404 page not found
 
 //  
-// const Home = lazy(() => import('../components/centralized/home'))
+const Home = lazy(() => import('../components/centralized/home'))
 
  class Routes extends Component{
 
@@ -82,18 +82,16 @@ if (localStorage.jwtToken) {
 //   })
 // }
 render(){
+  let restrictedPath = false
 //  console.log('routing ka render==---->',this.props)
 this.props.getProducts('Routing')
   // const information = window.location.pathname='/information'
   console.log(window.location)
-  if(window.location.pathname==='/information'){
-    // var info = true  
+  if(window.location.pathname.search('/admin')==-1){
+    restrictedPath = true  
     // console.log(info, 'info')
   }
-  else if(window.location.pathname=='/admin' ){
-    console.log('admin aya hy ry baba')
-    // var adminAndCartOwner = true
-  }
+  
   return (
     
         <div>
@@ -101,45 +99,25 @@ this.props.getProducts('Routing')
         
             {/* <Suspense fallback={<div>Loading...</div>}>  */}
                 <div>
-                                          
               
-
-                  {/* {  adminAndCartOwner==true ? 
-                  <BrowserRouter>
-                  <AdminNavbar/>
-                      <Switch>
-                          {/* <Route path='/delProducts' component={DelProducts}/> */}
-                          {/* <PrivateRoute exact path="/dashboard" component={Dashboard} /> */}
-                          {/* <Route component={NoMatch}  /> */}
-                          {/* <Route path='/Allimages' component={AllImages}/> */}
-                    {/* </Switch> */}
-                {/* </BrowserRouter> */}
-                  
-                  {/* : */}
-                  {/* info==true ? null : */} 
                   
                   <BrowserRouter>
 
-                    <Navbar/> 
-                
-            {/* <TestComp/> */}
-            {/* <Suspense fallback={<div><h2>Loading...</h2></div>}> */}
-            <div style={{marginTop:'8rem'}}>
+        
+            <Suspense fallback={<div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}><h2>Loading...</h2></div>}>
+                  {restrictedPath?<Navbar/>:void 0}   
+            <div style={restrictedPath?{marginTop:'8rem'}:void 0}>
 
                <Switch>
-                  {/* <Route path='/approvalProducts' component={ApprovalProducts}/> */}
-                  {/* <Route path='/admin/allProducts' component={AllProducts}/> */}
                    <Route exact path='/' component={Home} />
-                  {/* <Route exact path='/admin' component={Admin}/> */}
                    <Route exact path='/about' component={About} />                 
                    <Route exact path='/contact' component={Contact} /> 
-                   
                    <Route exact path='/user/sign-up' component={Combined} />
                    <Route exact path='/user/login' component={Combined} />
                    <Route exact path='/product/:id' component={Product} />
                    <Route exact path="/collections" component={Collections} />
                    <Route exact path='/cart' component={Cart}/>
-                   <Route exact path='/admin/landingPage' component={AdminLandingPage}/>
+                   <Route  path='/admin/' component={AdminLandingPage}/>
                    <Route exact path='/cart/landingPage' component={CartLandingPage}/>
 
               
@@ -155,8 +133,9 @@ this.props.getProducts('Routing')
 
                </Switch>
             </div>
-               {/* </Suspense> */}
-               <Footer/>
+               </Suspense>
+               {restrictedPath?<Footer/>:void 0}   
+               
                </BrowserRouter> 
                   
                {/* {this.props.pathChecker==true || info==true? null : <Footer/> } */}

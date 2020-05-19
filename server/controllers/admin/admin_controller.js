@@ -184,6 +184,17 @@ module.exports = {
         // })
 
     },
+
+    deleteImages(req, res){
+        const {imageId} = req.body;
+        cloudinary.v2.uploader.destroy(imageId, function(error,result) {
+                    if(error){
+                        console.log('Destroy image=======',error)
+                    } 
+                    console.log('Destroy image=======',result)
+                    res.json({ success: true,cart })
+                });
+    },
     deleteProduct(req, res){
 
         const { id } = req.body;

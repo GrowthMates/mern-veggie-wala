@@ -37,6 +37,7 @@ import ProductCards from "./cards"
 // import Axios from 'axios';
 
 
+
  class Home extends Component{
 
     constructor(Props){
@@ -101,7 +102,7 @@ import ProductCards from "./cards"
         }
     }}
     componentDidMount(){
-
+      
         //Calling UserCart API...
         if(this.props.auth.user){
             this.props.auth.user.id?
@@ -213,12 +214,14 @@ import ProductCards from "./cards"
                        
                     </section>    
 
+                  
                 <div>
                     
                 </div>
                <div id="mid-section-home">
 
                <div className='homeMiddle'>
+           
                   <div className="grow-best-food">
                    <h2>We Grow Best Food</h2>
                    <h6  style={{color: '#949494',fontSize: '0.8em', opacity: '0.8', width:'30%', margin:'auto'}} >

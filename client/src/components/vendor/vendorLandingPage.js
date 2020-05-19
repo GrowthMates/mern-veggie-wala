@@ -93,8 +93,8 @@ openNav(){
         console.log(this.state)
         return(
             <>   
-             <div className='adminNav' >
-                 <div className='navLeft' >
+             <div className='row adminNav' >
+                 <div className='col-6 col-sm-6 col-mg-6 col-lg-6 navLeft' >
                  {/* <div className > */}
                   
                   {
@@ -105,7 +105,7 @@ openNav(){
               
                
                 </div>
-                <div className='navRight' >
+                <div className='col-6 col-sm-6 col-mg-6 col-lg-6 navRight' >
                     <ul  id='adminNavRight'>
                         <li  style={{color:'#fff'}} > <img src={message}  width='16' height='16' alt='Message' /> <span id='topNavInnerf' > 5 </span> </li>
                         <li> <img src={flag}  width='16' height='16' alt='Flag'/> <span id='topNavInners' > 5 </span> </li>
@@ -118,7 +118,7 @@ openNav(){
                 <div className='row'  >
                     <div className='col-lg-12' style={{display: 'flex',flexGrow: '8'}} >
                         <BrowserRouter>                        
-                            <div className={this.state.open===true ?'col-lg-0' :'col-lg-2 '} style={{padding: '0px'}}  >
+                            <div className={this.state.open===true ?'col-lg-0' :'col-lg-2 '} style={this.state.open===true ?{display:'none'}:{padding: '0px'}}  >
                                 <ul id='sideNavbar'>
                                     <li><Link to='/admin/landingPage'>
                                         <i style={{marginRight: '10px'}} class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</Link>
@@ -152,7 +152,7 @@ openNav(){
                             </div>
 
                 
-                           <div className={this.state.open===true ?'col-lg-10' :'col-lg-10 '} style={{flexGrow: '8'}} >
+                           <div className={this.state.open===true ?'col-lg-12' :'col-lg-10 '} style={{flexGrow: '8'}} >
                             <Switch style={{marginTop: '20px'}} >
                                 <Route exact path='/admin/landingPage' component={VendorDashboard}  counter={this.state.counter} />
                                 <Route  path='/admin/product' component={VendorProducts} />

@@ -41,6 +41,17 @@ export const selectedproduct = data => dispatch => {
 
 }
 
+export const deleteProductImage = (imageId) => dispatch => {
+  console.log('Image delete called....',imageId)
+  axios.post('/api/deleteImage',imageId)
+  .then((res)=>{
+    console.log('Image Deleted...',res.data)
+  })
+  .catch(err => {
+    console.log('Image Delete Error...',err.message)
+  })
+}
+
 export const updateProduct = data => dispatch => {
     axios.post("/api/updateProduct",data)
     .then(res => {

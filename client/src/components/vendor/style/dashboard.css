@@ -105,6 +105,9 @@
 }
 #adminNavRight{
     margin-bottom: 0px !important;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
     /* position: relative; */
 }
 #adminNavRight li{

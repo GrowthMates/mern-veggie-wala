@@ -310,8 +310,8 @@ log(index,filtered)
                                     <select style={{height:'5vh',marginTop: '10px'}} class="custom-select" id="inputGroupSelect01" value={this.state.category} name='category' onChange={this.onChange} >
                                         <option selected>Category...</option>
                                         <option value="Fruit">Fruit</option>
-                                        <option value="Spices">Spices</option>
-                                        <option value="Others">Others</option>
+                                        <option value="Vegetable">Spices</option>
+                                        {/* <option value="Others">Others</option> */}
                                     </select>
                                 </div>
 

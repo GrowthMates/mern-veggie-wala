@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import {updateProduct} from '../../../actions/adminAction'
+import {updateProduct, deleteProductImage} from '../../../actions/adminAction'
 import axios from 'axios'
 import './style/edit.css'
 import VendorProducts from '../vendorProducts';
@@ -8,6 +8,8 @@ import VendorProducts from '../vendorProducts';
 let cartsArr = [];
 let images = []
 let log = console.log
+
+
 
 class Edit extends Component {
     constructor(props) {
@@ -20,7 +22,7 @@ class Edit extends Component {
             checked: false,
             schedule: false,
             imgToggle: false,
-            // cartStock: '',
+            cartStock: undefined,
             cartViseStockArr: [],
             stock: 0,
             carts: undefined,
@@ -85,7 +87,7 @@ class Edit extends Component {
     }
 
     delImg(index){
-
+        this.props.deleteProductImage();
         images.splice(index,1)
         this.setState({
             imagePreviewUrl: images
@@ -186,6 +188,7 @@ log(index,filtered)
         })
         .catch(err => log('cart ka error',err));
         if(this.props.product){
+            log(this.props.product)
             let product = this.props.product
             this.setState({
                 // product:filtered[0],
@@ -272,7 +275,34 @@ log(index,filtered)
         }
     
     }
+
+    addNewImage(newImage,newImageId) {
+        let prevImages = this.state.imagePreviewUrl
+        let prevImageId = this.state.imageId
+        prevImages.push(newImage)
+        prevImageId.push(newImageId)
+        this.setState({
+            imagePreviewUrl: prevImages,
+            imageId: prevImageId,
+        })
+    }
+
+
+
     render() { 
+        // Cloudinary Working...
+        var myWidget = window.cloudinary.createUploadWidget({
+            cloudName: 'dbevearco', 
+            uploadPreset: 'veggieWalaPreset'}, (error, result) => { 
+              if (!error && result && result.event === "success") { 
+                console.log('Done! Here is the image info: ', result.info.thumbnail_url); 
+                this.addNewImage(result.info.url,result.info.public_id);
+                console.log('Done! Here is the image URL: ', result.info.url); 
+                console.log('Done! Here is the image URL: ', result.info); 
+              }
+            }
+          )
+         //====================================//
         // let s
         if(this.state.back) {return <VendorProducts/>}
         let products = [];
@@ -299,13 +329,22 @@ log(index,filtered)
 
                 <div className='row' >
                     <div className='col' >
-                        <div className='editProdImage'  onClick={this.imagePicker.bind(this)} >
+
+                        {/* Cloudinary testing...Need to be removed */}
+                        <button id="upload_widget" class="cloudinary-button" onClick={myWidget.open}>Upload files</button>
+                                        {/* <Image cloudName="dbevearco" publicId="veggieAssets/ktolodlzxpaj5oan2cen">
+                                                <Transformation angle="-45"/>
+                                                <Transformation effect="trim" angle="45" crop="scale" width="600">
+                                                <Transformation overlay="text:Arial_100:Hello" />
+                                                </Transformation>
+                                            </Image> */}
+
+                        {/* <div className='editProdImage'  onClick={this.imagePicker.bind(this)} >
                             <div className='imgCenter' style={{background: 'url({product.image[0]})'}} >
                                    <img  src={imagePreviewUrl[0]}  className='mainImg' />
                                     <input type='file' style={{display: 'none'}} ref="fileUploader" onChange={this.imageOnChange} />
                             </div>  
-                            {/* {this.state.imagePicker!==true? void 0: (<input type='file' />)}                          */}
-                            </div>
+                            </div> */}
                          {/* {pr} */}
                         </div>
                     <div className='col' >
@@ -368,8 +407,8 @@ log(index,filtered)
                                     <select style={{height:'5vh',marginTop: '10px'}} class="custom-select" id="inputGroupSelect01" defaultValue={category} value={category} name='category' onChange={this.onChange} >
                                         <option selected>Category...</option>
                                         <option value="Fruit">Fruit</option>
-                                        <option value="Spices">Spices</option>
-                                        <option value="Others">Others</option>
+                                        <option value="Spices">Vegetable</option>
+                                        {/* <option value="Others">Others</option> */}
                                     </select>
                                 </div>
 
@@ -487,4 +526,4 @@ const mapStateToprops = state => {
     }
 }
  
-export default connect(mapStateToprops,{updateProduct})(Edit);
+export default connect(mapStateToprops,{updateProduct,deleteProductImage})(Edit);

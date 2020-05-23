@@ -278,7 +278,7 @@ var lineTotalArr = []
                                         
                                             className="cursor-pointer img-for-cart" 
                                             style={{marginRight:'25px'}} 
-                                            src={item.filterProduct.image[0]}/></th>
+                                            src={item.filterProduct.images[0].image}/></th>
                                         <td className='cart-body'>{item.filterProduct.name}</td>
                                         <td className='cart-body'>Rs.{item.filterProduct.price}</td>
                                         <td className='cart-body cart-qty-td' ><input className="crt-qty-fnl" type='number' name={item._id} defaultValue={item.quantity}

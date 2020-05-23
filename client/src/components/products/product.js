@@ -55,7 +55,7 @@ componentDidMount(){
     let {singleProduct} = this.props
     if(singleProduct){
       if(singleProduct._id===id){
-          this.setState({product:singleProduct,displayImage:singleProduct.image[0]})
+          this.setState({product:singleProduct,displayImage:singleProduct.images[0].image})
       }
     }
     // else{
@@ -90,7 +90,7 @@ componentWillReceiveProps(nextProps){
     if(nextProps.singleProduct){
        this.setState({
            product:nextProps.singleProduct,
-           displayImage:nextProps.singleProduct.image[0]
+           displayImage:nextProps.singleProduct.images[0].image
        })
     }
 }
@@ -168,8 +168,8 @@ onChangeQty(e){
                        <img className="cursor-pointer" src={this.state.displayImage} alt={this.state.product.name}  width='100%' height='540' />
                      </div>
                      <div className='row' style={{overflowX:'auto', marginTop:'10px',padding:'0 1rem'}}> 
-                         {this.state.product.image.map((image=>{
-                             return <div className='col-lg-4 col-md-4 '><img className='cursor-pointer' src={image} alt={this.state.product.name} width='80%' height='70%' onClick={()=>{this.setState({displayImage:image})}}/></div>
+                         {this.state.product.images.map((images=>{
+                             return <div className='col-lg-4 col-md-4 '><img className='cursor-pointer' src={images.image} alt={this.state.product.name} width='80%' height='70%' onClick={()=>{this.setState({displayImage:images.image})}}/></div>
                          }))}
                       </div> 
 
@@ -324,99 +324,7 @@ onChangeQty(e){
                                 </div>
                                 )
                             })}
-{/* 
-                        <div className='p1'>
-                                <div className="home-item-imageBx">
-                                <img src={this.state.product.image[0]}  alt='Also like' style={{width:'100%'}} />
-                                </div>
-                            <div className='row card-item-name'>
-                                <div className="col-6">
-                                     <h5 >Dummy Product</h5>
-                                <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.190</h5>
-                                </div>
-                                <div className="col-6">
-                                <h5 style={{textAlign:'right'}} className="col-6">1(Kg)</h5>
-                                <i>*****</i>
-                                </div>
-                            </div>   
-                        </div> */}
-                        
-                        {/* <div className='col-lg-4 col-md-4'>
-                        <div style={{width:'68%'}}>
 
-                        <div className='p1'>
-                                <div className="home-item-imageBx">
-                                <img src={this.state.product.image[1]} alt='Also like' style={{width:'100%'}} />
-                                </div>
-                            <div className='row card-item-name'>
-                                <div className="col-6">
-                                     <h5 >Dummy Product</h5>
-                                <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.190</h5>
-                                </div>
-                                <div className="col-6">
-                                <h5 style={{textAlign:'right'}} className="col-6">1(Kg)</h5>
-                                <i>*****</i>
-                                </div>
-                            </div>   
-                        </div>
-                        </div>
-                        </div> */}
-                        
-                        {/* <div className='col-lg-4 col-md-4'>
-                        <div style={{width:'68%'}}>
-
-                        <div className='p1'>
-                                <div className="home-item-imageBx">
-                                <img src={this.state.product.image[2]}   style={{width:'100%'}} alt={this.state.product.name}/>
-                                </div>
-                            <div className='row card-item-name'>
-                                <div className="col-6">
-                                     <h5 >Dummy Product</h5>
-                                <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.190</h5>
-                                </div>
-                                <div className="col-6">
-                                <h5 style={{textAlign:'right'}} className="col-6">1(Kg)</h5>
-                                <i>*****</i>
-                                </div>
-                            </div>   
-                        </div>
-                        </div>
-                        </div> */}
-
-                       
-                        {/* <div className='col-lg-4 col-md-4'>
-                        <div className='p1'>
-                                <div className="home-item-imageBx">
-                                <img src={this.state.product.image[1]}  style={{width:'100%'}} alt=''/>
-                                </div>
-                            <div className='row card-item-name'>
-                                <div className="col-6">
-                                     <h5 >Dummy Product1</h5>
-                                <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.190</h5>
-                                </div>
-                                <div className="col-6">
-                                <h5 style={{textAlign:'right'}} className="col-6">1(Kg)</h5>
-                                <i>*****</i>
-                                </div>
-                            </div>   
-                        </div>
-                        </div><div className='col-lg-4 col-md-4'>
-                        <div className='p1'>
-                                <div className="home-item-imageBx">
-                                <img src={this.state.product.image[2]}  style={{width:'100%'}} alt=''/>
-                                </div>
-                            <div className='row card-item-name'>
-                                <div className="col-6">
-                                     <h5 >Dummy Product2</h5>
-                                <h5 style={{textAlign: 'left', fontWeight: '300' , marginBottom: '10px'}} >Rs.190</h5>
-                                </div>
-                                <div className="col-6">
-                                <h5 style={{textAlign:'right'}} className="col-6">1(Kg)</h5>
-                                <i>*****</i>
-                                </div>
-                            </div>   
-                        </div>
-                        </div> */}
                     </div>
 
                 </div>

@@ -319,7 +319,7 @@ componentDidMount(){
                           {!this.props.cartProducts?void 0:
                           this.props.cartProducts.map((item,index)=>{
                            return( <tr>
-                              <td><img src={item.filterProduct.image[0]} width='64.39' height='64.39'  />
+                              <td><img src={item.filterProduct.images[0].image} width='64.39' height='64.39'  />
                           <span className='imgSup'>{item.quantity}</span>
                               </td>
                               <td className='infoItem'><p>{item.filterProduct.name}</p></td>

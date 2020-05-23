@@ -11,10 +11,43 @@ const { Item, Review} = require('../models/socketTest')
 // .then((blogPost) => console.log(blogPost.cartStock))
 // let product = new Product
 // console.log(product)
+var nodemailer = require('nodemailer');
 module.exports = {
     
     readAllProducts(req, res){
-       
+
+        // var transport = {
+        //     host: 'smtp.gmail.com',
+        //     auth: {
+        //       user: process.env.mailEmail,
+        //       pass: process.env.mailPassword
+        //     }
+        //   }
+          
+        //   var transporter = nodemailer.createTransport(transport)
+          
+        //   transporter.verify((error, success) => {
+        //     if (error) {
+        //       console.log(error);
+        //     } else {
+        //       console.log('Server is ready to take messages');
+        //     }
+        //   });
+        
+        // var mailOptions = {
+        //   from: 'saeedahmedeng62@gmail.com',
+        //   to: 'ggrowthmates.com@gmail.com',
+        //   subject: 'Sending Email using Node.js',
+        //   text: 'That was easy!'
+        // };
+        
+        // transporter.sendMail(mailOptions, function(error, info){
+        //   if (error) {
+        //     console.log(error);
+        //   } else {
+        //     console.log('Email sent: ' + info.response);
+        //   }
+        // });
         console.log('ReadAllProducts called===',req.headers.referer)
         Product.find().exec((err, products)=>{    //.limit(10)
             if(err){
@@ -26,6 +59,7 @@ module.exports = {
                 return res.status(400).json("No products Available");
             }
             // console.log('Products Find====',products)
+           
             res.status(200).send(products.reverse());
         })
         

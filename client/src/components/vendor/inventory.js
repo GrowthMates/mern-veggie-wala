@@ -38,7 +38,7 @@ class Inventory extends Component {
                     e.cartStock.forEach(el => {
                         if(el.cart===this.state.selectedCart){
                            
-                            filteredCart.push({cart:el.cart,stock:el.stock,product:e.name,image:e.image[0],status:e.status,alarmingStock:e.alarmingStock})
+                            filteredCart.push({cart:el.cart,stock:el.stock,product:e.name,image:e.images[0].image,status:e.status,alarmingStock:e.alarmingStock})
                         }
                       })
                 }

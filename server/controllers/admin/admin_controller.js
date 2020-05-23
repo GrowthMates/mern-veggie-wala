@@ -97,7 +97,7 @@ module.exports = {
 
         // rehan ka kam yahan sy previous wala
 
-        req.body.image=[]
+        req.body.images=[]
         req.body.imageId=[]
         req.body.status='dispatch'
         // res.body.cartStock=cartsStock
@@ -110,10 +110,10 @@ module.exports = {
                 res.json(err.message);
               }
               
-              req.body.image.push(result.secure_url);
-              console.log('Secure URL=====-=-=-=-',result.secure_url,[i],req.body.image)
+              req.body.images.push({image:result.secure_url,imageId:result.public_id});
+              console.log('Secure URL=====-=-=-=-',result.secure_url,[i],req.body.images)
               // add image's public_id to image object
-              req.body.imageId.push(result.public_id);
+            //   req.body.imageId.push(result.public_id);
             })
             
         }
@@ -136,12 +136,12 @@ module.exports = {
     updateProduct(req, res,next){
 
         // const { id } = req.params;
-        const { name, id, price,stock,category,cartStock,image } = req.body;
-        // log(req.body)
+        const { name, id, price,stock,category,cartStock,images } = req.body;
+        // console.log('edit body---',req.body)
         let updateProduct = {
-            name, price,stock,category,cartStock,image
+            name, price,stock,category,cartStock,images
         }
-        // console.log(req.body)
+        console.log(updateProduct)
 
         Product.findByIdAndUpdate(id,updateProduct)
         .then(data => {
@@ -153,6 +153,7 @@ module.exports = {
             res.status(400).json(err)
 
         })
+
         // .exec((err,data) => {
             
         //     if(err){
@@ -186,15 +187,35 @@ module.exports = {
     },
 
     deleteImages(req, res){
-        const {imageId} = req.body;
+        const {imageId,id} = req.body;
+        console.log('Delete image----',imageId,id)
         cloudinary.v2.uploader.destroy(imageId, function(error,result) {
                     if(error){
-                        console.log('Destroy image=======',error)
+                        console.log('Destroy image Error=======',error)
+                        return res.status(400).send(error)
                     } 
-                    console.log('Destroy image=======',result)
-                    res.json({ success: true,cart })
+                    else{
+                        console.log('Destroy image=======',result)
+                        Product.findById(id)
+                        .then((data)=>{
+                            console.log('Data found in Database----',data)
+                            if(!data){
+                                return res.status(422).send('Product Not Found')
+                            }
+                          let imagesIndex = data.images.findIndex((e) => e.imageId===imageId)
+                            data.images.splice(imagesIndex, 1)
+                            data.save().then(result => {
+                                console.log('Image Deletion From Database done----',result)
+                                res.status(200).send({ success: true })
+                            }).catch(err=>console.log('Database Image Error----',err))
+                        })
+                        .catch(err => {
+                            console.log('Data found Error in Database----',err)    
+                        })
+                    }
                 });
     },
+
     deleteProduct(req, res){
 
         const { id } = req.body;

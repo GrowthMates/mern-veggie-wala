@@ -532,7 +532,13 @@ module.exports = {
                 console.log('getAdminUsers err-----------:',err);
                 res.status(400).json(err)
             }
-            res.status(200).send(users);
+            if(users){
+                res.status(200).send(users);
+            }
+            else{
+                res.status(200).send(undefined);
+                
+            }
         });
     },
 

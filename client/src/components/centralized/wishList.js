@@ -185,7 +185,7 @@ delete(id){
                             <img 
                             className="cursor-pointer img-for-cart" 
                             style={{marginRight:'25px'}} 
-                            src={item.image}/>
+                            src={item.images[0].image}/>
                             </Link>
                         </th>
                         <td className='cart-body'>{item.name}</td>

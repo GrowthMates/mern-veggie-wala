@@ -419,11 +419,19 @@ var getCartProdLocalStorage=[]
     axios
     .post('/api/getWishList',data)
     .then(res => {
-      console.log(res.data)
+      console.log(res)
+      if(res.data==""){
+        dispatch({
+          type: WISHLIST,
+          payload: undefined
+        })
+      }
+      else{
         dispatch({
           type: WISHLIST,
           payload: res
         })
+      }
       // console.log('Wish List Get ki Req sy', res.data)
     })
     .catch(err => {

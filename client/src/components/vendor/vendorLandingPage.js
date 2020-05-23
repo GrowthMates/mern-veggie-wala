@@ -97,11 +97,18 @@ openNav(){
                  <div className='col-6 col-sm-6 col-mg-6 col-lg-6 navLeft' >
                  {/* <div className > */}
                   
-                  {
-                      this.state.open===true?
-                      <span  style={this.state.open===true? {fontSize:"30px",cursor:"pointer",width: '100%', zIndex: '100000',color:'#fff'} : {fontSize:"30px",cursor:"pointer",width:'0px',color:'#fff'}} onClick={this.openNav.bind(this)}>&#9776; </span>:
+                  {/* {
+                      this.state.open===true? */}
+                      {/* <span  style={this.state.open===true? {fontSize:"30px",cursor:"pointer",width: '100%', zIndex: '100000',color:'#fff'} : {fontSize:"30px",cursor:"pointer",width:'0px',color:'#fff'}} onClick={this.openNav.bind(this)}>&#9776; </span> */}
+                      <div id="myLIST" className={this.state.open===false?'adminListIcon':''} onClick={this.openNav.bind(this)}>
+                            <div class="child-1"></div>
+                            <div class="child-2"></div>
+                            <div class="child-3"></div>
+
+                        </div>
+                      {/* :
                   <span  style={this.state.open===true? {fontSize:"30px",cursor:"pointer",width: '100%', zIndex: '100000',color:'#fff'} : {fontSize:"30px",cursor:"pointer",width:'0px',color:'#fff'}} onClick={this.openNav.bind(this)}>X </span>
-                  }
+                  } */}
               
                
                 </div>

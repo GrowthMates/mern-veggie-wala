@@ -48,7 +48,7 @@ export const deleteProductImage = (imageId) => dispatch => {
     console.log('Image Deleted...',res.data)
   })
   .catch(err => {
-    console.log('Image Delete Error...',err.message)
+    console.log('Image Delete Error...',err)
   })
 }
 

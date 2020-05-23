@@ -78,8 +78,7 @@ class VendorProducts extends Component {
                 description: product.description,
                 stock: product.stock,
                 category: product.category,
-                imagePreviewUrl: product.image,
-                imageId: product.imageId,
+                imagePreviewUrl: product.images,
                 cartStock: product.cartStock,
                 id: product.id
             })
@@ -132,7 +131,7 @@ class VendorProducts extends Component {
 
                     })
                 }
-                bilkulFinal.push({id:i._id, stock,image: i.image,price: i.price,name:i.name,description:i.description,category:i.category,cartStock:i.cartStock,status:i.status,alarmingStock:i.alarmingStock})    
+                bilkulFinal.push({id:i._id, stock,images: i.images,price: i.price,name:i.name,description:i.description,category:i.category,cartStock:i.cartStock,status:i.status,alarmingStock:i.alarmingStock})    
 
                 
                 // fl=bilkulFinal
@@ -213,7 +212,7 @@ class VendorProducts extends Component {
                             <tbody >
                                 { this.props.status===true ? (<p>{this.props.error}</p>) :  products.length===0? <p>Loading...</p> : (
                                     products.map((item,index) => {
-                                        log(products)
+                                        log(item)
                                         
                                         // =================================//
                                         //  Write item.status == 'receive'  // 
@@ -222,7 +221,7 @@ class VendorProducts extends Component {
                                     return  item.status? (
                                             <tr className='productRows'  style={{textAlign: 'left'}} >
                                             <td scope='row' > {index+1} </td>
-                                            <td scope='row' > <img src={item.image[0]} alt={`${item.name} image`} width='60' height='60' /> </td>
+                                            <td scope='row' > <img src={item.images&&item.images.length!==0?item.images[0].image:''} alt={`${item.name} image`} width='60' height='60' /> </td>
                                           { this.state.delAction!==false && (this.state.id===item.id) ? 
                                              ( <td  className="alert alert-danger row" role="alert" style={{margin:"10px",position:"relative"}} >                                                   
 

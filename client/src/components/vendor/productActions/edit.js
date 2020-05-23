@@ -86,14 +86,18 @@ class Edit extends Component {
         reader.readAsDataURL(file)
     }
 
-    delImg(index){
-        this.props.deleteProductImage();
-        images.splice(index,1)
-        this.setState({
-            imagePreviewUrl: images
-        })
+    delImg(index,imageId){
+        if(this.state.id){
+            this.props.deleteProductImage({imageId,id:this.state.id});
+            let prevImg = [...this.state.imagePreviewUrl]
+            prevImg.splice(index,1)
+            this.setState({
+                imagePreviewUrl: prevImg
+            })
+        }
      
     }
+    
 
     singleCartSelect(){
         // cartsArr=[]
@@ -197,7 +201,7 @@ log(index,filtered)
                 description: product.description,
                 stock: product.stock,
                 category: product.category,
-                imagePreviewUrl: product.image,
+                imagePreviewUrl: product.images,
                 cartStock: product.cartStock,
                 id:product.id
             })
@@ -233,7 +237,7 @@ log(index,filtered)
                 description: product.description,
                 stock: product.stock,
                 category: product.category,
-                imagePreviewUrl: product.image,
+                imagePreviewUrl: product.images,
                 cartStock: product.cartStock,
                 id: product.id
             })
@@ -244,19 +248,21 @@ log(index,filtered)
     redirectFunction(){
         this.setState({back:true})
     }
-
+    sum(key) {
+        return this.reduce((a, b) => a + (b[key] || 0), 0);
+    }
     onSubmit(e){
         e.preventDefault();
 
         const {name,price,description,imagePreviewUrl,cartStock,stock,category,id} = this.state
-
+        
         let updateProduct = {
             name,
             price,
             description,
-            image: imagePreviewUrl,
+            images: imagePreviewUrl,
             cartStock,
-            // stock,
+            stock:cartStock.reduce((prev, cur) => cur.stock == null ?  parseInt(prev.stock):parseInt(prev.stock) + parseInt(cur.stock)),
             category,
             id,
         }
@@ -279,11 +285,10 @@ log(index,filtered)
     addNewImage(newImage,newImageId) {
         let prevImages = this.state.imagePreviewUrl
         let prevImageId = this.state.imageId
-        prevImages.push(newImage)
-        prevImageId.push(newImageId)
+        prevImages.push({image:newImage,imageId:newImageId})
+        console.log('Images----',prevImages)
         this.setState({
             imagePreviewUrl: prevImages,
-            imageId: prevImageId,
         })
     }
 
@@ -361,8 +366,8 @@ log(index,filtered)
                                 this.state.imagePreviewUrl!==[]?this.state.imagePreviewUrl.map((item,index)=>{
                                     return (
                                         <li style={{display: 'inline-block', padding: '10px',position: 'relative'}} >
-                                            <span onClick={this.delImg.bind(this,index)} style={{position: 'absolute',top: '0px',right: '-3px',cursor: 'pointer',color:'red'}} >X</span>
-                                            <img src={item} width='80' height='80' style={{borderRadius: '10px'}} />
+                                            <span onClick={this.delImg.bind(this,index,item.imageId)} style={{position: 'absolute',top: '0px',right: '-3px',cursor: 'pointer',color:'red'}} >X</span>
+                                            <img src={item.image} width='80' height='80' style={{borderRadius: '10px'}} />
                                         </li>
                                     )
                                 }):void 0}

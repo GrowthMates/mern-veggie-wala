@@ -193,7 +193,7 @@ log(index,filtered)
                 description: product.description,
                 stock: product.stock,
                 category: product.category,
-                imagePreviewUrl: product.image,
+                imagePreviewUrl: product.images,
                 cartStock: product.cartStock,
                 id:product.id
             })

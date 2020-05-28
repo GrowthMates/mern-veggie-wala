@@ -3,11 +3,12 @@ import
  {getProducts}
   from "../actions/productsAction";
   
-import {BrowserRouter ,Route, Switch} from 'react-router-dom';
+import {BrowserRouter ,Route, Switch, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux'
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "../actions/authActions";
+import { setAdminAuth, logoutAdmin } from "../actions/adminAction";
 import store from "../store";
 // import Home from '../components/centralized/home';
 
@@ -29,9 +30,11 @@ import Combined from '../components/authentication/combine'
 import Collections from '../components/products/collections';
 import Information from '../components/products/information' ;
 import PrivateRoute from "../components/private-route/PrivateRoute";
+import APrivateRoute from "../components/private-route/APrivateRoute";
 import Cart from '../components/users/userCart/cart'  
 import AdminLandingPage from '../components/vendor/vendorLandingPage'
 import CartLandingPage from '../components/cart/cartLandingPage'
+import AdminLogin from "../components/vendor/Account/login";
 // import ProgressBar from '../components/centralized/progressBar'
 // import NoMatch from './not-found.js'  
 // import AllImages from './AllImages'
@@ -54,6 +57,27 @@ if (localStorage.jwtToken) {
       window.location.href = "./combined";
     }
   }
+
+  if (sessionStorage.AJwtToken) {
+    // Set auth token header auth
+    const token = sessionStorage.AJwtToken;
+    setAuthToken(token);
+    // Decode token and get user info and exp
+    const decoded = jwt_decode(token);
+    // Set user and isAuthenticated
+    store.dispatch(setAdminAuth(decoded));
+  // Check for expired token
+    const currentTime = Date.now() / 1000; // to get in milliseconds
+    if (decoded.exp < currentTime) {
+      // Logout user
+      store.dispatch(logoutAdmin());
+      // Redirect to login
+      window.location.href = "./administrator/login";
+    }
+  }
+
+
+
 
 
   // 404 page not found
@@ -91,6 +115,11 @@ this.props.getProducts('Routing')
     restrictedPath = true  
     // console.log(info, 'info')
   }
+  // else{
+  //   <BrowserRouter>
+  //     <Route exact path="/admin" component={AdminLogin}/>
+  //   </BrowserRouter>
+  // }
   
   return (
     
@@ -117,7 +146,8 @@ this.props.getProducts('Routing')
                    <Route exact path='/product/:id' component={Product} />
                    <Route exact path="/collections" component={Collections} />
                    <Route exact path='/cart' component={Cart}/>
-                   <Route  path='/admin/' component={AdminLandingPage}/>
+                   <APrivateRoute  path='/admin/' component={AdminLandingPage}/>
+                   <Route  path='/administrator/login' component={AdminLogin}/>
                    <Route exact path='/cart/landingPage' component={CartLandingPage}/>
 
               

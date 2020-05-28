@@ -182,6 +182,8 @@ setTimeout(()=>{
     app.post('/api/register', userController.register)
     //When user login
     app.post('/api/login', userController.login);
+    //When Admin login
+    app.post('/api/admin/login', adminController.login);
     //When the user logouts
     app.post('/api/logout', userController.logout);
     //Products Endpoints

@@ -1,9 +1,0 @@
-.inventoryUl{
-    padding-left: 0px;
-    text-align: left;
-}
-.inventoryUl li{
-    display: inline-block;
-    padding: 5px 20px;
-    justify-content: flex-start;
-}

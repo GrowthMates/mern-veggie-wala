@@ -20,6 +20,7 @@ import admin from '../../components/centralized/images/admin1.png'
 import notification from '../../components/centralized/images/notification.png'
 import message from '../../components/centralized/images/message.png'
 import flag from '../../components/centralized/images/flag.png'
+import VendorLogin from '../../components/vendor/Account/login'
 // import cart from '../users/userCart/cart';
 
 class AdminLandingPage extends Component{
@@ -154,6 +155,9 @@ openNav(){
                                     <li><Link to='/admin/setting'>
                                         <i style={{marginRight: '10px'}} class="fa fa-wrench" aria-hidden="true"></i> Settings</Link>
                                     </li>
+                                    <li><Link to='/admin/login'>
+                                        <i style={{marginRight: '10px'}} class="fa fa-wrench" aria-hidden="true"></i> Login</Link>
+                                    </li>
 
                                 </ul>
                             </div>
@@ -176,6 +180,7 @@ openNav(){
                                 <Route exact path='/admin/edit/:id' component={Edit} />
                                 <Route exact path='/admin/newCart' component={NewCart} />
                                 <Route exact path='/admin/sales' component={Sales} />
+                                <Route exact path='/admin/login' component={VendorLogin} />
                                 {/* <Route  path='/vendor/product' component={AddProduct} /> */}
                             </Switch>
                             </div>

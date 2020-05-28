@@ -408,7 +408,7 @@ module.exports = {
         },
 
     login(req, res){
-        // console.log('Login: ',req)
+        console.log('Login: ',req.body)
             // Form validation
             const { errors, isValid } = validateLoginInput(req.body);
             // Check validation

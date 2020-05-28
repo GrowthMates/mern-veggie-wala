@@ -6,6 +6,11 @@ const Cart =  require('../../models/cartOwner');
 const PendingProduct = require('../../models/admin/pending')
 const ProductSpecs = require('../../models/categories');
 const NewCart = require('../../models/admin/newCart');
+const validateLoginInput = require('../../validation/login');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+
 //IMAGE UPLOAD CONFIGURATION
 // const multer = require("multer");
 // const storage = multer.diskStorage({
@@ -29,6 +34,66 @@ api_secret: process.env.CLOUDINARY_API_SECRET // ALSO COMING FROM CLOUDINARY WHI
 });
 
 module.exports = {
+
+    login(req, res){
+        console.log('Admin Login: ',req.body)
+            // Form validation
+            const { errors, isValid } = validateLoginInput(req.body);
+            // Check validation
+            if (!isValid) {
+                return res.status(400).json(errors);
+            }
+           
+            const email = req.body.email;
+            const password = req.body.password;
+
+            // Checking if email is correct
+            if (email!==process.env.ADMIN_EMAIL) {
+                return res.status(404).json({ emailnotfound: "Email or Password Incorrect " });
+            }
+
+            // Find user by email
+            User.findOne({ email:"saeedrehan3@gmail.com" }).then(user => {
+                // Check if user exists
+                if (!user) {
+                return res.status(404).json({ emailnotfound: "Email not found" });
+                }
+            // Check password
+                bcrypt.compare(password, user.password).then(isMatch => {
+                if (isMatch) {
+                    console.log("userID: ",user.id)
+        
+                    // User matched
+                    // Create JWT Payload
+                    const payload = {
+                    id: user.id,
+                    name: user.name,
+                    userType: user.userType
+                    };
+            // Sign token
+                    jwt.sign(
+                    payload,
+                    process.env.secretOrKey,
+                    {
+                        expiresIn: 86400 // 1 day in seconds
+                    },
+                    (err, token) => {
+                        res.json({
+                        success: true,
+                        token: "Bearer " + token
+                        });
+                    }
+                    );
+                } else {
+                    return res
+                    .status(400)
+                    .json({ passwordincorrect: "Email or Password incorrect" });
+                }
+                });
+            });
+    },
+
+
     
     getAdminUsers(req, res){
 

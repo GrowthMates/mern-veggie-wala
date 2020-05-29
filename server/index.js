@@ -190,6 +190,7 @@ setTimeout(()=>{
     //Getting all the products
     app.get('/api/products', productsController.readAllProducts);
 
+    // Updating status of delivery to the cart
     app.post('/api/updateProductStatus', productsController.updateProductStatus);
 
     //Getting a specified product

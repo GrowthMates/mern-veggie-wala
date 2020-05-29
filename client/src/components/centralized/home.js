@@ -9,6 +9,7 @@ import hearts from './images/hearts.webp'
 // import heart1 from './images/heart.png'
 // import shoppingcart1 from './images/shopping-cart.png'
 // import search1 from './images/search.png'
+import { CloudinaryContext } from 'cloudinary-react';
 import l1 from './images/l1.webp'
 import l2 from './images/l2.webp'
 import l3 from './images/l3.webp'
@@ -24,7 +25,6 @@ import Homeimages from "./home-assets/images"
 import {gmailLogin} from '../../actions/authActions'
 import queryString from "query-string";
 import ProductCards from "./cards"
-
 
 // import socketIOClient from "socket.io-client";
 // var socket=socketIOClient("http://localhost:5000/")
@@ -327,16 +327,16 @@ import ProductCards from "./cards"
                     </div>
                     <div className='container'>
 
+                    <CloudinaryContext cloudName="dbevearco">  
                     <div className='row top-items-list' style={{justifyContent:'center'}}>
                         {
                         (this.state.loading===true)?(<HomeLoader/>):(
                          this.state.products.map((item,index) => {  
                          return(
-                            <div key={item._id} className='col-lg-3 col-md-6 col-sm-12 col-xs-12 ' onClick={this.p1} >
+                            <div key={item._id} className=' col-xs-3 col-sm-3 col-md-3 col-lg-3 ' onClick={this.p1} >
                                 <ProductCards item={item} />
                             </div>)}
                              )
-                          
                         )
                         }
                         {this.state.loading!==true?
@@ -348,6 +348,8 @@ import ProductCards from "./cards"
                         
                        
                     </div>
+                    </CloudinaryContext>
+
                     </div>
                 </div>
 

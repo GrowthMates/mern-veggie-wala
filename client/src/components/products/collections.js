@@ -10,7 +10,8 @@ import {userCart} from '../../actions/productsAction'
 import {addToCart} from '../../actions/productsAction'
 import cart from '../users/userCart/cart';
 import ProductCards from "../centralized/cards"
-import GreenButton from "../centralized/buttons/greenButton"
+import { CloudinaryContext } from 'cloudinary-react';
+// import GreenButton from "../centralized/buttons/greenButton"
 
 
 
@@ -134,31 +135,28 @@ class Collections extends Component{
                        <div className="side-bar-section"> 
                             <h4>Categories</h4>
                                 <ul className="side-list">
-                                    <li className="side-list-items cursor-pointer">All</li>
-                                    <li className="side-list-items cursor-pointer">Vegetables</li>
-                                    <li className="side-list-items cursor-pointer l11" onClick={()=>{this.setState((state)=>({fruitsList:!state.fruitsList}));}}>Fruits</li>
+                                    <li className="side-list-items cursor-pointer">All</li><hr/>
+                                    <li className="side-list-items cursor-pointer">Vegetables</li><hr/>
+                                    <li className="side-list-items cursor-pointer">Fruits</li><hr/>
+                                    {/* <li className="side-list-items cursor-pointer l11" onClick={()=>{this.setState((state)=>({fruitsList:!state.fruitsList}));}}>Fruits</li>
                                     <ul id='fruit-collapse' style={this.state.fruitsList?{display:'block',maxHeight:'5rem'}:{display:'none'}} ref={this.ulRef}>
                                         <li>Reds</li>
                                         <li>Greens</li>
                                         <li>Yellows</li>
-                                    </ul>
+                                    </ul> */}
                                 </ul>
                         </div>
                        
-                        <div className="side-bar-section"> 
-                            <h4>Brand</h4>
-                                <ul className="side-list">
-                                    <li className="side-list-items cursor-pointer">Example Brand</li><hr/>
-                                    <li className="side-list-items cursor-pointer">Gfruits-Store-Demo</li><hr/>
-                                </ul>   
-                        </div>
 
                         <div className="side-bar-section"> 
-                            <h4>Product-Filter</h4>
+                            <h4>Price-Filter</h4>
                                 <ul className="side-list">
-                                    <li className="side-list-items cursor-pointer">Fruits</li><hr/>
-                                    <li className="side-list-items cursor-pointer">Vegetables</li><hr/>
-                                    <li className="side-list-items cursor-pointer">Fresh Items</li><hr/>
+                                    <li className="side-list-items cursor-pointer">0.00 - 99.99</li><hr/>
+                                    <li className="side-list-items cursor-pointer">100.00 - 199.99</li><hr/>
+                                    <li className="side-list-items cursor-pointer">200.00 - 299.99</li><hr/>
+                                    <li className="side-list-items cursor-pointer">300.00 - 399.99</li><hr/>
+                                    <li className="side-list-items cursor-pointer">400.00 - 499.99</li><hr/>
+                                    <li className="side-list-items cursor-pointer">500.00 And Above</li><hr/>
                                 </ul>
                         </div>
 
@@ -324,6 +322,7 @@ class Collections extends Component{
                     
                         <div className="container">
                             
+                            <CloudinaryContext cloudName="dbevearco">  
                                  <div className="row ">  
                                 { this.props.products.map((item,index) => {  
                         return(
@@ -347,6 +346,7 @@ class Collections extends Component{
 
 
                                 </div>    
+                                </CloudinaryContext>
 
                    </div>   )     
                         )}

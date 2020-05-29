@@ -27,7 +27,10 @@ class AddProduct extends Component {
             file: '',
             imagePreviewUrl: [],
             category: '',
-            alarmingStock:''
+            alarmingStock:'',
+            productAvalablityStatus:'offline',
+            productType:'Simple product',
+            tag:'0.00 - 99.99'
          }
     }
 
@@ -209,10 +212,20 @@ log(index,filtered)
         .catch(err => log('cart ka error',err))
     }
 
+    // Setting Online/Offline Status
+    productStatusAndTypeHandler = (e) => {
+        console.log(e.target.name,e.target.value)
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+    }
+
     onSubmit(e){
         e.preventDefault();
 
-        const {name,price,description,imagePreviewUrl,cartViseStockArr,stock,category,alarmingStock, finalImages} = this.state
+        const {name,price,description,imagePreviewUrl,
+                cartViseStockArr,stock,category,alarmingStock, 
+                    finalImages,productAvalablityStatus,productType,tag} = this.state
         log(this.state)
         let totalStock=0
         cartViseStockArr.forEach(e=>{totalStock+=parseInt(e.stock)})
@@ -236,6 +249,9 @@ log(index,filtered)
                 formData.append("price", price);
                 formData.append("stock", totalStock);
                 formData.append("category", category);
+                formData.append("productStatus", productAvalablityStatus);
+                formData.append("productType", productType);
+                formData.append("tag", tag);
                 // formData.set("cartsStock", cartViseStockArr);
                 formData.append("alarmingStock", alarmingStock);
                 for (var i = 0; i < files.length; i++) {
@@ -315,6 +331,20 @@ log(index,filtered)
                                     </select>
                                 </div>
 
+                                <div class="input-group mb-3">
+                                   <label style={{padding:'16px'}}>Tag:</label> 
+                                    <select style={{height:'5vh',marginTop: '10px'}} class="custom-select" id="inputGroupSelect01" value={this.state.tag} name='tag' onChange={this.onChange} >
+                                        {/* <option selected>Category...</option> */}
+                                        <option value="0.00 - 99.99">0.00 - 99.99</option>
+                                        <option value="100.00 - 199.99">100.00 - 199.99</option>
+                                        <option value="200.00 - 299.99">200.00 - 299.99</option>
+                                        <option value="300.00 - 399.99">300.00 - 399.99</option>
+                                        <option value="400.00 - 499.99">400.00 - 499.99</option>
+                                        <option value="500.00 And Above">500.00 And Above</option>
+                                        {/* <option value="Others">Others</option> */}
+                                    </select>
+                                </div>
+
                                 <div className='row' >
                                 <div className='col-12' >
                                     <input type='number' onChange={this.onChange} name='alarmingStock' value={this.state.alarmingStock} placeholder='alarming Stock' style={{marginTop: '10px'}} />
@@ -355,8 +385,30 @@ log(index,filtered)
                             <div  >
                                 <button onClick={this.onSubmit.bind(this)} className='btn' style={{padding: '4px 30px', backgroundColor: '#3C8DBC', fontWeight: '600',fontSize: '19px',color: '#ffffff'}} >Add Product </button>
                                 <hr/>
-                                <p className='editStatus' >Product Status: <span style={{fontWeight: 'bolder'}} >Online </span> <span className='editKaUpdate' style={{backgroundColor: 'limegreen', color: '#ffffff', padding: '4px 8px', margin: '10px'}} > Edit </span> </p>
-                                <p className='editStatus'>Product Type: <span style={{fontWeight: 'bolder'}} >Simple Product </span> <span className='editKaUpdate' style={{backgroundColor: 'limegreen', color: '#ffffff',padding: '4px 8px'}} > Edit </span> </p>
+                                <p className='editStatus row' >
+                                    <span className='col-6 col-sm-6 col-md-6 col-lg-6' style={{fontSize: '14px',fontWeight: 'bold'}} >Product Status:</span> 
+                                    <span style={{fontWeight: 'bolder'}}  className='col-6 col-sm-6 col-md-6 col-lg-6' >
+                                        <select class="form-control" onChange={this.productStatusAndTypeHandler} name='productAvalablityStatus' value={this.state.productAvalablityStatus}>
+                                            <option value='offline'>Offline</option>
+                                            <option value='online'>Online</option>
+                                        </select>
+                                    </span> 
+                                    {/* <span className='editKaUpdate' style={{backgroundColor: 'limegreen', color: '#ffffff', padding: '4px 8px', margin: '10px'}} >
+                                         Edit 
+                                     </span>  */}
+                                </p>
+                                <p className='editStatus row' >
+                                    <span className='col-6 col-sm-6 col-md-6 col-lg-6' style={{fontSize: '14px',fontWeight: 'bold'}} >Product Type:</span> 
+                                    <span style={{fontWeight: 'bolder'}}  className='col-6 col-sm-6 col-md-6 col-lg-6' >
+                                        <select class="form-control" onChange={this.productStatusAndTypeHandler} name='productType' value={this.state.productType}>
+                                            <option value='Simple product'>Simple product</option>
+                                            <option value='Featured product'>Featured product</option>
+                                        </select>
+                                    </span> 
+                                    {/* <span className='editKaUpdate' style={{backgroundColor: 'limegreen', color: '#ffffff', padding: '4px 8px', margin: '10px'}} >
+                                         Edit 
+                                     </span>  */}
+                                </p>
                                 <hr/>
                                 <p className='imageGallery' > Image Gallery </p>
                                 {/* <p className='imageGalleryBtn btn btn-success' > + Add Product Images </p> */}

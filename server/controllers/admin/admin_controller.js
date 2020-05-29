@@ -128,39 +128,13 @@ module.exports = {
 // add product........
    async createProduct(req, res){
 
-        const { name, description,price,stock,image,cartStock,category,alarmingStock } = req.body;
-        // cartStock.forEach(e=>{
-            // console.log(e.stock)
-            
-            // })
+        const {cartStock} = req.body;
+        
             for(let i=0;i<cartStock.length;i++){
                 cartStock[i] = JSON.parse(cartStock[i])
             }
         console.log(cartStock[0].stock)
-        //Arslan Ka Kaam image without cloudinary (FileReader)
-
-        // let createProduct = new Product({
-        //     name,
-        //     price,
-        //     description,
-        //     image,
-        //     stock,
-        //     cartStock:cartsStock,
-        //     category,
-        //     status: 'dispatch',
-        //     alarmingStock
-        // })
-
-        // createProduct.save()
-        // .then(data => {
-        //     res.status(200).send(data)
-        //     console.log(data)
-        // })
-        // .catch(err => {
-        //     res.status(400).send(err.message)
-        // })
-
-        // rehan ka kam yahan sy previous wala
+      
 
         req.body.images=[]
         req.body.imageId=[]
@@ -198,13 +172,13 @@ module.exports = {
 
     },
 
-    updateProduct(req, res,next){
+    updateProduct(req, res){
 
         // const { id } = req.params;
-        const { name, id, price,stock,category,cartStock,images } = req.body;
+        const { name, id, price,stock,category,cartStock,images, productStatus, productType, tag } = req.body;
         // console.log('edit body---',req.body)
         let updateProduct = {
-            name, price,stock,category,cartStock,images
+            name, price,stock,category,cartStock,images, productStatus, productType, tag
         }
         console.log(updateProduct)
 
@@ -215,7 +189,7 @@ module.exports = {
         })
         .catch(err => {
             console.log(err.message);
-            res.status(400).json(err)
+            // res.status(400).json(err)
 
         })
 

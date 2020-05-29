@@ -8,6 +8,8 @@ import {connect} from 'react-redux';
 import {userCart, getSingleProduct} from '../../actions/productsAction'
 import {addToCart} from '../../actions/productsAction'
 import ProductCard from '../centralized/cards'
+import { CloudinaryContext } from 'cloudinary-react';
+
 
 
 
@@ -286,7 +288,7 @@ onChangeQty(e){
                         <button data-toggle="collapse" data-target="#prod-detail-desc"  aria-controls="prod-detail-desc" onClick={()=>{this.setState(({rotate1})=>({rotate1:!rotate1}))}}>Description <span className='greaterThan' style={this.state.rotate1?{transform:' translateY(-8px) rotate(90deg)'}:void 0}>&gt;</span></button>
                         <div class="collapse" id="prod-detail-desc">
                         <div class="card card-body" style={{textAlign:'left'}}>
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            {this.state.product.description}
                         </div>
                         </div>
 
@@ -309,6 +311,7 @@ onChangeQty(e){
 
                 {/* More Products */}
                 <div className='container'>
+                <CloudinaryContext cloudName="dbevearco">  
                     <div style={{margin:'50px'}}>
                         <h2 style={{fontWeight:'bold'}}>You May Also Need</h2>
                     </div>
@@ -326,7 +329,7 @@ onChangeQty(e){
                             })}
 
                     </div>
-
+                    </CloudinaryContext>
                 </div>
 
             </div>

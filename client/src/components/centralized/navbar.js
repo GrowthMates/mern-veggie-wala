@@ -150,7 +150,7 @@ class Navbar extends Component{
     }
 
     render(){
-        console.log('nav progeress...',this.props.progressLoading)
+        // console.log('nav progeress...',this.props.progressLoading)
 
         if(!this.state.filter){ console.log('nh i') }
         else{ 

@@ -6,11 +6,12 @@ import {connect} from 'react-redux';
 import ImageAppla from '../centralized/images/apple.jpg' 
 import ImageIconList from '../centralized/images/list-icon.png' 
 import ImageIconGrid from '../centralized/images/grid-icon.png' 
-import {userCart} from '../../actions/productsAction'
-import {addToCart} from '../../actions/productsAction'
+import {addToCart, getProducts, userCart, countProducts} from '../../actions/productsAction'
 import cart from '../users/userCart/cart';
 import ProductCards from "../centralized/cards"
 import { CloudinaryContext } from 'cloudinary-react';
+import Filteration from "./FilterCheck"
+import Axios from 'axios';
 // import GreenButton from "../centralized/buttons/greenButton"
 
 
@@ -33,6 +34,15 @@ class Collections extends Component{
             redirect:false,
             fruitsList:false,
             vegetablesList:false,
+            skip:0,
+            limit:3,
+            productsLength:undefined,
+            selectedCategory:'',
+            selectedTag:'',
+            filters:{
+                category:[],
+                tag:[]
+            }
         }
         this.ulRef = React.createRef()
     }
@@ -52,15 +62,20 @@ class Collections extends Component{
 
     componentDidMount(){
         window.scrollTo(0, 0)
+        if(!this.props.productsLength){
+            this.props.countProducts()
+        }
         console.log(this.props)
             console.log('Home DidMount====',this.props.products)
            if(this.props.products){ 
                 this.setState({
                     products:this.props.products,
                     loading:false,
-                    user:this.props.auth
+                    user:this.props.auth,
+                    productsLength: this.props.productsLength
                 })
             }
+            
             
     }
    
@@ -68,10 +83,14 @@ class Collections extends Component{
         // if(nextProps!=props){
             console.log("Prev. props......",props.products)
             console.log("Cart Array next......",nextProps.products)
+            // if(nextProps.products){
+                
+            // }
             this.setState({
                 products:nextProps.products,
                 loading:false,
-                user:nextProps.auth
+                user:nextProps.auth,
+                productsLength: nextProps.productsLength
             })
         }
         // else{
@@ -79,17 +98,28 @@ class Collections extends Component{
         // }
     
 
+        loadMoreItems  = () => {
+            let {products, limit,filters} = this.state
+            const variables = {
+                skip:products.length,
+                limit:limit,
+                filters
+            }
+           this.props.getProducts(variables)
+           this.setState({
+            skip:products.length,
+            limit:limit
+           })
+            
+        }
+
+      
+
      onSubmit=(item,e)=>{
 
         e.preventDefault();
         console.log('onsubmit',item)
-        // return false;
-        // this.setState({
-        //     name ,
-        //     price ,
-        //     description
-        // })
-        
+       
             let productId = {
                 item,
                 quantity:1,
@@ -115,8 +145,42 @@ class Collections extends Component{
     goCart(){
         this.props.history.push('/cart')
     }
+
+    showFilteredResults = (filters) => {
+
+        let {limit} = this.state
+        const checkAll = {...filters}.category.indexOf('All')
+        if(checkAll!== -1){
+             filters['category'] = []
+        }
+            const variables = {
+                skip:0,
+                limit:limit,
+                filters
+            }
+            this.props.countProducts({filters:variables.filters})
+           this.props.getProducts(variables)
+           this.setState({
+            skip:0
+        })
+
+    }
+
+    handleFilters = (filters, type) => {
+        console.log({filters,type})
+        const newFilters = {...this.state.filters}
+
+        newFilters[type] = filters
+        this.showFilteredResults(newFilters)
+        this.setState({
+            filters:newFilters
+        })
+    }
+
     render(props){
+        console.log(this.state.filters)
         console.log("Collection of Products render sr: ", this.props)
+        const {productsLength, products} = this.state
         if(this.state.redirect){
             return <Redirect to='/user/login'/>
         }
@@ -135,15 +199,10 @@ class Collections extends Component{
                        <div className="side-bar-section"> 
                             <h4>Categories</h4>
                                 <ul className="side-list">
-                                    <li className="side-list-items cursor-pointer">All</li><hr/>
-                                    <li className="side-list-items cursor-pointer">Vegetables</li><hr/>
-                                    <li className="side-list-items cursor-pointer">Fruits</li><hr/>
-                                    {/* <li className="side-list-items cursor-pointer l11" onClick={()=>{this.setState((state)=>({fruitsList:!state.fruitsList}));}}>Fruits</li>
-                                    <ul id='fruit-collapse' style={this.state.fruitsList?{display:'block',maxHeight:'5rem'}:{display:'none'}} ref={this.ulRef}>
-                                        <li>Reds</li>
-                                        <li>Greens</li>
-                                        <li>Yellows</li>
-                                    </ul> */}
+                                  
+                                    <Filteration obj='category' handleFilters={filters => this.handleFilters(filters, "category")}/>
+
+                                  
                                 </ul>
                         </div>
                        
@@ -151,12 +210,8 @@ class Collections extends Component{
                         <div className="side-bar-section"> 
                             <h4>Price-Filter</h4>
                                 <ul className="side-list">
-                                    <li className="side-list-items cursor-pointer">0.00 - 99.99</li><hr/>
-                                    <li className="side-list-items cursor-pointer">100.00 - 199.99</li><hr/>
-                                    <li className="side-list-items cursor-pointer">200.00 - 299.99</li><hr/>
-                                    <li className="side-list-items cursor-pointer">300.00 - 399.99</li><hr/>
-                                    <li className="side-list-items cursor-pointer">400.00 - 499.99</li><hr/>
-                                    <li className="side-list-items cursor-pointer">500.00 And Above</li><hr/>
+                                    <Filteration obj='price' handleFilters={filters => this.handleFilters(filters, "tag")}/>
+                                   
                                 </ul>
                         </div>
 
@@ -216,8 +271,11 @@ class Collections extends Component{
                                       <Link to='/combined'> <img src={heart1} width='23' height='23' alt=''/>  </Link> }} */}
 
                         { (this.state.loading==true)?('Loading...'):(
-                          (this.state.veiwOption === false)?(
-                             this.state.products.map((item,index) => {  
+                           <div>
+                          {this.state.products?.length>0 ? 
+                            <div>
+                                {(this.state.veiwOption === false)?(
+                             this.state.products?.map((item,index) => {  
                            return(
                            <div key={index} >
                                <div className="card mb-3 p1 " >
@@ -324,22 +382,10 @@ class Collections extends Component{
                             
                             <CloudinaryContext cloudName="dbevearco">  
                                  <div className="row ">  
-                                { this.props.products.map((item,index) => {  
+                                { this.props.products?.map((item,index) => {  
                         return(
                                    <div className="col-md-4 col-lg-4 col-sm-4"> 
-                                   <ProductCards item={item}/>
-                                   
-                                   
-                                    {/* <div className="card grid-view grid-card-styling" style={{width: '18rem'}}>
-                                    <Link to = {`/product/${item._id}`}><img style={{borderRadius: '12px'}} className="card-img-top cursor-pointer img-grid prodImg" src={item.image[0]} alt="..."/></Link>
-                                            <div className="card-body" style={{paddingTop:'0px',textAlign:'left'}}>
-                                            <Link to = {`/product/${item._id}`} className='link-name'> <h5 class="card-title cursor-pointer" style={{fontSize:'30px'}}>{item.name}</h5></Link>
-                                                <p className="card-text">From Rs.{item.price}</p>
-                                                {item.stock>0
-                                                ?<button  onClick={this.onSubmit.bind(this,item)} className="btn btn-success" >Add to cart</button>
-                                                :<p><u style={{color:'red'}}>Out of Stock</u></p>}
-                                            </div>
-                                    </div> */}
+                                       <ProductCards item={item}/>
                                    </div> 
                         )})}
 
@@ -348,7 +394,25 @@ class Collections extends Component{
                                 </div>    
                                 </CloudinaryContext>
 
-                   </div>   )     
+                   </div>   )}
+
+                   {productsLength && productsLength > products?.length?
+                   <div className='load-more-btn'>
+                       <button onClick={this.loadMoreItems}>Load More</button>
+                   </div>
+                   :''
+                }
+                            </div>
+                            :
+                            <div>No Items are Available</div>
+                          }
+                          
+
+                
+                            </div>
+                   
+                   
+                   
                         )}
                    
          
@@ -372,6 +436,7 @@ const mapStateToProps = (state) => {
   
     return{
       products: state.products.products,
+      productsLength: state.products.productsLength, 
       cart:state.cart,
       loading:state.products.loading,
       auth: state.auth,
@@ -381,5 +446,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    { userCart, addToCart }
+    { userCart, addToCart, getProducts, countProducts }
   )(Collections);

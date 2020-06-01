@@ -206,6 +206,9 @@ log(index,filtered)
                 category: product.category,
                 imagePreviewUrl: product.images,
                 cartStock: product.cartStock,
+                tag: product.tag,
+                productAvalablityStatus:product.productStatus,
+                productType: product.productType,
                 id:product.id
             })
         }
@@ -242,6 +245,9 @@ log(index,filtered)
                 category: product.category,
                 imagePreviewUrl: product.images,
                 cartStock: product.cartStock,
+                tag: product.tag,
+                productAvalablityStatus:product.productStatus,
+                productType: product.productType,
                 id: product.id
             })
         }

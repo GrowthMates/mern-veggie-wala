@@ -14,7 +14,7 @@ class VendorProducts extends Component {
     }
 
     componentDidMount(){
-
+        this.props.getProducts()
     }
     delAction(id,index){
         this.setState({

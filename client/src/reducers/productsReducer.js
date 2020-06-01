@@ -8,12 +8,15 @@ import {
     DEL_WISHLIST,PATH_CHECKER,
     SELECTED_PRODUCT,
     STATUS_UPDATE,
+    GET_FEATURED_PRODUCTS,
+    COUNT_PRODUCTS,
   } from "../actions/types";
   import axios from 'axios'
 import { getProducts } from "../actions/productsAction";
   const isEmpty = require("is-empty");
   const initialState = {
     products: undefined,
+    featuredProducts: undefined,
     cart:[],
     cartProducts: undefined ||JSON.parse(localStorage.getItem('UserCart')) ,
     loading: true,
@@ -26,17 +29,26 @@ import { getProducts } from "../actions/productsAction";
     pathChecker: false,
     isProduct:false,
     editProduct: undefined,
-    status:undefined
+    status:undefined,
+    productsLength:undefined,
 
   };
 
   
   export default  function(state = initialState, action) {
  
-  // let newproducts = [...products]
-  // newproducts.push
+ 
   console.log('get product ne bulaya h=======',action)
     switch (action.type) {
+
+      //Length of products Available in DB
+      case COUNT_PRODUCTS:
+        return {
+          ...state,
+          productsLength: action.payload
+        };
+
+      // ALL PRODUCTS
       case GET_PRODUCTS:
         return {
           ...state,
@@ -44,6 +56,14 @@ import { getProducts } from "../actions/productsAction";
           loading: false,
           products: action.payload
         };
+      // FEATURED PRODUCTS  
+      case GET_FEATURED_PRODUCTS:
+        return {
+          ...state,
+          loading: false,
+          featuredProducts: action.payload
+        };
+
         case GET_ERRORS:
             return {
                 ...state,

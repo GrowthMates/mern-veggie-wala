@@ -42,7 +42,11 @@ const Product = new Schema({
         cartStock: Array,
         tag:{
                 type:String,
-        }
+        },
+        date: {
+                type: Date,
+                default: new Date()
+            }
 
         
         // img:{

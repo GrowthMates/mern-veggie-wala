@@ -16,7 +16,7 @@ export const getProducts = (caller) => dispatch => {
     console.log(`GEtPRoducts admin ky update by ${caller}=====`)
  
       axios
-        .get("/api/products")
+        .post("/api/products")
         .then((res) => {
   
                         console.log("Products success", res)

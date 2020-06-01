@@ -23,6 +23,7 @@ import './style/home.css'
 import {wishList,userCart,getSingleProduct} from '../../actions/productsAction'
 import Homeimages from "./home-assets/images"
 import {gmailLogin} from '../../actions/authActions'
+import {getFeaturedProducts, countProducts} from '../../actions/productsAction'
 import queryString from "query-string";
 import ProductCards from "./cards"
 
@@ -60,18 +61,7 @@ import ProductCards from "./cards"
     //       this.props.history.push("/");
     //   } 
 
-    //     axios
-    //     .get("http://localhost:5000/api/products")
-    //     .then((res) => {
-    //                     console.log("Products success", res.data)
-
-    //                     localStorage.setItem('Products', JSON.stringify(res.data));
-    //                     console.log('Products from Storage: ',localStorage.getItem('Products'));
-
-    //                       }) // re-direct to login on successful register
-    //     .catch(err =>
-    //     console.log('Product err: ',err.message)
-    //     );
+  
     // }
     UNSAFE_componentWillReceiveProps(nextProps){
         if(nextProps.products){
@@ -80,11 +70,12 @@ import ProductCards from "./cards"
         if(nextProps){
             console.log('Home Products Next Props',nextProps)
             if(nextProps.products){
-               if(nextProps.products.length>=8){ 
+                let featuredProducts = nextProps.products.filter(e => e.productType==='Featured product')
+               if(featuredProducts.length>=8){ 
                     var newProducts=[];
                     for(let i=0;i<=11;i++){
-                        console.log('ForLoopNextProps====',nextProps.products[i])
-                        newProducts.push(nextProps.products[i])
+                        console.log('ForLoopNextProps====',featuredProducts[i])
+                        newProducts.push(featuredProducts[i])
                     }
                     this.setState({
                         products:newProducts,
@@ -93,7 +84,7 @@ import ProductCards from "./cards"
                  }
                 else{
                     this.setState({
-                        products:nextProps.products,
+                        products:featuredProducts,
                         loading:false           
                     })
                 }
@@ -103,6 +94,11 @@ import ProductCards from "./cards"
     }}
     componentDidMount(){
       
+        //call featured products api
+            this.props.getFeaturedProducts()
+            this.props.countProducts()
+
+
         //Calling UserCart API...
         if(this.props.auth.user){
             this.props.auth.user.id?
@@ -115,27 +111,30 @@ import ProductCards from "./cards"
             this.props.gmailLogin(query.token);
         //   localStorage.setItem("jwtToken", query.token);
           this.props.history.push("/");
+
         console.log('Home DidMount====',this.props.products)
         }
        if(this.props.products!==undefined){  
-        if(this.props.products.length>=8){ 
-            var newProducts=[];
-            for(let i=0;i<=11;i++){
-                console.log('ForLoopNextProps====',this.props.products[i])
-                newProducts.push(this.props.products[i])
+           let featuredProducts = this.props.products.filter(e => e.productType==='Featured product')
+           console.log(featuredProducts)
+            if(featuredProducts.length>=8){ 
+                var newProducts=[];
+                for(let i=0;i<=11;i++){
+                    console.log('ForLoopNextProps====',featuredProducts[i])
+                    newProducts.push(featuredProducts[i])
+                }
+                this.setState({
+                    products:newProducts,
+                    loading:false           
+                })
             }
-            this.setState({
-                products:newProducts,
-                loading:false           
-            })
-         }
-        else{
-            this.setState({
-                products:this.props.products,
-                loading:false           
-            })
-        }
-        }
+            else{
+                this.setState({
+                    products:featuredProducts,
+                    loading:false           
+                })
+            }
+          }
         }
     changer(){
         this.props.history.push('/collections')
@@ -416,7 +415,7 @@ const mapStateToProps = (state) => {
     console.log('Home ki Top product',state.products.products)
   
     return{
-      products: state.products.products,
+      products: state.products.featuredProducts,
       loading: state.products.loading,
       cart:state.cart,
       auth: state.auth,
@@ -427,6 +426,6 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    {   wishList,gmailLogin,userCart}
+    {   wishList,gmailLogin,userCart, getFeaturedProducts, countProducts}
 
   )(Home);

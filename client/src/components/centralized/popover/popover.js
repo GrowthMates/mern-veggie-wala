@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+import { logoutUser } from "../../../actions/authActions";
+import { connect } from "react-redux";
 import { Popover,
          PopoverHeader,
          PopoverBody,
@@ -11,6 +13,10 @@ const Example = (props) => {
 
   const toggle = () => setPopoverOpen(!popoverOpen);
   // window.onclick(setPopoverOpen(false))
+  const logout = () => {
+    props.logoutUser()
+    setPopoverOpen(false)
+  }
 
   return (
     <div style={{position:'absolute'}}>
@@ -24,7 +30,7 @@ const Example = (props) => {
         {props.user.id?
           <ul id='popover-list'>
             <li onClick={()=>{setPopoverOpen(false)}}>Account</li>
-            <li onClick={()=>{setPopoverOpen(false)}}>Logout</li>
+            <li onClick={()=>logout()}>Logout</li>
           </ul>
         : (
           <ul id='popover-list'>
@@ -41,4 +47,4 @@ const Example = (props) => {
   );
 }
 
-export default Example;
+export default connect(null,{logoutUser})(Example);

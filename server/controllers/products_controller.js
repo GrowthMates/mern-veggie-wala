@@ -14,7 +14,7 @@ const { Item, Review} = require('../models/socketTest')
 var nodemailer = require('nodemailer');
 module.exports = {
     
-    readAllProducts(req, res){
+   
 
         // var transport = {
         //     host: 'smtp.gmail.com',
@@ -48,8 +48,53 @@ module.exports = {
         //     console.log('Email sent: ' + info.response);
         //   }
         // });
-        console.log('ReadAllProducts called===',req.headers.referer)
-        Product.find().exec((err, products)=>{    //.limit(10)
+
+        
+        // GET NUMBER OF PRODUCTS...
+        countProducts(req, res){
+            console.log('count----',req.query,req.body)
+
+            let countFindArgs = {};
+
+            for(key in req.body.filters){
+               if(req.body.filters[key].length > 0){
+                  
+                       countFindArgs[key] = req.body.filters[key]
+                 
+               }
+               
+           }
+        console.log('countFindArgs',countFindArgs)
+            Product.countDocuments({...countFindArgs,...req.query}, function(err, result){
+                if(err) console.log(err)
+                if(result) {
+                    res.json(result)
+                }
+            })
+        },
+
+        readAllProducts(req, res){
+
+        console.log('ReadAllProducts called===',req.headers.referer, req.query,req.body)
+        const skip = req.body.skip?req.body.skip:0
+        const limit = req.body.limit?req.body.limit:3
+        let findArgs = {};
+
+         for(key in req.body.filters){
+            if(req.body.filters[key].length > 0){
+               
+                findArgs[key] = req.body.filters[key]
+
+            }
+            
+        }
+        console.log('findArgs',findArgs)
+        
+        Product.find({...req.query,...findArgs})
+               .sort({_id:-1})
+               .skip(skip)
+               .limit(limit)
+               .exec((err, products)=>{    //.limit(10)
             if(err){
                 console.log('All products err--------',err);
                 return res.status(400).json(err.message);
@@ -60,7 +105,7 @@ module.exports = {
             }
             // console.log('Products Find====',products)
            
-            res.status(200).send(products.reverse());
+            res.status(200).send(products);
         })
         
 

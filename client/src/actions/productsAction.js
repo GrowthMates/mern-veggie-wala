@@ -7,7 +7,7 @@ import {
   CART_PRODUCTS,
   ADD_CART,
   PROCEED_PRODUCT,
-  UPDATE_PRODUCT,
+  // UPDATE_PRODUCT,
   CONFIRM_ORDER,
   DEL_APPROVALS,
   TOTAL_PRICE,
@@ -20,14 +20,15 @@ import {
   STATUS_UPDATE,
   PROGRESS_START,
   PROGRESS_END,
+  GET_FEATURED_PRODUCTS,
+  COUNT_PRODUCTS,
 } from "./types";
-import {socket} from '../components/centralized/navbar'
+// import {socket} from '../components/centralized/navbar'
 
-var arr=JSON.parse(localStorage.getItem('CartProduct')) || [];
-var getCartProdLocalStorage=[]
 
- export const getProducts = (caller) => dispatch => {
-  console.log(`GEtPRoducts called by ${caller}=====`)
+
+ export const getProducts = (validations) => (dispatch, getState) => {
+  console.log('GEtPRoducts called by =====',validations)
   // socket.emit("call_products")
   // socket.on("get_products",(products)=>{
   //   console.log('socket products====',products)
@@ -41,18 +42,79 @@ var getCartProdLocalStorage=[]
   // })
   
     axios
-      .get("/api/products")
+      .post("/api/products/?productStatus=online",validations)
       .then((res) => {
 
                       console.log("Products success", res)
+                      if(res.data){
+                        console.log(getState().products.products,validations.skip)
+                        return(
+                          getState().products.products && validations.skip>0 ?
+                            dispatch({
+                                  type: GET_PRODUCTS,
+                                  payload: [...getState().products.products,...res.data]
+                                })
+                            :
+                            dispatch({
+                              type: GET_PRODUCTS,
+                              payload: res.data
+                            })
+                         )    
+                      }
+                        }) 
+      .catch(err => { 
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response?err.response.data:err.message
+        })
+        console.log("Products success", err)}
+      );
+  };
+ 
+  //GET LENGTH OF PRODUCTS...
+ export const countProducts = (validations) => (dispatch,getState) => {
+  console.log('Count Products=====')
+ 
+  
+    axios
+      .post("/api/countProducts/?productStatus=online",validations)
+      .then((res) => {
+
+                      console.log("Count Products success", res.data)
+                        return(
+                            dispatch({
+                                  type: COUNT_PRODUCTS,
+                                  payload: res.data
+                                })
+                            
+                         )    
+                        }) 
+      .catch(err => { 
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response?err.response.data:err.message
+        })
+        console.log("Products success", err)}
+      );
+  };
+ 
+ // GET FEATURED PRODUCTS 
+  export const getFeaturedProducts = (caller) => dispatch => {
+  console.log(`GEtPRoducts called by ${caller}=====`)
+
+    axios
+      .post("/api/products/?productStatus=online&productType=Featured product")
+      .then((res) => {
+
+                      console.log("Get Featured Products success", res)
                       return(
                          dispatch({
-                              type: GET_PRODUCTS,
+                              type: GET_FEATURED_PRODUCTS,
                               payload: res.data
                             })
                          
                             )    
-                        }) // re-direct to login on successful register
+                        }) 
       .catch(err => { 
         dispatch({
           type: GET_ERRORS,
@@ -104,14 +166,12 @@ var getCartProdLocalStorage=[]
             userId:product.userId,
             priceTotal:product.item.price*product.quantity
           }
-            console.log('No.8:--OurArray-----',arr)
+          
         // Checking data (available || not) in Storage //JSON.parse(localStorage.getItem('CartProduct'))!=null && JSON.parse(localStorage.getItem('CartProduct')).length!=0
 
             if(cartCurrentState.cart){
               
-                  console.log('No2:--If K Andar ka GetCart-----',getCartProdLocalStorage)
-
-                  getCartProdLocalStorage = JSON.parse(localStorage.getItem('CartProduct'))
+                  
                   //Function to match items
                   function checkItem(item){
                       return item.filterProduct._id==productCart.productId

@@ -9,6 +9,8 @@ import {userCart, getSingleProduct} from '../../actions/productsAction'
 import {addToCart} from '../../actions/productsAction'
 import ProductCard from '../centralized/cards'
 import { CloudinaryContext } from 'cloudinary-react';
+import ReadOnlyRating from "../centralized/Reviews/readOnlyRating"
+
 
 
 
@@ -148,7 +150,7 @@ onChangeQty(e){
 
     render(){
         console.log('Product Compnents',this.state.product,this.state.quantity,this.props)
-        var currProduct=this.state.product
+        let currProduct=this.state.product
         if(this.state.redirect){
             return <Redirect to='/user/login'/>
         }
@@ -162,7 +164,7 @@ onChangeQty(e){
                     </div>
                </section>
                {this.state.product!==undefined?(
-
+                
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 col-lg-6 col-sm-6">
@@ -171,6 +173,7 @@ onChangeQty(e){
                      </div>
                      <div className='row' style={{overflowX:'auto', marginTop:'10px',padding:'0 1rem'}}> 
                          {this.state.product.images.map((images=>{
+                             console.log(currProduct.starRating)
                              return <div className='col-lg-4 col-md-4 '><img className='cursor-pointer' src={images.image} alt={this.state.product.name} width='80%' height='70%' onClick={()=>{this.setState({displayImage:images.image})}}/></div>
                          }))}
                       </div> 
@@ -183,6 +186,7 @@ onChangeQty(e){
                         <div className="container">
                             <div className="product-data">
                                <h3>{this.state.product.name}</h3>
+                               <ReadOnlyRating value={currProduct.starRating.length>0?Math.round(currProduct.starRating.reduce((a,b)=>a+b)/currProduct.starRating.length):0}/>
                                <h5>Rs.{this.state.product.price}</h5>
                                  <h5 className="product-data-desc">{this.state.product.description}</h5>
                               <div className="container">
@@ -237,17 +241,17 @@ onChangeQty(e){
                                   <div className="col-md-12 col-lg-12 col-sm-12 size-qty" >
                                         <div className="col-md-8 col-lg-8 col-sm-8 raw-data">
                                                <table>
-                                                   <tr>
+                                                   {/* <tr>
                                                        <th>SKU:  </th>
                                                        <td> 99 </td>
-                                                   </tr>
+                                                   </tr> */}
                                                    <tr>
                                                        <th> CATEGORIES:</th>
                                                        <td> {this.state.product.category}  </td>
                                                    </tr>
                                                    <tr>
                                                        <th>     TAGS:  </th>
-                                                       <td> $200-$300 </td>
+                                                       <td> {this.state.product.tag}  </td>
                                                    </tr>
                                                    <tr>
                                                        <th className='share-icons'> SHARE: </th>
@@ -318,9 +322,9 @@ onChangeQty(e){
 
                     <div className='row' style={{margin:'auto',paddingBottom:'90px'}}>
                         
-                            {[0,1,2].map(()=>{
+                            {[0,1,2,3].map(()=>{
                                 return(
-                                <div className='col-lg-4 col-md-4 col-sm-6'>
+                                <div className='col-lg-3 col-md-4 col-sm-6'>
                                 <div style={{width:'68%'}}>
                                      <ProductCard item={this.state.product}/>
                                 </div>

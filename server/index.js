@@ -166,7 +166,7 @@ setTimeout(()=>{
     //Add a item to cart.
     app.post('/api/user-data/addToCart', userController.addToCart);
     //Add a item to cart.
-    // app.post('/api/cart-owner/send-message', cartOwnerController.sendSMS);
+    app.post('/api/cart-owner/send-message', cartOwnerController.sendSMS);
     //update cart item
     app.put('/api/user-data/updateCart', userController.updateCart);
     //view cart items
@@ -247,7 +247,7 @@ setTimeout(()=>{
 
     app.post('/api/del/wishList', userController.delWishList)
 
-    // app.get("/review/:id", productsController.review) 
+    app.post("/api/review/make/:id", productsController.makeReview) 
     // app.get("/getReview/:id", productsController.viewReview) 
     // app.get("/item/", productsController.createItem) 
 

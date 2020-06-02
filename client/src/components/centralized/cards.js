@@ -2,11 +2,12 @@ import React from 'react';
 import "./style/home.css"
 import {Link} from "react-router-dom"
 import { Transformation, Image } from "cloudinary-react";
+import Rating from '@material-ui/lab/Rating';
 
 
 
 const ProductCards = ({item}) =>{
-    
+    const starRating = item.starRating?.length>0?Math.round(item.starRating.reduce((a,b)=>a+b)/item.starRating.length):0;
     return(
 
         
@@ -35,7 +36,9 @@ const ProductCards = ({item}) =>{
                  </div>
                  <div className="col-5">
                 <h5 style={{textAlign:'right', width:'100%'}}>1(Kg)</h5>
-                <div style={{marginTop:'5px'}}><i>*****</i></div>
+                <div style={{marginTop:'5px'}}> 
+                       <Rating name="read-only small-size" value={starRating} size='small' style={{fontSize:'0.9rem'}} readOnly />
+                </div>
                  </div>
                  </div> 
                 {/* <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}

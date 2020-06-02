@@ -22,6 +22,7 @@ import {
   PROGRESS_END,
   GET_FEATURED_PRODUCTS,
   COUNT_PRODUCTS,
+  CREATE_PRODUCT_REVIEW,
 } from "./types";
 // import {socket} from '../components/centralized/navbar'
 
@@ -42,7 +43,11 @@ import {
   // })
   
     axios
-      .post("/api/products/?productStatus=online",validations)
+      .post("/api/products/?productStatus=online",validations,{
+        onUploadProgress:progressEvent => {
+          console.log(Math.round((progressEvent.loaded / progressEvent.total)*100))
+        }		
+      })
       .then((res) => {
 
                       console.log("Products success", res)
@@ -275,8 +280,8 @@ import {
     axios
       .get(`/api/user-data/cart/${id}`)
       .then((res) => {
-                      localStorage.setItem('UserCart',JSON.stringify(res.data))
-                      console.log('Cart in local-----:',localStorage.getItem('UserCart') )
+                      // localStorage.setItem('UserCart',JSON.stringify(res.data))
+                      // console.log('Cart in local-----:',localStorage.getItem('UserCart') )
                       
                       if(res.data.products!=null||res.data.products!=''){
                         for(let i=0;i<res.data.products.productsList.length;i++){
@@ -567,6 +572,16 @@ export const updateProductStatus = (data) => dispatch => {
   })
 }
 
+
+export const createReview = (data) => dispatch => {
+
+  axios.post(`/api/review/make/${data.id}`,data).then((res) => {
+    if(res.data){
+      console.log('Reviews done----',res.data)
+    }
+  }).catch(err => console.log(err))
+
+}
 
   
 

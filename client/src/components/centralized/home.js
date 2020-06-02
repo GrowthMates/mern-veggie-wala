@@ -26,6 +26,7 @@ import {gmailLogin} from '../../actions/authActions'
 import {getFeaturedProducts, countProducts} from '../../actions/productsAction'
 import queryString from "query-string";
 import ProductCards from "./cards"
+import MakeReviwes from "./Reviews/makeReview"
 
 // import socketIOClient from "socket.io-client";
 // var socket=socketIOClient("http://localhost:5000/")
@@ -215,6 +216,10 @@ import ProductCards from "./cards"
 
                   
                 <div>
+
+                {/* //////// Create Reviews Modal ///////*/}
+
+                    {/* <MakeReviwes/> */}
                     
                 </div>
                <div id="mid-section-home">

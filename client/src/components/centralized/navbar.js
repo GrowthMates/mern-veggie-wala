@@ -334,7 +334,7 @@ class Navbar extends Component{
                         <li><NavLink exact to='/contact' activeClassName='nav-active-link'>Contact Us</NavLink></li>
                         <li><NavLink exact to='/about' activeClassName='nav-active-link'>About Us</NavLink></li>
                         <li><NavLink exact to='/collections' activeClassName='nav-active-link'>Products</NavLink></li>
-                        <li><NavLink exact to='/user/login' activeClassName='nav-active-link'>Sign In</NavLink></li>
+                        {/* <li><NavLink exact to='/user/login' activeClassName='nav-active-link'>Sign In</NavLink></li> */}
                         <li><NavLink exact to='/cart' activeClassName='nav-active-link'>Cart</NavLink></li>
                     </ul>
                 </div>

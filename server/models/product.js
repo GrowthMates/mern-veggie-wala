@@ -43,10 +43,15 @@ const Product = new Schema({
         tag:{
                 type:String,
         },
+        starRating:Array,
         date: {
                 type: Date,
                 default: new Date()
-            }
+            },
+        review: [{
+        type: Schema.Types.ObjectId,
+        ref: "ProductReview"
+                }]    
 
         
         // img:{

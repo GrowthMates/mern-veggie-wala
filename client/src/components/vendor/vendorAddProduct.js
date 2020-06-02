@@ -58,7 +58,7 @@ class AddProduct extends Component {
         })
     }
 
-    imageOnChange=(e)=>{
+    imageOnChange=(e)=>{    
         let {imagePreviewUrl, finalImages} = this.state;
         let  sendImage = finalImages
         // this.setState({image: e.target.value});

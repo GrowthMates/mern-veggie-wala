@@ -10,6 +10,7 @@ import {addToCart, getProducts, userCart, countProducts} from '../../actions/pro
 import cart from '../users/userCart/cart';
 import ProductCards from "../centralized/cards"
 import { CloudinaryContext } from 'cloudinary-react';
+import ReadOnlyRating from "../centralized/Reviews/readOnlyRating"
 import Filteration from "./FilterCheck"
 import Axios from 'axios';
 // import GreenButton from "../centralized/buttons/greenButton"
@@ -35,7 +36,7 @@ class Collections extends Component{
             fruitsList:false,
             vegetablesList:false,
             skip:0,
-            limit:3,
+            limit:6,
             productsLength:undefined,
             selectedCategory:'',
             selectedTag:'',
@@ -177,7 +178,7 @@ class Collections extends Component{
         })
     }
 
-    render(props){
+    render(){
         console.log(this.state.filters)
         console.log("Collection of Products render sr: ", this.props)
         const {productsLength, products} = this.state
@@ -243,7 +244,7 @@ class Collections extends Component{
                                     width="35px" height="35px"
                                     onClick={this.changer2}
                                     />
-                                    <span className="">Showing 1 - 12 of 16 results</span>
+                                    <span className="">Showing 1 - {products?.length || 0} of {productsLength||0} results</span>
                                     </div>
                                     <div className="col-lg-3 col-md-3 item-sort">
                                         <div className="dropdown">
@@ -286,7 +287,7 @@ class Collections extends Component{
                                     <div className="col-md-8">
                                     <div className="card-body horizontal-cards" >
                                         <h2 className="card-title">{item.name}</h2>
-                                        <p className="card-text">******</p>
+                                        <p className="card-text"><ReadOnlyRating value={item.starRating?.length>0?Math.round(item.starRating.reduce((a,b)=>a+b)/item.starRating.length):0}/></p>
                                         <p className="card-text">Rs. {item.price}</p>
                                         <p className="card-text" style={{margin:'10px 0',fontWeight:'300'}}>{item.description.substring(0,78)+"..."}</p>
                                         {item.stock>0

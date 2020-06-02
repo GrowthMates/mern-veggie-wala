@@ -1,7 +1,7 @@
 const Product = require('../models/product');
-const mongoose = require('mongoose')
 const NewCart = require('../models/admin/newCart')
-const { Item, Review} = require('../models/socketTest')
+const Review = require('../models/productReviews')
+// const { Item, Review} = require('../models/socketTest')
 
 // var MySchema = mongoose.model('Product')
 // Product.update({"name": "erer", "cartStock.cart" : "cart 1" } ,
@@ -77,7 +77,7 @@ module.exports = {
 
         console.log('ReadAllProducts called===',req.headers.referer, req.query,req.body)
         const skip = req.body.skip?req.body.skip:0
-        const limit = req.body.limit?req.body.limit:3
+        const limit = req.body.limit?req.body.limit:12
         let findArgs = {};
 
          for(key in req.body.filters){
@@ -130,25 +130,32 @@ module.exports = {
 //     },
 
  
-//     review(req, res) {
-//         // Create a new note and pass the req.body to the entry
-//         Review.create({stars:0,review:'L Lelo'})
-//           .then(function(dbReview) {
-//             // If a Review was created successfully, find one Product with an `_id` equal to `req.params.id`. Update the Product to be associated with the new Review
-//             // { new: true } tells the query that we want it to return the updated Product -- it returns the original by default
-//             // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-//             return Item.findOneAndUpdate({ _id: req.params.id }, {$push:{ review: dbReview._id} }, { new: true });
-//           })
-//           .then(function(dbProduct) {
-//             // If we were able to successfully update a Product, send it back to the client
-//             console.log('Reveiw create===>>>', dbProduct)
-//             res.json(dbProduct);
-//           })
-//           .catch(function(err) {
-//             // If an error occurred, send it to the client
-//             res.json(err);
-//           });
-//       },
+    makeReview(req, res) {
+        // Create a new note and pass the req.body to the entry
+       try{
+
+           Review.create(req.body)
+              .then(function(dbReview) {
+                // If a Review was created successfully, find one Product with an `_id` equal to `req.params.id`. Update the Product to be associated with the new Review
+                // { new: true } tells the query that we want it to return the updated Product -- it returns the original by default
+                // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+                return Product.findOneAndUpdate({ _id: req.params.id }, {$push:{ review: dbReview._id, starRating: req.body.star} }, { new: true });
+              })
+              .then(function(dbProduct) {
+                // If we were able to successfully update a Product, send it back to the client
+                console.log('Reveiw create===>>>', dbProduct)
+                res.json(dbProduct);
+              })
+              .catch(function(err) {
+                // If an error occurred, send it to the client okay>
+           console.log('REview catch err====',err)
+                res.json(err);
+              });
+       }catch(error){
+           console.log('try catch err====',error)
+           res.status(422).json({serverError:"Server Error, Please refresh the page and try again",error})
+       } 
+      },
 //   viewReview(req, res){
 //     Item.findOne({_id:req.params.id})
 //     // ..and populate all of the notes associated with it

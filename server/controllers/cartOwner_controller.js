@@ -8,7 +8,7 @@ module.exports={
  sendSMS(req,res){   
 client.messages
   .create({
-     body: req.body.SMS,
+     body: 'You Have successfully withdraw the amount of Rs.15000.',//req.body.SMS,
      from: '+17027665765',
      to: '+923072468869'
    })

@@ -5,8 +5,7 @@ import { connect } from "react-redux";
 import { Popover,
          PopoverHeader,
          PopoverBody,
-         ListGroup,
-         ListGroupItem } from 'reactstrap';
+         } from 'reactstrap';
 
 const Example = (props) => {
   const [popoverOpen, setPopoverOpen] = useState(false);

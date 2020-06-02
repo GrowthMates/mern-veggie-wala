@@ -32,8 +32,8 @@ export default class Footer extends Component{
                      <BrowserRouter>
                         <div className='upperLink' >
 
-                          <Link> About Our Shop  </Link>
-                          <Link> Customer Care   </Link>
+                          <Link to='/about'> About Our Shop  </Link>
+                          <Link to='/contact'> Customer Care   </Link>
                           {/* <Link> Our Blogs  </Link> */}
                           <Link> New Products  </Link>
                           {/* <Link> Sexure Shipping  </Link> */}

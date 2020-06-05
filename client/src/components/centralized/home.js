@@ -26,6 +26,7 @@ import {gmailLogin} from '../../actions/authActions'
 import {getFeaturedProducts, countProducts} from '../../actions/productsAction'
 import queryString from "query-string";
 import ProductCards from "./cards"
+import ThankYouNote from "../products/thankYouNote"
 import MakeReviwes from "./Reviews/makeReview"
 
 // import socketIOClient from "socket.io-client";
@@ -162,6 +163,7 @@ import MakeReviwes from "./Reviews/makeReview"
         return(
 
             <div id="home-container">
+                <ThankYouNote/>
              
              <section className='col-lg-12 homeImg'> 
              <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
@@ -173,7 +175,7 @@ import MakeReviwes from "./Reviews/makeReview"
                     <div className="carousel-inner" style={{border:'0px'}}>
                         <div className="carousel-item active">
                          <img className="d-block w-100" src={Slide1} alt="First slide" />
-                         <div className="shop-now-btn-1 carousel-caption d-none d-md-block">
+                         <div className="shop-now-btn-1 carousel-caption d-md-block">
                         <Link to='/collections'>
                         <button className="shop-button">
                             Shop Now
@@ -183,7 +185,7 @@ import MakeReviwes from "./Reviews/makeReview"
                         </div>
                         <div className="carousel-item">
                          <img className="d-block w-100" src={Slide2} alt="Second slide"/>
-                         <div className="shop-now-btn-2 carousel-caption d-none d-md-block">
+                         <div className="shop-now-btn-2 carousel-caption d-md-block">
                          <Link to='/collections'>
                         <button className="shop-button">
                             Shop Now
@@ -193,7 +195,7 @@ import MakeReviwes from "./Reviews/makeReview"
                         </div>
                         <div className="carousel-item">
                          <img className="d-block w-100" src={Slide3} alt="Third slide"/>
-                         <div className="shop-now-btn-3 carousel-caption d-none d-md-block">
+                         <div className="shop-now-btn-3 carousel-caption d-md-block">
                          <Link to='/collections'>
                         <button className="shop-button">
                             Shop Now
@@ -239,8 +241,8 @@ import MakeReviwes from "./Reviews/makeReview"
                         <img src={Homeimages.upperLeafs} alt='Leafs' id="upper-leafs-img"/>
                    <div className='container'>
                        
-                    <div className='row' style={{width:'100%', alignItems: 'center'}} >
-                        <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 middleLeft' >
+                    <div className='row' style={{ alignItems: 'center'}} >
+                        <div className='col-12 col-sm-12 col-md-4 col-lg-4 middleLeft' >
                             
                             <h4><img src={fresh} alt=''/> Fresh</h4>
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
@@ -256,12 +258,12 @@ import MakeReviwes from "./Reviews/makeReview"
 
                         {/* center image... */}
                         {/* <div className='col-lg-1 col-md-1 col-sm-12 col-xs-12'></div> */}
-                        <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12'  >
+                        <div className='col-12 col-sm-12 col-md-4 col-lg-4 '  >
                             <img src={Homeimages.greenMango} height='auto' width="100%" alt=''/>
                         </div>
                          {/* <div className='col-lg-1 col-md-1 col-sm-12 col-xs-12' ></div> */}
 
-                        <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 middleRight' >
+                        <div className='col-12 col-sm-12 col-md-4 col-lg-4 middleRight' >
                             <h4>Tasty <img src={Homeimages.tasteTongue} alt=''/></h4>
                             
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
@@ -286,24 +288,24 @@ import MakeReviwes from "./Reviews/makeReview"
                     <div className='container'>
 
                     <div className='row' style={{position:'relative', padding:'5%'}}>
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow ' >
+                        <div className='col-12 col-sm-12 col-md-6  col-lg-3 midLow ' >
 
                             <p className="round-p"><img  src={Homeimages.truckIcon} style={{width:"6rem"}} alt=''/></p>
                             <h4>Fast Delivery</h4>
                             <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}}>Delivery wIthin 12 hour</p>
                         </div>
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow' >
+                        <div className='col-12 col-sm-12 col-md-6  col-lg-3 midLow ' >
                         <p className="round-p"><img  src={Homeimages.approvedIcon} style={{width:"3rem"}} alt=''/></p>
                             <h4>Best Services</h4>
                             <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}} >Support online 24/7</p>
                         </div>
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow' >
+                        <div className='col-12 col-sm-12 col-md-6  col-lg-3 midLow ' >
                         <p className="round-p"><img src={Homeimages.listIcon} style={{width:"3rem"}} alt=''/></p>
                             <h4>All-in-one</h4>
                             <p style={{color: '#949494',fontSize: '0.8em', opacity: '0.9'}} >Fruits & Vegetable</p>
                         </div>
 
-                        <div className='col-lg-3 col-md-6 col-sm-12 col-xs-12 midLow' >                          
+                        <div className='col-12 col-sm-12 col-md-6  col-lg-3 midLow ' >                          
                  
 
                         <p className="round-p"><img src={Homeimages.peopleLove} style={{width:"4rem"}} alt=''/></p>
@@ -337,7 +339,7 @@ import MakeReviwes from "./Reviews/makeReview"
                         (this.state.loading===true)?(<HomeLoader/>):(
                          this.state.products.map((item,index) => {  
                          return(
-                            <div key={item._id} className=' col-xs-3 col-sm-3 col-md-3 col-lg-3 ' onClick={this.p1} >
+                            <div key={item._id} className=' col-12 col-sm-6 col-md-6 col-lg-3 ' onClick={this.p1} style={{display:'flex', justifyContent:'center'}} >
                                 <ProductCards item={item} />
                             </div>)}
                              )
@@ -400,7 +402,7 @@ import MakeReviwes from "./Reviews/makeReview"
                       
                           <div style={{position:'relative'}}>  
                             <form>
-                               <input type='text' name='newsfeed' placeholder='Enter your Email to Subscribe' />
+                               <input type='text' name='newsfeed' placeholder='Enter your Email' />
                                <button>Subscribe</button>
                            </form>
                           </div>

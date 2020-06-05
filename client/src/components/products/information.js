@@ -349,12 +349,19 @@ componentDidMount(){
                             <tr>
                               <td width='122.22'>Shipping </td>                                                          
                               <td className='subTotal'>Rs. {shipping}</td>
+                            </tr> 
+
+                            <tr>
+                              <td width='122.22'>Payment </td>                                                          
+                           <td className='subTotal'>Cash on Delivery</td>
                             </tr>  <br/> <br/>
 
                             <tr>
                               <td width='122.22'>Total </td>                                                          
                            <td className='total'>Rs. {total}</td>
                             </tr>
+                            
+                            
                        
                         </div>
                       </div>                  

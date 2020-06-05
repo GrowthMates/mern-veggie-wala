@@ -23,6 +23,7 @@ import {
   GET_FEATURED_PRODUCTS,
   COUNT_PRODUCTS,
   CREATE_PRODUCT_REVIEW,
+  OPEN_NOTE,
 } from "./types";
 // import {socket} from '../components/centralized/navbar'
 
@@ -333,13 +334,12 @@ import {
         // localStorage.removeItem('CartProduct')
         
         console.log('proceed ka data action se=== ', res.data)
-        dispatch({
-          type: PROCEED_PRODUCT,
-          payload: res.data
-        })
+        
+        
         if(res.data.success){
           dispatch(emptyCart());
           history.push('/')
+          dispatch(openNote(true))
         }
       })
       .catch(err => {
@@ -485,7 +485,7 @@ import {
     .post('/api/getWishList',data)
     .then(res => {
       console.log(res)
-      if(res.data==""){
+      if(!res.data){
         dispatch({
           type: WISHLIST,
           payload: undefined
@@ -585,6 +585,12 @@ export const createReview = (data) => dispatch => {
 
   
 
+export const openNote = (data) => {
+  return{
+      type: OPEN_NOTE,
+      payload: data
+    }
   
+}  
   
   

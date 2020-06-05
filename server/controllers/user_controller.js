@@ -273,96 +273,102 @@ module.exports = {
             console.log(result)
            }
         })
-
-        let newProceed = new Proceed({
-            fname,
-            lname,
-            city,
-            address,
-            appartment,
-            number,
-            area,
-            block,
-            timeStamp,
-            status: 'pending',
-            // orderN0,
-            cartProducts: crtProduct
-              
-        });
-
-        newProceed.save().then(async (data)=>{
-            if(block){
-                let cartId;
-                if(block<6&&block>0){
-                    console.log('Cart 1 Selected=====')
-                     cartId= await avilableCarts[0]._id
-                    
-                }
-                else if(block<14&&block>5){
-                    //cart 2
-                    console.log('Cart 2 Selected=====')
-                     cartId= await avilableCarts[1]._id
-                    
-                }
-                else if(block<21&&block>13){
-                    //cart 3
-                    console.log('Cart 3 Selected=====')
-                     cartId= await avilableCarts[2]._id
-                   
-                }
-                NewCart.findByIdAndUpdate(cartId,{$push:{orders:data}}).exec((err, result)=>{
-                    if(err){
-                        console.log('err adminCart update se===',err.message)
-                        return res.status(400).json(err.message)
-                     }
-                    res.status(200).json({success:true,result})
-
-                })
-
-         }  
-
-                cartProducts.forEach( (item,i)=>{
-                    console.log('Index dekho===',i,data)
-                   Product.findById(item.filterProduct._id).then((product)=>{
-                       if(product.cartStock[0].stock<item.quantity){
-                           return  res.status(400).json('Sorry this product is out of Stock!')
-                       }
-                       product.cartStock[0].stock-= item.quantity
-                       product.stock-=item.quantity
-                       currentProduct=product
-
-
-                       product.markModified("cartStock")
-                       product.save()
-                       .then(data => {
-                           console.log('stock cart vise succes',data)
-                        //    NewCart.findByIdAndUpdate(cartId,{$push:{orders:data}}).exec((err, result)=>{
-                        //     if(err){
-                        //         console.log('err adminCart update se===',err.message)
-                        //         return res.status(400).json(err.message)
-                        //      }
-                        //     res.status(200).json({success:true,result})
-        
-                        // })
-                        //    res.status(200).send(data)
-                       })
-                       .catch(err => {
-                           console.log('stck cart vse sy',err.message)
-                        //    res.status(200).send(data)
-
-                       })
-                        console.log('ProductUpdate success: ',product)
-                        // if(cartProducts[i]===cartProducts[cartProducts.length-1]){ 
-                        //    console.log('stock cart vise',data,i)
-                        // //    res.status(200).json({success:true, data})
-                        // }
-                    })
-                    .catch(err => {
-                            console.log('Stock Change From Proceed Error-------',err.message)
-                            res.status(400).json(err.message)
-                        }); 
-               })
+        Proceed.find().then(prevOrders => {
+            let orderNo = Math.round(Math.random()*1000);
+            if(prevOrders){
+                orderNo = parseInt(prevOrders[prevOrders.length-1].orderNo)+1 || orderNo
+            }
             
+            let newProceed = new Proceed({
+                fname,
+                lname,
+                city,
+                address,
+                appartment,
+                number,
+                area,
+                block,
+                timeStamp,
+                status: 'pending',
+                orderNo,
+                cartProducts: crtProduct
+                  
+            });
+    
+            newProceed.save().then(async (data)=>{
+                if(block){
+                    let cartId;
+                    console.log('Cart 1 Selected=====')
+                    cartId= await avilableCarts[0]._id
+                    // if(block<6&&block>0){
+                        
+                    // }
+                    // else if(block<14&&block>5){
+                    //     //cart 2
+                    //     console.log('Cart 2 Selected=====')
+                    //      cartId= await avilableCarts[1]._id
+                        
+                    // }
+                    // else if(block<21&&block>13){
+                    //     //cart 3
+                    //     console.log('Cart 3 Selected=====')
+                    //      cartId= await avilableCarts[2]._id
+                       
+                    // }
+                    NewCart.findByIdAndUpdate(cartId,{$push:{orders:data}}).exec((err, result)=>{
+                        if(err){
+                            console.log('err adminCart update se===',err.message)
+                            return res.status(400).json(err.message)
+                         }
+                        res.status(200).json({success:true,orderNo})
+    
+                    })
+    
+             }  
+    
+                    cartProducts.forEach( (item,i)=>{
+                        console.log('Index dekho===',i,data)
+                       Product.findById(item.filterProduct._id).then((product)=>{
+                           if(product.cartStock[0].stock<item.quantity){
+                               return  res.status(400).json('Sorry this product is out of Stock!')
+                           }
+                           product.cartStock[0].stock-= item.quantity
+                           product.stock-=item.quantity
+                           currentProduct=product
+    
+    
+                           product.markModified("cartStock")
+                           product.save()
+                           .then(data => {
+                               console.log('stock cart vise succes',data)
+                            //    NewCart.findByIdAndUpdate(cartId,{$push:{orders:data}}).exec((err, result)=>{
+                            //     if(err){
+                            //         console.log('err adminCart update se===',err.message)
+                            //         return res.status(400).json(err.message)
+                            //      }
+                            //     res.status(200).json({success:true,result})
+            
+                            // })
+                            //    res.status(200).send(data)
+                           })
+                           .catch(err => {
+                               console.log('stck cart vse sy',err.message)
+                            //    res.status(200).send(data)
+    
+                           })
+                            console.log('ProductUpdate success: ',product)
+                            // if(cartProducts[i]===cartProducts[cartProducts.length-1]){ 
+                            //    console.log('stock cart vise',data,i)
+                            // //    res.status(200).json({success:true, data})
+                            // }
+                        })
+                        .catch(err => {
+                                console.log('Stock Change From Proceed Error-------',err.message)
+                                // res.status(400).json(err.message)
+                            }); 
+                   })
+                
+            })
         })
         // .catch(err => {
         //     console.log('ksadkjhsakj-------',err.message)

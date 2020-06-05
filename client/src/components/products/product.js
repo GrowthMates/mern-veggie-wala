@@ -10,6 +10,8 @@ import {addToCart} from '../../actions/productsAction'
 import ProductCard from '../centralized/cards'
 import { CloudinaryContext } from 'cloudinary-react';
 import ReadOnlyRating from "../centralized/Reviews/readOnlyRating"
+import { Transformation, Image } from "cloudinary-react";
+
 
 
 
@@ -59,7 +61,7 @@ componentDidMount(){
     let {singleProduct} = this.props
     if(singleProduct){
       if(singleProduct._id===id){
-          this.setState({product:singleProduct,displayImage:singleProduct.images[0].image})
+          this.setState({product:singleProduct,displayImage:singleProduct.images[0].imageId})
       }
     }
     // else{
@@ -94,7 +96,7 @@ componentWillReceiveProps(nextProps){
     if(nextProps.singleProduct){
        this.setState({
            product:nextProps.singleProduct,
-           displayImage:nextProps.singleProduct.images[0].image
+           displayImage:nextProps.singleProduct.images[0].imageId
        })
     }
 }
@@ -168,16 +170,38 @@ onChangeQty(e){
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 col-lg-6 col-sm-6">
+                <CloudinaryContext cloudName="dbevearco">  
                     <div className='product-img'>
-                       <img className="cursor-pointer" src={this.state.displayImage} alt={this.state.product.name}  width='100%' height='540' />
+                    <Image publicId={this.state.displayImage}>
+                                                    <Transformation
+                                                        crop="scale"
+                                                        width="540"
+                                                        height="540"
+                                                        dpr="auto"
+                                                        responsive_placeholder="blank"
+                                                    />
+                 </Image>
+                       {/* <img className="cursor-pointer" src={this.state.displayImage} alt={this.state.product.name}  width='100%' height='540' /> */}
                      </div>
+                     
                      <div className='row' style={{overflowX:'auto', marginTop:'10px',padding:'0 1rem'}}> 
                          {this.state.product.images.map((images=>{
                              console.log(currProduct.starRating)
-                             return <div className='col-lg-4 col-md-4 '><img className='cursor-pointer' src={images.image} alt={this.state.product.name} width='80%' height='70%' onClick={()=>{this.setState({displayImage:images.image})}}/></div>
+                             return <div className='col-lg-4 col-md-4 '>
+                                 <Image publicId={images.imageId} onClick={()=>{this.setState({displayImage:images.imageId})}} className='cursor-pointer'>
+                                                    <Transformation
+                                                        crop="scale"
+                                                        width="80"
+                                                        height="80"
+                                                        dpr="auto"
+                                                        responsive_placeholder="blank"
+                                                    />
+                 </Image>
+                                 {/* <img className='cursor-pointer' src={images.image} alt={this.state.product.name} width='80%' height='70%' onClick={()=>{this.setState({displayImage:images.image})}}/> */}
+                                 </div>
                          }))}
                       </div> 
-
+                       </CloudinaryContext> 
                    </div>
 
 
@@ -296,12 +320,12 @@ onChangeQty(e){
                         </div>
                         </div>
 
-                        <button data-toggle="collapse" data-target="#prod-detail-info"  aria-controls="prod-detail-info" onClick={()=>{this.setState(({rotate2})=>({rotate2:!rotate2}))}}>Additional Information  <span className='greaterThan' style={this.state.rotate2?{transform:' translateY(-8px) rotate(90deg)'}:void 0}>&gt;</span></button>
+                        {/* <button data-toggle="collapse" data-target="#prod-detail-info"  aria-controls="prod-detail-info" onClick={()=>{this.setState(({rotate2})=>({rotate2:!rotate2}))}}>Additional Information  <span className='greaterThan' style={this.state.rotate2?{transform:' translateY(-8px) rotate(90deg)'}:void 0}>&gt;</span></button>
                         <div class="collapse" id="prod-detail-info">
                         <div class="card card-body" style={{textAlign:'left'}}>
                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
                         </div>
-                        </div>
+                        </div> */}
 
                         <button data-toggle="collapse" data-target="#prod-detail-reviews"  aria-controls="prod-detail-reviews" onClick={()=>{this.setState(({rotate3})=>({rotate3:!rotate3}))}}>Reviews  <span className='greaterThan' style={this.state.rotate3?{transform:' translateY(-8px) rotate(90deg)'}:void 0}>&gt;</span></button>
                         <div class="collapse" id="prod-detail-reviews">

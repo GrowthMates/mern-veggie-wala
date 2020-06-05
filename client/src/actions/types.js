@@ -25,6 +25,7 @@ export const SET_ADMIN_AUTH = "SET_ADMIN_AUTH";
 export const PROGRESS_END = "PROGRESS_END";  
 export const GET_FEATURED_PRODUCTS = "GET_FEATURED_PRODUCTS";  
 export const COUNT_PRODUCTS = "COUNT_PRODUCTS";  
+export const OPEN_NOTE = "OPEN_NOTE";  
 
 
 

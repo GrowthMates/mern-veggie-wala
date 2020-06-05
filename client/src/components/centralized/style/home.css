@@ -45,7 +45,7 @@ body{
     right:-20%
 }
 .shop-button{
-    width: 15vw;
+    min-width: 15vw;
     height: auto;
     background: none;
     border: 1px double #7CA646;
@@ -209,6 +209,8 @@ body{
     top: 1rem;
     left: 1.5rem
 }
+
+
     
 .midLow h4{
     width: max-content;
@@ -529,15 +531,74 @@ cursor: pointer;
       margin: 0;  
   } */
 }
-@media (max-width: 775px) {
-    /* html{
-        width: 50rem !important;
-    }
-    ::-webkit-scrollbar{
+@media  (max-width: 767px) {
+
+    #upper-leafs-img{
         display: none;
     }
-    body{
-        display: none;
-        width: 50rem !important;
-    } */
+   
+    .threeMiddlw{
+        background: none;
+        padding: 0;
+        margin-top: 0 !important;
+        
+    }
+    .middleRight h4,.middleRight p, .middleLeft h4, .middleLeft p{
+        text-align: center !important;
+    }
+
+    .midLow{
+        margin-bottom: 20px;
+    }
+    .homeMiddle h6{
+        width: 100% !important;
+    }       
+   
+    #avocado-side-img{
+        width: 40%;
+    }
+
+    #featuredProducts #lowerLeaf{
+        width: 7rem;
+        top: 2.5rem;
+      }
+      .shop-button{
+        min-width: 24%;
+        font-size: .9em;
+        padding: 3px;
+      }
+
+      .shop-now-btn-1{
+        bottom: 20%;
+    }
+    .shop-now-btn-2{
+        bottom: 5%;
+    }
+    .shop-now-btn-3{
+        bottom: 10%;
+    }
+
+    .newsFeed img{
+        /* width: 47vw; */
+        top: -13%;
+    }
+
+    .newsFeed{
+        padding: 1em;
+    }
+    .newsFeed input[type=text]{
+        width: 100%;
+        
+    }
+    .newsFeed button{
+        right: -0.5%;
+    }
+
 }
+
+/* @media only screen and (max-width: 768px) {  
+    #featuredProducts #lowerLeaf{
+      width: 7rem;
+      top: 2.5rem;
+    }
+  }  */

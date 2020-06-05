@@ -252,9 +252,14 @@ var lineTotalArr = []
             
             return(
                 <div >
-                    <div className='container-fluid'>
+                        <section className='cart-upper col-lg-12'>
+                            <div className='cart-img-text'>
+                                
+                            </div>
+                        </section>
+                    <div className='container'>
                        {this.state.cartProducts?(
-                        <div style={{marginTop:'9rem'}}>
+                        <div style={{marginTop:'1rem', overflowX:'auto'}}>
                             <table class="table ">
                                 <thead className='cart-head'>
                                     <tr>
@@ -330,7 +335,7 @@ var lineTotalArr = []
                                     </div>
                                 </div>
                     </div>
-                                ): <h5 style={{margin:'100px', paddingTop: '20%',fontSize: '2em'}}>
+                                ): <h5 style={{ paddingTop: '10%',paddingBottom:'20%',fontSize: '2em'}}>
                                     Your cart is currently empty.<br/>Continue browsing <Link to='/collections'>here.</Link>
                                     </h5>}   
                 </div>

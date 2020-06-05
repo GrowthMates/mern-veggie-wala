@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const productReviews = Schema({
+const productReviews = new Schema({
     star: {
         type: Number,
         required: true

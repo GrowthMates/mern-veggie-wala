@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import shoppingcart from './images/shopping-cart.png'
 import './style/navbar.css';
 import {Link} from 'react-router-dom'
-import VeggieLogo  from "../centralized/images/VeggiewalaLogo.png";
+import VeggieLogo  from "../centralized/images/veggie-wala-logo.png";
 
 function myFunction(x) {
     x.classList.toggle("change");
@@ -80,7 +80,7 @@ export default class ResponsiveNavbar extends Component{
                         </div>
                         <div  className='grid-item2'>
                         <Link to="/">
-                            <img  src={VeggieLogo} className="img-fluid"/>
+                            <img  src={VeggieLogo} className="img-fluid" alt='VeggieWala Logo'/>
                         </Link>
                         </div>
                         <div  className='grid-item3'>
@@ -106,12 +106,14 @@ export default class ResponsiveNavbar extends Component{
                                     
                                 <div  className={this.state.active1 ? 'linkActive  inner-item2' : 'notActive inner-item2'}
                                   onClick={this.login.bind(this)}>
-                                        <div className='rightHamburger'>Login</div>
+                                        <div className='rightHamburger' style={{textAlign:'center'}}>Login</div>
                                 </div>
                          </div>
 
                          {/* divider for top ends here */}
 
+                         <div style={{transition:'0.25s'}}>
+                             
                         {this.state.hamburgerInner===true?
                         (
 
@@ -120,7 +122,7 @@ export default class ResponsiveNavbar extends Component{
                             <li><Link to='/contact'>Contact Us</Link></li>
                             <li><Link to='/about'>About Us</Link></li>
                             <li><Link to='/collections' >Products</Link></li>
-                            <li><Link to='combined'>Sign In</Link></li>
+                            {/* <li><Link to='combined'>Sign In</Link></li> */}
                             <li><Link to='/cart'>Cart</Link></li>
                             
                          </div>
@@ -133,6 +135,7 @@ export default class ResponsiveNavbar extends Component{
                           </div>
                         )
                         }
+                        </div>    
                         {/* Menu ka open hoga yhn  */}
 
 
@@ -144,8 +147,8 @@ export default class ResponsiveNavbar extends Component{
 
              {/* input search */}
 
-             <input type='text' placeholder='Type to search' className='respSearch' />
-             <i className="fa fa-search respI" aria-hidden="true"></i>
+             {/* <input type='text' placeholder='Type to search' className='respSearch' />
+             <i className="fa fa-search respI" aria-hidden="true"></i> */}
             </div>
         )
     }

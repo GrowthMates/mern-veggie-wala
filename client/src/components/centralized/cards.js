@@ -25,7 +25,7 @@ const ProductCards = ({item}) =>{
                                                         dpr="auto"
                                                         responsive_placeholder="blank"
                                                     />
-                                                </Image>
+                 </Image>
                 </Link>
             </div>
             <div className="card-body">

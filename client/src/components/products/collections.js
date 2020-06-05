@@ -40,6 +40,7 @@ class Collections extends Component{
             productsLength:undefined,
             selectedCategory:'',
             selectedTag:'',
+            aplhabeticalFilter:'',
             filters:{
                 category:[],
                 tag:[]
@@ -178,6 +179,20 @@ class Collections extends Component{
         })
     }
 
+    filterAlphabetically= (e) => {
+        console.log(e.target.value)
+       if(this.state.products){ 
+           const prevProducts = [...this.state.products]
+            if(e.target.value==='A-Z'){prevProducts.sort((a,b) => a.name.localeCompare(b.name) )}
+            if(e.target.value==='Z-A'){prevProducts.sort((a,b) => b.name.localeCompare(a.name) )}
+            
+            this.setState({
+                products:prevProducts,
+                aplhabeticalFilter:e.target.value
+            })
+        }
+    }
+
     render(){
         console.log(this.state.filters)
         console.log("Collection of Products render sr: ", this.props)
@@ -247,7 +262,19 @@ class Collections extends Component{
                                     <span className="">Showing 1 - {products?.length || 0} of {productsLength||0} results</span>
                                     </div>
                                     <div className="col-lg-3 col-md-3 item-sort">
-                                        <div className="dropdown">
+                                        <select value={this.state.aplhabeticalFilter}
+                                        className='cursor-pointer'
+                                         onChange={this.filterAlphabetically}
+                                         style={{
+                                            padding: '8px 10px',
+                                            border: '2px solid black',
+                                            borderRadius: '3px',
+                                         }}>
+                                            <option  value='Alphabetically'>Alphabetically</option>
+                                            <option  value='A-Z'>Alphabetically A - Z</option>
+                                            <option  value='Z-A'>Alphabetically Z - A</option>
+                                        </select>
+                                        {/* <div className="dropdown">
                                             <button  className="btn  dropdown-toggle drop-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Alphabetically, A-Z
                                             </button>
@@ -256,7 +283,7 @@ class Collections extends Component{
                                                 <a className="dropdown-item" href="#">Another action</a>
                                                 <a className="dropdown-item" href="#">Something else here</a>
                                             </div>
-                                    </div>
+                                        </div> */}
                                     </div>
                                     </div>
                                 </div>
@@ -383,7 +410,7 @@ class Collections extends Component{
                             
                             <CloudinaryContext cloudName="dbevearco">  
                                  <div className="row ">  
-                                { this.props.products?.map((item,index) => {  
+                                { this.state.products?.map((item,index) => {  
                         return(
                                    <div className="col-md-4 col-lg-4 col-sm-4"> 
                                        <ProductCards item={item}/>

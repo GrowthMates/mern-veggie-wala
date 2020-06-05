@@ -9,6 +9,7 @@ import {
     SELECTED_PRODUCT,
     STATUS_UPDATE,
     GET_FEATURED_PRODUCTS,
+    OPEN_NOTE,
     COUNT_PRODUCTS,
   } from "../actions/types";
   import axios from 'axios'
@@ -31,6 +32,7 @@ import { getProducts } from "../actions/productsAction";
     editProduct: undefined,
     status:undefined,
     productsLength:undefined,
+    openNote:false,
 
   };
 
@@ -80,7 +82,11 @@ import { getProducts } from "../actions/productsAction";
               ...state,
               singleProduct:action.payload,
             } 
-            
+        case OPEN_NOTE:
+          return{
+            ...state,
+            openNote: action.payload
+          }    
         case WISHLIST:
           return {
             ...state,

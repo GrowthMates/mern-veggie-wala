@@ -165,15 +165,17 @@ class Navbar extends Component{
         }
 
         // console.log(filterProduct, 'prdcts fltr k lye')
+        console.log('ViewPort width====',this.state.windowWidth )
 
       
       
         return(
             <div className=""> 
-            {/* <ResponsiveNavbar /> */}
+
+            {window.innerWidth<1000 ? <ResponsiveNavbar />:void 0}
             
              {/* <div className={this.state.scrolled ? ' nav  desktop' : 'nav desktop'}>  */}
-             <div className='nav'>
+             <div className={this.state.scrolled ? ' nav scrolled desktop ' : 'nav'}>
                 {/* Progress Bar */}
                 {this.props.progressLoading?<ProgressBar/>:void 0}
               

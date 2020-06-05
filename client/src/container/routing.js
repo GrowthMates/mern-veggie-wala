@@ -16,6 +16,18 @@ import WishList from '../components/centralized/wishList';
 import Contact from '../components/centralized/contact';
 import About from '../components/centralized/about';
 import Navbar from '../components/centralized/navbar';
+import Footer from '../components/centralized/footer'
+import Product from '../components/products/product'
+import Combined from '../components/authentication/combine'    
+import Collections from '../components/products/collections';
+import Information from '../components/products/information' ;
+import Checkout from '../components/products/CheckOut/CheckOut' ;
+import PrivateRoute from "../components/private-route/PrivateRoute";
+import APrivateRoute from "../components/private-route/APrivateRoute";
+import Cart from '../components/users/userCart/cart'  
+import AdminLandingPage from '../components/vendor/vendorLandingPage'
+import CartLandingPage from '../components/cart/cartLandingPage'
+import AdminLogin from "../components/vendor/Account/login";
 // import BookedOrder from '../components/admin/bookedOrder';
 // import Admin from '../components/admin/dashboard';
 // import AllProducts from '../components/admin/allProducts';
@@ -24,17 +36,6 @@ import Navbar from '../components/centralized/navbar';
 // import CartOwner from '../components/cartOwner/index.js';
 // import AddProducts from '../components/admin/addProducts';
 // import DelProducts from '../components/admin/delProducts';
-import Footer from '../components/centralized/footer'
-import Product from '../components/products/product'
-import Combined from '../components/authentication/combine'    
-import Collections from '../components/products/collections';
-import Information from '../components/products/information' ;
-import PrivateRoute from "../components/private-route/PrivateRoute";
-import APrivateRoute from "../components/private-route/APrivateRoute";
-import Cart from '../components/users/userCart/cart'  
-import AdminLandingPage from '../components/vendor/vendorLandingPage'
-import CartLandingPage from '../components/cart/cartLandingPage'
-import AdminLogin from "../components/vendor/Account/login";
 // import ProgressBar from '../components/centralized/progressBar'
 // import NoMatch from './not-found.js'  
 // import AllImages from './AllImages'
@@ -120,7 +121,7 @@ this.props.getProducts('Routing')
   //     <Route exact path="/admin" component={AdminLogin}/>
   //   </BrowserRouter>
   // }
-  
+  console.log('View port at routing====',window.innerWidth)
   return (
     
         <div>
@@ -135,7 +136,7 @@ this.props.getProducts('Routing')
         
             <Suspense fallback={<div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}><h2>Loading...</h2></div>}>
                   {restrictedPath?<Navbar/>:void 0}   
-            <div style={restrictedPath?{marginTop:'8rem'}:void 0}>
+            <div style={restrictedPath && window.innerWidth>1000?{marginTop:'8rem'}:void 0}>
 
                <Switch>
                    <Route exact path='/' component={Home} />
@@ -154,6 +155,7 @@ this.props.getProducts('Routing')
                    {/* <Route path='/image' component={TestComp}/> */}
               
                    <PrivateRoute exact path='/information' component={Information}/>
+                   {/* <PrivateRoute exact path='/checkOut' component={Checkout}/> */}
                  
            
                    <PrivateRoute exact path="/wishList" component={WishList} />

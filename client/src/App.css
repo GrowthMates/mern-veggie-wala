@@ -1,10 +1,10 @@
-body{
+/* body{
   min-width: 68rem;
-}
+} */
 .App {
   text-align: center;
   position: relative;
-  min-height: 74vh;
+  /* min-height: 74vh; */
 }
 
 .App-logo {

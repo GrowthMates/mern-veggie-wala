@@ -48,11 +48,6 @@ export default class Contact extends Component{
                     <div class='container' >
                         <h3 className='For-Further-Inquiries'>For Further Inquiries</h3>
                         
-<span class="fa fa-star checked" style={{color:'orange', fontSize:'2em'}}></span>
-<span class="fa fa-star checked"></span>
-<span class="fa fa-star checked"></span>
-<span class="fa fa-star"></span>
-<span class="fa fa-star"></span>
                         <div className='row contact-mid-top'>
                             <div className='col-lg-4 col-md-5 col-xs-5'>
                                 <img src={ContactUsImages.locationIcon} style={{width: '6%'}} alt='location-icon'/>

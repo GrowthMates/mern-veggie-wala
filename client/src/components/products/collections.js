@@ -41,6 +41,7 @@ class Collections extends Component{
             selectedCategory:'',
             selectedTag:'',
             aplhabeticalFilter:'',
+            openFilter:false,
             filters:{
                 category:[],
                 tag:[]
@@ -196,56 +197,80 @@ class Collections extends Component{
     render(){
         console.log(this.state.filters)
         console.log("Collection of Products render sr: ", this.props)
-        const {productsLength, products} = this.state
+        let {productsLength, products, veiwOption} = {...this.state}
+        console.log("Collection of State render sr: ", this.state)
+        if(window.innerWidth<768){veiwOption=true}
         if(this.state.redirect){
             return <Redirect to='/user/login'/>
         }
         return(
             <div>
+                <div id="mySidenav" class="sidenav"  style={this.state.openFilter?{width:'250px'}:{width:'0'}}>
+                    <h3>Filter</h3>
+                    <a class="closebtn" onClick={()=>this.setState(({openFilter})=>({openFilter:!openFilter}))}>&times;</a>
+
+                        <div className=" col-12 col-sm-12 col-md-3 col-lg-3 side-bar">
+                                <div className="side-bar-section">
+                                    <h4>Categories</h4>
+                                        <ul className="side-list">
+                                            <Filteration obj='category' handleFilters={filters => this.handleFilters(filters, "category")}/>
+                                        </ul>
+                                </div>
+                                <div className="side-bar-section"> 
+                                    <h4>Price-Filter</h4>
+                                        <ul className="side-list">
+                                            <Filteration obj='price' handleFilters={filters => this.handleFilters(filters, "tag")}/>
+                                        </ul>
+                                </div>
+                        </div>
+                   
+                </div>
+
                  <section className='product-upper col-lg-12' >
-                    <div className='contact-img-text'>
+                    <div className='contact-img-text product-detail-img-text'>
                         
                     </div>
                </section>
 
             <div className="container div-items">
-                {/* {this.props.loading} */}
+                <button className='btn mobile-filter-btn' onClick={()=>this.setState(({openFilter})=>({openFilter:!openFilter}))}>
+                    <i className='fa fa-filter' style={{color:'white'}}></i>
+                </button>
                 <div className="row custom-row">
-                    <div className="col-md-3 col-lg-3 col-sm-3 side-bar">
-                       <div className="side-bar-section"> 
+
+                    <div className=" col-12 col-sm-12 col-md-3 col-lg-3 side-bar">
+                       <div className="side-bar-section">
                             <h4>Categories</h4>
                                 <ul className="side-list">
-                                  
                                     <Filteration obj='category' handleFilters={filters => this.handleFilters(filters, "category")}/>
-
-                                  
                                 </ul>
                         </div>
-                       
-
                         <div className="side-bar-section"> 
                             <h4>Price-Filter</h4>
                                 <ul className="side-list">
                                     <Filteration obj='price' handleFilters={filters => this.handleFilters(filters, "tag")}/>
-                                   
                                 </ul>
                         </div>
-
                    </div>
 
 
-                    <div className="col-md-8 col-lg-8 col-sm-8 mainRight">
+                    <div className="col-12 col-sm-12 col-md-12 col-lg-8  mainRight">
                                    
                         <div className="container">
                         
-                            <div className="row row-col-2">
-                                <div className="col-lg-12 col-md-12 item-view-sort">
+                                <div className="item-view-sort">
                                     <div className='row'>
 
-                                    <div className="col-lg-9 col-md-9 item-view">
+                                    <div className="col-12 col-sm-12 col-md-8 col-lg-9 item-view">
                                     {/* <i class="fas fa-list icon1"></i> */}
                                     
-                                    <img 
+                                    <span onClick={this.changer1}>
+                                        <i className={!this.state.veiwOption?"fa fa-list-ul cursor-pointer active":"fa fa-list-ul cursor-pointer"}></i>
+                                    </span>
+                                    <span onClick={this.changer2}>
+                                        <i className={this.state.veiwOption?"fa fa-th cursor-pointer active":"fa fa-th cursor-pointer"}></i>
+                                    </span>
+                                    {/* <img 
                                     className="cursor-pointer" 
                                     style={{marginRight:'25px'}} 
                                     src={ImageIconList} 
@@ -258,10 +283,10 @@ class Collections extends Component{
                                     src={ImageIconGrid} 
                                     width="35px" height="35px"
                                     onClick={this.changer2}
-                                    />
-                                    <span className="">Showing 1 - {products?.length || 0} of {productsLength||0} results</span>
+                                    /> */}
+                                    <span className="number-of-items">Showing 1 - {products?.length || 0} of {productsLength||0} results</span>
                                     </div>
-                                    <div className="col-lg-3 col-md-3 item-sort">
+                                    <div className="col-12 col-sm-12 col-md-3 col-lg-3  item-sort">
                                         <select value={this.state.aplhabeticalFilter}
                                         className='cursor-pointer'
                                          onChange={this.filterAlphabetically}
@@ -274,20 +299,10 @@ class Collections extends Component{
                                             <option  value='A-Z'>Alphabetically A - Z</option>
                                             <option  value='Z-A'>Alphabetically Z - A</option>
                                         </select>
-                                        {/* <div className="dropdown">
-                                            <button  className="btn  dropdown-toggle drop-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Alphabetically, A-Z
-                                            </button>
-                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a className="dropdown-item" href="#">Action</a>
-                                                <a className="dropdown-item" href="#">Another action</a>
-                                                <a className="dropdown-item" href="#">Something else here</a>
-                                            </div>
-                                        </div> */}
+                                       
                                     </div>
                                     </div>
                                 </div>
-                            </div>
                             
                         </div>
                     
@@ -302,11 +317,11 @@ class Collections extends Component{
                            <div>
                           {this.state.products?.length>0 ? 
                             <div>
-                                {(this.state.veiwOption === false)?(
+                                {(veiwOption === false)?(
                              this.state.products?.map((item,index) => {  
                            return(
                            <div key={index} >
-                               <div className="card mb-3 p1 " >
+                               <div className="card md-3 p1 prod-list-view" >
                                 <div className="row no-gutters">
                                     <div className="col-md-4" style={{ overflow: 'hidden'}}>
                                     <Link to = {`/product/${item._id}`}> <img src={item.images[0].image} className="card-img cursor-pointer" alt="..." style={{height: '247px',maxHeight:'247px'}}/></Link>
@@ -412,7 +427,7 @@ class Collections extends Component{
                                  <div className="row ">  
                                 { this.state.products?.map((item,index) => {  
                         return(
-                                   <div className="col-md-4 col-lg-4 col-sm-4"> 
+                                   <div className="col-12 col-sm-6 col-md-6 col-lg-4 " style={{display:'flex',justifyContent:'center'}}> 
                                        <ProductCards item={item}/>
                                    </div> 
                         )})}

@@ -90,7 +90,8 @@ const Home = lazy(() => import('../components/centralized/home'))
 
 
   state={
-    loading:true
+    loading:true,
+    // windowWidth:window.innerWidth
   }
 
   componentWillReceiveProps(nextProps){
@@ -122,8 +123,8 @@ this.props.getProducts('Routing')
   //   </BrowserRouter>
   // }
   console.log('View port at routing====',window.innerWidth)
+ 
   return (
-    
         <div>
           {/* {this.props.progressLoading?:void 0} */}
         

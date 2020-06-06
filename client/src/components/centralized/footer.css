@@ -200,3 +200,19 @@ font-size: 1.011em;
 }
 
 .fa-facebook:hover,.fa-twitter:hover,.fa-instagram:hover,.fa-google:hover{background: #5ba616; color: #ffffff !important}
+
+
+@media (max-width:991px){
+  .upperBg h4, .upperBg a{
+    text-align: center;
+  }
+
+  .upperBg{
+    padding: 50px;
+  }
+  .footerImg{
+    display: initial;
+    margin-bottom: 20px;
+    width: initial;
+  }
+}

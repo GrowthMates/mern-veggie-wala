@@ -175,7 +175,7 @@ class Navbar extends Component{
             {window.innerWidth<1000 ? <ResponsiveNavbar />:void 0}
             
              {/* <div className={this.state.scrolled ? ' nav  desktop' : 'nav desktop'}>  */}
-             <div className={this.state.scrolled ? ' nav scrolled desktop ' : 'nav'}>
+             <div className={this.state.scrolled ? ' nav scrolled  ' : 'nav'}>
                 {/* Progress Bar */}
                 {this.props.progressLoading?<ProgressBar/>:void 0}
               

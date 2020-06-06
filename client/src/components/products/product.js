@@ -169,7 +169,7 @@ onChangeQty(e){
                 
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6 col-lg-6 col-sm-6">
+                    <div className="col-sm-12 col-md-12 col-lg-6 ">
                 <CloudinaryContext cloudName="dbevearco">  
                     <div className='product-img'>
                     <Image publicId={this.state.displayImage}>
@@ -187,7 +187,7 @@ onChangeQty(e){
                      <div className='row' style={{overflowX:'auto', marginTop:'10px',padding:'0 1rem'}}> 
                          {this.state.product.images.map((images=>{
                              console.log(currProduct.starRating)
-                             return <div className='col-lg-4 col-md-4 '>
+                             return <div className='col-4 '>
                                  <Image publicId={images.imageId} onClick={()=>{this.setState({displayImage:images.imageId})}} className='cursor-pointer'>
                                                     <Transformation
                                                         crop="scale"
@@ -205,7 +205,7 @@ onChangeQty(e){
                    </div>
 
 
-                    <div className="col-md-6 col-lg-6 col-sm-6">
+                    <div className="col-12 col-sm-12 col-md-12 col-lg-6 ">
                                    
                         <div className="container">
                             <div className="product-data">
@@ -348,7 +348,7 @@ onChangeQty(e){
                         
                             {[0,1,2,3].map(()=>{
                                 return(
-                                <div className='col-lg-3 col-md-4 col-sm-6'>
+                                <div className='col-12 col-md-6 col-lg-3 ' style={{display:'flex', justifyContent:'center'}}>
                                 <div style={{width:'68%'}}>
                                      <ProductCard item={this.state.product}/>
                                 </div>

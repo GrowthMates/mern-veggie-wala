@@ -102,3 +102,10 @@
     outline: none;
     display: none;
 }
+
+
+@media (max-width:767px){
+    .cart-img-text{
+        padding: 25%;
+    }
+}

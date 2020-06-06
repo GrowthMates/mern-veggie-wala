@@ -7,7 +7,7 @@ import { logoutUser } from "../../actions/authActions";
 import { getWishList,delWishList } from "../../actions/productsAction";
 import DeleteBtnIcon from '../centralized/images/delete-button.png'
 
-import './style/home.css'
+import './wishlist.css'
 
 
 class WishList extends Component {
@@ -147,8 +147,12 @@ delete(id){
       console.log(this.state.products)
   return (
         <div >
-        
-        <table class="table">
+                        <section className='wishlist-upper col-lg-12'>
+                            <div className='cart-img-text'>
+                                
+                            </div>
+                        </section>
+        <table class="table" style={{overflowX:'auto'}}>
             <thead className='cart-head'>
                 <tr>
                 <th scope="col">#</th>
@@ -170,7 +174,7 @@ delete(id){
                         <div class="spinner-border text-success " style={{width: '3rem', height: '3rem'}} role="status">
                         <span class="sr-only">Loading...</span>
                         </div>
-                        :<div style={{fontWeight:'bold', fontSize:'larger'}}>No Items are added in WishList yet! <br/><Link to='/collections' style={{color:'#5ba616'}}>Add Now -></Link></div>
+                        :<div style={{fontWeight:'bold', fontSize:'larger',position:'absolute'}}>No Items are added in WishList yet! <br/><Link to='/collections' style={{color:'#5ba616'}}>Add Now -></Link></div>
                         }
                         </td>
                     {/* <td>  </td>

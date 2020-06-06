@@ -57,10 +57,10 @@ class Combined extends Component{
             <div>
                <div className='' style={{marginTop:'0'}}>
                  <div className='row' style={{width:'100%',minHeight: '42rem', margin: '0'}}>
-                    <div className='col-lg-6' style={{padding:'5%',paddingLeft: '10%'}}>
+                    <div className='col-md-6 col-lg-6' style={{padding:'5%',paddingLeft: '10%'}}>
                         <Login />
                     </div>
-                    <div className='col-lg-6 signup-bg-img'>
+                    <div className='col-md-6 col-lg-6 signup-bg-img'>
                         {/* <Login /> */}
                         {/* <img src={SignUpSidePic} width='100%' height='100%' /> */}
                         <div className='signup-bg-inner-data'>
@@ -82,7 +82,7 @@ class Combined extends Component{
             <div>
                <div className='' style={{marginTop:'0'}}>
                  <div className='row' style={{width:'100%'}}>
-                    <div className='col-lg-6 signin-bg-img'>
+                    <div className='col-md-6 col-lg-6 signin-bg-img'>
                         {/* <Login /> */}
                         {/* <img src={SignUpSidePic} width='100%' height='100%' /> */}
                         <div className='signin-bg-inner-data'>
@@ -93,7 +93,7 @@ class Combined extends Component{
                         </div>
                     
                     </div>
-                    <div className='col-lg-6' style={{padding:'5%'}}>
+                    <div className='col-md-6 col-lg-6' style={{padding:'5%'}}>
                         <Register />
                     </div>
                  </div>

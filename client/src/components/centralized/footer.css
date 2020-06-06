@@ -216,3 +216,9 @@ font-size: 1.011em;
     width: initial;
   }
 }
+
+@media (max-width:767px){
+  .footer-p{
+    top: 16%;
+  }
+}

@@ -110,3 +110,9 @@ background: linear-gradient(142deg, rgba(34,193,195,1) 0%, rgba(115,253,45,1) 10
     background: rgb(255,227,2);
     background: linear-gradient(142deg, rgba(255,227,2,1) 0%, rgba(253,156,45,1) 66%);
 }
+
+@media only screen and (max-width:767px){
+    .signin-bg-img{
+        display: none;
+    }
+}

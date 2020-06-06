@@ -20,6 +20,7 @@ export default class Contact extends Component{
     }
 
     onchange = (e) => {
+        this.setState({error:''})
         this.setState({[e.target.name]:e.target.value})
     }
 
@@ -30,6 +31,7 @@ export default class Contact extends Component{
                 error:'*All fields are required*'
             })
         }
+
     }
 
     render(){
@@ -38,10 +40,8 @@ export default class Contact extends Component{
                  <div className='contact-body' >
 
                 <section className='contact-upper col-lg-12' >
-                <div className='contact-img-text'>
-                    
-                    {/* <p>A Real Estate Organization You Can Trust</p> */}
-                </div>
+                    <div className='contact-img-text'>
+                    </div>
                </section>
 
                 <section className='sec-2' >
@@ -66,8 +66,8 @@ export default class Contact extends Component{
                         <div class='row' >
                             <div class="col-sm-12 col-md-12 col-lg-12  contact-us-form">
                               
-                                
-                                <form onSubmit={this.onSubmit}>
+                                <span style={{color:'red'}}>{this.state.error}</span>
+                                {/* <form> */}
                                     <div className='row'>
 
                                       <div className='col-12 col-sm-12 col-md-3 col-lg-3'>
@@ -91,8 +91,10 @@ export default class Contact extends Component{
                                         <label fo r="exampleFormControlTextarea1">Your Message </label>
                                         <textarea placeholder='Message' className="form-control" id="exampleFormControlTextarea1" name='message' rows="10" onChange={this.onchange}></textarea>
                                     </div>
-                                    <button type="submit" className="contact-us-send-btn">Submit</button>
-                                </form>
+                                    <div className='contact-send-div'>
+                                        <button type="" className="contact-us-send-btn" onClick={this.onSubmit}>Submit</button>
+                                    </div>
+                                {/* </form> */}
                             </div>
                             
                             

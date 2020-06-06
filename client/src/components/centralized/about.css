@@ -127,3 +127,41 @@
     padding: 0 5%;
     font-size: 90%;
 }
+
+@media (max-width:767px){
+    .about-img-text{
+        padding: 25%;
+    }
+
+    .abt-top-section .row{
+        margin: 0 !important;
+    }
+
+    #water-melon-left{
+        opacity: 0.6;
+        left: -5.1% !important;
+    }
+
+    .who-we-are{
+        font-size: 2em;
+    }
+
+    .succes{
+        margin: 50px 0;
+        /* margin-left: 0;
+        margin-right: 0; */
+    }
+
+}
+
+@media (max-width:991px){
+    #water-melon-left{
+        left: -3.1%;
+        bottom: -3rem;
+        z-index: -100;
+       
+    }
+    #water-melon-left img{
+        max-width: 52% !important;
+    }
+}

@@ -10,6 +10,9 @@ import female2 from './images/female2.jpeg'
 
 export default class About extends Component{
 
+    componentDidMount() {
+        window.scroll(0,0)
+    }
 
     render(){
         return(
@@ -30,7 +33,7 @@ export default class About extends Component{
                     <div id='water-melon-left'><img src={AboutImages.waterMelon}  style={{width:'60%'}}/></div>
                     <div className='container'>
 
-                    <div className='row'  style={{margin:'0 120px'}}>
+                    <div className='row'  style={{maxWidth:'660px',margin:'0 auto'}}>
                         
                         <div className='col-lg-12 col-xs-12 col-md-12 col-sm-12' >
                             <h2 className='who-we-are'>Who We Are ?</h2>
@@ -52,7 +55,7 @@ export default class About extends Component{
 
                    {/* 3rd */}
                     <div className='team-top row' > 
-                   <div className='col-lg-3 col-xs-12 col-md-3 col-sm-4 ' >
+                   <div className='col-lg-3 col-xs-12 col-md-6 col-sm-6 ' >
 
                    <div class="card" style={{width:'auto'}}>
                     <img class="card-img-top" src={AboutImages.person1} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
@@ -67,7 +70,7 @@ export default class About extends Component{
                       
                         
                    </div>
-                   <div className='col-lg-3 col-xs-12 col-md-3 col-sm-4' >
+                   <div className='col-lg-3 col-xs-12 col-md-6 col-sm-6' >
 
                    <div class="card" style={{width:'auto'}}>
                     <img class="card-img-top" src={AboutImages.person2} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
@@ -80,7 +83,7 @@ export default class About extends Component{
                        
                         
                    </div>
-                   <div className='col-lg-3 col-xs-12 col-md-6 col-sm-4' >
+                   <div className='col-lg-3 col-xs-12 col-md-6 col-sm-6' >
 
                    <div class="card" style={{width:'auto'}}>
                     <img class="card-img-top" src={AboutImages.person3} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>
@@ -94,7 +97,7 @@ export default class About extends Component{
                         
                         
                    </div>
-                   <div className='col-lg-3 col-xs-12 col-md-4 col-sm-4' >
+                   <div className='col-lg-3 col-xs-12 col-md-6 col-sm-6' >
 
                     <div class="card" style={{width:'auto'}}>
                         <img class="card-img-top" src={AboutImages.person4} alt="Card image" style={{width:"100%",maxHeight: '359.77px'}}/>

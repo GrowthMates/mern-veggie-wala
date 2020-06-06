@@ -522,14 +522,19 @@ cursor: pointer;
     100% { transform: rotate(360deg); }
   }
 
-  @media (min-width: 1030px) {
-    /* .middleRight p{
-        text-align: center;
-    } */
-    /* .top-items-list{
-      padding: 0 5rem;
-      margin: 0;  
-  } */
+  @media (max-width: 991px) {
+    .shop-now-btn-1{
+        bottom: 22%;
+    }
+    .shop-now-btn-2{
+        bottom: 10% !important;
+    }
+    .shop-now-btn-3{
+        bottom: 17%;
+    }
+    .shop-button{
+        padding: 5px 10px;
+    }
 }
 @media  (max-width: 767px) {
 
@@ -564,18 +569,18 @@ cursor: pointer;
       }
       .shop-button{
         min-width: 24%;
-        font-size: .9em;
-        padding: 3px;
+        font-size: .8em;
+        padding: 2px 5px;
       }
 
-      .shop-now-btn-1{
-        bottom: 20%;
+    .shop-now-btn-1{
+        bottom: 14%;
     }
     .shop-now-btn-2{
-        bottom: 5%;
+        bottom: 0 !important;
     }
     .shop-now-btn-3{
-        bottom: 10%;
+        bottom: 6%;
     }
 
     .newsFeed img{

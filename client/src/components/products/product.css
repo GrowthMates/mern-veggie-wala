@@ -167,3 +167,22 @@ hr.product-desc{
     color: #6B6B6B !important;
 }
 
+.review-send-div{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.review-send-btn{
+    border: 1px solid #5BA616 !important;
+    color: #5BA616 !important;
+    border-radius: 3px;
+    padding: 6px 3em !important;
+    margin: 15px;
+    transition: 0.25s;
+}
+
+.review-send-btn:active{
+    background: #5BA616;
+    color: white !important;
+}

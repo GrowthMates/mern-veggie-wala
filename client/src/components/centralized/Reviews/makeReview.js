@@ -1,68 +1,49 @@
-import React from 'react';
+import React ,{useState}from 'react';
 import {connect} from "react-redux" 
 import {createReview} from "../../../actions/productsAction"
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField'
 import MakeRating from "./changeableRating"
 
 function AlertDialog(props) {
-  const [open, setOpen] = React.useState(false);
   const [review, setReview] = React.useState('');
   const [star, setStar] = React.useState(0);
-  
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const [reviewTitle, setReviewTitle] = useState('')
 
   
-  const submitReview = () => {
+  
+  const submitReview = ({productId}) => {
     const data = {
-      id:"5ec6889c2c0f7f2b88676775",
+      id:productId,
       star,
+      reviewTitle,
       review
     }
     console.log(data)
     // props.createReview(data)
-    setOpen(false);
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
+ 
 
   return (
-    <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Give Reviews
-      </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Rate the Product and give Reviews"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            <MakeRating handleStar={(value) => setStar(value)}/>
-            {/* Type Reviews */}
-          <TextField id="standard-basic" label="Review" onChange={(e) => setReview(e.target.value)}/>
-
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          
-          <Button onClick={submitReview} color="primary" autoFocus>
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+    
+      <div className='row'>
+           <div className='col-12'>
+                <label for="rating-stars">Rating</label>
+                <MakeRating handleStar={(value) => setStar(value)}/>
+            </div>
+             <div className='col-12'>
+                 <label for="exampleInputPassword1">Review Title</label>
+                  <input type="text" className="form-control" id="exampleInputPassword1" name='reviewTitle' placeholder="Give your review a Title" onChange={(e)=>setReviewTitle(e.target.value)} />
+             </div>
+              <div className='col-12'>
+                <label fo r="exampleFormControlTextarea1">Your Review </label>
+                 <textarea placeholder='Type your review here' className="form-control" id="exampleFormControlTextarea1" name='review' rows="10"  onChange={(e) => setReview(e.target.value)}></textarea>
+               </div>
+                <div className='review-send-div'>
+                    <button type="button" className="review-send-btn" onClick={submitReview}>Submit</button>
+                 </div>
+                                   
+                        
+          </div>
+     
   );
 }
 

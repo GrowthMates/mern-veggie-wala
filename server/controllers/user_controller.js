@@ -507,7 +507,7 @@ module.exports = {
                     _id:userId,
                     products: productsId,
                 });
-                wishList.save().then(res => res.send()).catch(err => res.send(err))
+                wishList.save().then(data => res.json(data)).catch(err => res.status(422).json(err))
 
             }
             else if(users){
@@ -533,12 +533,13 @@ module.exports = {
 
         const {key} = req.body
         console.log(key)
-        WishList.findById(key) .exec((err, users) => {
+        WishList.findById(key).populate('products').exec((err, users) => {
             if(err){
                 console.log('getAdminUsers err-----------:',err);
                 res.status(400).json(err)
             }
             if(users){
+                console.log(users)
                 res.status(200).send(users);
             }
             else{

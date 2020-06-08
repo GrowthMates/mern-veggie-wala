@@ -26,72 +26,42 @@ class WishList extends Component {
 
   componentDidMount(){
     //   console.log(this.props.auth.user.id)
-    let key = {
-
-    key: this.props.auth.user.id
+    if(this.props.auth.user.id){
+        let key = {
+             key: this.props.auth.user.id
+        }
+         this.props.getWishList(key)
     }
-     this.props.getWishList(key)
+    else{
+        this.props.history.push("/user/login")
+    }
 
-     if(this.props.wishList && this.props.products ){
-         const allProducts = this.props.products
+     if(this.props.wishList){
         console.log('saari products----->',this.props.products)
-        const products= this.props.wishList.data.products;
-        let forEachProducts=[]
-
-        products.forEach((item,index) => {
-           var finalProducts = allProducts.filter(i => {
-                return i._id === item
-            })
-            console.log(finalProducts)
-           if(finalProducts.length>0){
-               forEachProducts.push(finalProducts[0])
-               this.setState({
-                   products:forEachProducts
-               })
-               console.log('Did mount final product------------>', forEachProducts)
-           }
-        })  
+        const products= this.props.wishList.products;
         
-        //  console.log('wishlist ki array',finalProducts)
+               this.setState({
+                   products,
+                   loading:false
+               })
     }
-    console.log('final product------------>', this.state.products)
+    else {
+        this.setState({loading:false})
+    }
+
   }
 
   UNSAFE_componentWillReceiveProps(nextProps){
     // this.props.getWishList(key)
 
     console.log('wislist ki willrcve----->', nextProps)
-    if(nextProps.wishList!==undefined && nextProps.products ){
-        const allProducts = nextProps.products
-        this.setState({
-            userId:nextProps.wishList.data._id,
-            loading:false
-        })
-       console.log('saari products----->',nextProps.wishList.data._id)
-       const products= nextProps.wishList.data.products;
-       let forEachProducts=[]
-       console.log(allProducts)
-       products.forEach((item,index) => {
-          var finalProducts = allProducts.filter(i => {
-               return i._id === item
-           })
-           console.log(finalProducts)
-           if(finalProducts.length>0){
-               forEachProducts.push(finalProducts[0])
-               this.setState({
-                   products:forEachProducts
-               })
-               console.log('final product------------>', forEachProducts)
-           }
-
-       })  
-        
-       //  console.log('wishlist ki array',finalProducts)
+     if(nextProps.wishList){
+        const products= nextProps.wishList.products;
+        this.setState({products,loading:false})
     }
-    else if(!nextProps.wishList){
+    else{
         this.setState({loading:false})
     }
-
     if(nextProps.delProduct===true){
 
         console.log(this.state.delId)
@@ -152,7 +122,7 @@ delete(id){
                                 
                             </div>
                         </section>
-        <table class="table" style={{overflowX:'auto'}}>
+        <table class="table" style={{overflowX:'auto',minHeight:"500px"}}>
             <thead className='cart-head'>
                 <tr>
                 <th scope="col">#</th>
@@ -165,7 +135,7 @@ delete(id){
             
             <tbody className='cart-body' >
                 {
-                   this.state.products.length<1?
+                   !this.state.products || this.state.products?.length<1?
                    <tr >
                     <th scope="row"> </th>
                     <td>  </td>

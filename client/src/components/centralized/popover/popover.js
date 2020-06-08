@@ -5,11 +5,12 @@ import { connect } from "react-redux";
 import { Popover,
          PopoverHeader,
          PopoverBody,
+         Button
          } from 'reactstrap';
 
 const Example = (props) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
-
+  console.log(popoverOpen)
   const toggle = () => setPopoverOpen(!popoverOpen);
   // window.onclick(setPopoverOpen(false))
   const logout = () => {
@@ -18,10 +19,9 @@ const Example = (props) => {
   }
 
   return (
-    <div style={{position:'absolute'}}>
-      {/* <Button id="Popover1" type="button">
-        Launch Popover
-      </Button> */}
+    <React.Fragment>
+      <img src={props.imgSrc} id="Popover1" type="button" width='20' height='20.52'/>
+       <div style={{position:'absolute'}}>
       <Popover placement="right" isOpen={popoverOpen} target="Popover1" toggle={toggle} style={{maxWidth:'185px'}}>
         <PopoverHeader>User</PopoverHeader>
         <PopoverBody style={{padding:'.5rem 0'}}>
@@ -43,6 +43,7 @@ const Example = (props) => {
         </PopoverBody>
       </Popover>
     </div>
+    </React.Fragment>
   );
 }
 

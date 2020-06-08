@@ -3,18 +3,14 @@ const Schema = mongoose.Schema;
 
 const WishList = new Schema({
 
-    //For initial testing---
-    // fname:{
-    //     type:String,
-    //     required:true
-    // },
-   
-    // productName: {
-    //     type: String
-    // },
-
-    userId:String,
-    products:[String]
+    userId:{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    products:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Product'
+    }]
    
 });
 module.exports = mongoose.model('WishList', WishList);

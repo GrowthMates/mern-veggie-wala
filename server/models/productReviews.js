@@ -6,6 +6,10 @@ const productReviews = new Schema({
         type: Number,
         required: true
       },
+      reviewTitle: {
+        type: String,
+        required: true
+      },
       review: {
         type: String,
         required: true

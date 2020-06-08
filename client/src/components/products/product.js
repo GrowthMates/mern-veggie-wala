@@ -11,6 +11,7 @@ import ProductCard from '../centralized/cards'
 import { CloudinaryContext } from 'cloudinary-react';
 import ReadOnlyRating from "../centralized/Reviews/readOnlyRating"
 import { Transformation, Image } from "cloudinary-react";
+import MakeReview from '../centralized/Reviews/makeReview';
 
 
 
@@ -105,6 +106,15 @@ onChangeQty(e){
  e.preventDefault();
  this.setState({quantity: parseInt(e.target.value)})
 }
+
+onChangeReview(e){
+    this.setState({[e.target.name]:e.target.value})
+}
+
+onSubmitReview(){
+    const {review, reviewTitle} = this.state
+}
+
 
  onSubmit=(item,e)=>{
     e.preventDefault();
@@ -330,7 +340,7 @@ onChangeQty(e){
                         <button data-toggle="collapse" data-target="#prod-detail-reviews"  aria-controls="prod-detail-reviews" onClick={()=>{this.setState(({rotate3})=>({rotate3:!rotate3}))}}>Reviews  <span className='greaterThan' style={this.state.rotate3?{transform:' translateY(-8px) rotate(90deg)'}:void 0}>&gt;</span></button>
                         <div class="collapse" id="prod-detail-reviews">
                         <div class="card card-body" style={{textAlign:'left'}}>
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                           <MakeReview productId={this.state.product._id}/>
                         </div>
                         </div>
 

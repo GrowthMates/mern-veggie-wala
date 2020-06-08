@@ -220,8 +220,8 @@ class Navbar extends Component{
                                      <div  className='col-lg-6 heart' >
                                       <Link to='/wishList'>   <img className='cursor-pointer' src={heart}  width='20' height='20.52' /></Link>
                                       {/* <Link to='/user/login'>    */}
-                                      <img className='cursor-pointer' src={UserIcon}  width='20' height='20.52' id='Popover1'/>
-                                         <PopOverComp user={this.props.user}/>
+                                      {/* <img className='cursor-pointer' src={UserIcon}  width='20' height='20.52' id='Popover1' type='button'/> */}
+                                         <PopOverComp user={this.props.user} imgSrc={UserIcon}/>
 
                                       {/* </Link> */}
                                          <span> | </span>

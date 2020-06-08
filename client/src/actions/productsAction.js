@@ -468,10 +468,7 @@ import {
         axios
         .post('/api/wishList',data)
         .then(res => {
-            dispatch({
-              type: WISHLIST,
-              payload: data
-            })
+            dispatch(getWishList({key:data.userId}))
           console.log('Wish List Ka Action then sy', res.data)
         })
         .catch(err => {
@@ -494,7 +491,7 @@ import {
       else{
         dispatch({
           type: WISHLIST,
-          payload: res
+          payload: res.data
         })
       }
       // console.log('Wish List Get ki Req sy', res.data)

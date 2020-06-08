@@ -244,6 +244,31 @@ body{
     font-weight: bold;
 }
 
+.card-hover-icons{
+    position: absolute;
+    bottom: 11px;
+    left: 59px;
+    display: none;
+}
+
+
+.card-hover-icons span{
+    padding: 10px 11px;
+    margin: 5px;
+    border-radius: 50px;
+    background: #efefef;
+    transition: 0.25s;
+}
+
+.card-hover-icons span:hover{
+    background: #7ca646;
+}
+
+.p1:hover .card-hover-icons{
+    
+    display: inline-block;
+}
+
 .top-items-list{
     /* padding: 0 2rem; */
     margin: 0;

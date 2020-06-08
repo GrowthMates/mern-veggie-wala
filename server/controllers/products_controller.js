@@ -132,6 +132,7 @@ module.exports = {
  
     makeReview(req, res) {
         // Create a new note and pass the req.body to the entry
+        console.log("reveiw req.body====",req.body)
        try{
 
            Review.create(req.body)

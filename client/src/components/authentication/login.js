@@ -3,7 +3,7 @@ import { Component } from 'react'
 import TextField from '@material-ui/core/TextField';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {Redirect} from 'react-router-dom'
+import {Redirect, withRouter} from 'react-router-dom'
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
 
@@ -71,9 +71,12 @@ class Login extends Component{
 
         const { errors } = this.state;
         if(this.state.auth===true){
-          return(
-          <Redirect to='/cart'/> 
-          )}
+          console.log(this.props)
+          this.props.history.goBack()
+          // return(
+          // <Redirect to='/cart'/> 
+          // )
+        }
         return(
             <div>
               <div className='mainDiv'>
@@ -164,4 +167,4 @@ Login.propTypes = {
   export default connect(
     mapStateToProps,
     { loginUser }
-  )(Login);
+  )(withRouter(Login));

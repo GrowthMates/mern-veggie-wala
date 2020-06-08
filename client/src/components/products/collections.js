@@ -347,9 +347,13 @@ class Collections extends Component{
                                                             <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <img src={item.image} width='120' height='120' style={{marginTop: '0px', marginBottom: '0px'}} />
-                                                            Added To Cart Succesfully
+                                                        <div class="modal-body row">
+                                                            <div className='col-3' style={{overflow:'hidden', width:'80px',height:'80px'}}>
+                                                                <img src={item.images[0].image} width='120px' height='120px' style={{marginTop: '0px', marginBottom: '0px'}} />
+                                                            </div>
+                                                            <div className='col-9'>
+                                                                <p>Added To Cart Succesfully</p>
+                                                            </div>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" onClick={this.contniueShoping.bind(this)} class="btn btn-secondary" data-dismiss="modal"  style={{fontWeight:'300'}}>Continue Shipping</button>

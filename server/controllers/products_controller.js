@@ -150,7 +150,7 @@ module.exports = {
               .catch(function(err) {
                 // If an error occurred, send it to the client okay>
            console.log('REview catch err====',err)
-                res.json(err);
+                res.status(422).json(err);
               });
        }catch(error){
            console.log('try catch err====',error)
@@ -176,7 +176,9 @@ module.exports = {
     readProduct(req, res){
 
         const { id } = req.params;
-        Product.findById(id).exec((err, product) => {
+        Product.findById(id)
+        .populate("review")
+        .exec((err, product) => {
             if(err){
                 console.log('Product err----------',err);
                 return res.status(400).json("Product Not Found");

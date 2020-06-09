@@ -571,6 +571,7 @@ export const updateProductStatus = (data) => dispatch => {
 
 
 export const createReview = (data) => dispatch => {
+  console.log("Review Generate----",data)
 
   axios.post(`/api/review/make/${data.id}`,data).then((res) => {
     if(res.data){

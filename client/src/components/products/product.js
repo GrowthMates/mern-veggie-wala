@@ -350,14 +350,24 @@ onSubmitReview(){
                         <div class="collapse" id="prod-detail-reviews">
                         <div class="" style={{textAlign:'left'}}>
                             <div className="row">
-                                <div className='col-12 col-sm-12 col-md-12 col-lg-6 '>
-                                    <div className="row">
+                                <div className='col-12 col-sm-12 col-md-12 col-lg-6 forCenter'>
                                         <h5 className="col-12 forCenter">Customers Reviews</h5>
+                                    
+                                </div>
+                                <div className='col-12 col-sm-12 col-md-12 col-lg-6 forCenter'>
+                                    <h6 className="write-review-toggle cursor-pointer" onClick={() => this.setState(({writeReviewToggle})=>({writeReviewToggle:!writeReviewToggle}))}>Write a Review</h6>
+                                </div>
+                                 <hr className="col-12"/>
+                                <div className='col-12'>{this.state.writeReviewToggle ? <MakeReview productId={this.state.product._id}/> : void 0}</div>
+                                <div className="col-12 col-md-12 col-lg-6">
                                         {this.state.product.review?.length > 0 ?
                                         this.state.product.review.map((review,index) => {
                                             return (
-                                                <div className="col-12 forCenter">
-                                                    Review {index+1}
+                                                <div className="col-12">
+                                                    <ReadOnlyRating value={review.star}/>
+                                                    <h4 style={{textAlign:'left'}}>{review.reviewTitle}</h4>
+                                                    <p style={{textAlign:'left'}}>by {review.customerName}</p>
+                                                    <p style={{textAlign:'left'}}><i>"{review.review}"</i></p>
                                                 </div>
                                                 
                                                 )
@@ -365,13 +375,8 @@ onSubmitReview(){
                                         : <p className="col-12 no-review-p forCenter">No reviews Yet</p>  
                                         }
                                     </div>
-                                </div>
-                                <div className='col-12 col-sm-12 col-md-12 col-lg-6 forCenter'>
-                                    <h6 className="write-review-toggle cursor-pointer" onClick={() => this.setState(({writeReviewToggle})=>({writeReviewToggle:!writeReviewToggle}))}>Write a Review</h6>
-                                </div>
 
                             </div>
-                           {this.state.writeReviewToggle ? <MakeReview productId={this.state.product._id}/> : void 0}
                         </div>
                         </div>
 

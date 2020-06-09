@@ -38,6 +38,7 @@ class Product extends Component{
             rotate1:false,
             rotate2:false,
             rotate3:false,
+            writeReviewToggle:false,
         }
     }
     
@@ -323,7 +324,11 @@ onSubmitReview(){
                 </div>
                 <hr className='product-desc'/>
                 <div className='product-details-bottom'>
-                        <button data-toggle="collapse" data-target="#prod-detail-desc"  aria-controls="prod-detail-desc" onClick={()=>{this.setState(({rotate1})=>({rotate1:!rotate1}))}}>Description <span className='greaterThan' style={this.state.rotate1?{transform:' translateY(-8px) rotate(90deg)'}:void 0}>&gt;</span></button>
+                        <button data-toggle="collapse" data-target="#prod-detail-desc"  aria-controls="prod-detail-desc" onClick={()=>{this.setState(({rotate1})=>({rotate1:!rotate1}))}}>Description 
+                            <span className='greaterThan' style={this.state.rotate1?{transform:' translateY(-8px) rotate(90deg)',paddingLeft:'1.2em'}:void 0}>
+                                <i class="fa fa-angle-right" style={{fontSize:'1.2em', marginLeft:'0'}}></i>
+                            </span>
+                        </button>
                         <div class="collapse" id="prod-detail-desc">
                         <div class="card card-body" style={{textAlign:'left'}}>
                             {this.state.product.description}
@@ -337,15 +342,43 @@ onSubmitReview(){
                         </div>
                         </div> */}
 
-                        <button data-toggle="collapse" data-target="#prod-detail-reviews"  aria-controls="prod-detail-reviews" onClick={()=>{this.setState(({rotate3})=>({rotate3:!rotate3}))}}>Reviews  <span className='greaterThan' style={this.state.rotate3?{transform:' translateY(-8px) rotate(90deg)'}:void 0}>&gt;</span></button>
+                        <button data-toggle="collapse" data-target="#prod-detail-reviews"  aria-controls="prod-detail-reviews" onClick={()=>{this.setState(({rotate3})=>({rotate3:!rotate3}))}}>Reviews  
+                            <span className='greaterThan' style={this.state.rotate3?{transform:' translateY(-8px) rotate(90deg)',paddingLeft:'1.2em'}:void 0}>
+                                 <i class="fa fa-angle-right" style={{fontSize:'1.2em', marginLeft:'0'}}></i>
+                            </span>
+                        </button>
                         <div class="collapse" id="prod-detail-reviews">
-                        <div class="card card-body" style={{textAlign:'left'}}>
-                           <MakeReview productId={this.state.product._id}/>
+                        <div class="" style={{textAlign:'left'}}>
+                            <div className="row">
+                                <div className='col-12 col-sm-12 col-md-12 col-lg-6 '>
+                                    <div className="row">
+                                        <h5 className="col-12 forCenter">Customers Reviews</h5>
+                                        {this.state.product.review?.length > 0 ?
+                                        this.state.product.review.map((review,index) => {
+                                            return (
+                                                <div className="col-12 forCenter">
+                                                    Review {index+1}
+                                                </div>
+                                                
+                                                )
+                                                }) 
+                                        : <p className="col-12 no-review-p forCenter">No reviews Yet</p>  
+                                        }
+                                    </div>
+                                </div>
+                                <div className='col-12 col-sm-12 col-md-12 col-lg-6 forCenter'>
+                                    <h6 className="write-review-toggle cursor-pointer" onClick={() => this.setState(({writeReviewToggle})=>({writeReviewToggle:!writeReviewToggle}))}>Write a Review</h6>
+                                </div>
+
+                            </div>
+                           {this.state.writeReviewToggle ? <MakeReview productId={this.state.product._id}/> : void 0}
                         </div>
                         </div>
 
                        
                 </div>
+
+                <hr/>
 
                 {/* More Products */}
                 <div className='container'>

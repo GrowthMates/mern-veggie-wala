@@ -41,3 +41,10 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width:991px){
+  .forCenter{
+    display: flex;
+    justify-content: center !important;
+  }
+}

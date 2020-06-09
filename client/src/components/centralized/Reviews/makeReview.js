@@ -24,7 +24,7 @@ function AlertDialog(props) {
 
   return (
     
-      <div className='row'>
+      <div className='card card-body row' style={{margin:'10px'}}>
            <div className='col-12'>
                 <label for="rating-stars">Rating</label>
                 <MakeRating handleStar={(value) => setStar(value)}/>
@@ -37,7 +37,7 @@ function AlertDialog(props) {
                 <label fo r="exampleFormControlTextarea1">Your Review </label>
                  <textarea placeholder='Type your review here' className="form-control" id="exampleFormControlTextarea1" name='review' rows="10"  onChange={(e) => setReview(e.target.value)}></textarea>
                </div>
-                <div className='review-send-div'>
+                <div className='review-send-div col-12 forCenter'>
                     <button type="button" className="review-send-btn" onClick={submitReview}>Submit</button>
                  </div>
                                    

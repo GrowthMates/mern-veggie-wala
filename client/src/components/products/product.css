@@ -15,8 +15,9 @@ hr.product-desc{
 .product-details-bottom button{
     text-align: left;
     border: none;
-    font-weight: bold;
-    color: #c0c0c0;
+    font-size: 1.5em;
+    /* font-weight: bold;
+    color: #c0c0c0; */
     padding: .2em;
     background: none;
     outline: none;
@@ -25,7 +26,7 @@ hr.product-desc{
 .greaterThan{
     display: inline-block;
     font-weight: bold;
-    padding-left: 1em;
+    padding-left: .5em;
     font-size: 0.9em;
     transition: transform 0.1s ease-in-out;
     
@@ -185,4 +186,19 @@ hr.product-desc{
 .review-send-btn:active{
     background: #5BA616;
     color: white !important;
+}
+
+.write-review-toggle:hover{
+    color: #5BA616;
+    text-decoration: underline;
+}
+
+@media (min-width:992px){
+    .write-review-toggle{
+        text-align: right;
+    }
+    .no-review-p{
+        text-align: left;
+    }
+    
 }

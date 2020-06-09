@@ -409,7 +409,15 @@ onSubmitReview(){
                 </div>
 
             </div>
-                            ):this.state.errors?<div><h3>{this.state.errors}</h3></div>:('Loading...')}
+                            ):this.state.errors?<div style={{margin:'200px'}}><h3>{this.state.errors}</h3></div>
+                            :
+                            (
+                                <div>
+                                    <div class="spinner-border text-success " style={{width: '3rem', height: '3rem',margin:'200px'}} role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            )}
 
             </div>  
         )

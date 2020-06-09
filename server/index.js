@@ -52,9 +52,9 @@ app.use(
       extended: false
     })
   );
-// app.use(bodyParser.json());
-app.use(bodyParser.json({limit: '10mb', extended: true}))
-app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
+  app.use(bodyParser.urlencoded({ extended: false}))
+  // app.use(bodyParser.json({limit: '10mb', extended: true}))
+  app.use(bodyParser.json());
 mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true,useUnifiedTopology:true,useFindAndModify:false},(err)=>{
     if(err){
         console.log('Database Connection Err-------------:',err.message);
@@ -75,6 +75,7 @@ app.use(session({
 }));
 
 app.use(cors());
+
 
 app.use(passport.initialize()); 
 require("./config/passport");

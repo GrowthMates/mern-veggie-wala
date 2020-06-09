@@ -139,7 +139,8 @@ class Login extends Component{
                           </div>
 
                           <div>
-                            <button className='gmail-btn' onClick={this.googleAuth}>
+                            
+                            <button className='gmail-btn' > {/* onClick={this.googleAuth} */}
                               <span>Sign In with Gmail</span>
                               <i style={{marginTop:'25px'}}><img src={GIcon} style={{backgroundColor:'white'}} alt='Google Icon'  /></i>
                             </button>

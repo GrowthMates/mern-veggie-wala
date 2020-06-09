@@ -251,7 +251,7 @@ var lineTotalArr = []
             var arr=[0]
             
             return(
-                <div >
+                <div style={{paddingBottom:'50px'}}>
                         <section className='cart-upper col-lg-12'>
                             <div className='cart-img-text'>
                                 
@@ -259,15 +259,16 @@ var lineTotalArr = []
                         </section>
                     <div className='container'>
                        {this.state.cartProducts?(
-                        <div style={{marginTop:'1rem', overflowX:'auto'}}>
-                            <table class="table ">
+                        <div >
+                            <div style={{marginTop:'1rem', overflowX:'auto'}}>
+                            <table className="table" >
                                 <thead className='cart-head'>
                                     <tr>
                                     <th scope="col">Product</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Quantity</th>
-                                    <th scope="col">Total</th>
+                                    <th scope="col">Subtotal</th>
                                     <th scope="col"></th>
 
 
@@ -288,7 +289,7 @@ var lineTotalArr = []
                                         <td className='cart-body'>Rs.{item.filterProduct.price}</td>
                                         <td className='cart-body cart-qty-td' ><input className="crt-qty-fnl" type='number' name={item._id} defaultValue={item.quantity}
                                              onChange={this.onChange.bind(this,item.cartSchemaId,index,arr.reduce((a, b) => {return a + b}),item)} value={this.state.quantity} id={index} min='1' max={item.filterProduct.stock} /></td>
-                                        <td className='cart-body' style={{color:"#5BA616"}}>Rs. {
+                                        <td className='cart-body' style={{color:"#5BA616", fontWeight:'bold'}}>Rs. {
                                             (this.state.cartArray)? this.state.cartArray[index].quantity*(item.filterProduct.price) :
                                             (item.filterProduct.price)*item.quantity}  
                                         </td>
@@ -310,6 +311,8 @@ var lineTotalArr = []
                                     
                                 </tbody>
                                 </table>
+
+                            </div>
             
                                 {/* {(this.state.cartArray)?
                                     <div style={{marginBottom:"100px"}}>
@@ -319,7 +322,32 @@ var lineTotalArr = []
                                             src={Tick}/></span>
                                 </div>  
                                 :''} */}
-                                <div className=" proceed-btn">
+                                <div className="row">
+                                    <div className="col-6">
+                                        <h5 style={{fontWeight:'bold', fontSize:'20px'}}>CART TOTAL</h5>
+                                    </div>
+                                    <div className="col-6">
+                                        <span style={{fontWeight:'600', fontSize:'20px'}}>Rs. {this.state.totalPrice=arr.reduce((a, b) => {return a + b})}</span>
+                                        {/* <input type='text' 
+                                            style={{ marginRight:'40px', fontWeight:'600', fontSize:'20px'}}
+                                            value={this.state.totalPrice=arr.reduce((a, b) => {return a + b})} className={this.state.edit === false ? 'inputStatic': void 0} /> */}
+                                    </div>
+                                                
+
+                                </div>
+                                <div className="row">
+                                    <div className="col-12 col-md-6 col-lg-6 back-div" style={{textAlign:'left'}}>
+                                        <button className="cart-back-btn" id="back-btn" onClick={()=> this.props.history?.goBack()}> Back </button>
+                                    </div>
+                                    <div className="col-12 col-md-6 col-lg-6 proceed-btn-div" style={{textAlign:'right'}}>
+                                    <div >
+                                        <button onClick={this.proceed.bind(this)} id="prcd-btn" class="cart-to-proceed-btn">PROCEED</button>
+                                    </div>
+                                    </div>
+
+
+                                </div>
+                                {/* <div className=" proceed-btn">
                                     <h4>CART TOTAL</h4>
                                     {console.log('array total price',arr)}
                                     <div>
@@ -333,7 +361,7 @@ var lineTotalArr = []
                                     <div >
                                         <button onClick={this.proceed.bind(this)} type="submit" class="btn btn-success btn-lg cart-btn">PROCEED TO CKECKOUT</button>
                                     </div>
-                                </div>
+                                </div> */}
                     </div>
                                 ): <h5 style={{ paddingTop: '10%',paddingBottom:'20%',fontSize: '2em'}}>
                                     Your cart is currently empty.<br/>Continue browsing <Link to='/collections'>here.</Link>

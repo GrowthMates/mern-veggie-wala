@@ -135,7 +135,7 @@ this.props.getProducts('Routing')
                   <BrowserRouter>
 
         
-            <Suspense fallback={<div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}><h2>Loading...</h2></div>}>
+            <Suspense fallback={<div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center', marginTop:'200px'}}><h2>Loading...</h2></div>}>
                   {restrictedPath?<Navbar/>:void 0}   
             <div style={restrictedPath && window.innerWidth>1000?{marginTop:'8rem'}:void 0}>
 
@@ -165,9 +165,9 @@ this.props.getProducts('Routing')
                    {/* <Route path='/Allimages' component={AllImages}/> */}
 
                </Switch>
+               {restrictedPath?<Footer/>:void 0}   
             </div>
                </Suspense>
-               {restrictedPath?<Footer/>:void 0}   
                
                </BrowserRouter> 
                   

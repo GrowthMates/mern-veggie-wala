@@ -95,6 +95,13 @@ import MakeReviwes from "./Reviews/makeReview"
         }
     }}
     componentDidMount(){
+
+             var query = queryString.parse(this.props.location.search);
+        console.log('query=====',query)
+        if (query.token) {
+            this.props.gmailLogin(query.token);
+          this.props.history.push("/");
+      } 
       
         //call featured products api
             this.props.getFeaturedProducts()

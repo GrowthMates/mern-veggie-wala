@@ -313,7 +313,13 @@ class Collections extends Component{
                                      :
                                       <Link to='/combined'> <img src={heart1} width='23' height='23' alt=''/>  </Link> }} */}
 
-                        { (this.state.loading==true)?('Loading...'):(
+                        { (this.state.loading==true)?(
+                            <div>
+                                <div class="spinner-border text-success " style={{width: '3rem', height: '3rem',marginTop:'100px'}} role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>)
+                        :(
                            <div>
                           {this.state.products?.length>0 ? 
                             <div>

@@ -3,12 +3,14 @@ import shoppingcart from './images/shopping-cart.png'
 import './style/navbar.css';
 import {Link,NavLink} from 'react-router-dom'
 import VeggieLogo  from "../centralized/images/veggie-wala-logo-white.png";
+import {logoutUser} from "../../actions/authActions"
+import {connect} from "react-redux"
 
 function myFunction(x) {
     x.classList.toggle("change");
   }
 
-export default class ResponsiveNavbar extends Component{
+class ResponsiveNavbar extends Component{
     state={
         toggle:true,
         hamburgerInner:true,
@@ -87,12 +89,20 @@ export default class ResponsiveNavbar extends Component{
                         <li className="nav-item ">
                         <NavLink exact className="nav-link" activeClassName='active' to="/wishlist">Wishlist <span className="sr-only">(current)</span></NavLink>
                         </li>
+                        {this.props.auth?.isAuthenticated ? 
+                        <li className="nav-item ">
+                        <NavLink exact className="nav-link" activeClassName='active' to="" onClick={() => this.props.logoutUser()}>Logout <span className="sr-only">(current)</span></NavLink>
+                        </li>
+                        :
+                        <React.Fragment>
                         <li className="nav-item ">
                         <NavLink exact className="nav-link" activeClassName='active' to="/user/login">Sign In <span className="sr-only">(current)</span></NavLink>
                         </li>
                         <li className="nav-item ">
                         <NavLink exact className="nav-link" activeClassName='active' to="/user/sign-up">Sign Up <span className="sr-only">(current)</span></NavLink>
                         </li>
+                        </React.Fragment>
+                        }
                     
                     </ul>
                     <form className="form-inline my-2 my-lg-0">
@@ -197,3 +207,14 @@ export default class ResponsiveNavbar extends Component{
         )
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        auth: state.auth
+    }
+}
+
+export default connect(
+    mapStateToProps,{logoutUser}
+)(ResponsiveNavbar)

@@ -6,14 +6,17 @@ const User = require('../models/user');
 const Carts = require('../models/carts');
 const WishList = require('../models/wishList');
 const Proceed = require('../models/proceed');
+const Newsletter = require('../models/subscriptions');
 const NewCart = require('../models/admin/newCart');
 const validateRegisterInput = require('../validation/register');
 const validateInformationInput = require('../validation/information');
 const validateLoginInput = require('../validation/login');
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
+const {sendMail} = require('./sendMail.email');
+const mailOptions = require('./mailOptions.email');
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
 
-const client = require('twilio')(accountSid, authToken);
+// const client = require('twilio')(accountSid, authToken);
 // var ip = require("ip");
 var currentProduct=undefined
 var avilableCarts = undefined
@@ -300,6 +303,9 @@ module.exports = {
                     let cartId;
                     console.log('Cart 1 Selected=====')
                     cartId= await avilableCarts[0]._id
+
+                    // Send the order to the cartOwner w.r.t Block...
+
                     // if(block<6&&block>0){
                         
                     // }
@@ -315,13 +321,20 @@ module.exports = {
                     //      cartId= await avilableCarts[2]._id
                        
                     // }
+
+                    // Mail Body..
+                    // const msg = {
+                    //     to=req.body.email
+                    // }
                     NewCart.findByIdAndUpdate(cartId,{$push:{orders:data}}).exec((err, result)=>{
                         if(err){
                             console.log('err adminCart update se===',err.message)
                             return res.status(400).json(err.message)
                          }
+                        // sendMail(msg).then(Mail => console.log("Orders mail sent:"))
+                        // .catch(error => console.log("Order mail error: ",error))    
                         res.status(200).json({success:true,orderNo})
-    
+                            
                     })
     
              }  
@@ -382,13 +395,13 @@ module.exports = {
         const { errors, isValid } = validateRegisterInput(req.body);
         // Check validation
             if (!isValid) {
+                console.log('isValid bad: ',errors);      
             return res.status(400).json(errors);
-            console.log('isValid bad: ',errors);      
             }
         User.findOne({ email: req.body.email }).then(user => {
-            if (user) {
+            if (!user) {
+                console.log('findOne bad: ');
               return res.status(400).json({ email: "Email already exists" });
-            console.log('findOne bad: ');
             
             } else {
               const newUser = new User({
@@ -396,16 +409,43 @@ module.exports = {
                 email: req.body.email,
                 password: req.body.password,
                 address: req.body.address,
-                number: req.body.number
+                number: req.body.number,
+                temporarytoken: jwt.sign({email:req.body.email}, process.env.secretOrKey, {
+                    expiresIn: 12000
+                    })
               });
-        // Hash password before saving in database
-              bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(newUser.password, salt, (err, hash) => {
-                  if (err) throw err;
-                  newUser.password = hash;
-                  newUser
-                    .save()
-                    .then(user => res.status(200).json(user))
+
+            //   Email body...
+            //   const msg={
+            //     to:req.body.email,
+            //     subject:"Email Verification",
+            //     text:`Click the Link or copy and visit it to Confirm your Account ${process.env.CLIENT_URL}/confirm/${newUser.temporarytoken}`,
+            //     html:`<h3>Hello ${req.body.name}!</h3><br/>
+            //     <strong>Click the Link to confirm your account.</strong><br/>
+            //     <a href="${process.env.CLIENT_URL}/confirm/${newUser.temporarytoken}">
+            //     ${process.env.CLIENT_URL}/confirm/${newUser.temporarytoken}</a>`
+            //     // ...emailVerification({name:req.body.name,email:req.body.email},newUser.temporarytoken)
+            //     }
+                
+                // Hash password before saving in database...
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                        if (err) throw err;
+                        newUser.password = hash;
+                        newUser
+                        .save()
+                        .then(user => {
+                        //   Send Confirmation Email..mailOptions.emailVerification({name:req.body.name,email:req.body.email},newUser.temporarytoken)
+                        sendMail(mailOptions.emailVerification({name:req.body.name,email:req.body.email},newUser.temporarytoken))
+                        .then(Mail => {
+                            console.log("Email sent success: ")
+                            res.status(200).json(user)
+                        })
+                        .catch(error => {
+                            console.error("Email not Sent: ",error)
+                            
+                        })
+                    })
                     .catch(err => console.log(err));
                 });
               });
@@ -413,6 +453,52 @@ module.exports = {
           }).catch(err=> console.log(err));
         },
 
+
+// Verify Email after Register
+    emailVerification(req, res){
+        User.findOne({temporarytoken:req.params.token}, (err, user ) => {
+            if(err) throw err; //throw error
+            const {token} = req.params
+            console.log("Token==== ",token);
+            jwt.verify(token, process.env.secretOrKey, (err, decoded) => {
+                if (err) {
+                    res.json({ success: false, message: "Activation link has expired." }); // Token is expired
+                } else if (!user) {
+                    res.json({ success: false, message: "Activation link has expired." }); // Token may be valid but does not match any user in the database
+                    } else {
+                        user.temporarytoken = false; // Remove temporary token
+                        user.active = true; // Change account status to Activated
+                        // Mongoose Method to save user into the database
+                        user.save(err => {
+                            if (err) {
+                                console.log(err); // If unable to save user, log error info to console/terminal
+                                } else {
+                                    // If save succeeds, create e-mail object
+                                    const msg={
+                                        to:user.email,
+                                        subject:"Veggie Wala Account Activated",
+                                        text: `Hello ${
+                                            user.name
+                                            }, Your account has been successfully activated!`,
+                                            html: `Hello<strong> ${
+                                            user.name
+                                            }</strong>,<br><br>Your account has been successfully activated!`
+                                    }
+                                    sendMail(msg).then(info => {
+                                        console.log( "Activiation Message Confirmation -  : " + info.response );
+                                    }).catch(err => console.log(err))
+                                    res.json({
+                                        success: true,
+                                        message: "User has been successfully activated"})
+                                  }
+                        })
+                    }
+            })
+
+        })
+    },
+
+// Login User... 
     login(req, res){
         console.log('Login: ',req.body)
             // Form validation
@@ -433,7 +519,12 @@ module.exports = {
                 bcrypt.compare(password, user.password).then(isMatch => {
                 if (isMatch) {
                     console.log("userID: ",user.id)
-        
+                    
+                // To check the confimation of Email...
+                    // if(!user.active){
+                    //     return res.status(421).json({emailnotconfirmed: "Email not Confirmed"})
+                    // }
+
                     // User matched
                     // Create JWT Payload
                     const payload = {
@@ -658,5 +749,18 @@ module.exports = {
         })
         // res.redirect("http://localhost:3000?token=" + token);
 
+    },
+
+
+    // Newsletter Subscription...
+    subscribeNewsletter(req, res){
+        try{
+            Newsletter.create({email:req.body.email})
+            .then(result => res.json({message: "Thanks for Subscribing Our Newsletter"}))
+            .catch(err => console.log("Newsletter error: ",err))
+        }catch(error){
+            console.log(error)
+        }
     }
 }
+

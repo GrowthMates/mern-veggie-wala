@@ -11,7 +11,7 @@ import {
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post("/api/register", userData)
-    .then((res) => {history.push("/combined")
+    .then((res) => {history.push("/user/login")
                     console.log("Register Success", res)
                     dispatch({
                       type: GET_REGISTER,

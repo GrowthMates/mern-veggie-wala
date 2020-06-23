@@ -129,6 +129,7 @@ module.exports = {
    async createProduct(req, res){
 
         const {cartStock} = req.body;
+        console.log('rquest body1',req.body)
         
             for(let i=0;i<cartStock.length;i++){
                 cartStock[i] = JSON.parse(cartStock[i])

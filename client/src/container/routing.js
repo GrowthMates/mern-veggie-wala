@@ -19,6 +19,7 @@ import Navbar from '../components/centralized/navbar';
 import Footer from '../components/centralized/footer'
 import Product from '../components/products/product'
 import Combined from '../components/authentication/combine'    
+import confirmEmail from '../components/authentication/confirmEmail'    
 import Collections from '../components/products/collections';
 import Information from '../components/products/information' ;
 import Checkout from '../components/products/CheckOut/CheckOut' ;
@@ -28,6 +29,7 @@ import Cart from '../components/users/userCart/cart'
 import AdminLandingPage from '../components/vendor/vendorLandingPage'
 import CartLandingPage from '../components/cart/cartLandingPage'
 import AdminLogin from "../components/vendor/Account/login";
+
 // import BookedOrder from '../components/admin/bookedOrder';
 // import Admin from '../components/admin/dashboard';
 // import AllProducts from '../components/admin/allProducts';
@@ -151,6 +153,7 @@ this.props.getProducts('Routing')
                    <APrivateRoute  path='/admin/' component={AdminLandingPage}/>
                    <Route  path='/administrator/login' component={AdminLogin}/>
                    <Route exact path='/cart/landingPage' component={CartLandingPage}/>
+                   <Route exact path='/confirm/:token' component={confirmEmail}/>
 
               
                    {/* <Route path='/image' component={TestComp}/> */}

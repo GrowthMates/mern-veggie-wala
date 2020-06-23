@@ -100,7 +100,7 @@ class Login extends Component{
                         type="email" 
                         placeholder="Your Email Address"
                         className={classnames("textfields", {
-                            invalid: errors.email || errors.emailnotfound
+                            invalid: errors.email || errors.emailnotfound || errors.emailnotconfirmed
                           })} 
                         />
                         <br/>

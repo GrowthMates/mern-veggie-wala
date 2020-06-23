@@ -34,15 +34,7 @@ class AddProduct extends Component{
     onChangeImage = e => {
         this.setState({ image: e.target.files[0] });
         };
-    // onChangePrice(eve){
-        // var abc = e.target.value[e.target.value.length-1]!=='0'
-     
-    //   if(eve.target.value[eve.target.value.length-1]!=='e'){
-        // console.log('Price onshange=======',eve.target.value)
-    //     this.setState({
-    //         [eve.target.name]: eve.target.value
-    //     }) 
-    // }
+ 
     setPersonName = (value, name) => {
         this.setState({
             [name]:value

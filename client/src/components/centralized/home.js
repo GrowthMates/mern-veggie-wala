@@ -28,6 +28,7 @@ import queryString from "query-string";
 import ProductCards from "./cards"
 import ThankYouNote from "../products/thankYouNote"
 import MakeReviwes from "./Reviews/makeReview"
+import Axios from 'axios';
 
 // import socketIOClient from "socket.io-client";
 // var socket=socketIOClient("http://localhost:5000/")
@@ -48,6 +49,8 @@ import MakeReviwes from "./Reviews/makeReview"
         this.state={
             loading: true,
             products:undefined,
+            subscribeEmail:'',
+            subscribeLoad: false,
             user: {}
         }
     }
@@ -153,6 +156,27 @@ import MakeReviwes from "./Reviews/makeReview"
         // this.props.history.push('/collections')  
     }
 
+    subscribeHandler = (e) => {
+        e.preventDefault();
+        if(!this.state.subscribeEmail){
+            this.setState({subscribeError: "Enter the Email"})
+        }
+        else{
+            this.setState({subscribeLoad:true})
+            Axios.post("/api/newsletter/subscribe",{email:this.state.subscribeEmail}).then(res => {
+                if(res.data?.message){
+                    console.log(res.data.message)
+                    this.setState({
+                        message:res.data.message, 
+                        subscribeLoad:false,
+                        subscribeEmail:""
+                    })
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+    }
     
 
     wishList(userId,productId){
@@ -265,7 +289,7 @@ import MakeReviwes from "./Reviews/makeReview"
 
                         {/* center image... */}
                         {/* <div className='col-lg-1 col-md-1 col-sm-12 col-xs-12'></div> */}
-                        <div className='col-12 col-sm-12 col-md-4 col-lg-4 '  >
+                        <div className='col-12 col-sm-12 col-md-4 col-lg-4 ' style={{marginBottom:"15px"}} >
                             <img src={Homeimages.greenMango} height='auto' width="100%" alt=''/>
                         </div>
                          {/* <div className='col-lg-1 col-md-1 col-sm-12 col-xs-12' ></div> */}
@@ -409,8 +433,15 @@ import MakeReviwes from "./Reviews/makeReview"
                       
                           <div style={{position:'relative'}}>  
                             <form>
-                               <input type='text' name='newsfeed' placeholder='Enter your Email' />
-                               <button>Subscribe</button>
+                               <input type='text' name='newsfeed' placeholder='Enter your Email' value={this.state.subscribeEmail} onChange={(e)=>{this.setState({subscribeEmail: e.target.value})}}/>
+                              {this.state.subscribeLoad ? 
+                                <button disabled style={{cursor:"not-allowed",opacity:"0.9"}}>
+                                    <div class="spinner-border spinner-border-sm" role="status" style={{marginLeft:"3em", marginRight:"3em"}}>
+                                    <span class="sr-only">Loading...</span>
+                                    </div>
+                              </button>
+                              : <button onClick={this.subscribeHandler}>Subscribe</button>  
+                            } 
                            </form>
                           </div>
                        

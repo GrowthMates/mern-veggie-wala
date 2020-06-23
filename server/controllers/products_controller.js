@@ -1,6 +1,11 @@
 const Product = require('../models/product');
 const NewCart = require('../models/admin/newCart')
 const Review = require('../models/productReviews')
+// const {sendMail} = require('./sendMail.email')
+
+// var nodemailer = require('nodemailer');
+
+
 // const { Item, Review} = require('../models/socketTest')
 
 // var MySchema = mongoose.model('Product')
@@ -11,49 +16,51 @@ const Review = require('../models/productReviews')
 // .then((blogPost) => console.log(blogPost.cartStock))
 // let product = new Product
 // console.log(product)
-var nodemailer = require('nodemailer');
 module.exports = {
     
    
+  sendMail(){
+    // var transport = {
+    //     host: 'smtp.sendgrid.net',
+    //     auth: {
+    //       user: process.env.mailEmail,
+    //       pass: process.env.mailPassword
+    //     }
+    //   }
+      
+    //   var transporter = nodemailer.createTransport(transport)
+      
+    //   transporter.verify((error, success) => {
+    //     if (error) {
+    //       console.log(error);
+    //     } else {
+    //       console.log('Server is ready to take messages');
+    //     }
+    //   });
+    
+    // var mailOptions = {
+    //   from: 'Rehan Saeed, saeedrehan3@gmail.com',
+    //   to: 'ggrowthmates.com@gmail.com',
+    //   subject: 'Sending Email using Node.js',
+    //   text: 'That was easy!'
+    // };
+    
+    // transporter.sendMail(mailOptions, function(error, info){
+    //   if (error) {
+    //     console.log(error);
+    //   } else {
+    //     console.log('Email sent: ' + info.response);
+    //   }
+    // });
+  },
 
-        // var transport = {
-        //     host: 'smtp.gmail.com',
-        //     auth: {
-        //       user: process.env.mailEmail,
-        //       pass: process.env.mailPassword
-        //     }
-        //   }
-          
-        //   var transporter = nodemailer.createTransport(transport)
-          
-        //   transporter.verify((error, success) => {
-        //     if (error) {
-        //       console.log(error);
-        //     } else {
-        //       console.log('Server is ready to take messages');
-        //     }
-        //   });
-        
-        // var mailOptions = {
-        //   from: 'saeedahmedeng62@gmail.com',
-        //   to: 'ggrowthmates.com@gmail.com',
-        //   subject: 'Sending Email using Node.js',
-        //   text: 'That was easy!'
-        // };
-        
-        // transporter.sendMail(mailOptions, function(error, info){
-        //   if (error) {
-        //     console.log(error);
-        //   } else {
-        //     console.log('Email sent: ' + info.response);
-        //   }
-        // });
+
+
 
         
-        // GET NUMBER OF PRODUCTS...
+    // GET NUMBER OF PRODUCTS...
         countProducts(req, res){
-            console.log('count----',req.query,req.body)
-
+            // console.log('count----',req.query,req.body)
             let countFindArgs = {};
 
             for(key in req.body.filters){
@@ -64,7 +71,7 @@ module.exports = {
                }
                
            }
-        console.log('countFindArgs',countFindArgs)
+        // console.log('countFindArgs',countFindArgs)
             Product.countDocuments({...countFindArgs,...req.query}, function(err, result){
                 if(err) console.log(err)
                 if(result) {
@@ -73,20 +80,18 @@ module.exports = {
             })
         },
 
+    // GET ALL PRODUCTS WITH SOME FILTERATIONS...
         readAllProducts(req, res){
 
-        console.log('ReadAllProducts called===',req.headers.referer, req.query,req.body)
+        console.log('ReadAllProducts called===',req.headers.referer)
         const skip = req.body.skip?req.body.skip:0
         const limit = req.body.limit?req.body.limit:12
         let findArgs = {};
 
          for(key in req.body.filters){
             if(req.body.filters[key].length > 0){
-               
-                findArgs[key] = req.body.filters[key]
-
+               findArgs[key] = req.body.filters[key]
             }
-            
         }
         console.log('findArgs',findArgs)
         
@@ -111,25 +116,9 @@ module.exports = {
 
     },
 
-    //===========================//
-    //   Practice of Populate   //
-    //==========================//
-    
-//     createItem(req, res){
-//     // practice of Populate
-//     Item.create({name:'Gaajar'})
-//     .then(function(dbProduct) {
-//       // If we were able to successfully create a Product, send it back to the client
-//       console.log('item create==>>',dbProduct)
-//       res.json(dbProduct);
-//     })
-//     .catch(function(err) {
-//       // If an error occurred, send it to the client
-//       res.json(err);
-//     });
-//     },
 
- 
+
+//  MAKE REVIEWS ON PRODUCT... 
     makeReview(req, res) {
         // Create a new note and pass the req.body to the entry
         console.log("reveiw req.body====",req.body)
@@ -157,23 +146,10 @@ module.exports = {
            res.status(422).json({serverError:"Server Error, Please refresh the page and try again",error})
        } 
       },
-//   viewReview(req, res){
-//     Item.findOne({_id:req.params.id})
-//     // ..and populate all of the notes associated with it
-//     .populate("review")
-//     .then(function(dbProduct) {
-//       // If we were able to successfully find an Product with the given id, send it back to the client
-//       res.json(dbProduct);
-//     })
-//     .catch(function(err) {
-//       // If an error occurred, send it to the client
-//       res.json(err);
-//     });
-//   },
-  
- //=====x========x========x========x=======x========x========x======//
 
-    readProduct(req, res){
+
+    // GET SINGLE PRODUCT WITH ID... 
+      readProduct(req, res){
 
         const { id } = req.params;
         Product.findById(id)

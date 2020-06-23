@@ -23,6 +23,14 @@ const User = new Schema({
     number:{
         type:String,
         // required:true
+    },
+    temporarytoken:{
+        type:String,
+        required:true,
+    },
+    active:{
+        type:Boolean,
+        default:false,
     }
 });
 module.exports = mongoose.model('User', User);

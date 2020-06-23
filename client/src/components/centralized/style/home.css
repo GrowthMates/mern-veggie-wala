@@ -55,12 +55,12 @@ body{
     transition: all 0.3s ease-in;
 }
 .shop-button:hover{
-    /* color: #fff;
-    background: #7CA646; */
-    border: 2px double #7CA646;
-    box-shadow: 2px 2px 14px 8px gainsboro;
+    color: #fff;
+    background: #7CA646;
+    /* border: 2px double #7CA646; */
+    /* box-shadow: 2px 2px 14px 8px gainsboro; */
     z-index: 2;
-    transform: translateY(-5%);
+    /* transform: translateY(-5%); */
 }
 
 #our-suppliers{
@@ -157,6 +157,7 @@ body{
 }
 
 .middleRight{
+    padding-top: 15px;
     padding-right: 0;
     background: #406a05;
     /* width:100%; */
@@ -340,10 +341,10 @@ img{
     color: #5ba616;
 }
 
-.p1:hover img{
+/* .p1:hover img{
     transition: 0.7s;
     transform: scale(1.1);
-}
+} */
 
 
 .p1:hover .lowerProd,.p2:hover .lowerProd,.p3:hover .lowerProd,.p4:hover .lowerProd{

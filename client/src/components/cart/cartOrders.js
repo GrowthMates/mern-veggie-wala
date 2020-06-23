@@ -60,7 +60,7 @@ onSubmit(id,index,e){
 }
 
 //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-componentWillReceiveProps(nextProps) {
+UNSAFE_componentWillReceiveProps(nextProps) {
     console.log(nextProps)
     if(nextProps.status!==undefined){
         this.setState({

@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import './style/orders.css'
 import axios from 'axios';
 import OrdersAction from './ordersAction'
+import {updateStatus} from '../../actions/productsAction'
+
 
 let log = console.log
 class VendoOrders extends Component {
@@ -14,10 +16,14 @@ class VendoOrders extends Component {
             selectedCart:'cart 1',
             selectedStatus:'all',
             actionCall:false,
-            actionIndex:0
+            actionIndex:0,
+            loading:false,
+            status:'',
+            index:'',
         }
     }
 
+    onStatusChange = (index,e) => this.setState({status:e.target.value,index})
     onChange = e => this.setState({ [e.target.name]: e.target.value })
     componentDidMount() {
         if(this.props.carts){
@@ -47,22 +53,35 @@ class VendoOrders extends Component {
             carts:nextProps.carts
 
         }) 
+        }
+        if(nextProps.status!==undefined){
+            this.setState({
+                loading:false
+            })
+        } 
     }
-       }
-    //    static getDerivedStateFromProps(nextProps, prevState) {
-    //     if(nextProps.carts){
-    //         this.setState({
-    //             carts:nextProps.carts
-
-    //         }) 
-    //     }
-        
-    //    }
-
     statusViseView(status,e){
         e.preventDefault();
         log('selected==>>',status)
         this.setState({selectedStatus:status})
+    }
+
+    onSubmit(id,index,e){
+        e.preventDefault()
+        const {status} = this.state;
+    
+        let updateOrderStatus = {
+            orderStatus:status,
+            id,
+            index,
+            
+        }
+    
+        this.props.updateStatus(updateOrderStatus)
+    
+        this.setState({
+            loading:true
+        })
     }
 
     render() { 
@@ -138,9 +157,9 @@ class VendoOrders extends Component {
                             <th scope="col">S.No.</th>
                             <th scope="col">Order#</th>
                             <th scope="col">Order Total</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Customer No </th>
+                            <th colSpan='2'>Status</th>
+                            {/* <th scope="col">Customer</th>
+                            <th scope="col">Customer No </th> */}
                             <th scope="col">Address</th>
                             <th scope="col">Date</th>
                             <th scope="col">Action</th>
@@ -154,11 +173,24 @@ class VendoOrders extends Component {
                                     return (
                                         <tr key={ind} >
                                  <td>{ind+1}</td>           
-                                <th scope="row" style={{color: '#FF4747'}} > Order #1310  </th>
+                                <th scope="row" style={{color: '#FF4747'}} > Order #{i.orderNo?i.orderNo: "NaN"}  </th>
                                 <td>PKR {i.orderTotal}</td>
-                                <td  > <span style={{textAlign: 'center', backgroundColor: '#28A745',padding: '10px', color: '#ffffff', fontWeight: '600'}}> {i.status} </span> </td>
-                                <td>{i.fname}</td>
-                                <td>{i.number}</td>
+                                {/* <td  > <span style={{textAlign: 'center', backgroundColor: '#28A745',padding: '10px', color: '#ffffff', fontWeight: '600'}}> {i.status} </span> </td> */}
+                                {this.state.loading === true && this.state.index===ind ? <p>Loading .....</p>:
+                                <td className='dropdown' >
+                                     <select onChange={this.onStatusChange.bind(this,ind)} name='status' value={this.state.index===ind? this.state.status: void 0} style={{textAlign: 'center', backgroundColor: '#28A745',padding: '10px', color: '#ffffff', fontWeight: '600'}}> 
+                                        
+                                        <option  value={i.status} style={{cursor:'pointer',background:'white',color:'black'}}> { (this.props.status!==undefined) && (this.state.index===ind)? this.props.status.status : i.status} </option>
+                                        <option  value='pending' style={{cursor:'pointer',background:'white',color:'black'}}> pending </option>
+                                        <option  value='dispatch' style={{cursor:'pointer',background:'white',color:'black'}}> Dispatch </option>
+                                        <option  value='complete' style={{cursor:'pointer',background:'white',color:'black'}}> Completed </option>                                      
+                                      </select> 
+                                    {/* <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" onChange={(e) => {this.setState({status:e.target.value}) }}>    */}
+                                    {/* </div> */}
+                                </td>}
+                                <td > <button type='button' className='btn btn-danger' onClick={this.onSubmit.bind(this,item._id,ind)} > Change Status </button> </td>
+                                {/* <td>{i.fname}</td>
+                                <td>{i.number}</td> */}
                                 <td>{item.address}</td>
                                 <td>{i.timeStamp!==undefined?  i.timeStamp.split(' ')[1] :void 0}</td>
                                 <td  ><i style={{width:'35px', border: '1px solid black', padding: '10px',textAlign: 'center'}}
@@ -204,7 +236,8 @@ class VendoOrders extends Component {
 const mapStateToprops = state => {
     log(state.cartReducer.getCarts)
     return{
-        carts: state.cartReducer.getCarts
+        carts: state.cartReducer.getCarts,
+        status: state.products.status
     }
 }
-export default connect(mapStateToprops,null)(VendoOrders);
+export default connect(mapStateToprops,{updateStatus})(VendoOrders);

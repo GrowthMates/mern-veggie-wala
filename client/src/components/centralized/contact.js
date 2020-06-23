@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import './contact.css'
 import ContactUsImages from "./contact-us-assets/images";
+import Axios from 'axios';
 
 
 
@@ -13,7 +14,8 @@ export default class Contact extends Component{
         phone:'',
         subject:'',
         message:'',
-        error:''
+        error:'',
+        responseMessage:"",
     }
     componentDidMount() {
         window.scroll(0,0)
@@ -29,6 +31,36 @@ export default class Contact extends Component{
         if(!email || !name || !phone || !subject || !message){
             this.setState({
                 error:'*All fields are required*'
+            })
+        }
+        else{
+            const contactObject = {email, name, phone, subject, message}
+            Axios.post("/api/contact-us", contactObject)
+            .then(res => {
+                if(res.data.message){
+                    this.setState({
+                        email:"",
+                        name:'',
+                        phone:'',
+                        subject:'',
+                        message:'',
+                        error:'',
+                        responseMessage:res.data.message,
+                    })
+                    setTimeout(()=>{
+                        alert(res.data.message)
+                      },200)
+                }
+            })
+            .catch(err => {
+                this.setState({
+                    email:"",
+                        name:'',
+                        phone:'',
+                        subject:'',
+                        message:'',
+                        error:err.response.data,
+                })
             })
         }
 
@@ -72,24 +104,24 @@ export default class Contact extends Component{
 
                                       <div className='col-12 col-sm-12 col-md-3 col-lg-3'>
                                         <label for="name">Your Name</label>
-                                        <input type="email" className="form-control" id="name" aria-describedby="emailHelp" name='name' placeholder="Name " onChange={this.onchange} />
+                                        <input type="email" className="form-control" id="name" value={this.state.name} aria-describedby="emailHelp" name='name' placeholder="Name " onChange={this.onchange} />
                                     </div>
                                     <div className='col-12 col-sm-12 col-md-3 col-lg-3' >
                                         <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='email' placeholder="your email" onChange={this.onchange} />
+                                        <input type="email" className="form-control" id="exampleInputEmail1" value={this.state.email} aria-describedby="emailHelp" name='email' placeholder="your email" onChange={this.onchange} />
                                     </div>
                                     <div className='col-12 col-sm-12 col-md-3 col-lg-3' >
                                         <label for="exampleInputPassword1">Phone Number</label>
-                                        <input type="number" className="form-control" id="exampleInputPassword1" name='phone' placeholder="Phone Number" onChange={this.onchange} />
+                                        <input type="number" className="form-control" id="exampleInputPassword1" value={this.state.phone} name='phone' placeholder="Phone Number" onChange={this.onchange} />
                                     </div>
                                     <div className='col-12 col-sm-12 col-md-3 col-lg-3' >
                                         <label for="exampleInputPassword1">Subject</label>
-                                        <input type="text" className="form-control" id="exampleInputPassword1" name='subject' placeholder="Subject" onChange={this.onchange} />
+                                        <input type="text" className="form-control" id="exampleInputPassword1" value={this.state.subject} name='subject' placeholder="Subject" onChange={this.onchange} />
                                     </div>
                                     </div>
                                     <div className='' >
                                         <label fo r="exampleFormControlTextarea1">Your Message </label>
-                                        <textarea placeholder='Message' className="form-control" id="exampleFormControlTextarea1" name='message' rows="10" onChange={this.onchange}></textarea>
+                                        <textarea placeholder='Message' className="form-control" id="exampleFormControlTextarea1" value={this.state.message} name='message' rows="10" onChange={this.onchange}></textarea>
                                     </div>
                                     <div className='contact-send-div'>
                                         <button type="" className="contact-us-send-btn" onClick={this.onSubmit}>Submit</button>

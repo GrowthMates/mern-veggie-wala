@@ -21,6 +21,9 @@ function AlertDialog(props) {
       if(res.data){
         clearState()
         console.log('Reviews done----',res.data)
+        setTimeout(()=>{
+          alert("Thank for your Reviews!")
+        },200)
       }
     }).catch(err => {
       console.log(err)

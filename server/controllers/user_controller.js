@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const UserCart = require('../models/userCart');
 const Product = require('../models/product');
+const ContactUs = require('../models/admin/contactUs');
 const User = require('../models/user');
 const Carts = require('../models/carts');
 const WishList = require('../models/wishList');
@@ -760,6 +761,17 @@ module.exports = {
             .catch(err => console.log("Newsletter error: ",err))
         }catch(error){
             console.log(error)
+        }
+    },
+
+    //  Contact US
+    contactUs(req, res){
+        try{
+            ContactUs.create(req.body)
+            .then(result => res.json({message: "Thanks for contacting Us"}))
+            .catch(err => console.log("Contact error: ",err))
+        }catch(error){
+            console.log("Contact error: ",err)
         }
     }
 }

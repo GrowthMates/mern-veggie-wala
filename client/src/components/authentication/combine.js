@@ -12,6 +12,7 @@ import './register.css'
 class Combined extends Component{
 
     componentDidMount() {
+      window.scrollTo(0, 0)
         console.log('this.componentDidMount')
         //   var query = queryString.parse(this.props.location.search);
         //   console.log('query=====',query)

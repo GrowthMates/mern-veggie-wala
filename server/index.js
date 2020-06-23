@@ -254,6 +254,10 @@ setTimeout(()=>{
 
     // Newsletter Subscription...
     app.post("/api/newsletter/subscribe", userController.subscribeNewsletter) 
+    //Contact us..
+    app.post("/api/contact-us", userController.contactUs) 
+
+    
     // app.get("/getReview/:id", productsController.viewReview) 
     // app.get("/item/", productsController.createItem) 
 

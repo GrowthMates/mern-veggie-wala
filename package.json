@@ -44,7 +44,7 @@
     "react-countup": "^4.3.3",
     "socket.io": "^2.3.0",
     "twilio": "^3.39.4",
-    "validator": "^12.1.0"
+    "validator": "^13.7.0"
   },
   "bugs": {
     "url": "https://github.com/GrowthMates/veggie-wala-mern/issues"
